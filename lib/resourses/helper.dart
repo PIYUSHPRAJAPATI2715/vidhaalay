@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+import '../widgets/appTheme.dart';
 import '../widgets/size.dart';
 
 
@@ -30,7 +28,7 @@ class Helpers {
         top: 0,
         left: 0,
         child: Material(
-          color: AppTheme.primaryColor.withOpacity(0.02),
+          color: AppThemes.primaryColor.withOpacity(0.02),
           child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +45,7 @@ class Helpers {
                       children: [
                         CupertinoActivityIndicator(
                           radius: AddSize.size30,
-                          color: AppTheme.primaryColor,
+                          color: AppThemes.primaryColor,
                         ),
                         SizedBox(
                           height: AddSize.size16,
@@ -92,11 +90,11 @@ class Helpers {
         top: 0,
         left: 0,
         child: Material(
-          color: AppTheme.primaryColor.withOpacity(0.02),
+          color: AppThemes.primaryColor.withOpacity(0.02),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LoadingAnimationWidget.threeArchedCircle(color: AppTheme.primaryColor, size: AddSize.size40),
+              LoadingAnimationWidget.threeArchedCircle(color: AppThemes.primaryColor, size: AddSize.size40),
             ],
           ),
         ),
@@ -114,11 +112,11 @@ class Helpers {
         top: 0,
         left: 0,
         child: Material(
-          color: AppTheme.primaryColor.withOpacity(0.02),
+          color: AppThemes.primaryColor.withOpacity(0.02),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LoadingAnimationWidget.threeArchedCircle(color: AppTheme.primaryColor, size: AddSize.size40),
+              LoadingAnimationWidget.threeArchedCircle(color: AppThemes.primaryColor, size: AddSize.size40),
             ],
           ),
         ),

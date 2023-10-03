@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import '../../widgets/appTheme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +11,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -18,10 +18,16 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'vidhaalay',
       theme: ThemeData(
+        fontFamily: "Poppins",
+        appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(color: Colors.white),
+            actionsIconTheme: IconThemeData(color: Colors.white),
+            iconTheme: IconThemeData(color: Colors.white)),
         useMaterial3: true,
-        primarySwatch: Colors.blue,
+        primaryColor: AppThemes.primaryColor,
+        primarySwatch: Colors.blueGrey,
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: "/",

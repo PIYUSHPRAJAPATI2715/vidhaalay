@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+
 
 
 
@@ -62,62 +62,54 @@ class _CommonTextfieldState extends State<CommonTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        style: const TextStyle(
-            color: AppTheme.secondaryColor
+      style: const TextStyle(
+        color: Colors.grey,
+      ),
+      autofocus: false,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      inputFormatters: widget.inputFormatters,
+      onChanged: widget.onChanged,
+      onEditingComplete: widget.onEditingCompleted,
+      obscureText: widget.obSecure,
+      minLines: widget.isMulti ? 4 : 1,
+      maxLines: widget.isMulti ? null : 1,
+      onTap: widget.onTap,
+      enabled: widget.enabled,
+      readOnly: widget.readOnly,
+      keyboardType: widget.keyboardType,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        counterStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 25,
         ),
-        autofocus: false,
+        errorMaxLines: 2,
+        hintText: widget.hintText,
+        errorText: widget.errorText,
+        labelText: widget.labelText,
+        prefixIcon: widget.prefix,
+        suffixIcon: widget.suffixIcon,
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 15,
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Adjust the vertical padding here
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      validator: widget.validator,
+    );
 
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
-        textInputAction: TextInputAction.next,
-        onFieldSubmitted: widget.onFieldSubmitted,
-        inputFormatters: widget.inputFormatters,
-        onChanged: widget.onChanged,
-        onEditingComplete: widget.onEditingCompleted,
-        obscureText: widget.obSecure,
-        minLines: widget.isMulti ? 4 : 1,
-        maxLines: widget.isMulti ? null : 1,
-        onTap: widget.onTap,
-        enabled: widget.enabled,
-        readOnly: widget.readOnly,
-        keyboardType: widget.keyboardType,
-        controller: widget.controller,
-        decoration: InputDecoration(
-          counterStyle: const TextStyle(
-            color: Color(0xffA7ACCF),
-            fontSize: 25,
-          ),
-          counter: const Offstage(),
-          //    filled: true,
-          errorMaxLines: 2,
-          enabled: widget.enabled,
-          //   fillColor: Colors.transparent,
-          hintText: widget.hintText,
-          errorText: widget.errorText,
-          labelText: widget.labelText,
-          prefixIcon: widget.prefix,
-          suffixIcon: widget.suffixIcon,
-          hintStyle: const TextStyle(
-            color: Color(0xffA7ACCF),
-            fontSize: 15,
-          ),
-          /*errorStyle: const TextStyle(
-              overflow: TextOverflow.clip,
-            ),*/
-          contentPadding: const EdgeInsets.only(left: 15, top: 10),
-          focusedBorder: OutlineInputBorder(
-            borderSide:
-            const BorderSide(color: AppTheme.primaryColor, width: 1.0),
-            borderRadius: BorderRadius.circular(25),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xFFC1C1EA), width: 1.0),
-            borderRadius: BorderRadius.circular(25),
-          ),
-          border: OutlineInputBorder(
-              borderSide:
-              const BorderSide(color: Color(0xFFC1C1EA), width: 1.0),
-              borderRadius: BorderRadius.circular(25)),
-        ),
-        validator: widget.validator);
   }
 }

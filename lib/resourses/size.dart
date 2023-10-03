@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+
+import '../widgets/appTheme.dart';
+
 
 
 
@@ -67,24 +69,24 @@ class AddSize {
 final List<BoxShadow> blurBoxShadow = [
   BoxShadow(
       offset: const Offset(3, 3),
-      color: AppTheme.primaryColor.withOpacity(.008),
+      color: AppThemes.primaryColor.withOpacity(.008),
       spreadRadius: 1,
       blurRadius: 1),
   BoxShadow(
     offset: const Offset(-3, -3),
-    color: AppTheme.primaryColor.withOpacity(.008),
+    color: AppThemes.primaryColor.withOpacity(.008),
     spreadRadius: 1,
     blurRadius: 1,
 // spreadRadius: 1
   ),
   BoxShadow(
       offset: const Offset(3, -3),
-      color: AppTheme.primaryColor.withOpacity(.008),
+      color: AppThemes.primaryColor.withOpacity(.008),
       spreadRadius: 1,
       blurRadius: 1),
   BoxShadow(
     offset: const Offset(-3, 3),
-    color: AppTheme.primaryColor.withOpacity(.008),
+    color: AppThemes.primaryColor.withOpacity(.008),
     spreadRadius: 1,
     blurRadius: 1,
 // spreadRadius: 1

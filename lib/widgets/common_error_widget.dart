@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+import '../../widgets/appTheme.dart';
 import 'common_button.dart';
 
 
@@ -27,7 +27,7 @@ class CommonErrorWidget extends StatelessWidget {
             title: "Refresh",
             backgroundColor: Colors.white,
             onPressed: onTap,
-            textColor: AppTheme.primaryColor,
+            textColor: AppThemes.primaryColor,
           )
         ],
       ),
