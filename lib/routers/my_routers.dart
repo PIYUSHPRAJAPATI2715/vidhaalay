@@ -15,6 +15,7 @@ class MyRouters{
   static var splash = "/splash";
   static var introPageScreen = "/introPageScreen";
   static var signInPage = "/signInPage";
+  static var signupScreen = "/signupScreen";
   static var forgotPasswordScreen = "/forgotPasswordScreen";
   static var otpScreen = "/otpScreen";
   static var createPasswordScreen = "/createPasswordScreen";
