@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 import '../../widgets/appTheme.dart';
@@ -96,13 +97,17 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                             fontSize: 19,
                             color: Colors.black,
                             fontWeight: FontWeight.w800,
-                          )), const Text(
-                          "Reset your new password and login.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: AppThemes.textGray,
-                            fontWeight: FontWeight.w400,
                           )),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                          "Reset your new password and login.",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: AppThemes.textGray,
+                        ),),
                       const SizedBox(
                         height:30,
                       ),
@@ -167,7 +172,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {
-                          Get.toNamed(MyRouters.signInPage);
+                          if(_formKey.currentState!.validate()){
+                            Get.toNamed(MyRouters.signInPage);
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

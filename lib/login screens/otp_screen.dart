@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
@@ -56,7 +57,6 @@ class _OtpScreenState extends State<OtpScreen> {
           Container(
             height: 220,
             decoration: const BoxDecoration(
-
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
             ),
             child: ClipRRect(
@@ -92,6 +92,9 @@ class _OtpScreenState extends State<OtpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
                     const Text(
                       'Enter your code?',
                       style: TextStyle(
@@ -100,17 +103,18 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 9,
                     ),
-                    const Text(
-                      'Enter your verification code sent on your mobile',
-                      style: TextStyle(
+                     Text(
+                      'Enter your verification code sent on your mobile number',
+                      style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
+                        color: AppThemes.textGray,
                       ),
                     ),
                     const SizedBox(
-                      height: 53,
+                      height: 33,
                     ),
                     Form(
                       key: formKey99,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 
@@ -81,10 +82,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       "Forgot Password?",
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
                     ),
-                    const Text(
-                      "Please select option to send link of rest password",
-                      style: TextStyle(
-                        fontSize: 15,
+                     Text(
+                      "Please select option to send link of reset password",
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
                         fontWeight: FontWeight.w500,
                         color: AppThemes.textGray,
                       ),
@@ -100,7 +101,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 20),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -121,14 +122,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: const[
-                                  Text('Reset via Email',style: TextStyle(
+                                children: [
+                                  const Text('Reset via Email',style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                   ),),
-
-                                  Text('if you have email linked to your account'),
+                                const SizedBox(
+                                   height: 5,
+                                 ),
+                                  Text('if you have email linked to your account',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppThemes.textGray,
+                                    ),
+                                  ),
                                 ],
                               ),
                             )
@@ -167,13 +176,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: const[
-                                  Text('Reset via SMS',style: TextStyle(
+                                children: [
+                                 const Text('Reset via SMS',style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                   ),),
-                                  Text('if you have email linked to your account'),
+                                 const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text('if you have email linked to your account',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppThemes.textGray,
+                                    ),
+                                  ),
                                 ],
                               ),
                             )
@@ -186,7 +204,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Get.toNamed(SignUpScreen.route);
+                        Get.toNamed(
+                            MyRouters.otpScreen
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.maxFinite, 0),

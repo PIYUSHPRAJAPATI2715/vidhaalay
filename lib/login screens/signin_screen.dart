@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_button.dart';
@@ -61,24 +62,13 @@ class _SignInPageState extends State<SignInPage> {
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
               ),
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(70)),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(80)),
                 child: SvgPicture.asset('assets/images/sign-in.svg',fit: BoxFit.fitWidth,),
               ),
             ),
-            Positioned(
-              top: size.height*.050,
-              left: size.width*.040,
-              child: InkWell(
-                onTap: (){
-                  Get.back();
-                },
-                child: const Icon(
-                    Icons.arrow_back
-                ),
-              ),
-            ),
+
             Positioned.fill(
-              top: 210,
+              top: 200,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                 height: size.height,
@@ -109,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       SizedBox(
-                        height: size.height * 0.038,
+                        height: size.height * 0.020,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(3.0),
@@ -117,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
                           children: [
                             Expanded(
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
                                   decoration:BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(50),
@@ -151,7 +141,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             Expanded(
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
                                   decoration:BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(50),
@@ -184,7 +174,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       SizedBox(
-                        height: size.height * 0.028,
+                        height: size.height * 0.020,
                       ),
                       const Center(
                         child:  Text(
@@ -197,12 +187,12 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       SizedBox(
-                        height: size.height * 0.038,
+                        height: size.height * 0.030,
                       ),
                       const Text(
                         "Unique Id,Mobile No./Email Id",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppThemes.black,
                         ),
@@ -214,9 +204,17 @@ class _SignInPageState extends State<SignInPage> {
                         hintText: 'Enter mobile no.',
                         obSecure: false,
                         controller: userNameController,
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Email or Phone is required";
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
-                        height: size.height * 0.030,
+                        height: size.height * 0.025,
                       ),
                       const Text(
                         "Password",
@@ -226,8 +224,8 @@ class _SignInPageState extends State<SignInPage> {
                           color: AppThemes.black,
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: size.height * 0.010,
                       ),
                       Obx(() {
                         return CommonTextfield(
@@ -257,17 +255,17 @@ class _SignInPageState extends State<SignInPage> {
                             ));
                       }),
                       SizedBox(
-                        height: size.height * 0.026,
+                        height: size.height * 0.016,
                       ),
                       InkWell(
                         onTap: (){
                           Get.toNamed(MyRouters.forgotPasswordScreen);
                         },
-                        child: Center(
-                          child: const Text(
+                        child: const Center(
+                          child:  Text(
                             "Forgot Password?",
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 13,
                               fontWeight: FontWeight.w600,
                               color: AppThemes.black,
                             ),
@@ -279,7 +277,9 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Get.toNamed(MyRouters.signupScreen);
+                          if(formKey.currentState!.validate()){
+                              Get.offAllNamed(MyRouters.studentHomeScreen);
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),
@@ -299,16 +299,16 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 100 * 0.4,
+                        height: 100 * 0.3,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                           Text(
                             "Don't have an account?",
-                            style: TextStyle(
-                              fontSize: 14,
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
                               fontWeight: FontWeight.w500,
                               color: AppThemes.black,
                             ),
@@ -319,9 +319,9 @@ class _SignInPageState extends State<SignInPage> {
                             },
                             child:  Text(
                               " create account".toUpperCase(),
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                                 color: AppThemes.primaryColor,
                               ),
                             ),
@@ -329,7 +329,7 @@ class _SignInPageState extends State<SignInPage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 100 * 0.2,
+                        height: 100 * 0.1,
                       ),
                     ],
                   ),

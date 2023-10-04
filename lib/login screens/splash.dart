@@ -24,7 +24,6 @@ class _SplashState extends State<Splash> {
       if (pref.getString('cookie') != null) {
         Get.offAllNamed(MyRouters.introPageScreen);
       }
-
       else {
         Get.offAllNamed(MyRouters.signInPage);
       }

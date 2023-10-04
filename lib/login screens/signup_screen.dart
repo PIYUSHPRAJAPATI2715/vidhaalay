@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
 
@@ -20,10 +21,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController userNameController = TextEditingController();
-  // final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController pinController = TextEditingController();
+  final TextEditingController confirmController = TextEditingController();
 
   bool value = false;
   RxBool checkboxColor = false.obs;
@@ -99,10 +99,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         "Hello!",
                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
                       ),
-                      const Text(
+                       Text(
                         "Create your profile to continue",
-                        style: TextStyle(
-                          fontSize: 15,
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppThemes.textGray,
                         ),
@@ -115,6 +115,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Name',
                         obSecure: false,
                         controller: userNameController,
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Name is required";
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.030,
@@ -123,6 +131,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Enter address',
                         obSecure: false,
                         controller: passwordController,
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Address is required";
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.030,
@@ -131,6 +147,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Mobile Number',
                         obSecure: false,
                         controller: passwordController,
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Mobile Number is required";
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.030,
@@ -139,6 +163,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Password',
                         obSecure: false,
                         controller: passwordController,
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Password is required";
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.030,
@@ -146,7 +178,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       CommonTextfield(
                         hintText: 'Confirm Pasword',
                         obSecure: false,
-                        controller: passwordController,
+                        controller: confirmController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a password";
+                          } else if (confirmController.text !=
+                              passwordController.text) {
+                            return "Confirm password should be match";
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.015,
@@ -227,7 +268,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Get.toNamed(SignUpScreen.route);
+                          if(formKey.currentState!.validate()){}
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),
@@ -253,10 +294,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                           Text(
                             "Already have an account?",
-                            style: TextStyle(
-                              fontSize: 14,
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
                               fontWeight: FontWeight.w500,
                               color: AppThemes.black,
                             ),
@@ -265,11 +306,11 @@ class _SignupScreenState extends State<SignupScreen> {
                             onTap: (){
                               Get.back();
                             },
-                            child: const Text(
+                            child:  Text(
                               " LOGIN",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                                 color: AppThemes.primaryColor,
                               ),
                             ),
