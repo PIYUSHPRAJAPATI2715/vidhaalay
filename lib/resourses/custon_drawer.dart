@@ -87,6 +87,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
                 leading: Image.asset(
                   AppAssets.videoIcon,
+
                   // Icons.home,
                   color: bottomController.currentIndex.value ==
                       0 ? AppThemes.white : AppThemes.white,
