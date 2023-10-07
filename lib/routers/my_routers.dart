@@ -10,6 +10,7 @@ import '../login screens/signup_screen.dart';
 import '../login screens/splash.dart';
 import '../resourses/bottom_nav_screen.dart';
 import '../resourses/custon_drawer.dart';
+import '../screen/User_Screens/bottom_nav_user.dart';
 
 
 
@@ -22,6 +23,7 @@ class MyRouters{
   static var otpScreen = "/otpScreen";
   static var createPasswordScreen = "/createPasswordScreen";
   static var bottomNavigationScreen = "/bottomNavigationScreen";
+  static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
 
   static var route = [
 
@@ -37,7 +39,7 @@ class MyRouters{
     //student screens
     GetPage(name: '/bottomNavigationScreen', page: () =>  const BottomNavigationScreen()),
 
-
-
+    //user screens
+    GetPage(name: '/bottomNavigationUserScreen', page: () =>  const BottomNavigationUserScreen()),
   ];
 }
