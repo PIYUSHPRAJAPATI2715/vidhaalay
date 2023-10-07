@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+import '../../widgets/appTheme.dart';
 
 
 class CustomOutlineButton extends StatelessWidget {
@@ -22,15 +22,15 @@ class CustomOutlineButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            side:  BorderSide(
-              color:  AppTheme.primaryColor,
+            side:  const BorderSide(
+              color:  AppThemes.primaryColor,
             ),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 )),
             primary: backgroundColor,
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             )),
@@ -53,6 +53,58 @@ class CustomOutlineButton extends StatelessWidget {
             fontWeight: FontWeight.w500,
             fontSize: 18,
             color: textColor,
+          ),
+        ));
+  }
+}
+class CommonButton extends StatelessWidget {
+  final String title;
+  final VoidCallback? onPressed;
+  final bool? expandedValue;
+  final Color? textColor;
+
+  const CommonButton(
+      {Key? key,
+        required this.title,
+        this.onPressed,
+        this.textColor,
+        this.expandedValue = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25),
+                )),
+            primary: AppThemes.primaryColor,
+            // padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppThemes.white,
+            )),
+        onPressed: onPressed,
+        child: expandedValue == true ? SizedBox(
+          width: double.maxFinite,
+          child: Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+          ),        )
+            : Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            color: Colors.white,
           ),
         ));
   }

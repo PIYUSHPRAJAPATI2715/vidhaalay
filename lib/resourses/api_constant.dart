@@ -43,7 +43,7 @@
 //       toastLength: Toast.LENGTH_LONG,
 //       gravity: ToastGravity.BOTTOM,
 //       timeInSecForIosWeb: 1,
-//       backgroundColor: AppTheme.primaryColor,
+//       backgroundColor: AppThemes.primaryColor,
 //       textColor: Color(0xffffffff),
 //       fontSize: 14);
 // }
