@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_button.dart';
@@ -9,6 +10,7 @@ import '../../widgets/common_button.dart';
 
 class IntroPageScreen extends StatefulWidget {
   const IntroPageScreen({Key? key}) : super(key: key);
+  static var introPageScreen = '/introPageScreen';
 
   @override
   State<IntroPageScreen> createState() => _IntroPageScreenState();
@@ -59,7 +61,7 @@ class _IntroPageScreenState extends State<IntroPageScreen> {
               SizedBox(
                 height: size.height*.070,
               ),
-              SvgPicture.asset('assets/images/intro.svg',fit: BoxFit.fitWidth,),
+              Image.asset(AppAssets.introImg,fit: BoxFit.fitWidth,),
               SizedBox(
                 height: size.height*.030,
               ),

@@ -20,13 +20,14 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () async {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      if (pref.getString('cookie') != null) {
-        Get.offAllNamed(MyRouters.introPageScreen);
-      }
-      else {
-        Get.offAllNamed(MyRouters.signInPage);
-      }
+    //   SharedPreferences pref = await SharedPreferences.getInstance();
+    //   if (pref.getString('cookie') != null) {
+    //     Get.offAllNamed(MyRouters.introPageScreen);
+    //   }
+    //   else {
+    //     Get.offAllNamed(MyRouters.signInPage);
+    //   }
+      Get.offAllNamed(MyRouters.introPageScreen);
     }
     );
   }

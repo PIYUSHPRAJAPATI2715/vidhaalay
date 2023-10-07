@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
 
@@ -61,7 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(70)),
-                child: SvgPicture.asset('assets/images/Sign-up.svg',),
+                child: Image.asset(AppAssets.signUp,fit: BoxFit.fitWidth,),
               ),
             ),
             Positioned(

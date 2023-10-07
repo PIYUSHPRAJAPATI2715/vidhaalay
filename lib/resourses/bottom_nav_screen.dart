@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/resourses/app_assets.dart';
 
 import '../controller/bottom_controller.dart';
 import '../widgets/appTheme.dart';
@@ -22,7 +24,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppThemes.primaryColor,
       key: controller.scaffoldKey,
       drawer: const CustomDrawer(),
       body: WillPopScope(
@@ -32,13 +34,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         }),
       ),
       bottomNavigationBar: Obx(() {
-        return SizedBox(
-          height: 70,
+        return Container(
+          color: AppThemes.navBarColor,
+          height: size.height*.08,
           child: Column(
             children: [
-               Divider(
-                color: AppThemes.textGray,
-              ),
               const SizedBox(
                 height: 10,
               ),
@@ -47,32 +47,117 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 children: [
                   GestureDetector(
                     onTap: () => controller.currentIndex.value = 0,
-                    child: Image.asset(
-                      "assets/icons/home.png",
-                      width: 25,
-                      height: 25,
-                      color: controller.currentIndex.value == 0 ? AppThemes
-                          .primaryColor : AppThemes.white,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.homeIcon,
+                          width: 22,
+                          height: 22,
+                          color: controller.currentIndex.value == 0 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                        ),
+                       const SizedBox(
+                          height: 4,
+                        ),
+                        Text('Home',style: GoogleFonts.poppins(
+                            color: controller.currentIndex.value == 0 ? AppThemes
+                                .white : AppThemes.whiteOff,
+                          fontSize: 10,
+                         fontWeight: FontWeight.w500
+                        ),)
+                      ],
                     ),
                   ),
                   GestureDetector(
                     onTap: () => controller.currentIndex.value = 1,
-                    child: Image.asset(
-                      "assets/icons/calendar.png",
-                      color: controller.currentIndex.value == 1 ? AppThemes
-                          .primaryColor : AppThemes.white,
-                      width: 25,
-                      height: 25,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.attendanceIcon,
+                          color: controller.currentIndex.value == 1 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                          width: 22,
+                          height: 22,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text('Attendance',style: GoogleFonts.poppins(
+                            color: controller.currentIndex.value == 1 ? AppThemes
+                                .white : AppThemes.whiteOff,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500
+                        ),)
+                      ],
                     ),
                   ),
                   GestureDetector(
                     onTap: () => controller.currentIndex.value = 2,
-                    child: Image.asset(
-                      "assets/icons/logs.png",
-                      color: controller.currentIndex.value == 2 ? AppThemes
-                          .primaryColor : AppThemes.white,
-                      width: 25,
-                      height: 25,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.assignmentIcon,
+                          color: controller.currentIndex.value == 2 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                          width: 22,
+                          height: 22,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text('Assignment',style: GoogleFonts.poppins(
+                            color: controller.currentIndex.value == 2 ? AppThemes
+                                .white : AppThemes.whiteOff,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500
+                        ),)
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => controller.currentIndex.value = 3,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.eventsIcon,
+                          width: 22,
+                          height: 22,
+                          color: controller.currentIndex.value == 3 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text('Events',style: GoogleFonts.poppins(
+                            color: controller.currentIndex.value == 3 ? AppThemes
+                                .white : AppThemes.whiteOff,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500
+                        ),)
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => controller.currentIndex.value = 4,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.moreIcon,
+                          width: 22,
+                          height: 22,
+                          color: controller.currentIndex.value == 4 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text('More',style: GoogleFonts.poppins(
+                            color: controller.currentIndex.value == 4 ? AppThemes
+                                .white : AppThemes.whiteOff,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500
+                        ),)
+                      ],
                     ),
                   ),
                 ],

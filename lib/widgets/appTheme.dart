@@ -11,11 +11,13 @@ class AppThemes {
   static const Color subText = Color(0xffA7ACCF);
   static const Color textGray = Color(0xff9c9ba5);
   static const Color white = Colors.white;
+  static const Color whiteOff = Color(0xFFc2c2c2);
   static const Color black = Colors.black;
   static const Color signupBg = Color(0xFFf6f8f7);
   static const Color lightPink = Color(0xFFfcddde);
   static const Color dividerColor = Color(0xFFe6e6e6);
   static const Color blueColor = Color(0xFF2e318f);
+  static const Color navBarColor = Color(0xFF393939);
 
   static TextStyle titleText1 = const TextStyle(
     color: Colors.black,

@@ -5,9 +5,12 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_button.dart';
+import '../controller/bottom_controller.dart';
+import '../resourses/custon_drawer.dart';
 import '../widgets/common_textfield.dart';
 
 
@@ -62,13 +65,13 @@ class _SignInPageState extends State<SignInPage> {
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
               ),
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(80)),
-                child: SvgPicture.asset('assets/images/sign-in.svg',fit: BoxFit.fitWidth,),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(60)),
+                child: Image.asset(AppAssets.signIn,fit: BoxFit.fitWidth,width: double.maxFinite,),
               ),
             ),
 
             Positioned.fill(
-              top: 200,
+              top: 220,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                 height: size.height,
@@ -278,7 +281,7 @@ class _SignInPageState extends State<SignInPage> {
                       ElevatedButton(
                         onPressed: () {
                           if(formKey.currentState!.validate()){
-                              Get.offAllNamed(MyRouters.studentHomeScreen);
+                              Get.offAllNamed(MyRouters.bottomNavigationScreen);
                           }
                         },
                         style: ElevatedButton.styleFrom(
