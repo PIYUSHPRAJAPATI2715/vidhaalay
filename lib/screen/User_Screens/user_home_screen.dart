@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 
 
@@ -292,82 +296,89 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                   itemCount: 3,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                         Container(
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(12),
-                             color: AppThemes.white,
-                             boxShadow: [
-                               BoxShadow(
-                                 color: Colors.black.withOpacity(0.2),
-                                 spreadRadius: 1,
-                                 blurRadius: 2,
-                                 offset: const Offset(0, 2),
-                               ),
-                             ],
-                           ),
-                           child: Column(
-                             children: [
-                               Stack(
-                                 children: [
-                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(12) ,
-                                     child: Image.asset(
-                                      AppAssets.collageImg,
-                                       fit: BoxFit.cover,
-                                       width: size.width,
-                                       height: size.height*.16,
-                                     ),
-                                   ),
-                                  const Positioned(
-                                       right: 10, top: 10,
-                                       child: Icon(Icons.favorite_border,size: 18,color: Colors.white)
-                                   ),
-                                 ],
-                               ),
-                               Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Column(
+                    return GestureDetector(
+                      onTap: (){
+                        Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
+                          milliseconds: 250
+                        ));
+                      },
+                      child: Column(
+                        children: [
+                           Container(
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(12),
+                               color: AppThemes.white,
+                               boxShadow: [
+                                 BoxShadow(
+                                   color: Colors.black.withOpacity(0.2),
+                                   spreadRadius: 1,
+                                   blurRadius: 2,
+                                   offset: const Offset(0, 2),
+                                 ),
+                               ],
+                             ),
+                             child: Column(
+                               children: [
+                                 Stack(
                                    children: [
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Text('Washington University',
-                                           style: GoogleFonts.poppins(
-                                             fontWeight: FontWeight.w600,
-                                             fontSize: 17
-                                           ),
-                                         ),
-                                       ],
+                                     ClipRRect(
+                                      borderRadius: BorderRadius.circular(12) ,
+                                       child: Image.asset(
+                                        AppAssets.collageImg,
+                                         fit: BoxFit.cover,
+                                         width: size.width,
+                                         height: size.height*.16,
+                                       ),
                                      ),
-                                    const SizedBox(
-                                       height: 2,
-                                     ),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                        const Icon(Icons.location_pin,
-                                           color: Colors.red,size: 18,),
-                                         Text('4101,california',
-                                           style: GoogleFonts.poppins(
-                                             color: AppThemes.textGray,
-                                               fontWeight: FontWeight.w500,
-                                               fontSize: 15
-                                           ),
-                                         ),
-                                       ],
+                                    const Positioned(
+                                         right: 10, top: 10,
+                                         child: Icon(Icons.favorite_border,size: 18,color: Colors.white)
                                      ),
                                    ],
                                  ),
-                               )
-                             ],
+                                 Padding(
+                                   padding: const EdgeInsets.all(8.0),
+                                   child: Column(
+                                     children: [
+                                       Row(
+                                         mainAxisAlignment: MainAxisAlignment.start,
+                                         children: [
+                                           Text('Washington University',
+                                             style: GoogleFonts.poppins(
+                                               fontWeight: FontWeight.w600,
+                                               fontSize: 17
+                                             ),
+                                           ),
+                                         ],
+                                       ),
+                                      const SizedBox(
+                                         height: 2,
+                                       ),
+                                       Row(
+                                         mainAxisAlignment: MainAxisAlignment.start,
+                                         children: [
+                                          const Icon(Icons.location_pin,
+                                             color: Colors.red,size: 18,),
+                                           Text('4101,california',
+                                             style: GoogleFonts.poppins(
+                                               color: AppThemes.textGray,
+                                                 fontWeight: FontWeight.w500,
+                                                 fontSize: 15
+                                             ),
+                                           ),
+                                         ],
+                                       ),
+                                     ],
+                                   ),
+                                 )
+                               ],
+                             ),
                            ),
-                         ),
-                       const SizedBox(
-                          height: 15,
-                        )
-                      ],
+                         const SizedBox(
+                            height: 15,
+                          )
+                        ],
+                      ),
                     );
                   },
                 ),

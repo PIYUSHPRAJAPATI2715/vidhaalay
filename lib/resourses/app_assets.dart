@@ -19,6 +19,8 @@ class AppAssets {
   // users img
   static const String myLecturesIcon = "assets/images/lecture.png";
   static const String lectureImg = "assets/images/lecture1.png";
+  static const String videoImg = "assets/images/videoImg.png";
+  static const String teacherImg = "assets/images/teacher.png";
 
 
 

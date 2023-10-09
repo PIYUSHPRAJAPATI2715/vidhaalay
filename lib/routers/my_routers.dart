@@ -11,6 +11,9 @@ import '../login screens/splash.dart';
 import '../resourses/bottom_nav_screen.dart';
 import '../resourses/custon_drawer.dart';
 import '../screen/User_Screens/bottom_nav_user.dart';
+import '../screen/User_Screens/drawer_user.dart';
+import '../screen/User_Screens/schools_details_Screen.dart';
+import '../screen/student_screen/more_screen.dart';
 
 
 
@@ -24,11 +27,13 @@ class MyRouters{
   static var createPasswordScreen = "/createPasswordScreen";
   static var bottomNavigationScreen = "/bottomNavigationScreen";
   static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
+  static var schoolsDetailsScreen = "/schoolsDetailsScreen";
+  // static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
 
   static var route = [
 
     // auth screens
-    GetPage(name: '/', page: () =>  const Splash()),
+    GetPage(name: '/', page: () =>  const BottomNavigationUserScreen()),
     GetPage(name: '/introPageScreen', page: () =>  const IntroPageScreen()),
     GetPage(name: '/signInPage', page: () =>  const SignInPage()),
     GetPage(name: '/signupScreen', page: () =>  const SignupScreen()),
@@ -41,5 +46,7 @@ class MyRouters{
 
     //user screens
     GetPage(name: '/bottomNavigationUserScreen', page: () =>  const BottomNavigationUserScreen()),
+    GetPage(name: '/schoolsDetailsScreen', page: () =>  const SchoolsDetailsScreen()),
+    // GetPage(name: '/drawerForUser', page: () =>  const DrawerForUser()),
   ];
 }

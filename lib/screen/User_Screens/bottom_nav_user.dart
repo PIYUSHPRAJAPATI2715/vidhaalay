@@ -25,7 +25,7 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
     return Scaffold(
       backgroundColor: AppThemes.primaryColor,
       key: controller.scaffoldKey,
-      drawer: const CustomDrawer(),
+      // drawer: const CustomDrawer(),
       body: WillPopScope(
         onWillPop: ( ) async => false,
         child: Obx(() {

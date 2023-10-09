@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -54,13 +55,23 @@ class _VideoScreenState extends State<VideoScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 28),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            SizedBox(
-              height: 37,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              height: 44,
               child: TextField(
                 maxLines: 1,
                 controller: searchController,
@@ -82,18 +93,19 @@ class _VideoScreenState extends State<VideoScreen> {
                       },
                       icon: const Icon(
                         Icons.search_rounded,
-                        color: Colors.green,
-                        size: 30,
+                        color: AppThemes.black,
+                        size: 19,
                       ),
                     ),
                     border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(
-                            Radius.circular(8))),
+                            Radius.circular(50))),
                     fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 4),
-                    hintText: 'Search Your Groceries',
+                    contentPadding:
+                    const EdgeInsets.symmetric(
+                        horizontal: 20),
+                    hintText: 'Search',
                     hintStyle: const TextStyle(
                         fontSize:14,
                         color: Colors.black,
@@ -101,36 +113,55 @@ class _VideoScreenState extends State<VideoScreen> {
               ),
             ),
             const SizedBox(
+              height: 28,
+            ),
+            Image.asset(AppAssets.teacherImg),
+            const SizedBox(
               height: 15,
             ),
-            const Text('Learning that fits',
-              style: TextStyle(
+             Text('Learning that fits',
+              style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                   fontSize: 20
               ),
             ),
             const SizedBox(
-              height: 35,
+              height: 20,
             ),
             Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
+              spacing: 4.0,
+              runSpacing: 7,
               children: subjects.map((subject) {
-                return Chip(
-                  label: Text(subject),
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppThemes.textGray,
+                    ),
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Text(subject,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w300,
+                    color: AppThemes.textGray
+                  ),
+                  ),
                 );
               }).toList(),
             ),
             const SizedBox(
               height: 15,
             ),
-            const Text('Featured Lectures',
-              style: TextStyle(
+             Text('Featured Lectures',
+              style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
                   fontSize: 20
               ),
             ),
-
+         const SizedBox(
+            height: 8,
+          ),
             ListView.builder(
               itemCount: 2,
               shrinkWrap: true,
@@ -139,9 +170,10 @@ class _VideoScreenState extends State<VideoScreen> {
                   children: [
                     Stack(
                       children: [
-                        Container(
+                        SizedBox(
                           height: 140,
-                          color: Colors.red,
+                          width: double.maxFinite,
+                          child: Image.asset(AppAssets.videoImg,fit: BoxFit.cover,),
                         ),
                         Positioned(
                             top: 0,
@@ -170,20 +202,64 @@ class _VideoScreenState extends State<VideoScreen> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Our Animal Friends Kids...'),
-                        Text('₹ 280'),
-                      ],
+                    const SizedBox(
+                      height: 4,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Rosie David'),
-                        Text('Subject - Hindi'),
+                        Text('Our Animal Friends Kids...',
+                          style: GoogleFonts.poppins(
+                            color: AppThemes.textBlackColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14
+                          ),
+                        ),
+                        Text('₹ 280',
+                          style: GoogleFonts.poppins(
+                              color: AppThemes.primaryColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14
+                          ),
+                        ),
                       ],
                     ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child:  Image.asset(AppAssets.studentImg,height: 14,),
+                            ),
+                           const SizedBox(
+                              width: 4,
+                            ),
+                            Text('Rosie David',
+                              style: GoogleFonts.poppins(
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 10
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text('Subject - Hindi',
+                          style: GoogleFonts.poppins(
+                              color: AppThemes.textGray,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 10
+                          ),
+                        ),
+                      ],
+                    ),
+                   const SizedBox(
+                      height: 18,
+                    )
                   ],
                 );
               },
