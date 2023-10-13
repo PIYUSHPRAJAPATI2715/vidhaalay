@@ -34,7 +34,7 @@ class _MoreScreenState extends State<MoreScreen> {
             InkWell(
               onTap: (){
                 Get.toNamed(
-                    MyRouters.bottomNavigationUserScreen
+                    MyRouters.drawerForUser
                 );
               },
               child: Container(

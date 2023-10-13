@@ -17,6 +17,7 @@ class BottomController extends GetxController {
 
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKeyUser = GlobalKey<ScaffoldState>();
 
   var screens = [
     const StudentHomeScreen(),

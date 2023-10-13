@@ -6,6 +6,7 @@ import 'package:vidhaalay_app/resourses/app_assets.dart';
 import '../../controller/bottom_controller.dart';
 import '../../resourses/custon_drawer.dart';
 import '../../widgets/appTheme.dart';
+import 'drawer_user.dart';
 
 
 class BottomNavigationUserScreen extends StatefulWidget {
@@ -24,8 +25,8 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppThemes.primaryColor,
-      key: controller.scaffoldKey,
-      // drawer: const CustomDrawer(),
+      key: controller.scaffoldKeyUser,
+      drawer: const DrawerForUser(),
       body: WillPopScope(
         onWillPop: ( ) async => false,
         child: Obx(() {

@@ -19,6 +19,14 @@ class AppThemes {
   static const Color blueColor = Color(0xFF2e318f);
   static const Color navBarColor = Color(0xFF393939);
   static const Color lightBlue = Color(0xFF60a9e8);
+  static const Color settingBgBlue = Color(0xFFa1d3eb);
+  static const Color changePassBg = Color(0xFFfbf9ff);
+  static const Color textBrown = Color(0xFF404040);
+  static const Color disableColor = Color(0xFFf2f2f2);
+
+
+
+
 
   static TextStyle titleText1 = const TextStyle(
     color: Colors.black,

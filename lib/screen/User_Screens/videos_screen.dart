@@ -28,6 +28,7 @@ class _VideoScreenState extends State<VideoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: const[
             Icon(Icons.location_pin,color: AppThemes.primaryColor,size: 20,),
