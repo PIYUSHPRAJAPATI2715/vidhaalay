@@ -38,41 +38,41 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppThemes.white,
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   title: Row(
-      //     children: const[
-      //       Icon(Icons.location_pin,color: AppThemes.primaryColor,size: 20,),
-      //       SizedBox(width: 4,),
-      //        Text('2282 Lakewood Drive',
-      //         style: TextStyle(
-      //             color: AppThemes.black,
-      //             fontWeight: FontWeight.w600,
-      //             fontSize: 15
-      //         ),),
-      //     ],
-      //   ),
-      //   actions: [
-      //     Padding(
-      //       padding: const EdgeInsets.only(right:12.0),
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           GestureDetector(
-      //             onTap: (){
-      //               Get.toNamed(
-      //                 MyRouters.myProfileScreen
-      //               );
-      //             },
-      //             child: ClipOval(
-      //               child: Image.asset(AppAssets.studentImg,height: 35,),
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: const[
+            Icon(Icons.location_pin,color: AppThemes.primaryColor,size: 20,),
+            SizedBox(width: 4,),
+             Text('2282 Lakewood Drive',
+              style: TextStyle(
+                  color: AppThemes.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15
+              ),),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right:12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(
+                      MyRouters.myProfileScreen
+                    );
+                  },
+                  child: ClipOval(
+                    child: Image.asset(AppAssets.studentImg,height: 35,),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (_, __) {
@@ -164,7 +164,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                         height: size.height*.25,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
+                            physics: const AlwaysScrollableScrollPhysics(),
                             itemCount: 5,
                             itemBuilder: (context, index) {
                               return Padding(

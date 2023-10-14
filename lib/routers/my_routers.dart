@@ -38,13 +38,13 @@ class MyRouters{
   static var favoritesScreen = "/favoritesScreen";
   static var registrationScreen = "/registrationScreen";
   static var drawerForUser = "/drawerForUser";
-
+3
   static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
 
   static var route = [
 
     // auth screens
-    GetPage(name: '/', page: () =>  const MoreScreen()),
+    GetPage(name: '/', page: () =>  const Splash()),
     GetPage(name: '/introPageScreen', page: () =>  const IntroPageScreen()),
     GetPage(name: '/signInPage', page: () =>  const SignInPage()),
     GetPage(name: '/signupScreen', page: () =>  const SignupScreen()),

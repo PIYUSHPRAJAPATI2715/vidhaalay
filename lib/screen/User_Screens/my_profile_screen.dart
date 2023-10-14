@@ -46,12 +46,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               ),),
           ),
           Positioned(
-            left: 10,
-            top: size.height*.027,
-            child: IconButton(
-              icon: Image.asset(AppAssets.arrowBack,width: 19,color: AppThemes.white,),
-              onPressed: (){
-                Get.toNamed(MyRouters.drawerForUser);
+            left: 20,
+            top: size.height*.050,
+            child: InkWell(
+              child: Image.asset(AppAssets.arrowBack,width: 19,color: AppThemes.white,),
+              onTap: (){
+                Get.back();
               },
             ),
           ),
