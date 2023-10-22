@@ -1,13 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
-
-
-
-
 import '../resourses/size.dart';
-
+import '../../widgets/appTheme.dart';
 
 
 class CommonProgressIndicator extends StatelessWidget {
@@ -16,8 +11,8 @@ class CommonProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Platform.isAndroid ? const CircularProgressIndicator(color: AppTheme.primaryColor,):
-        CupertinoActivityIndicator(color: AppTheme.primaryColor,radius: AddSize.size20, )
+        child: Platform.isAndroid ? const CircularProgressIndicator(color: AppThemes.primaryColor,):
+        CupertinoActivityIndicator(color: AppThemes.primaryColor,radius: AddSize.size20, )
     );
   }
 }
