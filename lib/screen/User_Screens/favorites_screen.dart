@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 
 import '../../resourses/app_assets.dart';
@@ -44,7 +45,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
         leading:  IconButton(
           icon: Image.asset(AppAssets.arrowBack,width: 19,color: AppThemes.textBrown,),
           onPressed: (){
-            Get.back();
+            Get.toNamed(MyRouters.bottomNavigationUserScreen);
+            // Get.back();
           },
         ),
         title:  Text("Favorites",

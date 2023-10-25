@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +24,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,6 +34,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           Container(
             color : AppThemes.white,
           ),
+
+
           SizedBox(
             width: double.maxFinite,
               child: Image.asset(AppAssets.myProfileBg,fit: BoxFit.fitWidth,width: double.maxFinite)),
@@ -51,6 +57,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             child: InkWell(
               child: Image.asset(AppAssets.arrowBack,width: 19,color: AppThemes.white,),
               onTap: (){
+                Get.back();
                 Get.back();
               },
             ),
@@ -177,50 +184,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text('Unique Id',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: AppThemes.textGray
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                TextFormField(
-                  readOnly: true,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                  ),
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    counterStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 25,
-                    ),
-                    errorMaxLines: 2,
-                    hintText: 'UN345G',
-                    hintStyle: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                    fillColor: AppThemes.disableColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Adjust the vertical padding here
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                ),
+
                     const SizedBox(
                       height: 30,
                     ),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
-
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -15,23 +13,22 @@ class UserHomeScreen extends StatefulWidget {
   State<UserHomeScreen> createState() => _UserHomeScreenState();
 }
 
-class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStateMixin{
+class _UserHomeScreenState extends State<UserHomeScreen>
+    with TickerProviderStateMixin {
   late TabController tabController;
   final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
-
   }
 
   @override
   void dispose() {
     tabController.dispose();
     super.dispose();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,32 +37,40 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
       backgroundColor: AppThemes.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          children: const[
-            Icon(Icons.location_pin,color: AppThemes.primaryColor,size: 20,),
-            SizedBox(width: 4,),
-             Text('2282 Lakewood Drive',
+        title: const Row(
+          children: [
+            Icon(
+              Icons.location_pin,
+              color: AppThemes.primaryColor,
+              size: 20,
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Text(
+              '2282 Lakewood Drive',
               style: TextStyle(
                   color: AppThemes.black,
                   fontWeight: FontWeight.w600,
-                  fontSize: 15
-              ),),
+                  fontSize: 15),
+            ),
           ],
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right:12.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: (){
-                    Get.toNamed(
-                      MyRouters.myProfileScreen
-                    );
+                  onTap: () {
+                    Get.toNamed(MyRouters.myProfileScreen);
                   },
                   child: ClipOval(
-                    child: Image.asset(AppAssets.studentImg,height: 35,),
+                    child: Image.asset(
+                      AppAssets.studentImg,
+                      height: 35,
+                    ),
                   ),
                 )
               ],
@@ -79,7 +84,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
             return [
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   child: Column(
                     children: [
                       Container(
@@ -122,15 +128,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                               ),
                               border: const OutlineInputBorder(
                                   borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(50))),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50))),
                               fillColor: Colors.white,
                               contentPadding:
-                              const EdgeInsets.symmetric(
-                                  horizontal: 20),
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               hintText: 'Search',
                               hintStyle: const TextStyle(
-                                  fontSize:14,
+                                  fontSize: 14,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w400)),
                         ),
@@ -141,19 +146,19 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Top Lectures',
+                          Text(
+                            'Top Lectures',
                             style: GoogleFonts.poppins(
                                 color: AppThemes.black,
                                 fontSize: 17,
-                                fontWeight: FontWeight.w600
-                            ),
+                                fontWeight: FontWeight.w600),
                           ),
-                         const Text('View All',
-                          style: TextStyle(
-                            color: AppThemes.primaryColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600
-                          ),
+                          const Text(
+                            'View All',
+                            style: TextStyle(
+                                color: AppThemes.primaryColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600),
                           )
                         ],
                       ),
@@ -161,68 +166,69 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                         height: 18,
                       ),
                       SizedBox(
-                        height: size.height*.25,
+                        height: size.height * .25,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0).copyWith(left: 0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: size.width*.35,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 13,horizontal: 5),
-                                      decoration: BoxDecoration(
-                                        color: AppThemes.lightBlue,
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 1,
-                                            blurRadius: 2,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                           Image.asset(AppAssets.lectureImg,
-                                             width: size.width*.33,
-                                           ),
-                                          const SizedBox(
-                                            height: 11,
-                                          ),
-                                          Text('Creative Art Design',
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0)
+                                      .copyWith(left: 0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: size.width * .35,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 13, horizontal: 5),
+                                    decoration: BoxDecoration(
+                                      color: AppThemes.lightBlue,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 2,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          AppAssets.lectureImg,
+                                          width: size.width * .33,
+                                        ),
+                                        const SizedBox(
+                                          height: 11,
+                                        ),
+                                        Text(
+                                          'Creative Art Design',
                                           style: GoogleFonts.poppins(
-                                            color: AppThemes.white,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 12
-                                          ),
-                                          ),
-                                         const SizedBox(
-                                            height: 3,
-                                          ),
-                                          const Text('Creative Art Design here dummy data',
+                                              color: AppThemes.white,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 12),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        const Text(
+                                          'Creative Art Design here dummy data',
                                           style: TextStyle(
-                                            color: AppThemes.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 10
-                                          ),
-                                          )
-
-
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
+                                              color: AppThemes.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 10),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -231,40 +237,34 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                       Container(
                         height: 35,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppThemes.textGray,
-                            width: 0.5
-                          ),
-                          borderRadius: BorderRadius.circular(50)
-                        ),
+                            border: Border.all(
+                                color: AppThemes.textGray, width: 0.5),
+                            borderRadius: BorderRadius.circular(50)),
                         child: TabBar(
                           physics: const NeverScrollableScrollPhysics(),
-                          tabs: const[
-                             Tab(
+                          tabs: const [
+                            Tab(
                               child: Text(
                                 "Schools",
                                 textAlign: TextAlign.center,
-                                style:TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                             ),
-                             Tab(
+                            Tab(
                               child: Text(
                                 "Colleges",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                             ),
-                             Tab(
+                            Tab(
                               child: Text(
                                 "Institutes",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                             ),
                           ],
@@ -282,10 +282,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                           controller: tabController,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: AppThemes.primaryColor
-                          ),
-
+                              borderRadius: BorderRadius.circular(50),
+                              color: AppThemes.primaryColor),
                         ),
                       ),
                     ],
@@ -299,94 +297,104 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
             controller: tabController,
             children: [
               Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
-                child:  ListView.builder(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                child: ListView.builder(
                   itemCount: 3,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: (){
-                        Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
-                          milliseconds: 250
-                        ));
+                      onTap: () {
+                        Get.to(() => const SchoolsDetailsScreen(),
+                            transition: Transition.fadeIn,
+                            duration: const Duration(milliseconds: 250));
                       },
                       child: Column(
                         children: [
-                           Container(
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(12),
-                               color: AppThemes.white,
-                               boxShadow: [
-                                 BoxShadow(
-                                   color: Colors.black.withOpacity(0.2),
-                                   spreadRadius: 1,
-                                   blurRadius: 2,
-                                   offset: const Offset(0, 2),
-                                 ),
-                               ],
-                             ),
-                             child: Column(
-                               children: [
-                                 Stack(
-                                   children: [
-                                     ClipRRect(
-                                      borderRadius: BorderRadius.circular(12) ,
-                                       child: Image.asset(
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppThemes.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.asset(
                                         AppAssets.collageImg,
-                                         fit: BoxFit.cover,
-                                         width: size.width,
-                                         height: size.height*.16,
-                                       ),
-                                     ),
-                                     Positioned(
-                                         right: 10, top: 10,
-                                         child: GestureDetector(
-                                           onTap: (){
-                                             Get.toNamed(MyRouters.favoritesScreen);
-                                           },
-                                             child: const Icon(Icons.favorite_border,size: 18,color: Colors.white))
-                                     ),
-                                   ],
-                                 ),
-                                 Padding(
-                                   padding: const EdgeInsets.all(8.0),
-                                   child: Column(
-                                     children: [
-                                       Row(
-                                         mainAxisAlignment: MainAxisAlignment.start,
-                                         children: [
-                                           Text('Washington University',
-                                             style: GoogleFonts.poppins(
-                                               fontWeight: FontWeight.w600,
-                                               fontSize: 17
-                                             ),
-                                           ),
-                                         ],
-                                       ),
+                                        fit: BoxFit.cover,
+                                        width: size.width,
+                                        height: size.height * .16,
+                                      ),
+                                    ),
+                                    Positioned(
+                                        right: 10,
+                                        top: 10,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  MyRouters.favoritesScreen);
+                                            },
+                                            child: const Icon(
+                                                Icons.favorite_border,
+                                                size: 18,
+                                                color: Colors.white))),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Washington University',
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 17),
+                                          ),
+                                        ],
+                                      ),
                                       const SizedBox(
-                                         height: 2,
-                                       ),
-                                       Row(
-                                         mainAxisAlignment: MainAxisAlignment.start,
-                                         children: [
-                                          const Icon(Icons.location_pin,
-                                             color: Colors.red,size: 18,),
-                                           Text('4101,california',
-                                             style: GoogleFonts.poppins(
-                                               color: AppThemes.textGray,
-                                                 fontWeight: FontWeight.w500,
-                                                 fontSize: 15
-                                             ),
-                                           ),
-                                         ],
-                                       ),
-                                     ],
-                                   ),
-                                 )
-                               ],
-                             ),
-                           ),
-                         const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const Icon(
+                                            Icons.location_pin,
+                                            color: Colors.red,
+                                            size: 18,
+                                          ),
+                                          Text(
+                                            '4101,california',
+                                            style: GoogleFonts.poppins(
+                                                color: AppThemes.textGray,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
                             height: 15,
                           )
                         ],
@@ -394,170 +402,186 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
                     );
                   },
                 ),
-              ),  Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
-                child:  ListView.builder(
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                child: ListView.builder(
                   itemCount: 3,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                         Container(
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(12),
-                             color: AppThemes.white,
-                             boxShadow: [
-                               BoxShadow(
-                                 color: Colors.black.withOpacity(0.2),
-                                 spreadRadius: 1,
-                                 blurRadius: 2,
-                                 offset: const Offset(0, 2),
-                               ),
-                             ],
-                           ),
-                           child: Column(
-                             children: [
-                               Stack(
-                                 children: [
-                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(12) ,
-                                     child: Image.asset(
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppThemes.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.asset(
                                       AppAssets.collageImg,
-                                       fit: BoxFit.cover,
-                                       width: size.width,
-                                       height: size.height*.16,
-                                     ),
-                                   ),
+                                      fit: BoxFit.cover,
+                                      width: size.width,
+                                      height: size.height * .16,
+                                    ),
+                                  ),
                                   const Positioned(
-                                       right: 10, top: 10,
-                                       child: Icon(Icons.favorite_border,size: 18,color: Colors.white)
-                                   ),
-                                 ],
-                               ),
-                               Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Column(
-                                   children: [
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Text('Washington University',
-                                           style: GoogleFonts.poppins(
-                                             fontWeight: FontWeight.w600,
-                                             fontSize: 17
-                                           ),
-                                         ),
-                                       ],
-                                     ),
+                                      right: 10,
+                                      top: 10,
+                                      child: Icon(Icons.favorite_border,
+                                          size: 18, color: Colors.white)),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Washington University',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 17),
+                                        ),
+                                      ],
+                                    ),
                                     const SizedBox(
-                                       height: 2,
-                                     ),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                        const Icon(Icons.location_pin,
-                                           color: Colors.red,size: 18,),
-                                         Text('4101,california',
-                                           style: GoogleFonts.poppins(
-                                             color: AppThemes.textGray,
-                                               fontWeight: FontWeight.w500,
-                                               fontSize: 15
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-                                   ],
-                                 ),
-                               )
-                             ],
-                           ),
-                         ),
-                       const SizedBox(
+                                      height: 2,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        const Icon(
+                                          Icons.location_pin,
+                                          color: Colors.red,
+                                          size: 18,
+                                        ),
+                                        Text(
+                                          '4101,california',
+                                          style: GoogleFonts.poppins(
+                                              color: AppThemes.textGray,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
                           height: 15,
                         )
                       ],
                     );
                   },
                 ),
-              ),  Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
-                child:  ListView.builder(
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                child: ListView.builder(
                   itemCount: 3,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                         Container(
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(12),
-                             color: AppThemes.white,
-                             boxShadow: [
-                               BoxShadow(
-                                 color: Colors.black.withOpacity(0.2),
-                                 spreadRadius: 1,
-                                 blurRadius: 2,
-                                 offset: const Offset(0, 2),
-                               ),
-                             ],
-                           ),
-                           child: Column(
-                             children: [
-                               Stack(
-                                 children: [
-                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(12) ,
-                                     child: Image.asset(
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppThemes.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.asset(
                                       AppAssets.collageImg,
-                                       fit: BoxFit.cover,
-                                       width: size.width,
-                                       height: size.height*.16,
-                                     ),
-                                   ),
+                                      fit: BoxFit.cover,
+                                      width: size.width,
+                                      height: size.height * .16,
+                                    ),
+                                  ),
                                   const Positioned(
-                                       right: 10, top: 10,
-                                       child: Icon(Icons.favorite_border,size: 18,color: Colors.white)
-                                   ),
-                                 ],
-                               ),
-                               Padding(
-                                 padding: const EdgeInsets.all(8.0),
-                                 child: Column(
-                                   children: [
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Text('Washington University',
-                                           style: GoogleFonts.poppins(
-                                             fontWeight: FontWeight.w600,
-                                             fontSize: 17
-                                           ),
-                                         ),
-                                       ],
-                                     ),
+                                      right: 10,
+                                      top: 10,
+                                      child: Icon(Icons.favorite_border,
+                                          size: 18, color: Colors.white)),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Washington University',
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 17),
+                                        ),
+                                      ],
+                                    ),
                                     const SizedBox(
-                                       height: 2,
-                                     ),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                        const Icon(Icons.location_pin,
-                                           color: Colors.red,size: 18,),
-                                         Text('4101,california',
-                                           style: GoogleFonts.poppins(
-                                             color: AppThemes.textGray,
-                                               fontWeight: FontWeight.w500,
-                                               fontSize: 15
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-                                   ],
-                                 ),
-                               )
-                             ],
-                           ),
-                         ),
-                       const SizedBox(
+                                      height: 2,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        const Icon(
+                                          Icons.location_pin,
+                                          color: Colors.red,
+                                          size: 18,
+                                        ),
+                                        Text(
+                                          '4101,california',
+                                          style: GoogleFonts.poppins(
+                                              color: AppThemes.textGray,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
                           height: 15,
                         )
                       ],
@@ -572,6 +596,3 @@ class _UserHomeScreenState extends State<UserHomeScreen> with TickerProviderStat
     );
   }
 }
-
-
-
