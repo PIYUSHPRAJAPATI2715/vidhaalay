@@ -37,7 +37,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
       backgroundColor: AppThemes.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Row(
+        title:  Row(
           children: [
             Icon(
               Icons.location_pin,

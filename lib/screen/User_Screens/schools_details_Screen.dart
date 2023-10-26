@@ -157,7 +157,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                       const SizedBox(
                         height: 6,
                       ),
-                      const Row(
+                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
@@ -354,7 +354,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         shrinkWrap: true,
                                         itemCount: 6,
                                         itemBuilder: (context, index) {
-                                          return const Column(
+                                          return  Column(
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
@@ -426,7 +426,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         shrinkWrap: true,
                                         itemCount: 3,
                                         itemBuilder: (context, index) {
-                                          return const Column(
+                                          return  Column(
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
@@ -662,7 +662,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                       fontSize: 12,
                                                     ),
                                                   ),
-                                                  children: const <Widget>[
+                                                  children:  <Widget>[
                                                     ListTile(
 
                                                       iconColor:

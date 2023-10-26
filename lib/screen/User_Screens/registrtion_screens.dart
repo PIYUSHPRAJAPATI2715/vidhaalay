@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
+import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -85,13 +86,71 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController referalCodeController = TextEditingController();
   String gender = "male";
-  String productcatvalue = 'Product category';
-  var productcatitems = [
-    'Product category',
-    '350gm',
-    '450gm',
-    '550gm',
-    '650gm',
+  String category = 'Select category';
+  var categoryitems = [
+    'Select category',
+    'test1',
+    'test2',
+  ];
+  String motherTongue = 'Select mother tongue';
+  var motherTongueItems = [
+    'Select mother tongue',
+    'test1',
+    'test2',
+  ];
+  String religion = 'Select your religion';
+  var religionItems = [
+    'Select your religion',
+    'test1',
+    'test2',
+  ];
+  String nationality = 'Select Nationality';
+  var nationalityItems = [
+    'Select Nationality',
+    'test1',
+    'test2',
+  ];
+  String optionCity = 'Select City';
+  var optionCityItems = [
+    'Select City',
+    'test1',
+    'test2',
+  ];
+  String optionState = 'Select State';
+  var optionStateItems = [
+    'Select State',
+    'test1',
+    'test2',
+  ];
+  String selectClass = 'Select Class';
+  var selectClassItems = [
+    'Select Class',
+    'test1',
+    'test2',
+  ];
+  String selectClassSibbling = 'Select Class';
+  var selectClassSibblingItem = [
+    'Select Class',
+    'test1',
+    'test2',
+  ];
+  String selectYearsStudy = 'Select no. of years';
+  var selectYearsStudyItems = [
+    'Select no. of years',
+    'test1',
+    'test2',
+  ];
+  String organization = 'Select organization';
+  var organizationItem = [
+    'Select organization',
+    'test1',
+    'test2',
+  ];
+  String organizationMother = 'Select organization';
+  var organizationMotherItem = [
+    'Select organization',
+    'test1',
+    'test2',
   ];
   @override
   Widget build(BuildContext context) {
@@ -113,7 +172,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
               FxStep(
                   label:  Column(
-                    children: [
+                    children: const [
                       Text('Step 1'),
                     ],
                   ),
@@ -121,16 +180,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   content:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Student Name',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+
+                       Center(child: Text('Student information'.toUpperCase(),
+                           style: const TextStyle(
+                               fontWeight: FontWeight.w600,
+                               fontSize: 19,
+                               color: AppThemes.primaryColor))),
+                     const SizedBox(
+                        height: 15,
+                      ),
+                      const Text('Student Name',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 15,
-                                color: Colors.grey.shade200
-                            )]
-                        ),
+                      SizedBox(
+                        height: 40,
                         child: CommonTextfield(
                           hintText: 'Enter Full Name',
                           controller: nameController,
@@ -152,16 +214,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Father\'s Name',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Father\'s Name',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 15,
-                                color: Colors.grey.shade200
-                            )]
-                        ),
+                      SizedBox(
+                        height: 40,
                         child: CommonTextfield(
                           obSecure: false,
                           hintText: 'Enter Full Name',
@@ -183,16 +239,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Mother\'s Name',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Mother\'s Name',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 15,
-                                color: Colors.grey.shade200
-                            )]
-                        ),
+                      SizedBox(
+                        height: 40,
                         child: CommonTextfield(
                           hintText: 'Enter Full Name',
                           obSecure: false,
@@ -214,45 +264,49 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Date of Birth',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Date of Birth',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
-                      CommonTextfield(
-                        hintText: 'Enter days here',
-                        obSecure: false,
-                        // validator: MultiValidator([
-                        //   RequiredValidator(
-                        //       errorText: 'Please Enter The Days'),
-                        // ]),
-                        // onChanged: (val){
-                        //   setState(() {
-                        //     difference.value = val ;
-                        //     if(val.trim().isEmpty){
-                        //       difference.value = '';
-                        //       result = 0;
-                        //       return;
-                        //     }
-                        //     int a = int.parse(val);
-                        //       result = a*3;
-                        //   });
-                        // },
-                        readOnly: true,
-                        keyboardType: TextInputType.number,
-                        controller: dobController,
-                        onTap: (){
-                          selectDate();
-                        },
-                        suffixIcon: IconButton(
-                            onPressed: (){
-                              selectDate();
-                            },
-                            icon: Icon(Icons.calendar_month)
+                      SizedBox(
+                        height: 40,
+                        child: CommonTextfield(
+                          hintText: 'Enter days here',
+                          obSecure: false,
+                          // validator: MultiValidator([
+                          //   RequiredValidator(
+                          //       errorText: 'Please Enter The Days'),
+                          // ]),
+                          // onChanged: (val){
+                          //   setState(() {
+                          //     difference.value = val ;
+                          //     if(val.trim().isEmpty){
+                          //       difference.value = '';
+                          //       result = 0;
+                          //       return;
+                          //     }
+                          //     int a = int.parse(val);
+                          //       result = a*3;
+                          //   });
+                          // },
+                          readOnly: true,
+                          keyboardType: TextInputType.number,
+                          controller: dobController,
+                          onTap: (){
+                            selectDate();
+                          },
+                          suffixIcon: IconButton(
+                              onPressed: (){
+                                selectDate();
+                              },
+                              icon: const Icon(Icons.calendar_month)
+                          ),
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Gender',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Gender',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
@@ -265,7 +319,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   });
                                 },
                               ),
-                              Text("Female"),
+                              const Text("Female"),
                             ],
                           ),
                           Row(
@@ -280,7 +334,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   });
                                 },
                               ),
-                              Text("Male"),
+                              const Text("Male"),
                             ],
                           ),
                           Row(
@@ -294,7 +348,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   });
                                 },
                               ),
-                              Text("Other"),
+                              const Text("Other"),
                             ],
                           ),
 
@@ -302,16 +356,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ],
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Aadhar Card No.',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Aadhar Card No.',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 15,
-                                color: Colors.grey.shade200
-                            )]
-                        ),
+                      SizedBox(
+                        height: 40,
                         child: CommonTextfield(
                           obSecure: false,
                           hintText: 'Enter Card Number',
@@ -333,32 +381,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Category',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Category',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
                       Container(
-                        height: 60,
+                        height: 40,
                         width: Get.width,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
-                              offset: const Offset(.1, .1,
-                              ),
-                              blurRadius: 20.0,
-                              spreadRadius: 1.0,
-                            ),
-                          ],
+                          borderRadius: BorderRadius.circular(25),
                         ),
                         child: DropdownButtonFormField(
                           focusColor: Colors.grey.shade50,
                           isExpanded: true,
-                          iconEnabledColor: Color(0xff97949A),
+                          iconEnabledColor: const Color(0xff97949A),
                           icon: const Icon(Icons.keyboard_arrow_down),
                           hint: Text(
-                            productcatvalue,
-                            style: TextStyle(
+                            category,
+                            style: const TextStyle(
                                 color: Color(0xff463B57),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300),
@@ -367,61 +405,51 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           decoration: InputDecoration(
                               fillColor: Colors.grey.shade50,
                               contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                              const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
-                              enabledBorder: OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Color(0xffE3E3E3)),
                                   borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)))),
-                          value: productcatvalue,
-                          items: productcatitems.map((String items) {
+                                  BorderRadius.all(Radius.circular(25.0)))),
+                          value: category,
+                          items: categoryitems.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(
                                 items,
-                                style: TextStyle(
-                                    color: Colors.pink,
+                                style: const TextStyle(
+                                    color: Colors.grey,
                                     fontSize: 14),
                               ),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              productcatvalue = newValue!;
+                              category = newValue!;
                             });
                           },
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Mother Tongue',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Mother Tongue',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
                       Container(
-                        height: 60,
+                        height: 40,
                         width: Get.width,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
-                              offset: const Offset(.1, .1,
-                              ),
-                              blurRadius: 20.0,
-                              spreadRadius: 1.0,
-                            ),
-                          ],
+                          borderRadius: BorderRadius.circular(25),
                         ),
                         child: DropdownButtonFormField(
                           focusColor: Colors.grey.shade50,
                           isExpanded: true,
-                          iconEnabledColor: Color(0xff97949A),
+                          iconEnabledColor: const Color(0xff97949A),
                           icon: const Icon(Icons.keyboard_arrow_down),
                           hint: Text(
-                            productcatvalue,
-                            style: TextStyle(
+                            motherTongue,
+                            style: const TextStyle(
                                 color: Color(0xff463B57),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w300),
@@ -430,45 +458,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           decoration: InputDecoration(
                               fillColor: Colors.grey.shade50,
                               contentPadding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                              const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
-                              enabledBorder: OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(color: Color(0xffE3E3E3)),
                                   borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)))),
-                          value: productcatvalue,
-                          items: productcatitems.map((String items) {
+                                  BorderRadius.all(Radius.circular(25.0)))),
+                          value: motherTongue,
+                          items: motherTongueItems.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(
                                 items,
-                                style: TextStyle(
-                                    color: Colors.pink,
+                                style: const TextStyle(
+                                    color: Colors.grey,
                                     fontSize: 14),
                               ),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              productcatvalue = newValue!;
+                              motherTongue = newValue!;
                             });
                           },
                         ),
                       ),
                       const SizedBox(height: 25,),
-                      const Text('Blood Group',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14,color: Colors.black)),
+                      const Text('Blood Group',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
                       const SizedBox(height: 10,),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 15,
-                                color: Colors.grey.shade200
-                            )]
-                        ),
+                      SizedBox(
+                     height: 40,
                         child: CommonTextfield(
                           obSecure: false,
                           hintText: 'Enter Blood Group',
@@ -496,31 +518,1125 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   currentStep >= 0 ? FxStepState.complete : FxStepState.disabled),
               FxStep(
                 title: const Text('Step 2'),
-                content: const Text('This is the Second step.'),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    Center(child: Text('residential information'.toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 19,
+                            color: AppThemes.primaryColor))),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text('Religion',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          religion,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: religion,
+                        items: religionItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            religion = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Nationality',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          nationality,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: nationality,
+                        items: nationalityItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            nationality = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Residential Address',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Address',
+                        obSecure: false,
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('City',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          optionCity,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: optionCity,
+                        items: optionCityItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            optionCity = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('State',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          optionState,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: optionState,
+                        items: optionStateItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            optionState = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Pincode',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Pincode',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                  ],
+                ),
                 isActive: currentStep >= 0,
                 state: currentStep >= 1 ? FxStepState.complete : FxStepState.disabled,
               ),
               FxStep(
                 title: const Text('Step 3'),
-                content: const Text('This is the Third step.'),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    Center(child: Text('previous school info'.toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 19,
+                            color: AppThemes.primaryColor))),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text('Name of Previous School',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Full Name',
+                        obSecure: false,
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Location',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter School Location',
+                        obSecure: false,
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Class',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          selectClass,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: selectClass,
+                        items: selectClassItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectClass = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Years of study in that school',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          selectYearsStudy,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: selectYearsStudy,
+                        items: selectYearsStudyItems.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectYearsStudy = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Percentage/Grade',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Card Number',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                  ],
+                ),
                 isActive: currentStep >= 0,
                 state: currentStep >= 2 ? FxStepState.complete : FxStepState.disabled,
               ),
               FxStep(
                 title: const Text('Step 4'),
-                content: const Text('This is the Third step.'),
+                content:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    Center(child: Text('father\'s information'.toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 19,
+                            color: AppThemes.primaryColor))),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text('Father\'s Qualification',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Full Name',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        obSecure: false,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Occupation',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Father Occupation',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Organization',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          organization,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: organization,
+                        items: organizationItem.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            organization = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Mobile Number',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Mobile Number',
+                        obSecure: false,
+                        // validator: MultiValidator([
+                        //   RequiredValidator(
+                        //       errorText: 'Please Enter The Days'),
+                        // ]),
+                        // onChanged: (val){
+                        //   setState(() {
+                        //     difference.value = val ;
+                        //     if(val.trim().isEmpty){
+                        //       difference.value = '';
+                        //       result = 0;
+                        //       return;
+                        //     }
+                        //     int a = int.parse(val);
+                        //       result = a*3;
+                        //   });
+                        // },
+                        readOnly: true,
+                        keyboardType: TextInputType.number,
+                        controller: dobController,
+                        onTap: (){
+                          selectDate();
+                        },
+                        suffixIcon: IconButton(
+                            onPressed: (){
+                              selectDate();
+                            },
+                            icon: const Icon(Icons.calendar_month)
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Aadhar Number',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Father Aadhar Number',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Email Id',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Father Email Address',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Annual Income',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Father annual Income',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Landline Number',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Landline Number',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+
+                  ],
+                ),
                 isActive: currentStep >= 0,
                 state: currentStep >= 3 ? FxStepState.complete : FxStepState.disabled,
               ),
               FxStep(
                 title: const Text('Step 5'),
-                content: const Text('This is the Third step.'),
+                content:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    Center(child: Text('mother\'s information'.toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 19,
+                            color: AppThemes.primaryColor))),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text('Mother\'s Qualification',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Full Name',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        obSecure: false,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Occupation',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Mother Occupation',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Organization',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          organizationMother,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: organizationMother,
+                        items: organizationMotherItem.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            organization = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Mobile Number',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Mobile Number',
+                        obSecure: false,
+                        // validator: MultiValidator([
+                        //   RequiredValidator(
+                        //       errorText: 'Please Enter The Days'),
+                        // ]),
+                        // onChanged: (val){
+                        //   setState(() {
+                        //     difference.value = val ;
+                        //     if(val.trim().isEmpty){
+                        //       difference.value = '';
+                        //       result = 0;
+                        //       return;
+                        //     }
+                        //     int a = int.parse(val);
+                        //       result = a*3;
+                        //   });
+                        // },
+                        readOnly: true,
+                        keyboardType: TextInputType.number,
+                        controller: dobController,
+                        onTap: (){
+                          selectDate();
+                        },
+                        suffixIcon: IconButton(
+                            onPressed: (){
+                              selectDate();
+                            },
+                            icon: const Icon(Icons.calendar_month)
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Aadhar Number',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Mother Aadhar Number',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Email Id',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Mother Email Address',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Annual Income',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Mother annual Income',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Landline Number',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter Landline Number',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+
+                  ],
+                ),
                 isActive: currentStep >= 0,
                 state: currentStep >= 4 ? FxStepState.complete : FxStepState.disabled,
               ),
               FxStep(
                 title: const Text('Step 6'),
-                content: const Text('This is the Third step.'),
+                content:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+                    Center(child: Text('sibling information'.toUpperCase(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 19,
+                            color: AppThemes.primaryColor))),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text('Name',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        hintText: 'Enter Full Name',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        obSecure: false,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('Class',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 40,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          organizationMother,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
+                        value: selectClassSibbling,
+                        items: selectClassSibblingItem.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectClassSibbling = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+                    const Text('School/Collage Currently Studing',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,color: Colors.black)),
+                    const SizedBox(height: 10,),
+                    SizedBox(
+                      height: 40,
+                      child: CommonTextfield(
+                        obSecure: false,
+                        hintText: 'Enter School/Collage Name',
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        /*validator: MultiValidator([
+                            RequiredValidator(
+                                errorText:
+                                'Please Enter Referral Code'),
+                            // PatternValidator(r'^[0-9]',
+                            //     errorText: 'Only digits are allow'),
+                            // MinLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number must be at list 10 digit'),
+                            // MaxLengthValidator(10,
+                            //     errorText:
+                            //         'Phone number is not greater then 10 digit'),
+                          ]),*/
+                      ),
+                    ),
+                    const SizedBox(height: 25,),
+
+                  ],
+                ),
                 isActive: currentStep >= 0,
                 state: currentStep >= 5 ? FxStepState.complete : FxStepState.disabled,
               ),
@@ -530,7 +1646,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
       // bottomNavigationBar: Container(
       //   height: 50,
-      //   child: controlBuilders,
+      //   child: controlBuilders(context,),
       // ),
     );
   }
@@ -541,7 +1657,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         children: [
           ElevatedButton(
             onPressed: details.onStepContinue,
-            child: const Text('Next'),
+            child: const Text('Continue'),
           ),
         ],
       ),

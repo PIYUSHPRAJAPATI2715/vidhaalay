@@ -94,7 +94,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
           color: Colors.grey,
           fontSize: 15,
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10), // Adjust the vertical padding here
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5), // Adjust the vertical padding here
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.grey, width: 0.5),
           borderRadius: BorderRadius.circular(25),
