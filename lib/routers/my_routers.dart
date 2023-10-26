@@ -38,7 +38,6 @@ class MyRouters{
   static var favoritesScreen = "/favoritesScreen";
   static var registrationScreen = "/registrationScreen";
   static var drawerForUser = "/drawerForUser";
-3
   static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
 
   static var route = [
