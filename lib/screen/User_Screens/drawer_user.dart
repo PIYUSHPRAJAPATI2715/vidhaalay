@@ -86,29 +86,31 @@ class _DrawerForUserState extends State<DrawerForUser> {
                         ),
                       ),
                       ListTile(
+                        onTap: (){
+                          Get.toNamed(MyRouters.myProfileScreen);
+                        },
                         visualDensity:
                         const VisualDensity(
                             horizontal: -4, vertical: -4),
                         title: bottomController.currentIndex.value == 0
                             ? const Text(
-                          'Cart',
+                          'My Profile',
                           style: TextStyle(
                               color: AppThemes.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w500),
                         )
                             : const Text(
-                          'Cart',
+                          'My Profile',
                           style: TextStyle(
                               color: AppThemes.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w500),
 
                         ),
-                        leading: Image.asset(
-                          AppAssets.cartIcon,
-                          height: 20,
-                          width: 24,
+                        leading: Icon(
+                          Icons.person_2_outlined,
+
                           color: bottomController.currentIndex.value ==
                               0 ? AppThemes.white : AppThemes.white,
                           // width: 23,
@@ -117,29 +119,30 @@ class _DrawerForUserState extends State<DrawerForUser> {
                       ),
                       const SizedBox(height: 10,),
                       ListTile(
+                        onTap: (){
+                          Get.toNamed(MyRouters.favoritesScreen);
+                        },
                         visualDensity:
                         const VisualDensity(
                             horizontal: -4, vertical: -4),
                         title: bottomController.currentIndex.value == 0
                             ? const Text(
-                          'My Subscription',
+                          'Favourite',
                           style: TextStyle(
                               color: AppThemes.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w500),
                         )
                             : const Text(
-                          'My Subscription',
+                          'Favourite',
                           style: TextStyle(
                               color: AppThemes.white,
                               fontSize: 18,
                               fontWeight: FontWeight.w500),
 
                         ),
-                        leading: Image.asset(
-                          AppAssets.mySubcription,
-                          height: 20,
-                          width: 24,
+                        leading: Icon(
+                          Icons.favorite_border,
                           color: bottomController.currentIndex.value ==
                               0 ? AppThemes.white : AppThemes.white,
                           // width: 23,

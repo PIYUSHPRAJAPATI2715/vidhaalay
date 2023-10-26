@@ -34,6 +34,7 @@ class AppAssets {
   static const String termsIcon = "assets/images/terms-condition.png";
   static const String changePassBg = "assets/images/change-pass-bg.png";
   static const String arrowBack = "assets/images/back-arrow.png";
+  static const String certificate = "assets/images/certificate2.svg";
 
 
 
