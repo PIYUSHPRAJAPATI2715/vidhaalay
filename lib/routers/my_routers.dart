@@ -61,7 +61,7 @@ class MyRouters{
     GetPage(name: '/changePasswordUser', page: () =>  const ChangePasswordUser()),
     GetPage(name: '/myProfileScreen', page: () =>  const MyProfileScreen()),
     GetPage(name: '/favoritesScreen', page: () =>  const FavoritesScreen()),
-    GetPage(name: '/registrationScreen', page: () =>  const RegistrationScreen()),
+    GetPage(name: '/registrationScreen', page: () =>   RegistrationScreen()),
 
     GetPage(name: '/drawerForUser', page: () =>  const DrawerForUser()),
   ];
