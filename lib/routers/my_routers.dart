@@ -15,6 +15,7 @@ import '../screen/User_Screens/change_password_user.dart';
 import '../screen/User_Screens/drawer_user.dart';
 import '../screen/User_Screens/favorites_screen.dart';
 import '../screen/User_Screens/my_profile_screen.dart';
+import '../screen/User_Screens/notification_user_screen.dart';
 import '../screen/User_Screens/registrtion_screens.dart';
 import '../screen/User_Screens/schools_details_Screen.dart';
 import '../screen/User_Screens/setting_screen.dart';
@@ -39,6 +40,7 @@ class MyRouters{
   static var registrationScreen = "/registrationScreen";
   static var drawerForUser = "/drawerForUser";
   static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
+  static var notificationScreenUser = "/notificationScreenUser";
 
   static var route = [
 
@@ -64,5 +66,6 @@ class MyRouters{
     GetPage(name: '/registrationScreen', page: () =>   RegistrationScreen()),
 
     GetPage(name: '/drawerForUser', page: () =>  const DrawerForUser()),
+    GetPage(name: '/notificationScreenUser', page: () =>  const NotificationScreenUser()),
   ];
 }

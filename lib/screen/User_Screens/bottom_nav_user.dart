@@ -47,7 +47,11 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                    onTap: () {controller.currentIndexUser.value = 0;} ,
+                    onTap: () {controller.currentIndexUser.value = 0;
+                      setState(() {
+
+                      });
+                      } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -70,7 +74,11 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {controller.currentIndexUser.value = 1;} ,
+                    onTap: () {controller.currentIndexUser.value = 1;
+                    setState(() {
+
+                    });
+                      } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -93,7 +101,11 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {controller.currentIndexUser.value = 2;} ,
+                    onTap: () {controller.currentIndexUser.value = 2;
+                    setState(() {
+
+                    });
+                      } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -116,7 +128,11 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {controller.currentIndexUser.value = 3;} ,
+                    onTap: () {controller.currentIndexUser.value = 3;
+
+                    setState(() {
+
+                    });} ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -139,7 +155,11 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){controller.currentIndexUser.value = 4;} ,
+                    onTap: (){controller.currentIndexUser.value = 4;
+
+                    setState(() {
+
+                    });} ,
                     child: Column(
                       children: [
                         Image.asset(

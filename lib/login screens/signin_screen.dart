@@ -23,7 +23,13 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   RxBool passWordVisibility = true.obs;
-
+  String category = 'Select category';
+  var categoryitems = [
+    'Select category',
+    'Users',
+    'Teachers',
+    'Student',
+  ];
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController userNameController = TextEditingController();
   // final TextEditingController emailController = TextEditingController();
@@ -192,6 +198,62 @@ class _SignInPageState extends State<SignInPage> {
                       SizedBox(
                         height: size.height * 0.030,
                       ),
+
+                      Container(
+                        height: 50,
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: DropdownButtonFormField(
+                          focusColor: Colors.grey.shade50,
+                          isExpanded: true,
+                          iconEnabledColor: const Color(0xff97949A),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          hint: Text(
+                            category,
+                            style: const TextStyle(
+                                color: Color(0xff463B57),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300),
+                            textAlign: TextAlign.justify,
+                          ),
+                          decoration: InputDecoration(
+                              fillColor: Colors.grey.shade50,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(25.0),
+                              ),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Color(0xffE3E3E3)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(25.0)))),
+                          value: category,
+                          items: categoryitems.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              category = newValue!;
+                            });
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+
                       const Text(
                         "Unique Id,Mobile No./Email Id",
                         style: TextStyle(
@@ -203,6 +265,7 @@ class _SignInPageState extends State<SignInPage> {
                      const SizedBox(
                         height: 10,
                       ),
+
                       CommonTextfield(
                         hintText: 'Enter mobile no.',
                         obSecure: false,

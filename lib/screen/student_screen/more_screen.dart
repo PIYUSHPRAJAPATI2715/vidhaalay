@@ -51,14 +51,14 @@ class _MoreScreenState extends State<MoreScreen> {
                     ),
                   ],
                 ),
-                child: Row(
+                child: const Row(
                   children: [
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: const[
-                           Text('User UI',style: TextStyle(
+                        children: [
+                           Text('Click here for User UI',style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                               fontSize: 18

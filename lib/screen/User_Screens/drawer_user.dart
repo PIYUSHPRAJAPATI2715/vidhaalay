@@ -110,13 +110,13 @@ class _DrawerForUserState extends State<DrawerForUser> {
                                 fontWeight: FontWeight.w500),
 
                           ),
-                          // leading: Icon(
-                          //   Icons.person_2_outlined,
-                          //   color: bottomController.currentIndex.value ==
-                          //       0 ? AppThemes.white : AppThemes.white,
-                          //   // width: 23,
-                          //   // height: 23,
-                          // ),
+                           leading: Icon(
+                             Icons.person_2_outlined,
+                             color: bottomController.currentIndex.value ==
+                                 0 ? AppThemes.white : AppThemes.white,
+                             // width: 23,
+                             // height: 23,
+                           ),
                         ),
                         const SizedBox(height: 10,),
                         ListTile(
@@ -152,6 +152,9 @@ class _DrawerForUserState extends State<DrawerForUser> {
                         ),
                         const SizedBox(height: 10,),
                         ListTile(
+                          onTap: (){
+                            Get.toNamed(MyRouters.notificationScreenUser);
+                          },
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),

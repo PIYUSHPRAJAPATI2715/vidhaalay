@@ -1626,7 +1626,7 @@ class _MultiFormStepperState extends State<MultiFormStepper> {
           data: ThemeData(
             backgroundColor: AppThemes.primaryColor,
             cardColor: AppThemes.primaryColor,
-            accentColor: AppThemes.primaryColor,
+            hintColor: AppThemes.primaryColor,
               colorScheme: const ColorScheme.light(
                   primary: AppThemes.black
               ),
