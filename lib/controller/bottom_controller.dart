@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../screen/User_Screens/drawer_user.dart';
 import '../screen/User_Screens/my_lecturs_screen.dart';
 import '../screen/User_Screens/notification_user_screen.dart';
 import '../screen/User_Screens/user_home_screen.dart';
@@ -37,7 +38,8 @@ class BottomController extends GetxController {
     const VideoScreen(),
     const MyLecturesScreen(),
     const NotificationScreenUser(),
-    const UserMoreScreen(),
+    // const DrawerForUser(),
+     const UserMoreScreen(),
 
   ];
 

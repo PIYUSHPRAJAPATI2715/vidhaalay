@@ -33,6 +33,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var theme = Theme.of(context);
     return Scaffold(
       backgroundColor: AppThemes.white,
       appBar: AppBar(
@@ -240,50 +241,58 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                             border: Border.all(
                                 color: AppThemes.textGray, width: 0.5),
                             borderRadius: BorderRadius.circular(50)),
-                        child: TabBar(
-                          physics: const NeverScrollableScrollPhysics(),
-                          tabs: const [
-                            Tab(
-                              child: Text(
-                                "Schools",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                        child:Theme(
+            data: theme.copyWith(
+            colorScheme: theme.colorScheme.copyWith(
+            surfaceVariant: Colors.transparent,
+            ),
+            ),
+                          child: TabBar(
+            indicatorColor: Colors.transparent,
+                            physics: const NeverScrollableScrollPhysics(),
+                            tabs: const [
+                              Tab(
+                                child: Text(
+                                  "Schools",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                ),
                               ),
-                            ),
-                            Tab(
-                              child: Text(
-                                "Colleges",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              Tab(
+                                child: Text(
+                                  "Colleges",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                ),
                               ),
-                            ),
-                            Tab(
-                              child: Text(
-                                "Institutes",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              Tab(
+                                child: Text(
+                                  "Institutes",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                ),
                               ),
-                            ),
-                          ],
-                          padding: EdgeInsets.zero,
-                          unselectedLabelColor: const Color(0xFF909090),
-                          labelColor: AppThemes.white,
-                          labelStyle: const TextStyle(
-                              color: Color(0xFF1A2E33),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                          unselectedLabelStyle: const TextStyle(
-                              color: Color(0xFF909090),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                          controller: tabController,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicator: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: AppThemes.primaryColor),
+                            ],
+                            padding: EdgeInsets.zero,
+                            unselectedLabelColor: const Color(0xFF909090),
+                            labelColor: AppThemes.white,
+                            labelStyle: const TextStyle(
+                                color: Color(0xFF1A2E33),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                            unselectedLabelStyle: const TextStyle(
+                                color: Color(0xFF909090),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                            controller: tabController,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicator: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: AppThemes.primaryColor),
+                          ),
                         ),
                       ),
                     ],

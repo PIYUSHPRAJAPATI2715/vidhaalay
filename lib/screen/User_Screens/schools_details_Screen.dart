@@ -21,7 +21,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: 6, vsync: this);
   }
 
   @override
@@ -33,6 +33,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -157,7 +158,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                       const SizedBox(
                         height: 6,
                       ),
-                       Row(
+                       const Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
@@ -197,84 +198,91 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                               width: 0.5),
                                           borderRadius:
                                               BorderRadius.circular(50)),
-                                      child: TabBar(
-                                        physics:
-                                            const AlwaysScrollableScrollPhysics(),
-                                        isScrollable: true,
-                                        tabs: const [
-                                          Tab(
-                                            child: Text(
-                                              "Info",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
+                                      child: Theme(
+                                data: theme.copyWith(
+                                colorScheme: theme.colorScheme.copyWith(
+                              surfaceVariant: Colors.transparent,
+                              ),
+                            ),
+                                        child: TabBar(
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(),
+                                          isScrollable: true,
+                                          tabs: const [
+                                            Tab(
+                                              child: Text(
+                                                "Info",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                          Tab(
-                                            child: Text(
-                                              "Top Student",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
+                                            Tab(
+                                              child: Text(
+                                                "Top Student",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                          Tab(
-                                            child: Text(
-                                              "Achievements",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
+                                            Tab(
+                                              child: Text(
+                                                "Achievements",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                          Tab(
-                                            child: Text(
-                                              "Gallery",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
+                                            Tab(
+                                              child: Text(
+                                                "Gallery",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                          Tab(
-                                            child: Text(
-                                              "Elegiblity point",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
+                                            Tab(
+                                              child: Text(
+                                                "Elegiblity point",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                          Tab(
-                                            child: Text(
-                                              "Fee Structure",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
+                                            Tab(
+                                              child: Text(
+                                                "Fee Structure",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                        padding: EdgeInsets.zero,
-                                        unselectedLabelColor:
-                                            const Color(0xFF909090),
-                                        labelColor: AppThemes.white,
-                                        labelStyle: const TextStyle(
-                                            color: Color(0xFF1A2E33),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                        unselectedLabelStyle: const TextStyle(
-                                            color: Color(0xFF909090),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                        controller: tabController,
-                                        indicatorSize: TabBarIndicatorSize.tab,
-                                        indicator: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            color: AppThemes.black),
+                                          ],
+                                          padding: EdgeInsets.zero,
+                                          unselectedLabelColor:
+                                              const Color(0xFF909090),
+                                          labelColor: AppThemes.white,
+                                          labelStyle: const TextStyle(
+                                              color: Color(0xFF1A2E33),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                          unselectedLabelStyle: const TextStyle(
+                                              color: Color(0xFF909090),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                          controller: tabController,
+                                          indicatorSize: TabBarIndicatorSize.tab,
+                                          indicator: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              color: AppThemes.black),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -363,7 +371,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         shrinkWrap: true,
                                         itemCount: 6,
                                         itemBuilder: (context, index) {
-                                          return  Column(
+                                          return  const Column(
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
@@ -435,7 +443,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         shrinkWrap: true,
                                         itemCount: 3,
                                         itemBuilder: (context, index) {
-                                          return  Column(
+                                          return  const Column(
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
@@ -672,7 +680,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                     ),
                                                   ),
                                                   children:  <Widget>[
-                                                    ListTile(
+                                                    const ListTile(
 
                                                       iconColor:
                                                           Color(0xFF07B6CA),
@@ -786,160 +794,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                               Column(
                                 children: [
                                   const SizedBox(height: 20,),
-                                  ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      itemCount: 3,
-                                      itemBuilder: (context, index) {
-                                        return Column(
-                                          children: <Widget>[
-
-                                            Container(
-                                              padding: const EdgeInsets.all(1),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  boxShadow: const [
-                                                    BoxShadow(
-                                                        color: Colors.black26,
-                                                        blurRadius: 1,
-                                                        offset: Offset(1, 1))
-                                                  ]),
-                                              child: Theme(
-                                                data: Theme.of(context).copyWith(
-                                                    dividerColor:
-                                                        Colors.transparent),
-                                                child: ExpansionTile(
-
-                                                  backgroundColor:
-                                                      const Color(0xFFFCFBFA),
-                                                  iconColor:
-                                                       Colors.black,
-                                                  collapsedIconColor:
-                                                       Colors.black,
-                                                  childrenPadding:
-                                                      const EdgeInsets.all(1),
-                                                  title: Text(
-                                                    "Class 1st",
-                                                    style: GoogleFonts.poppins(
-                                                      color:
-                                                          const Color(0xFF1D1D1D),
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  children:  <Widget>[
-                                                    ListTile(
-
-                                                      iconColor:
-                                                          Color(0xFF07B6CA),
-                                                      isThreeLine: true,
-                                                      subtitle: Column(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                'Admission Regestration',
-                                                                style: TextStyle(
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '\$500',
-                                                                style: TextStyle(
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 8,),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                '1st Quarter (Apr-Jul)',
-                                                                style: TextStyle(
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '\$2500',
-                                                                style: TextStyle(
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 8,),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                '2nd Quarter (Aug-Nov)',
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.grey,
-                                                                    fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '\$2500',
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.grey,
-                                                                    fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 8,),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                '3rd Quarter (Dec-Mar)',
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.grey,
-                                                                    fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '\$2500',
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.grey,
-                                                                    fontSize: 12,fontWeight: FontWeight.w300
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 8,),
-                                                        ],
-                                                      ),
-                                                      dense: true,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                          ],
-                                        );
-                                      }),
+                               Text("Fees structure")
                                 ],
                               ),
                             ],
