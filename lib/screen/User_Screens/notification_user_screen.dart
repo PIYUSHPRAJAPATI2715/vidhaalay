@@ -119,7 +119,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                 fontSize: 19,
                 fontWeight: FontWeight.w600),
           ),
-        ),
+        ),  
         body: SafeArea(
           child: Stack(
             children: [

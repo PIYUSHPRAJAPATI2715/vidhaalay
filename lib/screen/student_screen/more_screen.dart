@@ -51,7 +51,7 @@ class _MoreScreenState extends State<MoreScreen> {
                     ),
                   ],
                 ),
-                child: const Row(
+                child:  Row(
                   children: [
                     Expanded(
                       child: Column(

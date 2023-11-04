@@ -111,7 +111,8 @@ class _DrawerForUserState extends State<DrawerForUser> {
 
                           ),
                            leading: Icon(
-                             Icons.person_2_outlined,
+                             // Icons.person_2_outlined,
+                             Icons.person,
                              color: bottomController.currentIndex.value ==
                                  0 ? AppThemes.white : AppThemes.white,
                              // width: 23,

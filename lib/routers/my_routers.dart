@@ -20,6 +20,7 @@ import '../screen/User_Screens/registrtion_screens.dart';
 import '../screen/User_Screens/schools_details_Screen.dart';
 import '../screen/User_Screens/setting_screen.dart';
 import '../screen/student_screen/more_screen.dart';
+import '../screen/student_screen/my_profile_student.dart';
 
 
 
@@ -39,8 +40,10 @@ class MyRouters{
   static var favoritesScreen = "/favoritesScreen";
   static var registrationScreen = "/registrationScreen";
   static var drawerForUser = "/drawerForUser";
+  static var customDrawer = "/customDrawer";
   static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
   static var notificationScreenUser = "/notificationScreenUser";
+  static var myProfileScreenStu = "/myProfileScreenStu";
 
   static var route = [
 
@@ -55,6 +58,7 @@ class MyRouters{
 
     //student screens
     GetPage(name: '/bottomNavigationScreen', page: () =>  const BottomNavigationScreen()),
+    GetPage(name: '/myProfileScreenStu', page: () =>  const MyProfileScreenStu()),
 
     //user screens
     GetPage(name: '/bottomNavigationUserScreen', page: () =>  const BottomNavigationUserScreen()),
@@ -67,5 +71,6 @@ class MyRouters{
 
     GetPage(name: '/drawerForUser', page: () =>  const DrawerForUser()),
     GetPage(name: '/notificationScreenUser', page: () =>  const NotificationScreenUser()),
+    GetPage(name: '/customDrawer', page: () =>  const CustomDrawer()),
   ];
 }

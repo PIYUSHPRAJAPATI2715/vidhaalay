@@ -158,7 +158,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                       const SizedBox(
                         height: 6,
                       ),
-                       const Row(
+                        Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
@@ -371,7 +371,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         shrinkWrap: true,
                                         itemCount: 6,
                                         itemBuilder: (context, index) {
-                                          return  const Column(
+                                          return   Column(
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
@@ -443,7 +443,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         shrinkWrap: true,
                                         itemCount: 3,
                                         itemBuilder: (context, index) {
-                                          return  const Column(
+                                          return   Column(
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
@@ -680,7 +680,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                     ),
                                                   ),
                                                   children:  <Widget>[
-                                                    const ListTile(
+                                                     ListTile(
 
                                                       iconColor:
                                                           Color(0xFF07B6CA),

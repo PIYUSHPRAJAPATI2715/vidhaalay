@@ -17,6 +17,12 @@ class AppAssets {
   static const String cartIcon = "assets/images/cart.png";
   static const String myProfileBg = "assets/images/profile-bg.png";
   static const String camera = "assets/images/camera.png";
+  static const String greenInfo = "assets/images/green-info.png";
+
+
+  static const String syllabusImg = "assets/images/menu-syllabus.png";
+  static const String examTimeTableImg = "assets/images/menu-exam-timetable.png";
+  static const String examResultImg = "assets/images/menu-result.png";
 
 
 

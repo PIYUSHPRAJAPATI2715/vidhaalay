@@ -344,7 +344,7 @@ class _SignInPageState extends State<SignInPage> {
                       ElevatedButton(
                         onPressed: () {
                           if(formKey.currentState!.validate()){
-                              Get.offAllNamed(MyRouters.bottomNavigationScreen);
+                              Get.offAllNamed(MyRouters.customDrawer);
                           }
                         },
                         style: ElevatedButton.styleFrom(

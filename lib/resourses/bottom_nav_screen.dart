@@ -45,7 +45,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GestureDetector(
+                  InkWell(
                     onTap: () {controller.currentIndex.value = 0;
                     setState(() {
 
@@ -72,7 +72,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {controller.currentIndex.value = 1;
                     setState(() {
 
@@ -99,7 +99,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {controller.currentIndex.value = 2;
                     setState(() {
 
@@ -126,7 +126,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: (){controller.currentIndex.value = 3;
                     setState(() {
 
@@ -153,7 +153,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {controller.currentIndex.value = 4;
                     setState(() {
 
