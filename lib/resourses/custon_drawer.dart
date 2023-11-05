@@ -415,6 +415,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               onPressed: () {
                 Get.back();
               },
+
               child: const Text('No')
             ),
             TextButton(
