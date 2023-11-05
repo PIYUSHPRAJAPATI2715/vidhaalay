@@ -23,6 +23,7 @@ class AppAssets {
   static const String syllabusImg = "assets/images/menu-syllabus.png";
   static const String examTimeTableImg = "assets/images/menu-exam-timetable.png";
   static const String examResultImg = "assets/images/menu-result.png";
+  static const String greenSquare = "assets/images/green-square-bullet.png";
 
 
 

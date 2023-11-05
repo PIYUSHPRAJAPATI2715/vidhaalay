@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,9 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
-import '../../widgets/common_button.dart';
-import '../controller/bottom_controller.dart';
-import '../resourses/custon_drawer.dart';
 import '../widgets/common_textfield.dart';
 
 
@@ -23,12 +19,11 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   RxBool passWordVisibility = true.obs;
-  String category = 'Select category';
+  String category = 'Institute Finding';
   var categoryitems = [
-    'Select category',
-    'Users',
-    'Teachers',
-    'Student',
+    'Institute Finding',
+    'Faculty Login',
+    'Student Login',
   ];
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController userNameController = TextEditingController();

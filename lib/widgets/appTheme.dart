@@ -17,6 +17,7 @@ class AppThemes {
   static const Color lightPink = Color(0xFFfcddde);
   static const Color dividerColor = Color(0xFFe6e6e6);
   static const Color blueColor = Color(0xFF2e318f);
+  static const Color lightBlueColor = Color(0xFFf3fce8);
   static const Color navBarColor = Color(0xFF393939);
   static const Color lightBlue = Color(0xFF60a9e8);
   static const Color settingBgBlue = Color(0xFFa1d3eb);

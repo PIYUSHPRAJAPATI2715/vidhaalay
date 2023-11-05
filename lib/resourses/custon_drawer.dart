@@ -119,7 +119,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.favoritesScreen);
+                            Get.toNamed(MyRouters.syllabusScreen);
                           },
                           visualDensity:
                           const VisualDensity(
@@ -153,7 +153,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.notificationScreenUser);
+                            Get.toNamed(MyRouters.classTimeTableScreen);
                           },
                           visualDensity:
                           const VisualDensity(
@@ -187,7 +187,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.notificationScreenUser);
+                            Get.toNamed(MyRouters.examTimeTableScreen);
                           },
                           visualDensity:
                           const VisualDensity(
@@ -221,7 +221,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.notificationScreenUser);
+                            Get.toNamed(MyRouters.examResultScreen);
                           },
                           visualDensity:
                           const VisualDensity(
@@ -304,60 +304,65 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
+                        InkWell(
+                          onTap: (){
+                            _showAlertDialog(context);
+                          },
+                          child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                               color: AppThemes.white
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                 Row(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   mainAxisAlignment: MainAxisAlignment.start,
-                                   children: [
-                                     Text(
-                                      'Switch account'.toUpperCase(),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: AppThemes.primaryColor,
-                                      ),
-                                ),
-                                   ],
-                                 ),
-                                 SizedBox(
-                                   height: 10,
-                                 ),
-                                 Row(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   mainAxisAlignment: MainAxisAlignment.start,
-                                   children: [
-                                     Container(
-                                       height: 20,
-                                       width: 20,
-                                       decoration: BoxDecoration(
-                                         borderRadius: BorderRadius.circular(100)
+                            child: Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                 color: AppThemes.white
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                   Row(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     children: [
+                                       Text(
+                                        'Switch account'.toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: AppThemes.primaryColor,
+                                        ),
+                                  ),
+                                     ],
+                                   ),
+                                   const SizedBox(
+                                     height: 10,
+                                   ),
+                                   Row(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     children: [
+                                       Container(
+                                         height: 20,
+                                         width: 20,
+                                         decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(100)
+                                         ),
+                                           child: Image.asset(AppAssets.studentImg)),
+                                       const SizedBox(
+                                         width: 15,
                                        ),
-                                         child: Image.asset(AppAssets.studentImg)),
-                                     SizedBox(
-                                       width: 15,
-                                     ),
-                                     Text(
-                                      'Marry Wanny'.toUpperCase(),
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppThemes.black,
-                                      ),
-                                ),
-                                   ],
-                                 ),
-                              ],
-                            )
+                                       Text(
+                                        'Marry Wanny'.toUpperCase(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppThemes.black,
+                                        ),
+                                  ),
+                                     ],
+                                   ),
+                                ],
+                              )
+                            ),
                           ),
                         ),
                       ],
@@ -395,6 +400,32 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Switch Account'),
+          content: const Text('Do you want to switch account?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.offAllNamed(MyRouters.signInPage);
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

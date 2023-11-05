@@ -19,8 +19,11 @@ import '../screen/User_Screens/notification_user_screen.dart';
 import '../screen/User_Screens/registrtion_screens.dart';
 import '../screen/User_Screens/schools_details_Screen.dart';
 import '../screen/User_Screens/setting_screen.dart';
-import '../screen/student_screen/more_screen.dart';
+import '../screen/student_screen/class_timetable_screen.dart';
+import '../screen/student_screen/exam_result_screen.dart';
+import '../screen/student_screen/exam_timetable_screen.dart';
 import '../screen/student_screen/my_profile_student.dart';
+import '../screen/student_screen/syllabus_Screen.dart';
 
 
 
@@ -44,6 +47,10 @@ class MyRouters{
   static var bottomNavigationUserScreen = "/bottomNavigationUserScreen";
   static var notificationScreenUser = "/notificationScreenUser";
   static var myProfileScreenStu = "/myProfileScreenStu";
+  static var syllabusScreen = "/syllabusScreen";
+  static var classTimeTableScreen = "/classTimeTableScreen";
+  static var examTimeTableScreen = "/examTimeTableScreen";
+  static var examResultScreen = "/examResultScreen";
 
   static var route = [
 
@@ -72,5 +79,9 @@ class MyRouters{
     GetPage(name: '/drawerForUser', page: () =>  const DrawerForUser()),
     GetPage(name: '/notificationScreenUser', page: () =>  const NotificationScreenUser()),
     GetPage(name: '/customDrawer', page: () =>  const CustomDrawer()),
+    GetPage(name: '/syllabusScreen', page: () =>  const SyllabusScreen()),
+    GetPage(name: '/classTimeTableScreen', page: () =>  const ClassTimeTableScreen()),
+    GetPage(name: '/examTimeTableScreen', page: () =>  const ExamTimeTableScreen()),
+    GetPage(name: '/examResultScreen', page: () =>  const ExamResultScreen()),
   ];
 }
