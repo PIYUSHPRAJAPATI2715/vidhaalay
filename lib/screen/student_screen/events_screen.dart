@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -307,66 +308,71 @@ class _EventsScreenState extends State<EventsScreen> {
                           itemCount: 5,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 22,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    
-                                    Expanded(
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Image.asset(AppAssets.greenInfo,height: 15,),
-                                         const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text('Holi Celebration',
-                                                  style: GoogleFonts.poppins(
-                                                      color: AppThemes.blueColor,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600
-                                                  ),),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                                const Text('It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
-                                                  style: TextStyle(
-                                                      color: AppThemes.blueColor,
-                                                      fontSize: 9,
-                                                      fontWeight: FontWeight.w300,
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 4,
-                                                ),
-                                              ],
+                            return InkWell(
+                              onTap: (){
+                                Get.toNamed(MyRouters.celebrationScreenStu);
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 22,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+
+                                      Expanded(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Image.asset(AppAssets.greenInfo,height: 15,),
+                                           const SizedBox(
+                                              width: 8,
                                             ),
-                                          ),
-                                        ],
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text('Holi Celebration',
+                                                    style: GoogleFonts.poppins(
+                                                        color: AppThemes.blueColor,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w600
+                                                    ),),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  const Text('It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
+                                                    style: TextStyle(
+                                                        color: AppThemes.blueColor,
+                                                        fontSize: 9,
+                                                        fontWeight: FontWeight.w300,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 4,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '12:00',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.grey,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500
+                                      Text(
+                                        '12:00',
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.grey,
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         ),

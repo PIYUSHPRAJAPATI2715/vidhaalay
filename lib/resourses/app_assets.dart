@@ -43,6 +43,8 @@ class AppAssets {
   static const String arrowBack = "assets/images/back-arrow.png";
   static const String certificate = "assets/images/certificate2.svg";
   static const String notificaationIcon = "assets/images/info.png";
+  static const String location = "assets/images/location.png";
+  static const String holiImg = "assets/images/holi.png";
 
 
 
