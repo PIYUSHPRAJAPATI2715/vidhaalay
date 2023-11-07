@@ -18,6 +18,7 @@ class AppAssets {
   static const String myProfileBg = "assets/images/profile-bg.png";
   static const String camera = "assets/images/camera.png";
   static const String greenInfo = "assets/images/green-info.png";
+  static const String addMore = "assets/images/add-more.png";
 
 
   static const String syllabusImg = "assets/images/menu-syllabus.png";
@@ -45,6 +46,7 @@ class AppAssets {
   static const String notificaationIcon = "assets/images/info.png";
   static const String location = "assets/images/location.png";
   static const String holiImg = "assets/images/holi.png";
+  static const String personIcon = "assets/images/menu-attendance.png";
 
 
 

@@ -24,6 +24,7 @@ class AppThemes {
   static const Color changePassBg = Color(0xFFfbf9ff);
   static const Color textBrown = Color(0xFF404040);
   static const Color disableColor = Color(0xFFf2f2f2);
+  static const Color lightGreyColor = Color(0xFFf8f8f8);
 
 
 
