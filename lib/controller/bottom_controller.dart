@@ -11,6 +11,11 @@ import '../screen/student_screen/attendance_screen.dart';
 import '../screen/student_screen/events_screen.dart';
 import '../screen/student_screen/home_screen.dart';
 import '../screen/student_screen/more_screen.dart';
+import '../screen/teacher_flow/teacher_assigment_screen.dart';
+import '../screen/teacher_flow/teacher_attendance_Screen.dart';
+import '../screen/teacher_flow/teacher_event_screen.dart';
+import '../screen/teacher_flow/teacher_home_screen.dart';
+import '../screen/teacher_flow/teacher_more_screen.dart';
 
 
 
@@ -19,6 +24,7 @@ class BottomController extends GetxController {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<ScaffoldState> scaffoldKeyUser = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKeyTeacher = GlobalKey<ScaffoldState>();
 
   var screens = [
     const StudentHomeScreen(),
@@ -27,8 +33,16 @@ class BottomController extends GetxController {
     const EventsScreen(),
     const MoreScreen(),
   ];
+  var teacherScreens = [
+    const TeacherHomeScreen(),
+    const TeacherAttendanceScreen(),
+    const TeacherAssignmentScreen(),
+    const TeacherEventsScreen(),
+    const TeacherMoreScreen(),
+  ];
 
   RxInt currentIndex = 0.obs;
+  RxInt currentIndexTeacher = 0.obs;
 
   // user screens
   RxInt currentIndexUser = 0.obs;
