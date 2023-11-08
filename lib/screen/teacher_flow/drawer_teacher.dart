@@ -70,7 +70,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                                       color: AppThemes.white,
                                     ),
                                   ),
-
+                                  const Text(
+                                    "CLASS-12th", // Display user's name here
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppThemes.white,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -78,30 +85,31 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         ),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.myProfileScreen);
+                            Get.toNamed(MyRouters.teacherAttendanceScreen);
                           },
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
                           title: bottomController.currentIndexTeacher.value == 0
                               ? const Text(
-                            'My Profile',
+                            'Attendance',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
-                            'My Profile',
+                            'Attendance',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
 
                           ),
-                          leading: Icon(
-                            // Icons.person_2_outlined,
-                            Icons.person,
+                          leading: Image.asset(
+                            AppAssets.personIcon,
+                            height: 20,
+                            width: 24,
                             color: bottomController.currentIndexTeacher.value ==
                                 0 ? AppThemes.white : AppThemes.white,
                             // width: 23,
@@ -111,29 +119,31 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.favoritesScreen);
+                            Get.toNamed(MyRouters.createTimeTableScreen);
                           },
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
                           title: bottomController.currentIndexTeacher.value == 0
                               ? const Text(
-                            'Favourite',
+                            'Class Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
-                            'Favourite',
+                            'Class Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
 
                           ),
-                          leading: Icon(
-                            Icons.favorite_border,
+                          leading: Image.asset(
+                            AppAssets.attendanceIcon,
+                            height: 20,
+                            width: 24,
                             color: bottomController.currentIndexTeacher.value ==
                                 0 ? AppThemes.white : AppThemes.white,
                             // width: 23,
@@ -143,21 +153,123 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.notificationScreenUser);
+                            Get.toNamed(MyRouters.createExamTimeTable);
                           },
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
                           title: bottomController.currentIndexTeacher.value == 0
                               ? const Text(
-                            'Notification',
+                            'Exam Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
-                            'Notification',
+                            'Exam Timetable',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+
+                          ),
+                          leading: Image.asset(
+                            AppAssets.examTimeTableImg,
+                            height: 20,
+                            width: 24,
+                            color: bottomController.currentIndexTeacher.value ==
+                                0 ? AppThemes.white : AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: (){
+                            Get.toNamed(MyRouters.examResultScreenTeacher);
+                          },
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: bottomController.currentIndexTeacher.value == 0
+                              ? const Text(
+                            'Exam Result',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          )
+                              : const Text(
+                            'Exam Result',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+
+                          ),
+                          leading: Image.asset(
+                            AppAssets.examResultImg,
+                            height: 20,
+                            width: 24,
+                            color: bottomController.currentIndexTeacher.value ==
+                                0 ? AppThemes.white : AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: (){
+                            Get.toNamed(MyRouters.createEventScreen);
+                          },
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: bottomController.currentIndexTeacher.value == 0
+                              ? const Text(
+                            'Create Event',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          )
+                              : const Text(
+                            'Create Event',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+
+                          ),
+                          leading: Image.asset(
+                            AppAssets.eventsIcon,
+                            height: 20,
+                            width: 24,
+                            color: bottomController.currentIndexTeacher.value ==
+                                0 ? AppThemes.white : AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: (){
+                            Get.toNamed(MyRouters.sendNotificationScreen);
+                          },
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: bottomController.currentIndexTeacher.value == 0
+                              ? const Text(
+                            'Send Notification',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          )
+                              : const Text(
+                            'Send Notification',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 18,
@@ -208,20 +320,25 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           ),
                         ),
                         SizedBox(height: size.height*.16,),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                  color: Colors.white,
-                                  width: 2
-                              )
-                          ),
-                          child: const Text(
-                            'LOGOUT',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
+                        InkWell(
+                          onTap: (){
+                            Get.offAllNamed(MyRouters.signInPage);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    color: Colors.white,
+                                    width: 2
+                                )
+                            ),
+                            child: const Text(
+                              'LOGOUT',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

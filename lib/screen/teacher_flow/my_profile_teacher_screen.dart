@@ -24,7 +24,12 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
 
-
+  String selectClass = 'Select Subject';
+  var selectClassData = [
+    'Select Subject',
+    'Science', 'Sst', 'English', 'Hindi',
+    'Math', 'Computer',
+  ];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -128,6 +133,70 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                     const SizedBox(
                       height: 20,
                     ),
+                    Text('Subject',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: AppThemes.textGray
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      height: 50,
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: DropdownButtonFormField(
+                        focusColor: Colors.grey.shade50,
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff97949A),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        hint: Text(
+                          selectClass,
+                          style: const TextStyle(
+                              color: Color(0xff463B57),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.justify,
+                        ),
+                        decoration: InputDecoration(
+                            fillColor: Colors.grey.shade50,
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Color(0xffE3E3E3)),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(25.0)))),
+                        value: selectClass,
+                        items: selectClassData.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(
+                              items,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 14),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectClass = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Text('Email Address',
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
@@ -138,9 +207,10 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                     const SizedBox(
                       height: 5,
                     ),
-                    CommonTextfield(
+                    CommonTextfieldReadOnly(
                         obSecure: false,
                         controller: emailController,
+                        readOnly: true,
                         // validator: MultiValidator([
                         //   RequiredValidator(errorText: 'Password is required'),
                         //   MinLengthValidator(8,
@@ -156,7 +226,7 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text('Mobile Number',
+                    Text('Unique Id',
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
@@ -166,9 +236,10 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                     const SizedBox(
                       height: 5,
                     ),
-                    CommonTextfield(
+                    CommonTextfieldReadOnly(
                         obSecure: false,
                         controller: emailController,
+                        readOnly: true,
                         // validator: MultiValidator([
                         //   RequiredValidator(errorText: 'Password is required'),
                         //   MinLengthValidator(8,

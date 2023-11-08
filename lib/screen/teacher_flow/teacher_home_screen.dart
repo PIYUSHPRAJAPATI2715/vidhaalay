@@ -43,7 +43,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.toNamed(MyRouters.myProfileScreenStu);
+                        Get.toNamed(MyRouters.myProfileTeacher);
                       },
                       child: ClipOval(
                         child: Image.asset(

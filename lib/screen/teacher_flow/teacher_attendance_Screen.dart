@@ -126,7 +126,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
           ),
 
           Positioned.fill(
-            top: size.height*.230,
+            top: size.height*.235,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 10).copyWith(bottom: 0),
               height: size.height,

@@ -4,6 +4,7 @@ import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
 import '../login screens/forgot_pass_screen.dart';
 import '../login screens/intro_page_screen.dart';
+import '../login screens/otp_for_email.dart';
 import '../login screens/otp_screen.dart';
 import '../login screens/signin_screen.dart';
 import '../login screens/signup_screen.dart';
@@ -25,8 +26,18 @@ import '../screen/student_screen/exam_result_screen.dart';
 import '../screen/student_screen/exam_timetable_screen.dart';
 import '../screen/student_screen/my_profile_student.dart';
 import '../screen/student_screen/syllabus_Screen.dart';
+import '../screen/teacher_flow/createTimeTable.dart';
+import '../screen/teacher_flow/create_event_screen.dart';
+import '../screen/teacher_flow/create_exam_time.dart';
 import '../screen/teacher_flow/drawer_teacher.dart';
+import '../screen/teacher_flow/exam_result_Screen_teacher.dart';
 import '../screen/teacher_flow/my_profile_teacher_screen.dart';
+import '../screen/teacher_flow/send_notification_screen.dart';
+import '../screen/teacher_flow/student_details_screen.dart';
+import '../screen/teacher_flow/student_list_screen.dart';
+import '../screen/teacher_flow/teacher_attendance_Screen.dart';
+import '../screen/teacher_flow/teacher_classTime_table.dart';
+import '../screen/teacher_flow/teacher_exam_timetable_screen.dart';
 
 
 
@@ -37,6 +48,7 @@ class MyRouters{
   static var signupScreen = "/signupScreen";
   static var forgotPasswordScreen = "/forgotPasswordScreen";
   static var otpScreen = "/otpScreen";
+  static var otpScreenEmail = "/otpScreenEmail";
   static var createPasswordScreen = "/createPasswordScreen";
   static var bottomNavigationScreen = "/bottomNavigationScreen";
   static var schoolsDetailsScreen = "/schoolsDetailsScreen";
@@ -59,6 +71,16 @@ class MyRouters{
 
   //teacher
   static var drawerForTeacher = "/drawerForTeacher";
+  static var sendNotificationScreen = "/sendNotificationScreen";
+  static var studentListScreen = "/studentListScreen";
+  static var studentDetailsScreen = "/studentDetailsScreen";
+  static var createEventScreen = "/createEventScreen";
+  static var examResultScreenTeacher = "/examResultScreenTeacher";
+  static var teacherExamTimeTableScreen = "/teacherExamTimeTableScreen";
+  static var teacherClassTimeScreen = "/teacherClassTimeScreen";
+  static var teacherAttendanceScreen = "/teacherAttendanceScreen";
+  static var createTimeTableScreen = "/createTimeTableScreen";
+  static var createExamTimeTable = "/createExamTimeTable";
 
 
   static var route = [
@@ -70,6 +92,7 @@ class MyRouters{
     GetPage(name: '/signupScreen', page: () =>  const SignupScreen()),
     GetPage(name: '/forgotPasswordScreen', page: () =>  const ForgotPasswordScreen()),
     GetPage(name: '/otpScreen', page: () =>  const OtpScreen()),
+    GetPage(name: '/otpScreenEmail', page: () =>  const OtpScreenEmail()),
     GetPage(name: '/createPasswordScreen', page: () =>  const CreatePasswordScreen()),
 
     //student screens
@@ -97,5 +120,15 @@ class MyRouters{
     //teacher
     GetPage(name: '/drawerForTeacher', page: () =>  const DrawerForTeacher()),
     GetPage(name: '/myProfileTeacher', page: () =>  const MyProfileTeacher()),
+    GetPage(name: '/sendNotificationScreen', page: () =>  const SendNotificationScreen()),
+    GetPage(name: '/studentListScreen', page: () =>  const StudentListScreen()),
+    GetPage(name: '/studentDetailsScreen', page: () =>  const StudentDetailsScreen()),
+    GetPage(name: '/createEventScreen', page: () =>  const CreateEventScreen()),
+    GetPage(name: '/examResultScreenTeacher', page: () =>  const ExamResultScreenTeacher()),
+    GetPage(name: '/teacherExamTimeTableScreen', page: () =>  const TeacherExamTimeTableScreen()),
+    GetPage(name: '/teacherClassTimeScreen', page: () =>  const TeacherClassTimeScreen()),
+    GetPage(name: '/teacherAttendanceScreen', page: () =>  const TeacherAttendanceScreen()),
+    GetPage(name: '/createTimeTableScreen', page: () =>  const CreateTimeTableScreen()),
+    GetPage(name: '/createExamTimeTable', page: () =>  const CreateExamTimeTable()),
   ];
 }
