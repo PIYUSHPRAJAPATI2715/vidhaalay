@@ -4,6 +4,7 @@ import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
 import '../login screens/forgot_pass_screen.dart';
 import '../login screens/intro_page_screen.dart';
+import '../login screens/otp_for_email.dart';
 import '../login screens/otp_screen.dart';
 import '../login screens/signin_screen.dart';
 import '../login screens/signup_screen.dart';
@@ -47,6 +48,7 @@ class MyRouters{
   static var signupScreen = "/signupScreen";
   static var forgotPasswordScreen = "/forgotPasswordScreen";
   static var otpScreen = "/otpScreen";
+  static var otpScreenEmail = "/otpScreenEmail";
   static var createPasswordScreen = "/createPasswordScreen";
   static var bottomNavigationScreen = "/bottomNavigationScreen";
   static var schoolsDetailsScreen = "/schoolsDetailsScreen";
@@ -90,6 +92,7 @@ class MyRouters{
     GetPage(name: '/signupScreen', page: () =>  const SignupScreen()),
     GetPage(name: '/forgotPasswordScreen', page: () =>  const ForgotPasswordScreen()),
     GetPage(name: '/otpScreen', page: () =>  const OtpScreen()),
+    GetPage(name: '/otpScreenEmail', page: () =>  const OtpScreenEmail()),
     GetPage(name: '/createPasswordScreen', page: () =>  const CreatePasswordScreen()),
 
     //student screens

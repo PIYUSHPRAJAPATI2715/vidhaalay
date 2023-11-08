@@ -22,64 +22,59 @@ class _IntroPageScreenState extends State<IntroPageScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppThemes.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: size.height*.040),
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: size.width*.06),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Welcome',
-                      style: TextStyle(
-                          color: AppThemes.secondaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 20
-                      ),),
-                    const Text('Easy to search',
-                      style: TextStyle(
-                          color: AppThemes.primaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 23
-                      ),),
-                    SizedBox(
-                      height: size.height*.010,
-                    ),
-                    const Text('Lorem Ipsum is simply dummy text of\nthe printing and typesetting industry.',
-                      style: TextStyle(
-                          color: AppThemes.textGray,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13
-                      ),),
-                  ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: size.width*.06),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Welcome',
+                  style: TextStyle(
+                      color: AppThemes.secondaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 20
+                  ),),
+                const Text('Easy to search',
+                  style: TextStyle(
+                      color: AppThemes.primaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 23
+                  ),),
+                SizedBox(
+                  height: size.height*.010,
                 ),
-              ),
-              SizedBox(
-                height: size.height*.070,
-              ),
-              Image.asset(AppAssets.introImg,fit: BoxFit.fitWidth,),
-              SizedBox(
-                height: size.height*.030,
-              ),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: size.width*.06),
-                child: SizedBox(
-                  width: size.width,
-                  child: CommonButton(
-                    title: 'get started'.toUpperCase(),
-                    onPressed: (){
-                      Get.offAllNamed(MyRouters.signInPage);
-                    },
-                  ),
-                ),
-              )
-            ],
+                const Text('Lorem Ipsum is simply dummy text of\nthe printing and typesetting industry.',
+                  style: TextStyle(
+                      color: AppThemes.textGray,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13
+                  ),),
+              ],
+            ),
           ),
-        ),
+          SizedBox(
+            height: size.height*.070,
+          ),
+          Image.asset(AppAssets.introImg,fit: BoxFit.fitWidth,height: size.height*.40,width: size.width,),
+          SizedBox(
+            height: size.height*.035,
+          ),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: size.width*.06),
+            child: SizedBox(
+              width: size.width,
+              child: CommonButton(
+                title: 'get started'.toUpperCase(),
+                onPressed: (){
+                  Get.offAllNamed(MyRouters.signInPage);
+                },
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
