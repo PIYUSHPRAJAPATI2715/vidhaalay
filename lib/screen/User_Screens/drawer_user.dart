@@ -35,22 +35,22 @@ class _DrawerForUserState extends State<DrawerForUser> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Align(
-        alignment: Alignment.centerRight,
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppThemes.primaryColor,
-                      AppThemes.primaryColor,
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  )),
-            ),
-            SafeArea(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppThemes.primaryColor,
+                    AppThemes.primaryColor,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                )),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: SafeArea(
                 child: Container(
                   width: 200,
                   padding: const EdgeInsets.all(8.0),
@@ -219,20 +219,25 @@ class _DrawerForUserState extends State<DrawerForUser> {
                           ),
                         ),
                         SizedBox(height: size.height*.16,),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                  color: Colors.white,
-                                  width: 2
-                              )
-                          ),
-                          child: const Text(
-                            'LOGOUT',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(MyRouters.signInPage);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    color: Colors.white,
+                                    width: 2
+                                )
+                            ),
+                            child: const Text(
+                              'LOGOUT',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -240,36 +245,36 @@ class _DrawerForUserState extends State<DrawerForUser> {
                     ),
                   ),
                 )),
-            TweenAnimationBuilder(
-                tween: Tween<double>(begin: 0, end: value),
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInCirc,
-                builder: (_, double val, __) {
-                  return (Transform(
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, 0.001)..setEntry(0, 3, 200 * val)
-                      ..rotateY((pi / 6) * val),
-                    child: const Scaffold(
-                      body:  BottomNavigationUserScreen(),
-                    ),
-                  ));
-                }),
-            GestureDetector(
-              onHorizontalDragUpdate: (e) {
-                if (e.delta.dx > 0) {
-                  setState(() {
-                    value = 1;
-                  });
-                }
-                else {
-                  setState(() {
-                    value = 0;
-                  });
-                }
-              },
-            )
-          ],
-        ),
+          ),
+          TweenAnimationBuilder(
+              tween: Tween<double>(begin: 0, end: value),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInCirc,
+              builder: (_, double val, __) {
+                return (Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)..setEntry(0, 3, -200 * val)
+                    ..rotateY((pi / 6) * val),
+                  child: const Scaffold(
+                    body:  BottomNavigationUserScreen(),
+                  ),
+                ));
+              }),
+          GestureDetector(
+            onHorizontalDragUpdate: (e) {
+              if (e.delta.dx > 0) {
+                setState(() {
+                  value = 1;
+                });
+              }
+              else {
+                setState(() {
+                  value = 0;
+                });
+              }
+            },
+          )
+        ],
       ),
     );
   }

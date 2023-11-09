@@ -130,7 +130,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
               ),
             ),
             Container(
-              height: 190,
+              height: size.height*.260,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -142,7 +142,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                   children: [
                     const SizedBox(height: 10),
                     Container(
-                      height: 60,
+                      height: size.height*.070,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10)),
                       child: Row(
@@ -193,7 +193,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 80,
+                      height: size.height*.110,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
@@ -277,7 +277,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
             ),
 
             Positioned.fill(
-              top: size.height*.250,
+              top: size.height*.260,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
                 height: size.height,
