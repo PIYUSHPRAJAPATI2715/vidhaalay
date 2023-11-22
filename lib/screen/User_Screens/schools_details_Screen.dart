@@ -160,7 +160,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                       ),
                         Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           Icon(
                             Icons.location_pin,
                             color: Colors.red,
@@ -379,7 +379,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                         .spaceBetween,
                                                 children: [
                                                   Row(
-                                                    children: [
+                                                    children: const [
                                                       Icon(
                                                         Icons.arrow_right_alt,
                                                         size: 23,
@@ -400,7 +400,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                     ],
                                                   ),
                                                   Row(
-                                                    children: [
+                                                    children: const [
                                                       Icon(
                                                         Icons.arrow_right_alt,
                                                         size: 23,
@@ -451,7 +451,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                         .spaceBetween,
                                                 children: [
                                                   Row(
-                                                    children: [
+                                                    children: const [
                                                       Icon(
                                                         Icons.arrow_right_alt,
                                                         size: 23,
@@ -472,7 +472,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                     ],
                                                   ),
                                                   Row(
-                                                    children: [
+                                                    children: const [
                                                       Icon(
                                                         Icons.arrow_right_alt,
                                                         size: 23,
@@ -556,7 +556,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                           crossAxisCount: 2,
                                           mainAxisSpacing: 2,
                                           crossAxisSpacing: 10,
-                                          mainAxisExtent: 200),
+                                          mainAxisExtent: 250),
                                   itemBuilder: (context, index) {
                                     return Column(
                                       mainAxisAlignment:
@@ -689,7 +689,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                         children: [
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
+                                                            children: const [
                                                               Text(
                                                                 'Admission Regestration',
                                                                 style: TextStyle(
@@ -711,7 +711,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                           SizedBox(height: 8,),
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
+                                                            children: const [
                                                               Text(
                                                                 '1st Quarter (Apr-Jul)',
                                                                 style: TextStyle(
@@ -733,7 +733,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                           SizedBox(height: 8,),
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
+                                                            children: const [
                                                               Text(
                                                                 '2nd Quarter (Aug-Nov)',
                                                                 style: TextStyle(
@@ -755,7 +755,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                           SizedBox(height: 8,),
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
+                                                            children: const [
                                                               Text(
                                                                 '3rd Quarter (Dec-Mar)',
                                                                 style: TextStyle(
@@ -792,8 +792,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                 ],
                               ),
                               Column(
-                                children: [
-                                  const SizedBox(height: 20,),
+                                children: const [
+                                  SizedBox(height: 20,),
                                Text("Fees structure")
                                 ],
                               ),
