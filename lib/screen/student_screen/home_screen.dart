@@ -3,9 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../controller/bottom_controller.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
+import 'my_profile_student.dart';
 
 
 class StudentHomeScreen extends StatefulWidget {
@@ -36,14 +38,19 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               padding:  EdgeInsets.symmetric(horizontal: size.width*.035).copyWith(left: 0),
               child: Row(
                 children: [
-                  SvgPicture.asset(AppAssets.notification,width: 17,),
+                  Image.asset(AppAssets.notification,width: 17,),
                   SizedBox(
                     width: size.width*.065,
                   ),
-                  ClipOval(
-                    child: Image.asset(
-                      AppAssets.studentImg,
-                      width: 32,
+                  GestureDetector(
+                    onTap: (){
+                      Get.toNamed(MyRouters.myProfileScreenStu);
+                    },
+                    child: ClipOval(
+                      child: Image.asset(
+                        AppAssets.studentImg,
+                        width: 32,
+                      ),
                     ),
                   )
                 ],

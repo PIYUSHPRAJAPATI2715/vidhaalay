@@ -17,7 +17,18 @@ class AppThemes {
   static const Color lightPink = Color(0xFFfcddde);
   static const Color dividerColor = Color(0xFFe6e6e6);
   static const Color blueColor = Color(0xFF2e318f);
+  static const Color lightBlueColor = Color(0xFFf3fce8);
   static const Color navBarColor = Color(0xFF393939);
+  static const Color lightBlue = Color(0xFF60a9e8);
+  static const Color settingBgBlue = Color(0xFFa1d3eb);
+  static const Color changePassBg = Color(0xFFfbf9ff);
+  static const Color textBrown = Color(0xFF404040);
+  static const Color disableColor = Color(0xFFf2f2f2);
+  static const Color lightGreyColor = Color(0xFFf8f8f8);
+
+
+
+
 
   static TextStyle titleText1 = const TextStyle(
     color: Colors.black,

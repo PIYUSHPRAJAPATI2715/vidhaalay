@@ -45,8 +45,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GestureDetector(
-                    onTap: () => controller.currentIndex.value = 0,
+                  InkWell(
+                    onTap: () {controller.currentIndex.value = 0;
+                    setState(() {
+
+                    });
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -68,8 +72,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => controller.currentIndex.value = 1,
+                  InkWell(
+                    onTap: () {controller.currentIndex.value = 1;
+                    setState(() {
+
+                    });
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -91,8 +99,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => controller.currentIndex.value = 2,
+                  InkWell(
+                    onTap: () {controller.currentIndex.value = 2;
+                    setState(() {
+
+                    });
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -114,8 +126,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => controller.currentIndex.value = 3,
+                  InkWell(
+                    onTap: (){controller.currentIndex.value = 3;
+                    setState(() {
+
+                    });
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -137,8 +153,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => controller.currentIndex.value = 4,
+                  InkWell(
+                    onTap: () {controller.currentIndex.value = 4;
+                    setState(() {
+
+                    });
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(

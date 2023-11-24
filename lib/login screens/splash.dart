@@ -32,9 +32,6 @@ class _SplashState extends State<Splash> {
     );
   }
 
-
-
-
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
