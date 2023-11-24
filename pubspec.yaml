@@ -46,6 +46,8 @@ dependencies:
   fx_stepper: ^0.0.1
   table_calendar: ^3.0.9
   share_plus: ^7.2.1
+  fluttertoast: ^8.2.4
+
 #  carousel_slider:
 
 dev_dependencies:
