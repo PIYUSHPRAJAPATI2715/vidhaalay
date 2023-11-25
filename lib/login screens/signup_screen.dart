@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
+import '../repositories/register_repo.dart';
+import '../resourses/api_constant.dart';
 
 
 
@@ -22,13 +26,33 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController userNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
-
+  RxBool isPasswordShow = true.obs;
+  RxBool isPasswordShow1 = true.obs;
   bool value = false;
   RxBool checkboxColor = false.obs;
   bool showValidation = false;
+  bool showErrorMessage = false;
+
+  register() {
+    if (formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus!.unfocus();
+      registerRepo(context: context,name: userNameController.text.trim(),email: emailController.text.trim(),
+      password: passwordController.text.trim(),phone: phoneNumberController.text.trim()
+      ).then((value) async {
+            if(value.msg == "User registerd successfully"){
+               showToast(value.msg);
+               Get.toNamed(MyRouters.otpScreen);
+            }else{
+              showToast(value.msg);
+            }
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,12 +153,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: size.height * 0.030,
                       ),
                       CommonTextfield(
-                        hintText: 'Enter address',
+                        hintText: 'Enter Email',
                         obSecure: false,
-                        controller: passwordController,
+                        controller: emailController,
                         validator: (value){
                           if(value!.isEmpty){
-                            return "Address is required";
+                            return "email is required";
                           }
                           else{
                             return null;
@@ -147,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       CommonTextfield(
                         hintText: 'Mobile Number',
                         obSecure: false,
-                        controller: passwordController,
+                        controller: phoneNumberController,
                         validator: (value){
                           if(value!.isEmpty){
                             return "Mobile Number is required";
@@ -162,7 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       CommonTextfield(
                         hintText: 'Password',
-                        obSecure: false,
+                        obSecure: isPasswordShow.value,
                         controller: passwordController,
                         validator: (value){
                           if(value!.isEmpty){
@@ -172,13 +196,25 @@ class _SignupScreenState extends State<SignupScreen> {
                             return null;
                           }
                         },
+
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              isPasswordShow.value = !isPasswordShow.value;
+                            },
+                            child: Icon(
+                                isPasswordShow.value
+                                    ? CupertinoIcons.eye_slash_fill
+                                    : CupertinoIcons.eye,
+                                size: 18,
+                                color: Colors.grey),
+                          )
                       ),
                       SizedBox(
                         height: size.height * 0.030,
                       ),
                       CommonTextfield(
                         hintText: 'Confirm Pasword',
-                        obSecure: false,
+                        obSecure: isPasswordShow1.value,
                         controller: confirmController,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -189,6 +225,17 @@ class _SignupScreenState extends State<SignupScreen> {
                           }
                           return null;
                         },
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              isPasswordShow1.value = !isPasswordShow1.value;
+                            },
+                            child: Icon(
+                                isPasswordShow1.value
+                                    ? CupertinoIcons.eye_slash_fill
+                                    : CupertinoIcons.eye,
+                                size: 18,
+                                color: Colors.grey),
+                          )
                       ),
                       SizedBox(
                         height: size.height * 0.015,
@@ -196,38 +243,24 @@ class _SignupScreenState extends State<SignupScreen> {
                       Row(
                         children: [
                           Transform.scale(
-                            scale: 1.0,
-                            child:    Theme(
+                            scale: 1.1,
+                            child: Theme(
                               data: ThemeData(
-                                unselectedWidgetColor: checkboxColor
-                                    .value == false ? AppThemes.primaryColor
-                                    .withOpacity(.78) : AppThemes.primaryColor,
-
+                                  unselectedWidgetColor: checkboxColor.value == false
+                                      ? AppThemes.primaryColor
+                                      : const Color(0xFF64646F)
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 18),
-                                child: Checkbox(
-                                    side: BorderSide(
-                                        color: showValidation == false
-                                            ? AppThemes.primaryColor
-                                            : Colors.red,
-                                        width: .5),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(100)),
-                                    materialTapTargetSize: MaterialTapTargetSize
-                                        .shrinkWrap,
-                                    value: value,
-                                    activeColor: AppThemes
-                                        .primaryColor,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        value =
-                                        newValue!;
-                                        checkboxColor.value =
-                                        !newValue;
-                                      });
-                                    }),
-                              ),
+                              child: Checkbox(
+                                  shape: const CircleBorder(),
+                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  value: value,
+                                  activeColor: const Color(0xFF7ED957),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      value = newValue!;
+                                      checkboxColor.value = !newValue;
+                                    });
+                                  }),
                             ),
                           ),
 
@@ -269,7 +302,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if(formKey.currentState!.validate()){}
+                          register();
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

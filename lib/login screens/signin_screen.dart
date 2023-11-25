@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../repositories/login_repo.dart';
+import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
 
 
@@ -26,7 +28,7 @@ class _SignInPageState extends State<SignInPage> {
     'Student Login',
   ];
   final GlobalKey<FormState> formKey = GlobalKey();
-  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   // final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -37,6 +39,23 @@ class _SignInPageState extends State<SignInPage> {
   bool showValidation = false;
   TextEditingController _textEditingController = TextEditingController();
   String _displayedValue = '';
+
+  login() {
+    if (formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus!.unfocus();
+      loginRepo(context: context,type:'user',email: emailController.text.trim(),
+          password: passwordController.text.trim()
+      ).then((value) async {
+        if(value.msg == "User registerd successfully"){
+          showToast(value.msg);
+          Get.offAllNamed(MyRouters.customDrawer);
+        }else{
+          showToast(value.msg);
+        }
+      });
+    }
+  }
+
 
   @override
   void dispose() {
@@ -341,7 +360,7 @@ class _SignInPageState extends State<SignInPage> {
                         },
                         hintText: 'Enter mobile no.',
                         obSecure: false,
-                        controller: userNameController,
+                        controller: emailController,
                         validator: (value){
                           if(value!.isEmpty){
                             return "Email or Phone is required";
@@ -415,9 +434,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if(formKey.currentState!.validate()){
-                              Get.offAllNamed(MyRouters.customDrawer);
-                          }
+                          login();
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

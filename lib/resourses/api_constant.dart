@@ -13,6 +13,7 @@ class ApiUrls {
   static const String apiBaseUrl = '13.127.76.67:3000/api/';
   static const String register = "${apiBaseUrl}user/register";
   static const String login = "${apiBaseUrl}user/login";
+  static const String resetViaEmail = "${apiBaseUrl}user/resetViaEmail";
 
 
 

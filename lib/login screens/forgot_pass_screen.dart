@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../repositories/reset_via_email_repo.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -95,7 +96,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
 
                     InkWell(
-                      onTap: (){
+                      onTap: () {
+                        forgotPassOtpEmail(
+                          email: emailController.text,context: context
+                        );
                         Get.toNamed(
                             MyRouters.otpScreenEmail
                         );
