@@ -97,9 +97,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                     InkWell(
                       onTap: () {
-                        forgotPassOtpEmail(
-                          email: emailController.text,context: context
-                        );
+                        // forgotPassOtpEmail(
+                        //   // email: emailController.text,context: context
+                        // );
                         Get.toNamed(
                             MyRouters.otpScreenEmail
                         );
