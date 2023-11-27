@@ -37,21 +37,6 @@ class _SignupScreenState extends State<SignupScreen> {
   bool showValidation = false;
   bool showErrorMessage = false;
 
-  register() {
-    if (formKey.currentState!.validate()) {
-      FocusManager.instance.primaryFocus!.unfocus();
-      registerRepo(context: context,name: userNameController.text.trim(),email: emailController.text.trim(),
-      password: passwordController.text.trim(),phone: phoneNumberController.text.trim()
-      ).then((value) async {
-            if(value.msg == "User registerd successfully"){
-               showToast(value.msg);
-               Get.toNamed(MyRouters.otpScreen);
-            }else{
-              showToast(value.msg);
-            }
-      });
-    }
-  }
 
 
   @override
@@ -171,6 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       CommonTextfield(
                         hintText: 'Mobile Number',
                         obSecure: false,
+                        keyboardType: TextInputType.number,
                         controller: phoneNumberController,
                         validator: (value){
                           if(value!.isEmpty){
@@ -301,8 +287,19 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 100 * 0.2,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          register();
+                        onPressed: () async{
+                          if (formKey.currentState!.validate()) {
+                            registerRepo(context: context,name: userNameController.text,email: emailController.text,
+                                password: passwordController.text,phone: phoneNumberController.text
+                            ).then((value) async {
+                              if(value.status == true){
+                                showToast(value.msg);
+                                Get.toNamed(MyRouters.otpScreen);
+                              }else{
+                                showToast(value.msg);
+                              }
+                            });
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

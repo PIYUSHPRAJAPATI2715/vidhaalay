@@ -47,6 +47,7 @@ dependencies:
   table_calendar: ^3.0.9
   share_plus: ^7.2.1
   fluttertoast: ^8.2.4
+  http:
 
 #  carousel_slider:
 

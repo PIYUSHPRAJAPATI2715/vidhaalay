@@ -18,6 +18,7 @@ Future<RegisterModel> registerRepo({phone,required BuildContext context,name,ema
   map['email'] =  email;
   map['password'] = password;
 
+  log(map.toString());
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
 
@@ -27,7 +28,7 @@ Future<RegisterModel> registerRepo({phone,required BuildContext context,name,ema
   };
   http.Response response = await http.post(Uri.parse(ApiUrls.register),
       body: jsonEncode(map), headers: headers);
-  log(map.toString());
+
   log(response.body);
   // try {
   // http.Response response = await http.post(Uri.parse(ApiUrls.loginUser),
