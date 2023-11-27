@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/login_model.dart';
 import '../resourses/api_constant.dart';
@@ -19,9 +21,13 @@ Future<LoginModel> loginRepo({email,context,type,password}) async {
 
 
   print(map);
+  final headers = {
+    HttpHeaders.contentTypeHeader: 'application/json',
+    HttpHeaders.acceptHeader: 'application/json',
+  };
   // try {
   http.Response response = await http.post(Uri.parse(ApiUrls.login),
-      headers: await getAuthHeader(),
+      headers: headers,
       body: jsonEncode(map));
   log("Sign IN DATA${response.body}");
   // http.Response response = await http.post(Uri.parse(ApiUrls.loginUser),
@@ -34,7 +40,9 @@ Future<LoginModel> loginRepo({email,context,type,password}) async {
 
   } else {
     Helpers.hideLoader(loader);
-    print(jsonDecode(response.body));
+    if (kDebugMode) {
+      print(jsonDecode(response.body));
+    }
     return LoginModel(msg: jsonDecode(response.body)["message"], );
   }
   // }  catch (e) {

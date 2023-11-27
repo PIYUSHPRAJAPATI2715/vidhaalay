@@ -46,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
       loginRepo(context: context,type:'user',email: emailController.text.trim(),
           password: passwordController.text.trim()
       ).then((value) async {
-        if(value.msg == "User registerd successfully"){
+        if(value.status == true){
           showToast(value.msg);
           Get.offAllNamed(MyRouters.customDrawer);
         }else{
@@ -391,13 +391,6 @@ class _SignInPageState extends State<SignInPage> {
                             hintText: "Password",
                             validator: MultiValidator([
                               RequiredValidator(errorText: 'Password is required'),
-                              MinLengthValidator(8,
-                                  errorText:
-                                  'Password must be at least 8 digits long'),
-                              PatternValidator(
-                                  r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                                  errorText:
-                                  'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
                             ]),
                             suffixIcon: GestureDetector(
                               onTap: () {
@@ -433,8 +426,8 @@ class _SignInPageState extends State<SignInPage> {
                         height: 100 * 0.2,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          login();
+                        onPressed: () async{
+                          await login();
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

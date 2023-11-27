@@ -1,11 +1,13 @@
 class LoginModel {
   Data? data;
+  bool? status;
   String? msg;
 
-  LoginModel({this.data, this.msg});
+  LoginModel({this.data, this.status, this.msg});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    status = json['status'];
     msg = json['msg'];
   }
 
@@ -14,6 +16,7 @@ class LoginModel {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
+    data['status'] = this.status;
     data['msg'] = this.msg;
     return data;
   }

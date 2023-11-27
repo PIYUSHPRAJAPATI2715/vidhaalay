@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
@@ -174,14 +175,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintText: 'Password',
                         obSecure: isPasswordShow.value,
                         controller: passwordController,
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return "Password is required";
-                          }
-                          else{
-                            return null;
-                          }
-                        },
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Password is required'),
+                            MinLengthValidator(8,
+                                errorText:
+                                'Password must be at least 8 digits long'),
+                            PatternValidator(
+                                r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                                errorText:
+                                'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                          ]),
 
                           suffixIcon: GestureDetector(
                             onTap: () {
@@ -294,7 +297,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             ).then((value) async {
                               if(value.status == true){
                                 showToast(value.msg);
-                                Get.toNamed(MyRouters.otpScreen);
+                                Get.toNamed(MyRouters.signInPage);
                               }else{
                                 showToast(value.msg);
                               }
