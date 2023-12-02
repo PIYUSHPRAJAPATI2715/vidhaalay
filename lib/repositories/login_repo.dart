@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/login_model.dart';
 import '../resourses/api_constant.dart';
 import '../resourses/helper.dart';
@@ -13,6 +14,7 @@ import '../resourses/helper.dart';
 Future<LoginModel> loginRepo({email,context,type,password}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
+
   var map = <String, dynamic>{};
 
   map['email'] = email;
@@ -38,7 +40,8 @@ Future<LoginModel> loginRepo({email,context,type,password}) async {
     print(jsonDecode(response.body));
     return LoginModel.fromJson(jsonDecode(response.body));
 
-  } else {
+  }
+  else {
     Helpers.hideLoader(loader);
     if (kDebugMode) {
       print(jsonDecode(response.body));

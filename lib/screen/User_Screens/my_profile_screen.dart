@@ -1,12 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-
+import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import '../../controller/get_profile_controller.dart';
+import '../../repositories/update_profile_repo.dart';
+import '../../resourses/api_constant.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
@@ -24,7 +24,30 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
 
+  final getProfileController = Get.put(GetProfileController());
+  final GlobalKey<FormState> formKey = GlobalKey();
+  updateProfile() {
+    if (formKey.currentState!.validate()) {
+      FocusManager.instance.primaryFocus!.unfocus();
+      updateProfileRepo(context: context,email: emailController.text.trim(),
+          name: nameController.text.trim()
+      ).then((value) async {
+        if(value.status == true){
+          showToast(value.msg);
+        }else{
+          showToast(value.msg);
+        }
+      });
+    }
+  }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProfileController.getProfileData();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -95,125 +118,144 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           ),
           Positioned.fill(
             top: size.height*.39,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Name',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: AppThemes.textGray
-                    ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    CommonTextfield(
-                        obSecure: false,
-                        controller: nameController,
-                        // validator: MultiValidator([
-                        //   RequiredValidator(errorText: 'Password is required'),
-                        //   MinLengthValidator(8,
-                        //       errorText:
-                        //       'Password must be at least 8 digits long'),
-                        //   PatternValidator(
-                        //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                        //       errorText:
-                        //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                        // ]),
-                        hintText: 'Enter Your Name'
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text('Email Address',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: AppThemes.textGray
-                    ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    CommonTextfield(
-                        obSecure: false,
-                        controller: emailController,
-                        // validator: MultiValidator([
-                        //   RequiredValidator(errorText: 'Password is required'),
-                        //   MinLengthValidator(8,
-                        //       errorText:
-                        //       'Password must be at least 8 digits long'),
-                        //   PatternValidator(
-                        //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                        //       errorText:
-                        //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                        // ]),
-                        hintText: 'Enter Your Email'
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text('Mobile Number',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: AppThemes.textGray
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    CommonTextfield(
-                        obSecure: false,
-                        controller: emailController,
-                        // validator: MultiValidator([
-                        //   RequiredValidator(errorText: 'Password is required'),
-                        //   MinLengthValidator(8,
-                        //       errorText:
-                        //       'Password must be at least 8 digits long'),
-                        //   PatternValidator(
-                        //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                        //       errorText:
-                        //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                        // ]),
-                        hintText: 'Enter Mobile Number'
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // if(formKey.currentState!.validate()){
-                        //   Get.offAllNamed(MyRouters.bottomNavigationScreen);
-                        // }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.maxFinite, 0),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+              child: Obx(() {
+                return getProfileController.isProfileLoading.value == true ?
+                SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Name',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
                         ),
-                        backgroundColor: AppThemes.primaryColor,
-                      ),
-                      child: Text(
-                        "save".toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
+                        CommonTextfield(
+                            obSecure: false,
+                            controller: nameController,
+                            hintText:  getProfileController.getProfileModel.value.data!.name.toString(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text('Email Address',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                            obSecure: false,
+                            controller: emailController,
+                            readOnly: true,
+                            // validator: MultiValidator([
+                            //   RequiredValidator(errorText: 'Password is required'),
+                            //   MinLengthValidator(8,
+                            //       errorText:
+                            //       'Password must be at least 8 digits long'),
+                            //   PatternValidator(
+                            //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                            //       errorText:
+                            //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                            // ]),
+                            hintText: getProfileController.getProfileModel.value.data!.email.toString(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text('Mobile Number',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                            obSecure: false,
+                            controller: phoneController,
+                            // validator: MultiValidator([
+                            //   RequiredValidator(errorText: 'Password is required'),
+                            //   MinLengthValidator(8,
+                            //       errorText:
+                            //       'Password must be at least 8 digits long'),
+                            //   PatternValidator(
+                            //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                            //       errorText:
+                            //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                            // ]),
+                            hintText: getProfileController.getProfileModel.value.data!.mobile.toString(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text('Unique Id',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                          obSecure: false,
+                          readOnly: true,
+                          // validator: MultiValidator([
+                          //   RequiredValidator(errorText: 'Password is required'),
+                          //   MinLengthValidator(8,
+                          //       errorText:
+                          //       'Password must be at least 8 digits long'),
+                          //   PatternValidator(
+                          //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                          //       errorText:
+                          //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                          // ]),
+                          hintText: getProfileController.getProfileModel.value.data!.uniqueId.toString(),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            updateProfile();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.maxFinite, 0),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            backgroundColor: AppThemes.primaryColor,
+                          ),
+                          child: Text(
+                            "save".toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ) : CommonProgressIndicator();
+              })
           )
         ],
       ),

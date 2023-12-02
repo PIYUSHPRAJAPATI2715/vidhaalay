@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 
+import '../../controller/get_notification_controller.dart';
 import '../../routers/my_routers.dart';
 
 class NotificationScreenUser extends StatefulWidget {
@@ -30,9 +32,12 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
   var listOfDates;
   var todayDay;
 
+  final notificationController = Get.put(GetNotificationController());
+
   @override
   void initState() {
     super.initState();
+    notificationController.getNotificationData();
     year.value = DateFormat('yyyy').format(DateTime.now());
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
@@ -109,7 +114,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           backgroundColor: AppThemes.white,
           title: Text(
             "Event Calender",
@@ -295,111 +300,118 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                     borderRadius:
                         BorderRadius.only(topRight: Radius.circular(50)),
                   ),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
-                          child: Text(
-                            "today".toUpperCase(),
-                            style: GoogleFonts.poppins(
-                                color: AppThemes.black,
-                                fontSize: 21,
-                                fontWeight: FontWeight.w600),
+                  child: Obx(() {
+                    return notificationController.isDataLoading.value == true ?
+                    SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
+                            child: Text(
+                              "today".toUpperCase(),
+                              style: GoogleFonts.poppins(
+                                  color: AppThemes.black,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ListView.builder(
-                          itemCount: 5,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18).copyWith(top: 10),
-                                  color: const Color(0xffecffd2),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ListView.builder(
+                            itemCount: notificationController.getNotificationModel.value.data!.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              var items = notificationController.getNotificationModel.value.data![index];
+                              DateTime dateTime = DateTime.parse(items.createdAt.toString());
+                              String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+                              return Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18).copyWith(top: 10),
+                                    color: const Color(0xffecffd2),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
 
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 2.0),
-                                              child: Image.asset(
-                                                AppAssets.greenInfo,
-                                                height: 14,
-                                                width: 14,
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 2.0),
+                                                child: Image.asset(
+                                                  AppAssets.greenInfo,
+                                                  height: 14,
+                                                  width: 14,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        "Holi Celebration",
-                                                        style: GoogleFonts.poppins(
-                                                            color:
-                                                            AppThemes.primaryColor,
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight.w500),
-                                                      ),
-                                                      Text(
-                                                        "12:30 PM",
-                                                        style: GoogleFonts.poppins(
-                                                            color: Colors.grey,
-                                                            fontSize: 13,
-                                                            fontWeight: FontWeight.w400),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  
-                                                  Text(
-                                                    "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the",
-                                                    style: GoogleFonts.poppins(
-                                                        color: Colors.grey,
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                        FontWeight.w500),
-                                                  ),
-                                                ],
+                                              const SizedBox(
+                                                width: 10,
                                               ),
-                                            ),
-                                          ],
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          items.title.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                              color:
+                                                              AppThemes.primaryColor,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                              FontWeight.w500),
+                                                        ),
+                                                        Text(
+                                                          formattedDate.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                              color: Colors.grey,
+                                                              fontSize: 13,
+                                                              fontWeight: FontWeight.w400),
+                                                        ),
+                                                      ],
+                                                    ),
+
+                                                    Text(
+                                                      items.message.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                          color: Colors.grey,
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                          FontWeight.w500),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      
 
-                                    ],
+
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ): const CommonProgressIndicator();
+                  })
                 ),
               ),
             ],

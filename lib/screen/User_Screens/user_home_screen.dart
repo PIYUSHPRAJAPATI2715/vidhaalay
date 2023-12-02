@@ -5,6 +5,9 @@ import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import '../../controller/deshborad_controller.dart';
+import '../../widgets/circular_progressindicator.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -17,10 +20,12 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     with TickerProviderStateMixin {
   late TabController tabController;
   final TextEditingController searchController = TextEditingController();
+  final getSchoolListController  = Get.put(GetSchoolListController());
 
   @override
   void initState() {
     super.initState();
+    getSchoolListController.getSchoolListFunction();
     tabController = TabController(length: 3, vsync: this);
   }
 
@@ -39,7 +44,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title:  Row(
-          children: [
+          children: const[
             Icon(
               Icons.location_pin,
               color: AppThemes.primaryColor,
@@ -241,14 +246,14 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                             border: Border.all(
                                 color: AppThemes.textGray, width: 0.5),
                             borderRadius: BorderRadius.circular(50)),
-                        child:Theme(
-            data: theme.copyWith(
-            colorScheme: theme.colorScheme.copyWith(
-            surfaceVariant: Colors.transparent,
-            ),
-            ),
+                        child: Theme(
+                          data: theme.copyWith(
+                            colorScheme: theme.colorScheme.copyWith(
+                              surfaceVariant: Colors.transparent,
+                            ),
+                          ),
                           child: TabBar(
-            indicatorColor: Colors.transparent,
+                            indicatorColor: Colors.transparent,
                             physics: const NeverScrollableScrollPhysics(),
                             tabs: const [
                               Tab(
@@ -256,7 +261,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   "Schools",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                               Tab(
@@ -264,7 +270,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   "Colleges",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                               Tab(
@@ -272,7 +279,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   "Institutes",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.w500),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ],
@@ -305,18 +313,22 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             physics: const BouncingScrollPhysics(),
             controller: tabController,
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
-                child: ListView.builder(
-                  itemCount: 3,
+              Obx(() {
+                return getSchoolListController.isSchoolListLoading.value == true ? ListView.builder(
+                  itemCount: getSchoolListController
+                      .getSchoolListModel.value.data!.length,
                   shrinkWrap: true,
+                  padding: const EdgeInsets.all(16),
                   itemBuilder: (context, index) {
+                    var item = getSchoolListController.getSchoolListModel.value.data![index];
+                    String imageUrl = item.image.toString();
+                    imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
                     return GestureDetector(
                       onTap: () {
-                        Get.to(() => const SchoolsDetailsScreen(),
+                        Get.to(() =>  const SchoolsDetailsScreen(),
                             transition: Transition.fadeIn,
-                            duration: const Duration(milliseconds: 250));
+                            duration:
+                                const Duration(milliseconds: 250));
                       },
                       child: Column(
                         children: [
@@ -339,20 +351,31 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(12),
-                                      child: Image.asset(
-                                        AppAssets.collageImg,
+                                      child: CachedNetworkImage(
+                                        imageUrl: imageUrl.toString(),
                                         fit: BoxFit.cover,
                                         width: size.width,
                                         height: size.height * .16,
+                                        errorWidget: (__, _, ___) =>
+                                            Image.asset(
+                                              AppAssets.collageImg,
+                                              fit: BoxFit.cover,
+                                              width: size.width,
+                                              height: size.height * .16,
+                                            ),
+                                        placeholder: (__, _) =>
+                                        const Center(
+                                            child: CircularProgressIndicator()),
                                       ),
+
                                     ),
                                     Positioned(
                                         right: 10,
                                         top: 10,
                                         child: GestureDetector(
                                             onTap: () {
-                                              Get.toNamed(
-                                                  MyRouters.favoritesScreen);
+                                              Get.toNamed(MyRouters
+                                                  .favoritesScreen);
                                             },
                                             child: const Icon(
                                                 Icons.favorite_border,
@@ -369,9 +392,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Washington University',
+                                            item.name.toString(),
                                             style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w600,
+                                                fontWeight:
+                                                    FontWeight.w600,
                                                 fontSize: 17),
                                           ),
                                         ],
@@ -382,18 +406,23 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const Icon(
                                             Icons.location_pin,
                                             color: Colors.red,
                                             size: 18,
                                           ),
-                                          Text(
-                                            '4101,california',
-                                            style: GoogleFonts.poppins(
-                                                color: AppThemes.textGray,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
+                                          Expanded(
+                                            child: Text(
+                                              item.address.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  color:
+                                                      AppThemes.textGray,
+                                                  fontWeight:
+                                                      FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -410,8 +439,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                       ),
                     );
                   },
-                ),
-              ),
+                )
+                    : const CommonProgressIndicator();
+              }),
+
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 18),

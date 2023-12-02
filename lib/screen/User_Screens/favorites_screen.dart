@@ -155,9 +155,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: (){
-                  Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
-                      milliseconds: 250
-                  ));
+                  // Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
+                  //     milliseconds: 250
+                  // ));
                 },
                 child: Column(
                   children: [
@@ -252,9 +252,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: (){
-                  Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
-                      milliseconds: 250
-                  ));
+                  // Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
+                  //     milliseconds: 250
+                  // ));
                 },
                 child: Column(
                   children: [

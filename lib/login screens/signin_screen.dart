@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
@@ -46,9 +49,11 @@ class _SignInPageState extends State<SignInPage> {
       loginRepo(context: context,type:'user',email: emailController.text.trim(),
           password: passwordController.text.trim()
       ).then((value) async {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString("cookie", jsonEncode(value));
         if(value.status == true){
           showToast(value.msg);
-          Get.offAllNamed(MyRouters.customDrawer);
+          Get.offAllNamed(MyRouters.drawerForUser);
         }else{
           showToast(value.msg);
         }

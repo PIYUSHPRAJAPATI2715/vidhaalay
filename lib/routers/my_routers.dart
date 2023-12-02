@@ -107,7 +107,7 @@ class MyRouters{
 
     //user screens
     GetPage(name: '/bottomNavigationUserScreen', page: () =>  const BottomNavigationUserScreen()),
-    GetPage(name: '/schoolsDetailsScreen', page: () =>  const SchoolsDetailsScreen()),
+    // GetPage(name: '/schoolsDetailsScreen', page: () =>   SchoolsDetailsScreen()),
     GetPage(name: '/settingScreenUser', page: () =>  const SettingScreenUser()),
     GetPage(name: '/changePasswordUser', page: () =>  const ChangePasswordUser()),
     GetPage(name: '/myProfileScreen', page: () =>  const MyProfileScreen()),

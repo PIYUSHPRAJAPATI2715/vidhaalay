@@ -6,6 +6,8 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 
+import '../../repositories/change_password_repo.dart';
+import '../../resourses/api_constant.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
 
@@ -20,10 +22,26 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController oldPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   RxBool isPasswordShow = true.obs;
   RxBool isConfirmedPasswordShow = true.obs;
   RxBool isOldPasswordShow = true.obs;
+
+  updatePassword() {
+    FocusManager.instance.primaryFocus!.unfocus();
+    if (_formKey.currentState!.validate()) {
+      changePassRepo(context: context,oldPassword: oldPasswordController.text.trim(),
+          password: confirmPasswordController.text.trim(),type: 'user'
+      ).then((value) async {
+        if(value.status == true){
+          showToast(value.msg);
+        }else{
+          showToast(value.msg);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +114,7 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
 
                           CommonTextfield(
                               obSecure: isOldPasswordShow.value,
-                              validator: MultiValidator([
-                                RequiredValidator(errorText: 'Password is required'),
-                                MinLengthValidator(8,
-                                    errorText:
-                                    'Password must be at least 8 digits long'),
-                                PatternValidator(
-                                    r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                                    errorText:
-                                    'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                              ]),
+                              controller: oldPasswordController,
                               suffixIcon: GestureDetector(
                                 onTap: () {
                                   isOldPasswordShow.value = !isOldPasswordShow.value;
@@ -123,6 +132,7 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                             height: 25,
                           ),
                           CommonTextfield(
+                            controller: passwordController,
                               obSecure: isPasswordShow.value,
                               validator: (value) {
                                 if (value!.trim().isEmpty) {
@@ -151,6 +161,7 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                             height: 25,
                           ),
                           CommonTextfield(
+                            controller: confirmPasswordController,
                               obSecure: isConfirmedPasswordShow.value,
                               suffixIcon: GestureDetector(
                                 onTap: () {
@@ -170,9 +181,7 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              if(_formKey.currentState!.validate()){
-
-                              }
+                              updatePassword();
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(double.maxFinite, 0),
