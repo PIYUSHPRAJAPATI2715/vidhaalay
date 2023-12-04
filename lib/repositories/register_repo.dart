@@ -13,7 +13,7 @@ Future<RegisterModel> registerRepo({phone,required BuildContext context,name,ema
 
   var map = <String, dynamic>{};
 
-  map['phone'] = phone;
+  map['mobile'] = phone;
   map['name'] = name;
   map['email'] =  email;
   map['password'] = password;
@@ -38,8 +38,11 @@ Future<RegisterModel> registerRepo({phone,required BuildContext context,name,ema
     return RegisterModel.fromJson(jsonDecode(response.body));
   } else {
     Helpers.hideLoader(loader);
-    // NewHelper.createSnackBar(context, response.statusCode.toString());
-    throw Exception(response.body);
+    print(jsonDecode(response.body));
+    return RegisterModel(msg: jsonDecode(response.body)["msg"], );
+
+    // Helpers.createSnackBar(context, response.body.toString());
+    // throw Exception(response.body);
   }
   // if (response.statusCode == 200) {
   //   Helpers.hideLoader(loader);

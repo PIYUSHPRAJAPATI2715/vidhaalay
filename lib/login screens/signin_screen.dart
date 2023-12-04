@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/device_info_Controller.dart';
 import '../repositories/login_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
@@ -42,12 +43,13 @@ class _SignInPageState extends State<SignInPage> {
   bool showValidation = false;
   TextEditingController _textEditingController = TextEditingController();
   String _displayedValue = '';
+  final controller = Get.put(DeviceDetailsController());
 
   login() {
     if (formKey.currentState!.validate()) {
       FocusManager.instance.primaryFocus!.unfocus();
       loginRepo(context: context,type:'user',email: emailController.text.trim(),
-          password: passwordController.text.trim()
+          password: passwordController.text.trim(),deviceType: controller.deviceNameInformation.toString(),deviceToken: 'test'
       ).then((value) async {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString("cookie", jsonEncode(value));
@@ -61,6 +63,12 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.deviceName();
+  }
 
   @override
   void dispose() {
@@ -405,7 +413,7 @@ class _SignInPageState extends State<SignInPage> {
                                   isPasswordShow.value
                                       ? CupertinoIcons.eye_slash_fill
                                       : CupertinoIcons.eye,
-                                  size: 18,
+                                  size: 20,
                                   color: Colors.grey),
                             ));
                       }),

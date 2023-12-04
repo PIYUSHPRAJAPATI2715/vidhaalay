@@ -157,6 +157,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       CommonTextfield(
                         hintText: 'Mobile Number',
                         obSecure: false,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                         ],
                         keyboardType: TextInputType.number,
                         controller: phoneNumberController,
                         validator: (value){
@@ -171,37 +174,40 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: size.height * 0.030,
                       ),
-                      CommonTextfield(
-                        hintText: 'Password',
-                        obSecure: isPasswordShow.value,
-                        controller: passwordController,
-                          validator: MultiValidator([
-                            RequiredValidator(errorText: 'Password is required'),
-                            MinLengthValidator(8,
-                                errorText:
-                                'Password must be at least 8 digits long'),
-                            PatternValidator(
-                                r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                                errorText:
-                                'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                          ]),
+                     Obx(() {
+                       return  CommonTextfield(
+                           hintText: 'Password',
+                           obSecure: isPasswordShow.value,
+                           controller: passwordController,
+                           validator: MultiValidator([
+                             RequiredValidator(errorText: 'Password is required'),
+                             MinLengthValidator(8,
+                                 errorText:
+                                 'Password must be at least 8 digits long'),
+                             PatternValidator(
+                                 r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                                 errorText:
+                                 'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                           ]),
 
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              isPasswordShow.value = !isPasswordShow.value;
-                            },
-                            child: Icon(
-                                isPasswordShow.value
-                                    ? CupertinoIcons.eye_slash_fill
-                                    : CupertinoIcons.eye,
-                                size: 18,
-                                color: Colors.grey),
-                          )
-                      ),
+                           suffixIcon: GestureDetector(
+                             onTap: () {
+                               isPasswordShow.value = !isPasswordShow.value;
+                             },
+                             child: Icon(
+                                 isPasswordShow.value
+                                     ? CupertinoIcons.eye_slash_fill
+                                     : CupertinoIcons.eye,
+                                 size: 20,
+                                 color: Colors.grey),
+                           )
+                       );
+                     }),
                       SizedBox(
                         height: size.height * 0.030,
                       ),
-                      CommonTextfield(
+                  Obx(() {
+                    return      CommonTextfield(
                         hintText: 'Confirm Pasword',
                         obSecure: isPasswordShow1.value,
                         controller: confirmController,
@@ -214,18 +220,19 @@ class _SignupScreenState extends State<SignupScreen> {
                           }
                           return null;
                         },
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              isPasswordShow1.value = !isPasswordShow1.value;
-                            },
-                            child: Icon(
-                                isPasswordShow1.value
-                                    ? CupertinoIcons.eye_slash_fill
-                                    : CupertinoIcons.eye,
-                                size: 18,
-                                color: Colors.grey),
-                          )
-                      ),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            isPasswordShow1.value = !isPasswordShow1.value;
+                          },
+                          child: Icon(
+                              isPasswordShow1.value
+                                  ? CupertinoIcons.eye_slash_fill
+                                  : CupertinoIcons.eye,
+                              size: 20,
+                              color: Colors.grey),
+                        )
+                    );
+                  }),
                       SizedBox(
                         height: size.height * 0.015,
                       ),

@@ -8,6 +8,7 @@ import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../controller/deshborad_controller.dart';
 import '../../widgets/circular_progressindicator.dart';
+import 'address_screen.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title:  Row(
-          children: const[
+          children: [
             Icon(
               Icons.location_pin,
               color: AppThemes.primaryColor,
@@ -53,12 +54,17 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             SizedBox(
               width: 4,
             ),
-            Text(
-              '2282 Lakewood Drive',
-              style: TextStyle(
-                  color: AppThemes.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15),
+            GestureDetector(
+              onTap: (){
+                 Get.to(() =>AddressScreen());
+              },
+              child: Text(
+                '2282 Lakewood Drive',
+                style: TextStyle(
+                    color: AppThemes.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15),
+              ),
             ),
           ],
         ),

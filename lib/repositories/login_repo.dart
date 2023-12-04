@@ -11,7 +11,7 @@ import '../resourses/helper.dart';
 
 
 
-Future<LoginModel> loginRepo({email,context,type,password}) async {
+Future<LoginModel> loginRepo({email,context,type,password,deviceType,deviceToken}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
 
@@ -20,6 +20,8 @@ Future<LoginModel> loginRepo({email,context,type,password}) async {
   map['email'] = email;
   map['type'] =  type;
   map['password'] = password;
+  map['device_type'] = deviceType;
+  map['device_token'] = deviceToken;
 
 
   print(map);
@@ -43,10 +45,8 @@ Future<LoginModel> loginRepo({email,context,type,password}) async {
   }
   else {
     Helpers.hideLoader(loader);
-    if (kDebugMode) {
-      print(jsonDecode(response.body));
-    }
-    return LoginModel(msg: jsonDecode(response.body)["message"], );
+    print(jsonDecode(response.body));
+    return LoginModel(msg: jsonDecode(response.body)["msg"], );
   }
   // }  catch (e) {
   //   Helpers.hideLoader(loader);

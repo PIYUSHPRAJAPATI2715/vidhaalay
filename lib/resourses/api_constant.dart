@@ -20,6 +20,7 @@ class ApiUrls {
   static const String notificationUrl = "${apiBaseUrl}notification";
   static const String getFaqUrl = "${apiBaseUrl}common/faqs";
   static const String getProfileUrl = "${apiBaseUrl}user/my-profile";
+  static const String updateLocationUrl = "${apiBaseUrl}user/update-location";
   static const String updateProfileUrl = "${apiBaseUrl}user/update-profile";
   static const String changePassUrl = "${apiBaseUrl}user/changePassword";
   static const String termsConditionUrl = "${apiBaseUrl}common/pages/term-conditions";

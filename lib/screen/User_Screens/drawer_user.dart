@@ -1,12 +1,16 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/screen/User_Screens/setting_screen.dart';
 import 'package:vidhaalay_app/screen/User_Screens/user_home_screen.dart';
 
 import '../../controller/bottom_controller.dart';
+import '../../resourses/api_constant.dart';
 import '../../resourses/app_assets.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
@@ -29,7 +33,20 @@ class DrawerForUser extends StatefulWidget {
 class _DrawerForUserState extends State<DrawerForUser> {
 
   final bottomController = Get.put(BottomController());
-
+  logOutUser() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    LoginModel modelSiteSettings = LoginModel();
+    if (sharedPreference.getString("token") != null) {
+      modelSiteSettings =
+          LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
+    }
+    await sharedPreference.clear();
+    Get.offAllNamed(MyRouters.signInPage);
+    showToast("Logged out");
+    if (modelSiteSettings.data != null) {
+      sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+    }
+  }
   double value = 0;
   @override
   Widget build(BuildContext context) {
@@ -220,8 +237,8 @@ class _DrawerForUserState extends State<DrawerForUser> {
                         ),
                         SizedBox(height: size.height*.16,),
                         InkWell(
-                          onTap: (){
-                            Get.toNamed(MyRouters.signInPage);
+                          onTap: () async{
+                           await logOutUser();
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),

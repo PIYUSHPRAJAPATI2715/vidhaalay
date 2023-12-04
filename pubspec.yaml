@@ -49,6 +49,10 @@ dependencies:
   fluttertoast: ^8.2.4
   http:
   cached_network_image:
+  geocoding: ^2.1.1
+  geolocator: ^10.1.0
+  google_maps_flutter:
+  device_info_plus: ^9.1.0
 
 #  carousel_slider:
 

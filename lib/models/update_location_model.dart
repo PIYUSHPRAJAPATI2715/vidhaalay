@@ -1,11 +1,11 @@
-class LoginModel {
+class UpdateLocationModel {
   Data? data;
   bool? status;
   String? msg;
 
-  LoginModel({this.data, this.status, this.msg});
+  UpdateLocationModel({this.data, this.status, this.msg});
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
+  UpdateLocationModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     status = json['status'];
     msg = json['msg'];
@@ -30,6 +30,7 @@ class Data {
   String? mobile;
   Null? dob;
   Null? gender;
+  String? password;
   Null? profileImage;
   String? userType;
   Null? soGoogle;
@@ -45,7 +46,6 @@ class Data {
   int? status;
   String? createdAt;
   String? updatedAt;
-  String? token;
 
   Data(
       {this.id,
@@ -55,6 +55,7 @@ class Data {
         this.mobile,
         this.dob,
         this.gender,
+        this.password,
         this.profileImage,
         this.userType,
         this.soGoogle,
@@ -69,8 +70,7 @@ class Data {
         this.address,
         this.status,
         this.createdAt,
-        this.updatedAt,
-        this.token});
+        this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -80,6 +80,7 @@ class Data {
     mobile = json['mobile'];
     dob = json['dob'];
     gender = json['gender'];
+    password = json['password'];
     profileImage = json['profile_image'];
     userType = json['user_type'];
     soGoogle = json['so_google'];
@@ -95,7 +96,6 @@ class Data {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -107,6 +107,7 @@ class Data {
     data['mobile'] = this.mobile;
     data['dob'] = this.dob;
     data['gender'] = this.gender;
+    data['password'] = this.password;
     data['profile_image'] = this.profileImage;
     data['user_type'] = this.userType;
     data['so_google'] = this.soGoogle;
@@ -122,7 +123,6 @@ class Data {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    data['token'] = this.token;
     return data;
   }
 }
