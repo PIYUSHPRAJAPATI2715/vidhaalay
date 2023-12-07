@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vidhaalay_app">
-<!--    AIzaSyCHBSvyAp8KyuJJddBewC3XSQPNM-aNHF8-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -9,6 +8,8 @@
         android:label="vidhaalay_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyDDl-_JOy_bj4MyQhYbKbGkZ0sfpbTZDNU"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

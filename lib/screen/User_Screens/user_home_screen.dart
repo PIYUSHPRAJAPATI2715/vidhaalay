@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../controller/deshborad_controller.dart';
+import '../../controller/get_profile_controller.dart';
+import '../../models/login_model.dart';
+import '../../models/update_location_model.dart';
 import '../../widgets/circular_progressindicator.dart';
 import 'address_screen.dart';
 
@@ -22,10 +29,14 @@ class _UserHomeScreenState extends State<UserHomeScreen>
   late TabController tabController;
   final TextEditingController searchController = TextEditingController();
   final getSchoolListController  = Get.put(GetSchoolListController());
+  final getAddressCon  = Get.put(GetProfileController());
 
   @override
   void initState() {
     super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      getAddressCon.getProfileData();
+    });
     getSchoolListController.getSchoolListFunction();
     tabController = TabController(length: 3, vsync: this);
   }
@@ -46,26 +57,29 @@ class _UserHomeScreenState extends State<UserHomeScreen>
         automaticallyImplyLeading: false,
         title:  Row(
           children: [
-            Icon(
+            const Icon(
               Icons.location_pin,
               color: AppThemes.primaryColor,
               size: 20,
             ),
-            SizedBox(
+            const SizedBox(
               width: 4,
             ),
-            GestureDetector(
-              onTap: (){
-                 Get.to(() =>AddressScreen());
-              },
-              child: Text(
-                '2282 Lakewood Drive',
-                style: TextStyle(
-                    color: AppThemes.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15),
-              ),
-            ),
+           Obx(() {
+             return GestureDetector(
+               onTap: (){
+                 Get.to(() => const AddressScreen());
+               },
+               child: Text(
+                 getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
+                 :  'Select Address',
+                 style: const TextStyle(
+                     color: AppThemes.black,
+                     fontWeight: FontWeight.w600,
+                     fontSize: 15),
+               ),
+             );
+           })
           ],
         ),
         actions: [

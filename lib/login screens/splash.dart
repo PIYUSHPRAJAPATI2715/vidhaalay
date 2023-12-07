@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../routers/my_routers.dart';
 import '../widgets/appTheme.dart';
-
+import '../models/login_model.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -22,7 +23,13 @@ class _SplashState extends State<Splash> {
     Timer(const Duration(milliseconds: 2500), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       if(pref.getString("cookie") != null){
-        Get.offAllNamed(MyRouters.drawerForUser);
+        LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+        if(model.data!.emailVerified == true && model.data!.mobileVerified == true){
+          Get.offAllNamed(MyRouters.drawerForUser);
+        }else{
+          Get.offAllNamed(MyRouters.verifyOtpLogin);
+        }
+
       }else{
         Get.offAllNamed(MyRouters.introPageScreen);
     }});

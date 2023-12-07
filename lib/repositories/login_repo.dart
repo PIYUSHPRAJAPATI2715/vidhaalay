@@ -13,7 +13,7 @@ import '../resourses/helper.dart';
 
 Future<LoginModel> loginRepo({email,context,type,password,deviceType,deviceToken}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
-  Overlay.of(context)!.insert(loader);
+  Overlay.of(context).insert(loader);
 
   var map = <String, dynamic>{};
 
@@ -33,22 +33,15 @@ Future<LoginModel> loginRepo({email,context,type,password,deviceType,deviceToken
   http.Response response = await http.post(Uri.parse(ApiUrls.login),
       headers: headers,
       body: jsonEncode(map));
-  log("Sign IN DATA${response.body}");
+  log(response.body);
+  // try {
   // http.Response response = await http.post(Uri.parse(ApiUrls.loginUser),
   //     headers: await getAuthHeader(),body: jsonEncode(map) );
-
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
-    print(jsonDecode(response.body));
     return LoginModel.fromJson(jsonDecode(response.body));
-
-  }
-  else {
+  } else {
     Helpers.hideLoader(loader);
     print(jsonDecode(response.body));
     return LoginModel(msg: jsonDecode(response.body)["msg"], );
-  }
-  // }  catch (e) {
-  //   Helpers.hideLoader(loader);
-  //   return ModelCommonResponse(message: e.toString(), success: false);
-}
+}}

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/resourses/api_constant.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../repositories/reset_via_email_repo.dart';
@@ -15,6 +16,12 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+
+  bool emailContainerClicked = true;
+  bool smsContainerClicked = false;
+  String selectedContainerValue = '';
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -83,7 +90,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       "Forgot Password?",
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
                     ),
-                     Text(
+                    Text(
                       "Please select option to send link of reset password",
                       style: GoogleFonts.poppins(
                         fontSize: 13,
@@ -94,21 +101,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
-                        // forgotPassOtpEmail(
-                        //   // email: emailController.text,context: context
-                        // );
-                        Get.toNamed(
-                            MyRouters.forgetEmailScreen
-                        );
+                        setState(() {
+                          emailContainerClicked = true;
+                          smsContainerClicked = false;
+                          selectedContainerValue = 'Email';
+                        });
+
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 20),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: emailContainerClicked ? AppThemes.primaryColor : Colors.transparent,
+                            width: 2,
+                          ),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),
@@ -132,9 +142,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                   ),),
-                                const SizedBox(
-                                   height: 5,
-                                 ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Text('if you have email linked to your account',
                                     style: GoogleFonts.poppins(
                                       fontSize: 13,
@@ -152,17 +162,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    InkWell(
+                    GestureDetector(
                       onTap: (){
-                        Get.toNamed(
-                            MyRouters.forgetSmsScreen
-                        );
+                        setState(() {
+                          smsContainerClicked = true;
+                          emailContainerClicked = false;
+                          selectedContainerValue = 'SMS';
+                        });
+
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: smsContainerClicked ? AppThemes.primaryColor : Colors.transparent,
+                            width: 2,
+                          ),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),
@@ -181,12 +198,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                 const Text('Reset via SMS',style: TextStyle(
+                                  const Text('Reset via SMS',style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18
                                   ),),
-                                 const SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text('if you have email linked to your account',
@@ -208,9 +225,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.toNamed(
-                            MyRouters.otpScreen
-                        );
+                        if (selectedContainerValue.isNotEmpty) {
+                          if (selectedContainerValue == 'Email') {
+                            Get.toNamed(
+                                MyRouters.forgetEmailScreen
+                            );
+                          }
+                          else if (selectedContainerValue == 'SMS') {
+                            Get.toNamed(
+                                MyRouters.forgetSmsScreen
+                            );
+                          }
+                        } else {
+                          showToast('Please Select One');
+
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.maxFinite, 0),
@@ -231,7 +260,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ],
                 ),
-              ),
+              )
             ),
           ),
         ],

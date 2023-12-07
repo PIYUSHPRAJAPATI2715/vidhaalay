@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "61228273362",
+    "project_id": "vidhaalay-a464e",
+    "storage_bucket": "vidhaalay-a464e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61228273362:android:eeaf3af26b600ce1bda70b",
+        "android_client_info": {
+          "package_name": "com.example.vidhaalay_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY5cvQkFpUL3B41kq2aJmJvAkhvX9S3_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,7 +40,7 @@ class Data {
   int? status;
   String? createdAt;
   String? updatedAt;
-  Null? favourite;
+  dynamic favourite;
 
   Data({this.id, this.name, this.address, this.image, this.openTime, this.closeTime, this.info, this.topStudents, this.achievements, this.gallery, this.feeStructure, this.status, this.createdAt, this.updatedAt, this.favourite});
 

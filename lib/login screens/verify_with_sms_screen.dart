@@ -1,27 +1,41 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pinput/pinput.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/appTheme.dart';
-import '../repositories/reset_via_email_repo.dart';
+import '../models/login_model.dart';
+import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
+import '../routers/my_routers.dart';
 import '../widgets/common_textfield.dart';
 
-class ForgetSmsScreen extends StatefulWidget {
-  const ForgetSmsScreen({Key? key}) : super(key: key);
+class VerifyWithSms extends StatefulWidget {
+  const VerifyWithSms({Key? key}) : super(key: key);
 
   @override
-  State<ForgetSmsScreen> createState() => _ForgetSmsScreenState();
+  State<VerifyWithSms> createState() => _VerifyWithSmsState();
 }
 
-class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
+class _VerifyWithSmsState extends State<VerifyWithSms> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController mobileController = TextEditingController();
+  getEmail() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+    mobileController.text = model.data!.email.toString();
+  }
+  @override
+  void initState() {
+    super.initState();
+    getEmail();
+
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -111,6 +125,7 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                       CommonTextfield(
                         hintText: 'Enter Phone Number',
                         obSecure: false,
+                        readOnly: true,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
                         ],
@@ -131,15 +146,13 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                       const SizedBox(
                         height: 50,
                       ),
-
                       ElevatedButton(
                         onPressed: () {
-                          if (formKey99.currentState!.validate()) {
-                            forgotPassOtpSms(context: context,mobile: mobileController.text,
-                            ).then((value) async {
+                          if(formKey99.currentState!.validate()){
+                            verifySmsOtpSendRepo(mobile: mobileController.toString(),type: 'user',context: context).then((value) {
                               if(value.status == true){
                                 showToast(value.msg);
-                                Get.toNamed(MyRouters.otpScreenEmail);
+                                Get.offAllNamed(MyRouters.verifyOtpLogin);
                               }else{
                                 showToast(value.msg);
                               }
@@ -163,6 +176,7 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),

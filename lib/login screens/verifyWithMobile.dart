@@ -13,14 +13,14 @@ import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
 import '../routers/my_routers.dart';
 
-class OtpScreenEmail extends StatefulWidget {
-  const OtpScreenEmail({Key? key}) : super(key: key);
+class VerifyOtpLoginSms extends StatefulWidget {
+  const VerifyOtpLoginSms({Key? key}) : super(key: key);
 
   @override
-  State<OtpScreenEmail> createState() => _OtpScreenEmailState();
+  State<VerifyOtpLoginSms> createState() => _VerifyOtpLoginSmsState();
 }
 
-class _OtpScreenEmailState extends State<OtpScreenEmail> {
+class _VerifyOtpLoginSmsState extends State<VerifyOtpLoginSms> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController otpcontroller = TextEditingController();
@@ -185,7 +185,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
-                          verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) {
+                          verifySmsOtp(mobile: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) {
                             if(value.status == true){
                               showToast(value.msg);
                               Get.offAllNamed(MyRouters.verifyOtpLogin);

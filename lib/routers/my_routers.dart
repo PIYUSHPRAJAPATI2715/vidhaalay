@@ -11,6 +11,10 @@ import '../login screens/otp_screen.dart';
 import '../login screens/signin_screen.dart';
 import '../login screens/signup_screen.dart';
 import '../login screens/splash.dart';
+import '../login screens/verifyWithMobile.dart';
+import '../login screens/verify_screen_sms_mail.dart';
+import '../login screens/verify_with_mail.dart';
+import '../login screens/verify_with_sms_screen.dart';
 import '../resourses/bottom_nav_screen.dart';
 import '../resourses/custon_drawer.dart';
 import '../screen/User_Screens/bottom_nav_user.dart';
@@ -49,10 +53,13 @@ class MyRouters{
   static var signInPage = "/signInPage";
   static var signupScreen = "/signupScreen";
   static var forgotPasswordScreen = "/forgotPasswordScreen";
+  static var verifyOtpLogin = "/verifyOtpLogin";
+  static var verifyOtpLoginSms = "/verifyOtpLoginSms";
   static var otpScreen = "/otpScreen";
   static var otpScreenEmail = "/otpScreenEmail";
   static var forgetEmailScreen = "/forgetEmailScreen";
   static var forgetSmsScreen = "/forgetSmsScreen";
+  static var verifyWithSms = "/verifyWithSms";
   static var createPasswordScreen = "/createPasswordScreen";
   static var bottomNavigationScreen = "/bottomNavigationScreen";
   static var schoolsDetailsScreen = "/schoolsDetailsScreen";
@@ -72,6 +79,7 @@ class MyRouters{
   static var examResultScreen = "/examResultScreen";
   static var celebrationScreenStu = "/celebrationScreenStu";
   static var myProfileTeacher = "/myProfileTeacher";
+  static var verifyWithMail = "/verifyWithMail";
 
   //teacher
   static var drawerForTeacher = "/drawerForTeacher";
@@ -95,11 +103,15 @@ class MyRouters{
     GetPage(name: '/signInPage', page: () =>  const SignInPage()),
     GetPage(name: '/signupScreen', page: () =>  const SignupScreen()),
     GetPage(name: '/forgotPasswordScreen', page: () =>  const ForgotPasswordScreen()),
+    GetPage(name: '/verifyOtpLogin', page: () =>  const VerifyOtpLogin()),
     GetPage(name: '/forgetEmailScreen', page: () =>  const ForgetEmailScreen()),
+    GetPage(name: '/verifyWithMail', page: () =>  const VerifyWithMail()),
     GetPage(name: '/forgetSmsScreen', page: () =>  const ForgetSmsScreen()),
     GetPage(name: '/otpScreen', page: () =>  const OtpScreen()),
     GetPage(name: '/otpScreenEmail', page: () =>  const OtpScreenEmail()),
     GetPage(name: '/createPasswordScreen', page: () =>  const CreatePasswordScreen()),
+    GetPage(name: '/verifyWithSms', page: () =>  const VerifyWithSms()),
+    GetPage(name: '/verifyOtpLoginSms', page: () =>  const VerifyOtpLoginSms()),
 
     //student screens
     GetPage(name: '/bottomNavigationScreen', page: () =>  const BottomNavigationScreen()),

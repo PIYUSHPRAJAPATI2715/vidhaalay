@@ -28,6 +28,10 @@ class ApiUrls {
   static const String contactUsUrl = "${apiBaseUrl}common/pages/privacy-policy";
   static const String schoolListUrl = "${apiBaseUrl}school/list";
   static const String getSchoolDetails = "${apiBaseUrl}school/1";
+  static const String verifyOtpEmailSend = "${apiBaseUrl}user/resetViaEmail";
+  static const String verifyMobileOtp = "${apiBaseUrl}user/verifyOtp";
+  static const String verifyEmailOtp = "${apiBaseUrl}user/verifyOtpEmail";
+  static const String resetViaSMS = "${apiBaseUrl}user/resetViaSMS";
 
 
 

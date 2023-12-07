@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -46,7 +47,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProfileController.getProfileData();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      getProfileController.getProfileData();
+    });
+
   }
   @override
   Widget build(BuildContext context) {

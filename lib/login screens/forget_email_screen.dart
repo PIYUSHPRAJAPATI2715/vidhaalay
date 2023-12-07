@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -126,13 +127,11 @@ class _ForgetEmailScreenState extends State<ForgetEmailScreen> {
                         hintText: 'Enter Email',
                         obSecure: false,
                         controller: emailController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "email is required";
-                          } else {
-                            return null;
-                          }
-                        },
+                        validator: MultiValidator([
+                          EmailValidator(
+                              errorText: 'enter a valid email address'),
+                          RequiredValidator(errorText: 'Please enter a email')
+                        ]),
                       ),
                       const SizedBox(
                         height: 50,

@@ -27,10 +27,11 @@ Future<ModelCommon> forgotPassOtpEmail({email, context}) async {
     Helpers.hideLoader(loader);
     log("::::::::::Resend Otp:::::::::::${response.body}");
     return ModelCommon.fromJson(json.decode(response.body));
-  } else {
-    Helpers.createSnackBar(context, response.statusCode.toString());
+  }
+  else {
     Helpers.hideLoader(loader);
-    throw Exception(response.body);
+    print(jsonDecode(response.body));
+    return ModelCommon(msg: jsonDecode(response.body)["msg"], );
   }
 }
 
@@ -53,9 +54,10 @@ Future<ModelCommon> forgotPassOtpSms({mobile, context}) async {
     Helpers.hideLoader(loader);
     log("::::::::::Resend Otp:::::::::::${response.body}");
     return ModelCommon.fromJson(json.decode(response.body));
-  } else {
+  }
+  else {
     Helpers.hideLoader(loader);
-    return ModelCommon.fromJson(json.decode(response.body));
-    // throw Exception(response.body);
+    print(jsonDecode(response.body));
+    return ModelCommon(msg: jsonDecode(response.body)["msg"], );
   }
 }

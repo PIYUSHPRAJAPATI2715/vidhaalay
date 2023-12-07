@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -10,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
-import '../controller/device_info_Controller.dart';
 import '../repositories/login_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
@@ -43,19 +44,24 @@ class _SignInPageState extends State<SignInPage> {
   bool showValidation = false;
   TextEditingController _textEditingController = TextEditingController();
   String _displayedValue = '';
-  final controller = Get.put(DeviceDetailsController());
 
-  login() {
+
+
+  login(token) {
     if (formKey.currentState!.validate()) {
       FocusManager.instance.primaryFocus!.unfocus();
       loginRepo(context: context,type:'user',email: emailController.text.trim(),
-          password: passwordController.text.trim(),deviceType: controller.deviceNameInformation.toString(),deviceToken: 'test'
+          password: passwordController.text.trim(),deviceType: getDeviceType().toString() ,deviceToken: token
       ).then((value) async {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString("cookie", jsonEncode(value));
         if(value.status == true){
-          showToast(value.msg);
-          Get.offAllNamed(MyRouters.drawerForUser);
+          if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
+            Get.offAllNamed(MyRouters.drawerForUser);
+            showToast(value.msg);
+          }else{
+            Get.offAllNamed(MyRouters.verifyOtpLogin);
+          }
         }else{
           showToast(value.msg);
         }
@@ -63,11 +69,26 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  String getDeviceType() {
+    if (Platform.isAndroid) {
+      return 'A';
+    } else if (Platform.isIOS) {
+      return 'I';
+    } else {
+      return 'Unknown';
+    }
+
+  }
+
+  void getDevice(){
+    print('type is ${getDeviceType().toString()}');
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.deviceName();
+    getDeviceType();
+    getDevice();
   }
 
   @override
@@ -361,22 +382,22 @@ class _SignInPageState extends State<SignInPage> {
                         height: 10,
                       ),
                       CommonTextfield(
-                        prefix: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(_displayedValue,textAlign: TextAlign.center,),
-                          ],
-                        ),
-                        onChanged: (text) {
-                          updateDisplayedValue(text);
-                        },
-                        hintText: 'Enter mobile no.',
+                        // prefix: Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.center,
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Text(_displayedValue,textAlign: TextAlign.center,),
+                        //   ],
+                        // ),
+                        // onChanged: (text) {
+                        //   // updateDisplayedValue(text);
+                        // },
+                        hintText: 'Enter Email or Phone or Unique ID',
                         obSecure: false,
                         controller: emailController,
                         validator: (value){
                           if(value!.isEmpty){
-                            return "Email or Phone is required";
+                            return "Email or Phone or Unique ID is required";
                           }
                           else{
                             return null;
@@ -440,7 +461,8 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       ElevatedButton(
                         onPressed: () async{
-                          await login();
+                          String? token = await FirebaseMessaging.instance.getToken();
+                          login(token!);
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

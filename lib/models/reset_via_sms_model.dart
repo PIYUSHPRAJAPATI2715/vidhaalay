@@ -1,11 +1,11 @@
-class UpdateLocationModel {
+class ModelResetViaSMS {
   Data? data;
   bool? status;
   String? msg;
 
-  UpdateLocationModel({this.data, this.status, this.msg});
+  ModelResetViaSMS({this.data, this.status, this.msg});
 
-  UpdateLocationModel.fromJson(Map<String, dynamic> json) {
+  ModelResetViaSMS.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     status = json['status'];
     msg = json['msg'];
@@ -28,21 +28,22 @@ class Data {
   String? email;
   String? uniqueId;
   String? mobile;
-  dynamic dob;
-  dynamic gender;
+  Null? dob;
+  Null? gender;
   String? password;
-  dynamic profileImage;
+  Null? profileImage;
   String? userType;
-  dynamic soGoogle;
-  dynamic soFacebook;
-  dynamic emailOtp;
-  dynamic mobileOtp;
-  dynamic fcmtoken;
+  Null? soGoogle;
+  Null? soFacebook;
+  Null? emailOtp;
+  Null? mobileOtp;
+  Null? deviceType;
+  Null? fcmtoken;
   bool? emailVerified;
   bool? mobileVerified;
-  String? latitude;
-  String? longitude;
-  String? address;
+  Null? latitude;
+  Null? longitude;
+  Null? address;
   int? status;
   String? createdAt;
   String? updatedAt;
@@ -62,6 +63,7 @@ class Data {
         this.soFacebook,
         this.emailOtp,
         this.mobileOtp,
+        this.deviceType,
         this.fcmtoken,
         this.emailVerified,
         this.mobileVerified,
@@ -87,6 +89,7 @@ class Data {
     soFacebook = json['so_facebook'];
     emailOtp = json['email_otp'];
     mobileOtp = json['mobile_otp'];
+    deviceType = json['device_type'];
     fcmtoken = json['fcmtoken'];
     emailVerified = json['email_verified'];
     mobileVerified = json['mobile_verified'];
@@ -114,6 +117,7 @@ class Data {
     data['so_facebook'] = this.soFacebook;
     data['email_otp'] = this.emailOtp;
     data['mobile_otp'] = this.mobileOtp;
+    data['device_type'] = this.deviceType;
     data['fcmtoken'] = this.fcmtoken;
     data['email_verified'] = this.emailVerified;
     data['mobile_verified'] = this.mobileVerified;

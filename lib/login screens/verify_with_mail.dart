@@ -1,27 +1,43 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../models/login_model.dart';
 import '../repositories/reset_via_email_repo.dart';
+import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
 
-class ForgetSmsScreen extends StatefulWidget {
-  const ForgetSmsScreen({Key? key}) : super(key: key);
+class VerifyWithMail extends StatefulWidget {
+  const VerifyWithMail({Key? key}) : super(key: key);
 
   @override
-  State<ForgetSmsScreen> createState() => _ForgetSmsScreenState();
+  State<VerifyWithMail> createState() => _VerifyWithMailState();
 }
 
-class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
+class _VerifyWithMailState extends State<VerifyWithMail> {
 
+  getEmail() async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+    emailController.text = model.data!.email.toString();
+  }
+  @override
+  void initState() {
+    super.initState();
+    getEmail();
+
+  }
   final formKey99 = GlobalKey<FormState>();
-  TextEditingController mobileController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -88,7 +104,7 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                         height: 30,
                       ),
                       const Text(
-                        'Enter Your Phone Number?',
+                        'Enter your email',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
@@ -98,7 +114,7 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                         height: 9,
                       ),
                       Text(
-                        'Enter Your Phone Number For Forgot Password',
+                        'Enter Your Email For Verify Email',
                         style: GoogleFonts.poppins(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -109,33 +125,23 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                         height: 33,
                       ),
                       CommonTextfield(
-                        hintText: 'Enter Phone Number',
+                        hintText: 'Enter Email',
                         obSecure: false,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                        ],
-                        keyboardType: TextInputType.number,
-                        controller: mobileController,
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return "Mobile Number is required";
-                          }
-                          else if(value.length<10){
-                            return 'please enter correct number';
-                          }
-                          else{
-                            return null;
-                          }
-                        },
+                        readOnly: true,
+                        controller: emailController,
+                        validator: MultiValidator([
+                          EmailValidator(
+                              errorText: 'enter a valid email address'),
+                          RequiredValidator(errorText: 'Please enter a email')
+                        ]),
                       ),
                       const SizedBox(
                         height: 50,
                       ),
-
                       ElevatedButton(
                         onPressed: () {
                           if (formKey99.currentState!.validate()) {
-                            forgotPassOtpSms(context: context,mobile: mobileController.text,
+                            verifyEmailOtpSend(context: context,email: emailController.text,type: 'user'
                             ).then((value) async {
                               if(value.status == true){
                                 showToast(value.msg);

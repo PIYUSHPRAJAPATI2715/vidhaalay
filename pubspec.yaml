@@ -40,7 +40,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   shared_preferences: ^2.2.0
   flutter_svg: ^1.1.6
-  pinput: ^2.2.21
+  pinput: ^ 3.0.1
   hidden_drawer_menu: ^3.0.1
   intl: ^0.18.1
   fx_stepper: ^0.0.1
@@ -48,11 +48,17 @@ dependencies:
   share_plus: ^7.2.1
   fluttertoast: ^8.2.4
   http:
-  cached_network_image:
+  cached_network_image: ^3.3.0
   geocoding: ^2.1.1
   geolocator: ^10.1.0
   google_maps_flutter:
-  device_info_plus: ^9.1.0
+  flutter_google_places_hoc081098:
+  google_api_headers:
+  flutter_google_maps_webservices: ^1.1.0
+  firebase_core: ^2.24.0
+  firebase_messaging: ^14.7.6
+  flutter_local_notifications: ^16.2.0
+
 
 #  carousel_slider:
 
