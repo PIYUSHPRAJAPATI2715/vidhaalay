@@ -157,21 +157,21 @@ class _SignupScreenState extends State<SignupScreen> {
                              hintText: 'Mobile Number',
                              obSecure: false,
                              inputFormatters: [
-                               LengthLimitingTextInputFormatter(10),
+                               LengthLimitingTextInputFormatter(14),
                              ],
-                             keyboardType: TextInputType.number,
+                             keyboardType: TextInputType.phone,
                              controller: phoneNumberController,
-                             validator: (value){
-                               if(value!.isEmpty){
-                                 return "Mobile Number is required";
-                               }
-                               else if(value.length<10){
-                                 return 'please enter correct number';
-                               }
-                               else{
-                                 return null;
-                               }
-                             },
+                             // validator: (value){
+                             //   if(value!.isEmpty){
+                             //     return "Mobile Number is required";
+                             //   }
+                             //   else if(value.length<10){
+                             //     return 'please enter correct number';
+                             //   }
+                             //   else{
+                             //     return null;
+                             //   }
+                             // },
                            ),
                            SizedBox(
                              height: size.height * 0.030,

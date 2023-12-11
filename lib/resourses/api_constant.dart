@@ -33,6 +33,8 @@ class ApiUrls {
   static const String verifyMobileOtp = "${apiBaseUrl}user/verifyOtp";
   static const String verifyEmailOtp = "${apiBaseUrl}user/verifyOtpEmail";
   static const String resetViaSMS = "${apiBaseUrl}user/resetViaSMS";
+  static const String otpByMobile = "${apiBaseUrl}user/otpByMobile";
+  static const String addMissionUrl = "${apiBaseUrl}addmissions";
 
 
 

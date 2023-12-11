@@ -185,7 +185,7 @@ class _VerifyOtpLoginSmsState extends State<VerifyOtpLoginSms> {
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
-                          verifySmsOtp(mobile: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) {
+                          verifySmsOtp(mobile: mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) {
                             if(value.status == true){
                               showToast(value.msg);
                               Get.offAllNamed(MyRouters.verifyOtpLogin);

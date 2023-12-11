@@ -8,6 +8,7 @@ import '../login screens/forgot_sms_screen.dart';
 import '../login screens/intro_page_screen.dart';
 import '../login screens/otp_for_email.dart';
 import '../login screens/otp_screen.dart';
+import '../login screens/otp_sms_screen.dart';
 import '../login screens/signin_screen.dart';
 import '../login screens/signup_screen.dart';
 import '../login screens/splash.dart';
@@ -93,6 +94,7 @@ class MyRouters{
   static var teacherAttendanceScreen = "/teacherAttendanceScreen";
   static var createTimeTableScreen = "/createTimeTableScreen";
   static var createExamTimeTable = "/createExamTimeTable";
+  static var otpSmsScreen = "/otpSmsScreen";
 
 
   static var route = [
@@ -109,6 +111,7 @@ class MyRouters{
     GetPage(name: '/forgetSmsScreen', page: () =>  const ForgetSmsScreen()),
     GetPage(name: '/otpScreen', page: () =>  const OtpScreen()),
     GetPage(name: '/otpScreenEmail', page: () =>  const OtpScreenEmail()),
+    GetPage(name: '/otpSmsScreen', page: () =>  const OtpSmsScreen()),
     GetPage(name: '/createPasswordScreen', page: () =>  const CreatePasswordScreen()),
     GetPage(name: '/verifyWithSms', page: () =>  const VerifyWithSms()),
     GetPage(name: '/verifyOtpLoginSms', page: () =>  const VerifyOtpLoginSms()),
