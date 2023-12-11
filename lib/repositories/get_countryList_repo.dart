@@ -40,7 +40,7 @@ Future<getCountryListModel> getCountryListRepo() async {
   }
     }
 
-Future<GetCityModel> getCityListRepo() async {
+Future<GetCityModel> getCityListRepo({id}) async {
 
   SharedPreferences pref = await SharedPreferences.getInstance();
   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
@@ -51,7 +51,7 @@ Future<GetCityModel> getCityListRepo() async {
   };
 
   // try {
-    http.Response response = await http.get(Uri.parse('${ApiUrls.getCityUrl}2'),
+    http.Response response = await http.get(Uri.parse(ApiUrls.getCityUrl+id),
         headers: headers);
 
     log(response.body.toString());

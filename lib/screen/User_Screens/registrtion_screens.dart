@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../controller/get_country_controller.dart';
+import '../../repositories/get_countryList_repo.dart';
 import '../../resourses/size.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
@@ -1074,11 +1075,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                items: getCountryController.getCountryModel.value.data!.country!.toList().map((value) {
                                  return DropdownMenuItem(
                                    value: value.id.toString(),
-                                   child: Text(
-                                     value.name.toString(),
-                                     style: TextStyle(
-                                         color: Colors.grey,
-                                         fontSize: AddSize.font14),
+                                   child: InkWell(
+                                     onTap: (){
+
+                                     },
+                                     child: Text(
+                                       value.name.toString(),
+                                       style: TextStyle(
+                                           color: Colors.grey,
+                                           fontSize: AddSize.font14),
+                                     ),
                                    ),
                                  );
                                }).toList(),
@@ -1172,11 +1178,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 items: getCountryController.getCountryModel.value.data!.state!.toList().map((value) {
                                   return DropdownMenuItem(
                                     value: value.id.toString(),
-                                    child: Text(
-                                      value.name.toString(),
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: AddSize.font14),
+                                    child: InkWell(
+                                      onTap: (){
+                                        print(value.id.toString());
+                                        getCityListRepo(id:value.id.toString(),).then((value) {
+                                          // print(value.id.toString());
+                                          getCountryController.isGetCityLoading.value = true;
+                                          getCountryController.getCityListModel.value = value;
+                                          Get.back();
+                                        });
+                                      },
+                                      child: Text(
+                                        value.name.toString(),
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: AddSize.font14),
+                                      ),
                                     ),
                                   );
                                 }).toList(),

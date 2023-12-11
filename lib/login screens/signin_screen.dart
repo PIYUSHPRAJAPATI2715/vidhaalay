@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +10,13 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../repositories/login_repo.dart';
+import '../repositories/social_login_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
 
@@ -187,36 +191,41 @@ class _SignInPageState extends State<SignInPage> {
                         padding: const EdgeInsets.all(3.0),
                         child: Row(
                           children: [
-                            Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-                                  decoration:BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
+                            InkWell(
+                              onTap: (){
+                                signInWithGoogle();
+                              },
+                              child: Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                                    decoration:BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
                         ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Image.asset('assets/images/google_logo.png',height: 25,),
-                                      const Text(
-                                        "Google",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppThemes.black,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Image.asset('assets/images/google_logo.png',height: 25,),
+                                        const Text(
+                                          "Google",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppThemes.black,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                      ],
+                                    ),
+                                  )
+                              ),
                             ),
                             SizedBox(
                               width: size.width*.060,
@@ -523,5 +532,34 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
+  }
+  signInWithGoogle() async {
+    await GoogleSignIn().signOut();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
+      throw Exception(e);
+    });
+
+    log(googleUser!.email.toString());
+
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    final value = await FirebaseAuth.instance.signInWithCredential(credential);
+    log(value.credential!.accessToken!);
+    //log(value.additionalUserInfo.a);
+    var fromToken = await FirebaseMessaging.instance.getToken();
+
+    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+      if (value.status == true) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        showToast(value.message);
+        // Get.offAllNamed(MyRouters.bottomNavbar);
+      } else {
+        showToast(value.message);
+      }
+    });
   }
 }
