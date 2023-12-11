@@ -10,6 +10,8 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../models/login_model.dart';
+import '../models/model_email_verify.dart';
+import '../models/verify_mobile_model.dart';
 
 class VerifyOtpLogin extends StatefulWidget {
   const VerifyOtpLogin({Key? key}) : super(key: key);
@@ -26,6 +28,21 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
 
   bool isEmail = false;
 
+  checkVerify() async {
+    SharedPreferences prefSms = await SharedPreferences.getInstance();
+    SharedPreferences prefEmail = await SharedPreferences.getInstance();
+    ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
+    VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
+    if(verifyMailModel.data!.emailVerified == true && verifySmsModel.data!.mobileVerified == true){
+      Get.toNamed(MyRouters.signInPage);
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    checkVerify();
+
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -217,27 +234,33 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          SharedPreferences pref = await SharedPreferences.getInstance();
-                          LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-                          print(model.data!.emailVerified);
+                          SharedPreferences prefSms = await SharedPreferences.getInstance();
+                          SharedPreferences prefEmail = await SharedPreferences.getInstance();
+                          ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
+                          VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
                           if (selectedContainerValue.isNotEmpty) {
                             if (selectedContainerValue == 'Email') {
-                               if(model.data!.emailVerified == true){
-                                 showToast('Email Already Verified');
-                               }
+                              if (verifyMailModel.data!.emailVerified == true) {
+                                showToast('Email Already Verified');
+                              }
                               else {
-                                 Get.toNamed(MyRouters.verifyWithMail);
-                               }
+                                Get.toNamed(MyRouters.verifyWithMail);
+                              }
                             }
                             else if (selectedContainerValue == 'SMS') {
-                              Get.toNamed(
-                                  MyRouters.forgetSmsScreen
-                              );
+                              if (verifySmsModel.data!.mobileVerified == true) {
+                                showToast('Phone Already Verified');
+                              }
+                              else {
+                                Get.toNamed(MyRouters.verifyWithSms);
+                              }
                             }
-                          } else {
-                            showToast('Please Select One');
-
                           }
+                          else {
+                            showToast('Please Select One');
+                          }
+
+                          
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

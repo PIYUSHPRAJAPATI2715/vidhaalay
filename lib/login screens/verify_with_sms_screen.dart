@@ -28,7 +28,7 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
   getEmail() async{
     SharedPreferences pref = await SharedPreferences.getInstance();
     LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-    mobileController.text = model.data!.email.toString();
+    mobileController.text = model.data!.mobile.toString();
   }
   @override
   void initState() {
@@ -102,7 +102,7 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                         height: 30,
                       ),
                       const Text(
-                        'Enter Your Phone Number?',
+                        'Your Phone Number?',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
@@ -112,7 +112,7 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                         height: 9,
                       ),
                       Text(
-                        'Enter Your Phone Number For Forgot Password',
+                        'Your Phone Number For Verify OTP',
                         style: GoogleFonts.poppins(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -149,10 +149,10 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                       ElevatedButton(
                         onPressed: () {
                           if(formKey99.currentState!.validate()){
-                            verifySmsOtpSendRepo(mobile: mobileController.toString(),type: 'user',context: context).then((value) {
+                            verifySmsOtpSendRepo(mobile: mobileController.text,type: 'user',context: context).then((value) {
                               if(value.status == true){
                                 showToast(value.msg);
-                                Get.offAllNamed(MyRouters.verifyOtpLogin);
+                                Get.offAllNamed(MyRouters.otpSmsScreen);
                               }else{
                                 showToast(value.msg);
                               }
