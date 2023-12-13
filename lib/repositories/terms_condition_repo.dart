@@ -23,7 +23,7 @@ Future<TermsConditionModel> termsConditionRepo() async {
   try {
     final response = await http.get(
         Uri.parse(ApiUrls.termsConditionUrl),
-        headers: headers);
+      headers: await getAuthHeader(),);
     if (response.statusCode == 200) {
       log("terms Repository...${response.body}");
       return TermsConditionModel.fromJson(jsonDecode(response.body));

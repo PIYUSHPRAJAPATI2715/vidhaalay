@@ -34,7 +34,7 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
     ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
     VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
     if(verifyMailModel.data!.emailVerified == true && verifySmsModel.data!.mobileVerified == true){
-      Get.toNamed(MyRouters.signInPage);
+      Get.toNamed(MyRouters.drawerForUser);
     }
   }
   @override

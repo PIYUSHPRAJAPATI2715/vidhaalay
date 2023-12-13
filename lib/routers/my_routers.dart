@@ -100,7 +100,7 @@ class MyRouters{
   static var route = [
 
     // auth screens
-    GetPage(name: '/', page: () =>  const BottomNavigationUserScreen()),
+    GetPage(name: '/', page: () =>  const Splash()),
     GetPage(name: '/introPageScreen', page: () =>  const IntroPageScreen()),
     GetPage(name: '/signInPage', page: () =>  const SignInPage()),
     GetPage(name: '/signupScreen', page: () =>  const SignupScreen()),

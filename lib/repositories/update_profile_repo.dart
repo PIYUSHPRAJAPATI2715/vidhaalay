@@ -32,7 +32,7 @@ Future<UpdateProfileModel> updateProfileRepo({phone,context,name,email}) async {
     HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
   };
   http.Response response = await http.post(Uri.parse(ApiUrls.updateProfileUrl),
-      body: jsonEncode(map), headers: headers);
+      body: jsonEncode(map), headers: await getAuthHeader());
 
   log(response.body);
 

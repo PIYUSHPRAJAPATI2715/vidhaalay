@@ -24,7 +24,7 @@ Future<getCountryListModel> getCountryListRepo() async {
 
   // try {
     http.Response response = await http.get(Uri.parse(ApiUrls.getCountryState),
-        headers: headers);
+      headers: await getAuthHeader(),);
 
     log(response.body.toString());
   if (response.statusCode == 200) {

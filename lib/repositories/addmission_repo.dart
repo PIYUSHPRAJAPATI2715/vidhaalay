@@ -23,7 +23,7 @@ Future<AddmissionModelUser> addMissionRepo({appliedFor,appliedForId,category,dob
   context}) async {
 
   SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
   var map = <String, dynamic>{};
   var map1 = <String, dynamic>{};
   var map2 = <String, dynamic>{};
@@ -86,13 +86,13 @@ Future<AddmissionModelUser> addMissionRepo({appliedFor,appliedForId,category,dob
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
 
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+  // final headers = {
+  //   HttpHeaders.contentTypeHeader: 'application/json',
+  //   HttpHeaders.acceptHeader: 'application/json',
+  //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
+  // };
   http.Response response = await http.post(Uri.parse(ApiUrls.addMissionUrl),
-      body: jsonEncode(map), headers: headers);
+      body: jsonEncode(map),   headers: await getAuthHeader(),);
 
   log(response.body);
 

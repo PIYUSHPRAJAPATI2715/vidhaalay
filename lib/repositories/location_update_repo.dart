@@ -32,7 +32,7 @@ Future<UpdateLocationModel> updateLocationRepo({lat,context,long,address}) async
   };
   // try {
   http.Response response = await http.post(Uri.parse(ApiUrls.updateLocationUrl),
-      headers: headers,
+      headers: await getAuthHeader(),
       body: jsonEncode(map));
   log("Update Location${response.body}");
   // http.Response response = await http.post(Uri.parse(ApiUrls.loginUser),

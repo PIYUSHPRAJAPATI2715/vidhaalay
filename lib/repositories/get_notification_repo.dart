@@ -11,17 +11,17 @@ import '../resourses/api_constant.dart';
 
 Future<GetNotificationModel> notificationRepo() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+  // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //
+  // final headers = {
+  //   HttpHeaders.contentTypeHeader: 'application/json',
+  //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
+  // };
 
   try {
     final response = await http.get(
         Uri.parse(ApiUrls.notificationUrl),
-        headers: headers);
+      headers: await getAuthHeader(),);
     if (response.statusCode == 200) {
       log("Notification Repository...${response.body}");
       return GetNotificationModel.fromJson(jsonDecode(response.body));

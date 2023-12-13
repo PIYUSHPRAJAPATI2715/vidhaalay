@@ -32,7 +32,7 @@ Future<ModelCommon> changePassRepo({oldPassword,context,password,type}) async {
     HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
   };
   http.Response response = await http.post(Uri.parse(ApiUrls.changePassUrl),
-      body: jsonEncode(map), headers: headers);
+      body: jsonEncode(map),    headers: await getAuthHeader(),);
 
   log(response.body);
 

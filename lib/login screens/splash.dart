@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 2500), () async {
+    Timer(const Duration(seconds: 20), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       if(pref.getString("cookie") != null){
         LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
@@ -46,24 +46,24 @@ class _SplashState extends State<Splash> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/appicon.png',height: size.height*.20,),
-                Text('vidhaalay'.toUpperCase(),
-                  style: const TextStyle(
-                      color: AppThemes.primaryColor,
-                      fontSize: 33,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 2
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const Text('Create Your Future',
-                  style:  TextStyle(
-                      color: AppThemes.textGray,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w300
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                Image.asset('assets/images/New Project.gif'),
+                // Text('vidhaalay'.toUpperCase(),
+                //   style: const TextStyle(
+                //       color: AppThemes.primaryColor,
+                //       fontSize: 33,
+                //       fontWeight: FontWeight.w800,
+                //       letterSpacing: 2
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
+                // const Text('Create Your Future',
+                //   style:  TextStyle(
+                //       color: AppThemes.textGray,
+                //       fontSize: 13,
+                //       fontWeight: FontWeight.w300
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
                 // Container(
                 //   height: size.height,
                 //   width: size.width,
