@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../models/login_model.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
@@ -24,21 +25,21 @@ class _VerifyOtpLoginSmsState extends State<VerifyOtpLoginSms> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController otpcontroller = TextEditingController();
-  String email = '';
-  String mobile = '';
-  getEmail() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-    email = model.data!.email.toString();
-    mobile = model.data!.mobile.toString();
-  }
-  @override
-  void initState() {
-    super.initState();
-    getEmail();
-
-  }
-
+  // String email = '';
+  // String mobile = '';
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   email = model.data!.email.toString();
+  //   mobile = model.data!.mobile.toString();
+  // }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getEmail();
+  //
+  // }
+  final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -185,7 +186,7 @@ class _VerifyOtpLoginSmsState extends State<VerifyOtpLoginSms> {
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
-                          verifySmsOtp(mobile: mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) {
+                          verifySmsOtp(mobile: controller.phoneNumberController.text.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) {
                             if(value.status == true){
                               showToast(value.msg);
                               Get.offAllNamed(MyRouters.verifyOtpLogin);

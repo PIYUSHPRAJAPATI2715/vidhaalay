@@ -27,7 +27,11 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
   String selectedContainerValue = 'Email';
 
   bool isEmail = false;
-
+  String email = '';
+  String mobile = '';
+  // var mobile = Get.arguments[1];
+  // var email = Get.arguments[0];
+  // var mobile = Get.arguments[1];
   checkVerify() async {
     SharedPreferences prefSms = await SharedPreferences.getInstance();
     SharedPreferences prefEmail = await SharedPreferences.getInstance();
@@ -40,6 +44,8 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
   @override
   void initState() {
     super.initState();
+    // mobile = Get.arguments[0];
+    // email = Get.arguments[1];
     checkVerify();
 
   }
@@ -234,25 +240,26 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          SharedPreferences prefSms = await SharedPreferences.getInstance();
-                          SharedPreferences prefEmail = await SharedPreferences.getInstance();
-                          ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
-                          VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
+                           SharedPreferences pref = await SharedPreferences.getInstance();
+                          // SharedPreferences prefEmail = await SharedPreferences.getInstance();
+                          // ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
+                          // VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
                           if (selectedContainerValue.isNotEmpty) {
                             if (selectedContainerValue == 'Email') {
-                              if (verifyMailModel.data!.emailVerified == true) {
+                              if ( pref.getBool('emailVerify') == true) {
                                 showToast('Email Already Verified');
                               }
                               else {
-                                Get.toNamed(MyRouters.verifyWithMail);
+                                // print(email);
+                                Get.toNamed(MyRouters.verifyWithMail,arguments: mobile.toString());
                               }
                             }
                             else if (selectedContainerValue == 'SMS') {
-                              if (verifySmsModel.data!.mobileVerified == true) {
+                              if ( pref.getBool('mobileVerify') == true) {
                                 showToast('Phone Already Verified');
                               }
                               else {
-                                Get.toNamed(MyRouters.verifyWithSms);
+                                Get.toNamed(MyRouters.verifyWithSms,arguments: mobile.toString());
                               }
                             }
                           }

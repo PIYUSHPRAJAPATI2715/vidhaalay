@@ -56,5 +56,6 @@ class BottomController extends GetxController {
      const UserMoreScreen(),
 
   ];
-
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
 }

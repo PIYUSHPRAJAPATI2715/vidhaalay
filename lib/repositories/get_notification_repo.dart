@@ -10,7 +10,7 @@ import '../resourses/api_constant.dart';
 
 
 Future<GetNotificationModel> notificationRepo() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
+  // SharedPreferences pref = await SharedPreferences.getInstance();
   // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
   //
   // final headers = {

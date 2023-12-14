@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../repositories/login_repo.dart';
 import '../repositories/social_login_repo.dart';
 import '../resourses/api_constant.dart';
@@ -36,6 +37,7 @@ class _SignInPageState extends State<SignInPage> {
     'Faculty Login',
     'Student Login',
   ];
+  final controller = Get.put(Controller());
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   // final TextEditingController emailController = TextEditingController();
@@ -61,12 +63,16 @@ class _SignInPageState extends State<SignInPage> {
           log("fvfbgfbgf${value.data!.token}");
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('cookie', value.data!.token.toString());
+          pref.setBool('emailVerify', value.data!.emailVerified!);
+          pref.setBool('mobileVerify', value.data!.mobileVerified!);
           log("fvfbgfbgf${value.data!.token}");
+          log("fvfbgfbgf${value.data!.email}");
+          // controller.emailController.text = value.data!.email.toString();
           if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
             Get.offAllNamed(MyRouters.drawerForUser);
             showToast(value.msg);
           }else{
-            Get.offAllNamed(MyRouters.verifyOtpLogin);
+            Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
           }
         }else{
           showToast(value.msg);

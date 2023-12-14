@@ -10,6 +10,7 @@ import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../models/login_model.dart';
 import '../repositories/reset_via_email_repo.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
@@ -24,20 +25,25 @@ class VerifyWithMail extends StatefulWidget {
 }
 
 class _VerifyWithMailState extends State<VerifyWithMail> {
-
-  getEmail() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-    emailController.text = model.data!.email.toString();
-  }
+  //
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   emailController.text = model.data!.email.toString();
+  // }
   @override
   void initState() {
     super.initState();
-    getEmail();
-
+    // getEmail();
+    // gmail = Get.arguments[0];
+     gmail = Get.arguments;
+    gmail = emailController.text.toString();
   }
+ String gmail = '';
   final formKey99 = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
+  final controller = Get.put(Controller());
+   TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -125,10 +131,10 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
                         height: 33,
                       ),
                       CommonTextfield(
-                        hintText: 'Enter Email',
+                        hintText:"gmail",
                         obSecure: false,
-                        readOnly: true,
-                        controller: emailController,
+                        readOnly: false,
+                        controller:emailController,
                         validator: MultiValidator([
                           EmailValidator(
                               errorText: 'enter a valid email address'),
@@ -140,12 +146,13 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          print(gmail.toString());
                           if (formKey99.currentState!.validate()) {
-                            verifyEmailOtpSend(context: context,email: emailController.text,type: 'user'
+                            verifyEmailOtpSend(context: context,email: emailController.text.toString(),type: 'user'
                             ).then((value) async {
                               if(value.status == true){
                                 showToast(value.msg);
-                                Get.toNamed(MyRouters.otpScreenEmail);
+                                Get.toNamed(MyRouters.otpScreenEmail,);
                               }else{
                                 showToast(value.msg);
                               }

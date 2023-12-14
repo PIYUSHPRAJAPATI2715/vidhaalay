@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../models/login_model.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
@@ -24,21 +25,22 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController otpcontroller = TextEditingController();
-  String email = '';
-  String mobile = '';
-  getEmail() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-    email = model.data!.email.toString();
-    mobile = model.data!.mobile.toString();
-  }
-  @override
-  void initState() {
-    super.initState();
-    getEmail();
-
-  }
-
+  var email = Get.arguments[0];
+  // String email = '';
+  // String mobile = '';
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   email = model.data!.email.toString();
+  //   mobile = model.data!.mobile.toString();
+  // }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getEmail();
+  //
+  // }
+  final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

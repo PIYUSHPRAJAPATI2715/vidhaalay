@@ -13,7 +13,7 @@ import '../resourses/helper.dart';
 
 Future<SchoolListModel> schoolListRepo() async {
 
-  SharedPreferences pref = await SharedPreferences.getInstance();
+  // SharedPreferences pref = await SharedPreferences.getInstance();
   // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
 
   // final headers = {
@@ -21,7 +21,7 @@ Future<SchoolListModel> schoolListRepo() async {
   //   HttpHeaders.acceptHeader: 'application/json',
   //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
   // };
-  http.Response response = await http.post(Uri.parse(ApiUrls.schoolListUrl), headers:   await getAuthHeader(),);
+  http.Response response = await http.post(Uri.parse(ApiUrls.schoolListUrl), headers: await getAuthHeader(),);
 
   log(response.body);
   if (response.statusCode == 200) {

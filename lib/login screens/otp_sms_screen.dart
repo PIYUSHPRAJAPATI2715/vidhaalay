@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../models/login_model.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
@@ -24,21 +25,22 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController otpcontroller = TextEditingController();
-  String email = '';
-  String mobile = '';
-  getEmail() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-    email = model.data!.email.toString();
-    mobile = model.data!.mobile.toString();
-  }
-  @override
-  void initState() {
-    super.initState();
-    getEmail();
-
-  }
-
+  // String email = '';
+  // String mobile = '';
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   email = model.data!.email.toString();
+  //   mobile = model.data!.mobile.toString();
+  // }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getEmail();
+  //
+  // }
+  var mobile = Get.arguments[0];
+  final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -185,12 +187,12 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
-                          verifySmsOtp(mobile: mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async{
-                            SharedPreferences prefSms = await SharedPreferences.getInstance();
-                            prefSms.setString("cookie", jsonEncode(value));
+                          verifySmsOtp(mobile:mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim().toString()).then((value) async{
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            pref.setString('cookie', value.data!.token.toString());
                             if(value.status == true){
                               showToast(value.msg);
-                              Get.offAllNamed(MyRouters.verifyOtpLogin);
+                              Get.offAllNamed(MyRouters.drawerForUser);
                             }else{
                               showToast(value.msg);
                             }
