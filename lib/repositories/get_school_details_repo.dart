@@ -10,20 +10,21 @@ import '../resourses/api_constant.dart';
 
 
 Future<SchoolDetailsModel> getSchoolDetailsRepo() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //
+  // final headers = {
+  //   HttpHeaders.contentTypeHeader: 'application/json',
+  //   HttpHeaders.authorizationHeader: 'Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE2MiwidHlwZSI6InVzZXIiLCJpYXQiOjE3MDI0NDUxOTksImV4cCI6MTcwMzA0OTk5OX0.LHyu_OPQMsmo65ATzmR3R02MLwsMYlpYXtY0gZUMWQk'}',
+  // };
 
   try {
     final response = await http.get(
         Uri.parse(ApiUrls.getSchoolDetails),
-        headers: headers);
+      headers:await  getAuthHeader());
     if (response.statusCode == 200) {
       log("school details Repository...${response.body}");
+      // log("school details Repository...${model}");
       return SchoolDetailsModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.body);

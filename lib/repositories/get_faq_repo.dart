@@ -22,7 +22,7 @@ Future<GetFaqModel> getFaqRepo() async {
   try {
     final response = await http.get(
         Uri.parse(ApiUrls.getFaqUrl),
-        headers: headers);
+      headers: await getAuthHeader(),);
     if (response.statusCode == 200) {
       log("Faq Repository...${response.body}");
       return GetFaqModel.fromJson(jsonDecode(response.body));

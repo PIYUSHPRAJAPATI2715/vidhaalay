@@ -22,17 +22,17 @@ Future<UpdateLocationModel> updateLocationRepo({lat,context,long,address}) async
   map['longitude'] =  long;
   map['address'] = address;
 
-
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+  //
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //
+  // final headers = {
+  //   HttpHeaders.contentTypeHeader: 'application/json',
+  //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
+  // };
   // try {
   http.Response response = await http.post(Uri.parse(ApiUrls.updateLocationUrl),
-      headers: headers,
+      headers: await getAuthHeader(),
       body: jsonEncode(map));
   log("Update Location${response.body}");
   // http.Response response = await http.post(Uri.parse(ApiUrls.loginUser),

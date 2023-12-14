@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../models/login_model.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
@@ -25,17 +26,19 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController mobileController = TextEditingController();
-  getEmail() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-    mobileController.text = model.data!.mobile.toString();
-  }
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   mobileController.text = model.data!.mobile.toString();
+  // }
   @override
   void initState() {
     super.initState();
-    getEmail();
+    // phone =  mobileController.text.toString();
 
   }
+  final controller = Get.put(Controller());
+  // var phone = Get.arguments[0];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -123,9 +126,9 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                         height: 33,
                       ),
                       CommonTextfield(
-                        hintText: 'Enter Phone Number',
+                        hintText: "phone",
                         obSecure: false,
-                        readOnly: true,
+                        readOnly: false,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
                         ],
@@ -149,10 +152,10 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                       ElevatedButton(
                         onPressed: () {
                           if(formKey99.currentState!.validate()){
-                            verifySmsOtpSendRepo(mobile: mobileController.text,type: 'user',context: context).then((value) {
+                            verifySmsOtpSendRepo(mobile: mobileController.text.toString(),type: 'user',context: context).then((value) {
                               if(value.status == true){
                                 showToast(value.msg);
-                                Get.offAllNamed(MyRouters.otpSmsScreen);
+                                Get.offAllNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text.toString()]);
                               }else{
                                 showToast(value.msg);
                               }

@@ -9,18 +9,18 @@ import '../resourses/api_constant.dart';
 
 
 Future<GetProfileModel> getProfileRepo() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
 
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+  // final headers = {
+  //   HttpHeaders.contentTypeHeader: 'application/json',
+  //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
+  // };
 
   try {
     final response = await http.get(
         Uri.parse(ApiUrls.getProfileUrl),
-        headers: headers);
+        headers: await getAuthHeader());
     if (response.statusCode == 200) {
       log("getProfile Repository...${response.body}");
       return GetProfileModel.fromJson(jsonDecode(response.body));

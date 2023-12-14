@@ -9,6 +9,7 @@ import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
+import '../controller/common.dart';
 import '../repositories/register_repo.dart';
 import '../resourses/api_constant.dart';
 
@@ -27,8 +28,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController userNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
+   final TextEditingController emailController = TextEditingController();
+  // final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmController = TextEditingController();
   RxBool isPasswordShow = true.obs;
@@ -38,6 +39,7 @@ class _SignupScreenState extends State<SignupScreen> {
   bool showValidation = false;
   bool showErrorMessage = false;
 
+  final controller = Get.put(Controller());
 
 
   @override
@@ -157,21 +159,21 @@ class _SignupScreenState extends State<SignupScreen> {
                              hintText: 'Mobile Number',
                              obSecure: false,
                              inputFormatters: [
-                               LengthLimitingTextInputFormatter(14),
+                               LengthLimitingTextInputFormatter(10),
                              ],
                              keyboardType: TextInputType.phone,
-                             controller: phoneNumberController,
-                             // validator: (value){
-                             //   if(value!.isEmpty){
-                             //     return "Mobile Number is required";
-                             //   }
-                             //   else if(value.length<10){
-                             //     return 'please enter correct number';
-                             //   }
-                             //   else{
-                             //     return null;
-                             //   }
-                             // },
+                             controller: controller.phoneNumberController,
+                           validator: (value){
+                             if(value!.isEmpty){
+                               return "Mobile Number is required";
+                             }
+                             else if(value.length<10){
+                               return 'please enter correct number';
+                             }
+                             else{
+                               return null;
+                             }
+                           },
                            ),
                            SizedBox(
                              height: size.height * 0.030,
@@ -318,7 +320,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: () async {
                         if (formKey.currentState!.validate() &&  showValidation == true) {
                           registerRepo(context: context,name: userNameController.text,email: emailController.text,
-                              password: passwordController.text,phone: phoneNumberController.text
+                              password: passwordController.text,phone: controller.phoneNumberController.text
                           ).then((value) async {
                             if(value.status == true){
                               showToast(value.msg);

@@ -12,6 +12,7 @@ import '../widgets/appTheme.dart';
 class ApiUrls {
   static const String apiBaseUrl = 'http://13.127.76.67:3000/api/';
   static const String register = "${apiBaseUrl}user/register";
+  static const String socialUrl = "${apiBaseUrl}user/signInWithGoogle";
   static const String login = "${apiBaseUrl}user/login";
   static const String resetViaEmail = "${apiBaseUrl}user/resetViaEmail";
   static const String resetViaSms = "${apiBaseUrl}user/resetViaSMS";
@@ -42,13 +43,17 @@ class ApiUrls {
 
 Future getAuthHeader() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  print(pref.getString("cookie")!.toString().replaceAll('\"', ''));
-  return {
+  // pref.getString("cookie")!.toString().replaceAll('\"', '');
+  var gg ={
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
+
+    // HttpHeaders.authorizationHeader:"FLWSECK_TEST-SANDBOXDEMOKEY-X"
     if(pref.getString("cookie") != null)
       HttpHeaders.authorizationHeader: 'Bearer ${pref.getString("cookie")!.toString().replaceAll('\"', '')}',
   };
+  print(gg);
+  return gg;
 }
 // HttpHeaders.contentTypeHeader: 'application/json',
 // HttpHeaders.acceptHeader: 'application/json',

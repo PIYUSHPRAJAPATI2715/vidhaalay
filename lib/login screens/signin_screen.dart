@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +10,14 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
 import '../repositories/login_repo.dart';
+import '../repositories/social_login_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
 
@@ -32,6 +37,7 @@ class _SignInPageState extends State<SignInPage> {
     'Faculty Login',
     'Student Login',
   ];
+  final controller = Get.put(Controller());
   final GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController emailController = TextEditingController();
   // final TextEditingController emailController = TextEditingController();
@@ -53,14 +59,20 @@ class _SignInPageState extends State<SignInPage> {
       loginRepo(context: context,type:'user',email: emailController.text.trim(),
           password: passwordController.text.trim(),deviceType: getDeviceType().toString() ,deviceToken: token
       ).then((value) async {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString("cookie", jsonEncode(value));
         if(value.status == true){
+          log("fvfbgfbgf${value.data!.token}");
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString('cookie', value.data!.token.toString());
+          pref.setBool('emailVerify', value.data!.emailVerified!);
+          pref.setBool('mobileVerify', value.data!.mobileVerified!);
+          log("fvfbgfbgf${value.data!.token}");
+          log("fvfbgfbgf${value.data!.email}");
+          // controller.emailController.text = value.data!.email.toString();
           if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
             Get.offAllNamed(MyRouters.drawerForUser);
             showToast(value.msg);
           }else{
-            Get.offAllNamed(MyRouters.verifyOtpLogin);
+            Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
           }
         }else{
           showToast(value.msg);
@@ -187,36 +199,41 @@ class _SignInPageState extends State<SignInPage> {
                         padding: const EdgeInsets.all(3.0),
                         child: Row(
                           children: [
-                            Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-                                  decoration:BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 2,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
+                            InkWell(
+                              onTap: (){
+                                signInWithGoogle();
+                              },
+                              child: Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                                    decoration:BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
                         ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Image.asset('assets/images/google_logo.png',height: 25,),
-                                      const Text(
-                                        "Google",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppThemes.black,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Image.asset('assets/images/google_logo.png',height: 25,),
+                                        const Text(
+                                          "Google",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppThemes.black,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                      ],
+                                    ),
+                                  )
+                              ),
                             ),
                             SizedBox(
                               width: size.width*.060,
@@ -272,100 +289,100 @@ class _SignInPageState extends State<SignInPage> {
                         height: size.height * 0.030,
                       ),
 
-                      // Container(
-                      //   height: 50,
-                      //   width: Get.width,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(25),
-                      //   ),
-                      //   child: DropdownButtonFormField(
-                      //     focusColor: Colors.grey.shade50,
-                      //     isExpanded: true,
-                      //     iconEnabledColor: const Color(0xff97949A),
-                      //     icon: const Icon(Icons.keyboard_arrow_down),
-                      //     hint: Text(
-                      //       category,
-                      //       style: const TextStyle(
-                      //           color: Color(0xff463B57),
-                      //           fontSize: 16,
-                      //           fontWeight: FontWeight.w300),
-                      //       textAlign: TextAlign.justify,
-                      //     ),
-                      //     decoration: InputDecoration(
-                      //         fillColor: Colors.grey.shade50,
-                      //         contentPadding: const EdgeInsets.symmetric(
-                      //             horizontal: 20, vertical: 10),
-                      //         focusedBorder: OutlineInputBorder(
-                      //           borderSide:
-                      //           BorderSide(color: Colors.grey.shade300),
-                      //           borderRadius: BorderRadius.circular(25.0),
-                      //         ),
-                      //         enabledBorder: const OutlineInputBorder(
-                      //             borderSide:
-                      //             BorderSide(color: Color(0xffE3E3E3)),
-                      //             borderRadius: BorderRadius.all(
-                      //                 Radius.circular(25.0)))),
-                      //     value: category,
-                      //     items: categoryitems.map((String items) {
-                      //       return DropdownMenuItem(
-                      //         value: items,
-                      //         child: Text(
-                      //           items,
-                      //           style: const TextStyle(
-                      //               color: Colors.grey, fontSize: 14),
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (String? newValue) {
-                      //       setState(() {
-                      //         category = newValue!;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-
                       Container(
                         height: 50,
-                          width: Get.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 0.5
-                            )
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: DropdownButtonFormField(
+                          focusColor: Colors.grey.shade50,
+                          isExpanded: false,
+                          iconEnabledColor: const Color(0xff97949A),
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          hint: Text(
+                            category,
+                            style: const TextStyle(
+                                color: Color(0xff463B57),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300),
+                            textAlign: TextAlign.justify,
                           ),
-                        child: PopupMenuButton<String>(
-                          shape: Border.all(
-                            color: AppThemes.primaryColor
-                          ),
-                          position: PopupMenuPosition.over,
-                          offset: const Offset(0, 50),
-                          elevation: 8,
-                          itemBuilder: (BuildContext context) {
-                            return categoryitems.map((String item) {
-                              return PopupMenuItem<String>(
-                                value: item,
-                                child: Text(item),
-                              );
-                            }).toList();
-                          },
-                          onSelected: (String selectedValue) {
+                          decoration: InputDecoration(
+                              fillColor: Colors.grey.shade50,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(25.0),
+                              ),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide:
+                                  BorderSide(color: Color(0xffE3E3E3)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(25.0)))),
+                          value: category,
+                          items: categoryitems.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
                             setState(() {
-                              category = selectedValue;
+                              category = newValue!;
                             });
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(category,style: const TextStyle(
-                                color: Colors.grey,
-                              ),),
-                              const Icon(Icons.keyboard_arrow_down,  color: Colors.grey,),
-                            ],
-                          ),
                         ),
                       ),
+
+                      // Container(
+                      //   height: 50,
+                      //     width: Get.width,
+                      //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(25),
+                      //       border: Border.all(
+                      //         color: Colors.grey,
+                      //         width: 0.5
+                      //       )
+                      //     ),
+                      //   child: PopupMenuButton<String>(
+                      //     shape: Border.all(
+                      //       color: AppThemes.primaryColor
+                      //     ),
+                      //     position: PopupMenuPosition.over,
+                      //     offset: const Offset(0, 50),
+                      //     elevation: 8,
+                      //     itemBuilder: (BuildContext context) {
+                      //       return categoryitems.map((String item) {
+                      //         return PopupMenuItem<String>(
+                      //           value: item,
+                      //           child: Text(item),
+                      //         );
+                      //       }).toList();
+                      //     },
+                      //     onSelected: (String selectedValue) {
+                      //       setState(() {
+                      //         category = selectedValue;
+                      //       });
+                      //     },
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: <Widget>[
+                      //         Text(category,style: const TextStyle(
+                      //           color: Colors.grey,
+                      //         ),),
+                      //         const Icon(Icons.keyboard_arrow_down,  color: Colors.grey,),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -523,5 +540,34 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
+  }
+  signInWithGoogle() async {
+    await GoogleSignIn().signOut();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
+      throw Exception(e);
+    });
+
+    log(googleUser!.email.toString());
+
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    final value = await FirebaseAuth.instance.signInWithCredential(credential);
+    log(value.credential!.accessToken!);
+    //log(value.additionalUserInfo.a);
+    var fromToken = await FirebaseMessaging.instance.getToken();
+
+    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+      if (value.status == true) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        showToast(value.message);
+        // Get.offAllNamed(MyRouters.bottomNavbar);
+      } else {
+        showToast(value.message);
+      }
+    });
   }
 }
