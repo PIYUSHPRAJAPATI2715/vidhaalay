@@ -27,11 +27,8 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
   String selectedContainerValue = 'Email';
 
   bool isEmail = false;
-  String email = '';
-  String mobile = '';
-  // var mobile = Get.arguments[1];
-  // var email = Get.arguments[0];
-  // var mobile = Get.arguments[1];
+  RxString mobile = ''.obs;
+  RxString email = ''.obs;
   checkVerify() async {
     SharedPreferences prefSms = await SharedPreferences.getInstance();
     SharedPreferences prefEmail = await SharedPreferences.getInstance();
@@ -44,8 +41,8 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
   @override
   void initState() {
     super.initState();
-    // mobile = Get.arguments[0];
-    // email = Get.arguments[1];
+    mobile.value = Get.arguments[0];
+    email.value = Get.arguments[1];
     checkVerify();
 
   }
@@ -259,7 +256,7 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                                 showToast('Phone Already Verified');
                               }
                               else {
-                                Get.toNamed(MyRouters.verifyWithSms,arguments: mobile.toString());
+                                Get.toNamed(MyRouters.verifyWithSms,arguments: mobile.value);
                               }
                             }
                           }

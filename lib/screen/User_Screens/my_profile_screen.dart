@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -163,16 +164,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             obSecure: false,
                             controller: emailController,
                             readOnly: true,
-                            // validator: MultiValidator([
-                            //   RequiredValidator(errorText: 'Password is required'),
-                            //   MinLengthValidator(8,
-                            //       errorText:
-                            //       'Password must be at least 8 digits long'),
-                            //   PatternValidator(
-                            //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                            //       errorText:
-                            //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                            // ]),
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'email is required'),
+                              EmailValidator(errorText: "Enter valid email ")
+                              ]),
                             hintText: getProfileController.getProfileModel.value.data!.email.toString(),
                         ),
                         const SizedBox(
@@ -190,17 +185,12 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         ),
                         CommonTextfield(
                             obSecure: false,
+                            readOnly: true,
                             controller: phoneController,
-                            // validator: MultiValidator([
-                            //   RequiredValidator(errorText: 'Password is required'),
-                            //   MinLengthValidator(8,
-                            //       errorText:
-                            //       'Password must be at least 8 digits long'),
-                            //   PatternValidator(
-                            //       r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
-                            //       errorText:
-                            //       'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
-                            // ]),
+                            keyboardType: TextInputType.number,
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'number is required'),
+                               ]),
                             hintText: getProfileController.getProfileModel.value.data!.mobile.toString(),
                         ),
                         const SizedBox(
