@@ -34,6 +34,7 @@ class ApiUrls {
   static const String resetViaSMS = "${apiBaseUrl}user/resetViaSMS";
   static const String otpByMobile = "${apiBaseUrl}user/otpByMobile";
   static const String addMissionUrl = "${apiBaseUrl}addmissions";
+  static const String addFavUrl = "${apiBaseUrl}favourite/addFav";
 
 
 
