@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
+import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -17,13 +20,16 @@ class FavoritesScreen extends StatefulWidget {
 
 class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderStateMixin{
 
+  FavouriteController favouriteController  = Get.put(FavouriteController());
+
+
   late TabController tabController;
   final TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
+    favouriteController.getFavouriteListRepo();
     tabController = TabController(length: 4, vsync: this);
-
   }
 
   @override
@@ -147,17 +153,28 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
       physics: const BouncingScrollPhysics(),
       controller: tabController,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
-          child:  ListView.builder(
-            itemCount: 3,
+        Obx(() {
+          return favouriteController.isFavouriteListLoading.value == true ?
+          favouriteController
+              .favourateListModel.value.data!.length == 0 ? 
+              Center(child: Text('No Item in Favourite'))
+              :
+          ListView.builder(
+            itemCount: favouriteController
+                .favourateListModel.value.data!.length,
             shrinkWrap: true,
+            padding: const EdgeInsets.all(16),
             itemBuilder: (context, index) {
+              var item = favouriteController.favourateListModel.value.data![index].school;
+              String imageUrl = item!.image![0].toString();
+              imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
               return GestureDetector(
-                onTap: (){
-                  // Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
-                  //     milliseconds: 250
-                  // ));
+                onTap: () {
+                  // favouriteController.getSchoolDetailsFunction(item.id.toString());
+                  Get.to(() =>  const SchoolsDetailsScreen(),
+                      transition: Transition.fadeIn,
+                      duration:
+                      const Duration(milliseconds: 250));
                 },
                 child: Column(
                   children: [
@@ -179,22 +196,46 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                           Stack(
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(12) ,
-                                child: Image.asset(
-                                  AppAssets.collageImg,
+                                borderRadius: BorderRadius.circular(12),
+                                child: CachedNetworkImage(
+                                  imageUrl: imageUrl.toString(),
                                   fit: BoxFit.cover,
                                   width: size.width,
-                                  height: size.height*.16,
+                                  height: size.height * .16,
+                                  errorWidget: (__, _, ___) =>
+                                      Image.asset(
+                                        AppAssets.collageImg,
+                                        fit: BoxFit.cover,
+                                        width: size.width,
+                                        height: size.height * .16,
+                                      ),
+                                  placeholder: (__, _) =>
+                                  const Center(
+                                      child: CircularProgressIndicator()),
                                 ),
                               ),
+
                               Positioned(
-                                  right: 10, top: 10,
+                                  right: 10,
+                                  top: 10,
                                   child: GestureDetector(
-                                      onTap: (){
-                                        // Get.toNamed(MyRouters.favoritesScreen);
+                                      onTap: () {
+                                        int favId= favouriteController.favourateListModel.value.data![index].favForId!;
+                                        String favFor = favouriteController.favourateListModel.value.data![index].favFor!;
+                                        print( favId);
+                                        print( favFor);
+                                        print(item.id);
+                                        // print();
+                                        favouriteController.addFavouriteInListRepo(favId,favFor,false);
+
+                                        // Get.toNamed(MyRouter
+                                        //     .favoritesScreen);
                                       },
-                                      child: const Icon(Icons.favorite,size: 18,color: Colors.white))
-                              ),
+                                      child: const Icon(
+                                          Icons.favorite_border,
+                                          size: 18,
+                                          color: Colors.deepOrange,
+                                      ))),
                             ],
                           ),
                           Padding(
@@ -202,13 +243,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
                                   children: [
-                                    Text('Washington University',
+                                    Text(
+                                      item.name.toString(),
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 17
-                                      ),
+                                          fontWeight:
+                                          FontWeight.w600,
+                                          fontSize: 17),
                                     ),
                                   ],
                                 ),
@@ -216,15 +259,24 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                   height: 2,
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Icon(Icons.location_pin,
-                                      color: Colors.red,size: 18,),
-                                    Text('4101,california',
-                                      style: GoogleFonts.poppins(
-                                          color: AppThemes.textGray,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15
+                                    const Icon(
+                                      Icons.location_pin,
+                                      color: Colors.red,
+                                      size: 18,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        item.address.toString(),
+                                        style: GoogleFonts.poppins(
+                                            color:
+                                            AppThemes.textGray,
+                                            fontWeight:
+                                            FontWeight.w500,
+                                            fontSize: 15),
                                       ),
                                     ),
                                   ],
@@ -242,8 +294,106 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                 ),
               );
             },
-          ),
-        ),
+          )
+              : const CommonProgressIndicator();
+        }),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
+        //   child:  ListView.builder(
+        //     itemCount: 3,
+        //     shrinkWrap: true,
+        //     itemBuilder: (context, index) {
+        //       return GestureDetector(
+        //         onTap: (){
+        //           // Get.to(() => const SchoolsDetailsScreen(), transition: Transition.fadeIn,duration: const Duration(
+        //           //     milliseconds: 250
+        //           // ));
+        //         },
+        //         child: Column(
+        //           children: [
+        //             Container(
+        //               decoration: BoxDecoration(
+        //                 borderRadius: BorderRadius.circular(12),
+        //                 color: AppThemes.white,
+        //                 boxShadow: [
+        //                   BoxShadow(
+        //                     color: Colors.black.withOpacity(0.2),
+        //                     spreadRadius: 1,
+        //                     blurRadius: 2,
+        //                     offset: const Offset(0, 2),
+        //                   ),
+        //                 ],
+        //               ),
+        //               child: Column(
+        //                 children: [
+        //                   Stack(
+        //                     children: [
+        //                       ClipRRect(
+        //                         borderRadius: BorderRadius.circular(12) ,
+        //                         child: Image.asset(
+        //                           AppAssets.collageImg,
+        //                           fit: BoxFit.cover,
+        //                           width: size.width,
+        //                           height: size.height*.16,
+        //                         ),
+        //                       ),
+        //                       Positioned(
+        //                           right: 10, top: 10,
+        //                           child: GestureDetector(
+        //                               onTap: (){
+        //                                 // Get.toNamed(MyRouters.favoritesScreen);
+        //                               },
+        //                               child: const Icon(Icons.favorite,size: 18,color: Colors.white))
+        //                       ),
+        //                     ],
+        //                   ),
+        //                   Padding(
+        //                     padding: const EdgeInsets.all(8.0),
+        //                     child: Column(
+        //                       children: [
+        //                         Row(
+        //                           mainAxisAlignment: MainAxisAlignment.start,
+        //                           children: [
+        //                             Text('Washington University',
+        //                               style: GoogleFonts.poppins(
+        //                                   fontWeight: FontWeight.w600,
+        //                                   fontSize: 17
+        //                               ),
+        //                             ),
+        //                           ],
+        //                         ),
+        //                         const SizedBox(
+        //                           height: 2,
+        //                         ),
+        //                         Row(
+        //                           mainAxisAlignment: MainAxisAlignment.start,
+        //                           children: [
+        //                             const Icon(Icons.location_pin,
+        //                               color: Colors.red,size: 18,),
+        //                             Text('4101,california',
+        //                               style: GoogleFonts.poppins(
+        //                                   color: AppThemes.textGray,
+        //                                   fontWeight: FontWeight.w500,
+        //                                   fontSize: 15
+        //                               ),
+        //                             ),
+        //                           ],
+        //                         ),
+        //                       ],
+        //                     ),
+        //                   )
+        //                 ],
+        //               ),
+        //             ),
+        //             const SizedBox(
+        //               height: 15,
+        //             )
+        //           ],
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),
           child:  ListView.builder(

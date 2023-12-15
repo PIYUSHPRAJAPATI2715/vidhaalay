@@ -192,10 +192,10 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                             prefEmail.setString("cookie", jsonEncode(value));
                             print(prefEmail.toString());
                             if(value.status == true){
-                              showToast(value.msg);
+                              showToast(value.msg.toString().toString());
                               Get.offAllNamed(MyRouters.verifyOtpLogin);
                             }else{
-                              showToast(value.msg);
+                              showToast(value.msg.toString().toString());
                             }
                           });
                         }

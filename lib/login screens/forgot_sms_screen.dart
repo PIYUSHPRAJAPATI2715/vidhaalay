@@ -138,10 +138,10 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                             forgotPassOtpSms(context: context,mobile: mobileController.text,
                             ).then((value) async {
                               if(value.status == true){
-                                showToast(value.msg);
+                                showToast(value.msg.toString()!);
                                 Get.toNamed(MyRouters.otpScreenEmail);
                               }else{
-                                showToast(value.msg);
+                                showToast(value.msg.toString()!);
                               }
                             });
                           }
