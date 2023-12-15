@@ -138,9 +138,9 @@ const SizedBox(
                                     log(value.status.toString());
                                     getAddressCon.getProfileData();
                                     Get.back();
-                                    showToast(value.msg.toString());
+                                    showToast(value.msg.toString().toString());
                                   }else{
-                                    showToast(value.msg.toString());
+                                    showToast(value.msg.toString().toString());
                                   }
                                 });
                               }

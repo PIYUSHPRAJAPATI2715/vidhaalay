@@ -70,12 +70,12 @@ class _SignInPageState extends State<SignInPage> {
           // controller.emailController.text = value.data!.email.toString();
           if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
             Get.offAllNamed(MyRouters.drawerForUser);
-            showToast(value.msg);
+            showToast(value.msg.toString());
           }else{
             Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
           }
         }else{
-          showToast(value.msg);
+          showToast(value.msg.toString());
         }
       });
     }
@@ -563,10 +563,10 @@ class _SignInPageState extends State<SignInPage> {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
-        showToast(value.message);
+        showToast(value.message.toString());
         // Get.offAllNamed(MyRouters.bottomNavbar);
       } else {
-        showToast(value.message);
+        showToast(value.message.toString());
       }
     });
   }

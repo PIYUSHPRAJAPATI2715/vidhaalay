@@ -35,9 +35,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
           name: nameController.text.trim()
       ).then((value) async {
         if(value.status == true){
-          showToast(value.msg);
+          showToast(value.msg.toString()!);
         }else{
-          showToast(value.msg);
+          showToast(value.msg.toString().toString());
         }
       });
     }

@@ -323,10 +323,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               password: passwordController.text,phone: controller.phoneNumberController.text
                           ).then((value) async {
                             if(value.status == true){
-                              showToast(value.msg);
+                              showToast(value.msg.toString());
                               Get.toNamed(MyRouters.signInPage);
                             }else{
-                              showToast(value.msg);
+                              showToast(value.msg.toString());
                             }
 
                           });

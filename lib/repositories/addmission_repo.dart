@@ -2,15 +2,17 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
+import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package: http/http.dart' as http;
+import 'package:http/http.dart' as http;
+// import 'package:shared_preferences/shared_preferences.dart';
 import '../models/addmission_model_user.dart';
 import '../models/login_model.dart';
 import '../models/model_common.dart';
 import '../models/update_profile_model.dart';
 import '../resourses/api_constant.dart';
 import '../resourses/helper.dart';
-
 
 
 Future<AddmissionModelUser> addMissionRepo({appliedFor,appliedForId,category,dob,motherTongue,name,fatherName,

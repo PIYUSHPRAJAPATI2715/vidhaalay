@@ -151,10 +151,10 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
                             verifyEmailOtpSend(context: context,email: emailController.text.toString(),type: 'user'
                             ).then((value) async {
                               if(value.status == true){
-                                showToast(value.msg);
+                                showToast(value.msg.toString().toString());
                                 Get.toNamed(MyRouters.otpScreenEmail,);
                               }else{
-                                showToast(value.msg);
+                                showToast(value.msg.toString().toString());
                               }
                             });
                           }

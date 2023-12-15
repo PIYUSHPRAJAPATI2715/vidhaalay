@@ -191,10 +191,10 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                             SharedPreferences pref = await SharedPreferences.getInstance();
                             pref.setString('cookie', value.data!.token.toString());
                             if(value.status == true){
-                              showToast(value.msg);
+                              showToast(value.msg.toString().toString());
                               Get.offAllNamed(MyRouters.drawerForUser);
                             }else{
-                              showToast(value.msg);
+                              showToast(value.msg.toString().toString());
                             }
                           });
                         }
