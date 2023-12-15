@@ -26,17 +26,15 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController mobileController = TextEditingController();
-  // getEmail() async{
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-  //   mobileController.text = model.data!.mobile.toString();
-  // }
   @override
   void initState() {
     super.initState();
-    // phone =  mobileController.text.toString();
-
+     if(Get.arguments !=null){
+       mobile = Get.arguments;
+       mobileController.text = mobile;
+     }
   }
+  String mobile = '';
   final controller = Get.put(Controller());
   // var phone = Get.arguments[0];
   @override
@@ -128,29 +126,30 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                       CommonTextfield(
                         hintText: "phone",
                         obSecure: false,
-                        readOnly: false,
+                        readOnly: true,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
                         ],
                         keyboardType: TextInputType.number,
                         controller: mobileController,
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return "Mobile Number is required";
-                          }
-                          else if(value.length<10){
-                            return 'please enter correct number';
-                          }
-                          else{
-                            return null;
-                          }
-                        },
+                        // validator: (value){
+                        //   if(value!.isEmpty){
+                        //     return "Mobile Number is required";
+                        //   }
+                        //   else if(value.length<10){
+                        //     return 'please enter correct number';
+                        //   }
+                        //   else{
+                        //     return null;
+                        //   }
+                        // },
                       ),
                       const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          print(mobileController.text.toString());
                           if(formKey99.currentState!.validate()){
                             verifySmsOtpSendRepo(mobile: mobileController.text.toString(),type: 'user',context: context).then((value) {
                               if(value.status == true){

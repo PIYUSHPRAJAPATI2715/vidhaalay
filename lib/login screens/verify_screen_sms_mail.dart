@@ -29,9 +29,6 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
   bool isEmail = false;
   String email = '';
   String mobile = '';
-  // var mobile = Get.arguments[1];
-  // var email = Get.arguments[0];
-  // var mobile = Get.arguments[1];
   checkVerify() async {
     SharedPreferences prefSms = await SharedPreferences.getInstance();
     SharedPreferences prefEmail = await SharedPreferences.getInstance();
@@ -44,8 +41,10 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
   @override
   void initState() {
     super.initState();
-    // mobile = Get.arguments[0];
-    // email = Get.arguments[1];
+    if(Get.arguments != null){
+      email = Get.arguments[0];
+      mobile = Get.arguments[1];
+    }
     checkVerify();
 
   }
@@ -246,13 +245,14 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                           // VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
                           if (selectedContainerValue.isNotEmpty) {
                             if (selectedContainerValue == 'Email') {
-                              if ( pref.getBool('emailVerify') == true) {
-                                showToast('Email Already Verified');
-                              }
-                              else {
-                                // print(email);
-                                Get.toNamed(MyRouters.verifyWithMail,arguments: mobile.toString());
-                              }
+                              // if ( pref.getBool('emailVerify') == true) {
+                              //   showToast('Email Already Verified');
+                              // }
+                              // else {
+                              //   Get.toNamed(MyRouters.verifyWithMail,arguments: pref.getString('email'));
+                              //   print(pref.getString('email'));
+                              // }
+                              Get.toNamed(MyRouters.verifyWithMail,arguments: email.toString());
                             }
                             else if (selectedContainerValue == 'SMS') {
                               if ( pref.getBool('mobileVerify') == true) {

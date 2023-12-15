@@ -25,7 +25,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
 
   final formKey99 = GlobalKey<FormState>();
   TextEditingController otpcontroller = TextEditingController();
-  var email = Get.arguments[0];
+  // var email = Get.arguments[0];
   // String email = '';
   // String mobile = '';
   // getEmail() async{
@@ -34,12 +34,14 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
   //   email = model.data!.email.toString();
   //   mobile = model.data!.mobile.toString();
   // }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getEmail();
-  //
-  // }
+  String gmail = '';
+  @override
+  void initState() {
+    super.initState();
+    gmail = Get.arguments;
+
+
+  }
   final controller = Get.put(Controller());
   @override
   Widget build(BuildContext context) {
@@ -187,10 +189,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
-                          verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
-                            SharedPreferences prefEmail = await SharedPreferences.getInstance();
-                            prefEmail.setString("cookie", jsonEncode(value));
-                            print(prefEmail.toString());
+                          verifyEmailOtp(email: gmail.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
                             if(value.status == true){
                               showToast(value.msg);
                               Get.offAllNamed(MyRouters.verifyOtpLogin);

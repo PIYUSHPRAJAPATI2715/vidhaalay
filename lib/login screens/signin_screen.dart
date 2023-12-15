@@ -53,6 +53,37 @@ class _SignInPageState extends State<SignInPage> {
 
 
 
+  // login(token) {
+  //   if (formKey.currentState!.validate()) {
+  //     FocusManager.instance.primaryFocus!.unfocus();
+  //     loginRepo(context: context,type:'user',email: emailController.text.trim(),
+  //         password: passwordController.text.trim(),deviceType: getDeviceType().toString() ,deviceToken: token
+  //     ).then((value) async {
+  //       if(value.status == true){
+  //         log("fvfbgfbgf${value.data!.token}");
+  //         SharedPreferences pref = await SharedPreferences.getInstance();
+  //         pref.setString('cookie', value.data!.token.toString());
+  //         pref.setString('cookie', value.data!.toString());
+  //         pref.setBool('emailVerify', value.data!.emailVerified!);
+  //         pref.setBool('mobileVerify', value.data!.mobileVerified!);
+  //         log("fvfbgfbgf${value.data!.token}");
+  //         log("fvfbgfbgf${value.data!.email}");
+  //         log("fvfbgfbgf${value.data!.mobile}");
+  //         // controller.emailController.text = value.data!.email.toString();
+  //         if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
+  //           Get.offAllNamed(MyRouters.drawerForUser);
+  //           showToast(value.msg);
+  //         }else{
+  //           Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString(), true]);
+  //         }
+  //       }else{
+  //         showToast(value.msg);
+  //       }
+  //     });
+  //   }
+  // }
+
+
   login(token) {
     if (formKey.currentState!.validate()) {
       FocusManager.instance.primaryFocus!.unfocus();
@@ -63,16 +94,12 @@ class _SignInPageState extends State<SignInPage> {
           log("fvfbgfbgf${value.data!.token}");
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('cookie', value.data!.token.toString());
-          pref.setBool('emailVerify', value.data!.emailVerified!);
-          pref.setBool('mobileVerify', value.data!.mobileVerified!);
           log("fvfbgfbgf${value.data!.token}");
-          log("fvfbgfbgf${value.data!.email}");
-          // controller.emailController.text = value.data!.email.toString();
           if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
             Get.offAllNamed(MyRouters.drawerForUser);
             showToast(value.msg);
           }else{
-            Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
+            Get.offAllNamed(MyRouters.verifyOtpLogin);
           }
         }else{
           showToast(value.msg);
