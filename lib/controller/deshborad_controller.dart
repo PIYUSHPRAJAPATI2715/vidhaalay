@@ -7,6 +7,7 @@ import '../repositories/school_list_repo.dart';
 
 
 class GetSchoolListController extends GetxController {
+  RxString roleType = "S".obs;
   RxBool isSchoolListLoading = false.obs;
   RxBool isSchoolDetailsLoading = false.obs;
   Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
@@ -15,24 +16,26 @@ class GetSchoolListController extends GetxController {
 
   Future getSchoolListFunction() async {
     isSchoolListLoading.value = false;
-    await schoolListRepo().then((value) {
+    await schoolListRepo('',roleType.value).then((value) {
       isSchoolListLoading.value = true;
       getSchoolListModel.value = value;
+      print(value);
     });
   }
 
-  Future getSchoolDetailsFunction() async {
+  Future getSchoolDetailsFunction(String id) async {
     isSchoolDetailsLoading.value = false;
-    await getSchoolDetailsRepo().then((value) {
+    await getSchoolDetailsRepo(id).then((value) {
       isSchoolDetailsLoading.value = true;
       schoolDetailsModel.value = value;
     });
   }
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getSchoolListFunction();
-    getSchoolDetailsFunction();
+    // getSchoolDetailsFunction(3);
   }
 }

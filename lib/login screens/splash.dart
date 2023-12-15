@@ -31,7 +31,8 @@ class _SplashState extends State<Splash> {
           }
         }
         else{
-          Get.offAllNamed(MyRouters.verifyOtpLogin);
+          // Get.offAllNamed(MyRouters.verifyOtpLogin);
+          Get.offAllNamed(MyRouters.bottomNavigationUserScreen);
         }
       }
       else{

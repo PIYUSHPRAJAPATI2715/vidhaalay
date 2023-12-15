@@ -37,8 +37,23 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       getAddressCon.getProfileData();
     });
-    getSchoolListController.getSchoolListFunction();
     tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(_handleTabChange);
+  }
+
+  void _handleTabChange() {
+    // Perform your function here based on the current tab index
+    int currentIndex = tabController.index;
+    print("Tab index changed to: $currentIndex");
+
+    if(currentIndex == 0) {
+      getSchoolListController.roleType.value = "S";
+    } else if (currentIndex == 1) {
+      getSchoolListController.roleType.value = "C";
+    } else {
+      getSchoolListController.roleType.value = "I";
+    }
+    getSchoolListController.getSchoolListFunction();
   }
 
   @override
@@ -345,6 +360,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
                     return GestureDetector(
                       onTap: () {
+                        getSchoolListController.getSchoolDetailsFunction(item.id.toString());
+
                         Get.to(() =>  const SchoolsDetailsScreen(),
                             transition: Transition.fadeIn,
                             duration:
@@ -463,192 +480,454 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     : const CommonProgressIndicator();
               }),
 
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
-                child: ListView.builder(
-                  itemCount: 3,
+              Obx(() {
+                return getSchoolListController.isSchoolListLoading.value == true ? ListView.builder(
+                  itemCount: getSchoolListController
+                      .getSchoolListModel.value.data!.length,
                   shrinkWrap: true,
+                  padding: const EdgeInsets.all(16),
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppThemes.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image.asset(
-                                      AppAssets.collageImg,
-                                      fit: BoxFit.cover,
-                                      width: size.width,
-                                      height: size.height * .16,
-                                    ),
-                                  ),
-                                  const Positioned(
-                                      right: 10,
-                                      top: 10,
-                                      child: Icon(Icons.favorite_border,
-                                          size: 18, color: Colors.white)),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
+                    var item = getSchoolListController.getSchoolListModel.value.data![index];
+                    String imageUrl = item.image.toString();
+                    imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
+                    return GestureDetector(
+                      onTap: () {
+                        getSchoolListController.getSchoolDetailsFunction(item.id.toString());
+
+                        Get.to(() =>  const SchoolsDetailsScreen(),
+                            transition: Transition.fadeIn,
+                            duration:
+                            const Duration(milliseconds: 250));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppThemes.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Stack(
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Washington University',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 17),
-                                        ),
-                                      ],
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: CachedNetworkImage(
+                                        imageUrl: imageUrl.toString(),
+                                        fit: BoxFit.cover,
+                                        width: size.width,
+                                        height: size.height * .16,
+                                        errorWidget: (__, _, ___) =>
+                                            Image.asset(
+                                              AppAssets.collageImg,
+                                              fit: BoxFit.cover,
+                                              width: size.width,
+                                              height: size.height * .16,
+                                            ),
+                                        placeholder: (__, _) =>
+                                        const Center(
+                                            child: CircularProgressIndicator()),
+                                      ),
+
                                     ),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Icon(
-                                          Icons.location_pin,
-                                          color: Colors.red,
-                                          size: 18,
-                                        ),
-                                        Text(
-                                          '4101,california',
-                                          style: GoogleFonts.poppins(
-                                              color: AppThemes.textGray,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
+                                    Positioned(
+                                        right: 10,
+                                        top: 10,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(MyRouters
+                                                  .favoritesScreen);
+                                            },
+                                            child: const Icon(
+                                                Icons.favorite_border,
+                                                size: 18,
+                                                color: Colors.white))),
                                   ],
                                 ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.name.toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontWeight:
+                                                FontWeight.w600,
+                                                fontSize: 17),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Icon(
+                                            Icons.location_pin,
+                                            color: Colors.red,
+                                            size: 18,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              item.address.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  color:
+                                                  AppThemes.textGray,
+                                                  fontWeight:
+                                                  FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        )
-                      ],
+                          const SizedBox(
+                            height: 15,
+                          )
+                        ],
+                      ),
                     );
                   },
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
-                child: ListView.builder(
-                  itemCount: 3,
+                )
+                    : const CommonProgressIndicator();
+              }),
+              Obx(() {
+                return getSchoolListController.isSchoolListLoading.value == true ? ListView.builder(
+                  itemCount: getSchoolListController
+                      .getSchoolListModel.value.data!.length,
                   shrinkWrap: true,
+                  padding: const EdgeInsets.all(16),
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppThemes.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image.asset(
-                                      AppAssets.collageImg,
-                                      fit: BoxFit.cover,
-                                      width: size.width,
-                                      height: size.height * .16,
-                                    ),
-                                  ),
-                                  const Positioned(
-                                      right: 10,
-                                      top: 10,
-                                      child: Icon(Icons.favorite_border,
-                                          size: 18, color: Colors.white)),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
+                    var item = getSchoolListController.getSchoolListModel.value.data![index];
+                    String imageUrl = item.image.toString();
+                    imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
+                    return GestureDetector(
+                      onTap: () {
+                        getSchoolListController.getSchoolDetailsFunction(item.id.toString());
+                        Get.to(() =>  const SchoolsDetailsScreen(),
+                            transition: Transition.fadeIn,
+                            duration:
+                            const Duration(milliseconds: 250));
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppThemes.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Stack(
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Washington University',
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 17),
-                                        ),
-                                      ],
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: CachedNetworkImage(
+                                        imageUrl: imageUrl.toString(),
+                                        fit: BoxFit.cover,
+                                        width: size.width,
+                                        height: size.height * .16,
+                                        errorWidget: (__, _, ___) =>
+                                            Image.asset(
+                                              AppAssets.collageImg,
+                                              fit: BoxFit.cover,
+                                              width: size.width,
+                                              height: size.height * .16,
+                                            ),
+                                        placeholder: (__, _) =>
+                                        const Center(
+                                            child: CircularProgressIndicator()),
+                                      ),
+
                                     ),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Icon(
-                                          Icons.location_pin,
-                                          color: Colors.red,
-                                          size: 18,
-                                        ),
-                                        Text(
-                                          '4101,california',
-                                          style: GoogleFonts.poppins(
-                                              color: AppThemes.textGray,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),
-                                        ),
-                                      ],
-                                    ),
+                                    Positioned(
+                                        right: 10,
+                                        top: 10,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(MyRouters
+                                                  .favoritesScreen);
+                                            },
+                                            child: const Icon(
+                                                Icons.favorite_border,
+                                                size: 18,
+                                                color: Colors.white))),
                                   ],
                                 ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.name.toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontWeight:
+                                                FontWeight.w600,
+                                                fontSize: 17),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Icon(
+                                            Icons.location_pin,
+                                            color: Colors.red,
+                                            size: 18,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              item.address.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  color:
+                                                  AppThemes.textGray,
+                                                  fontWeight:
+                                                  FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        )
-                      ],
+                          const SizedBox(
+                            height: 15,
+                          )
+                        ],
+                      ),
                     );
                   },
-                ),
-              ),
+                )
+                    : const CommonProgressIndicator();
+              }),
+
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+              //   child: ListView.builder(
+              //     itemCount: 3,
+              //     shrinkWrap: true,
+              //     itemBuilder: (context, index) {
+              //       return Column(
+              //         children: [
+              //           Container(
+              //             decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.circular(12),
+              //               color: AppThemes.white,
+              //               boxShadow: [
+              //                 BoxShadow(
+              //                   color: Colors.black.withOpacity(0.2),
+              //                   spreadRadius: 1,
+              //                   blurRadius: 2,
+              //                   offset: const Offset(0, 2),
+              //                 ),
+              //               ],
+              //             ),
+              //             child: Column(
+              //               children: [
+              //                 Stack(
+              //                   children: [
+              //                     ClipRRect(
+              //                       borderRadius: BorderRadius.circular(12),
+              //                       child: Image.asset(
+              //                         AppAssets.collageImg,
+              //                         fit: BoxFit.cover,
+              //                         width: size.width,
+              //                         height: size.height * .16,
+              //                       ),
+              //                     ),
+              //                     const Positioned(
+              //                         right: 10,
+              //                         top: 10,
+              //                         child: Icon(Icons.favorite_border,
+              //                             size: 18, color: Colors.white)),
+              //                   ],
+              //                 ),
+              //                 Padding(
+              //                   padding: const EdgeInsets.all(8.0),
+              //                   child: Column(
+              //                     children: [
+              //                       Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.start,
+              //                         children: [
+              //                           Text(
+              //                             'Washington University',
+              //                             style: GoogleFonts.poppins(
+              //                                 fontWeight: FontWeight.w600,
+              //                                 fontSize: 17),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                       const SizedBox(
+              //                         height: 2,
+              //                       ),
+              //                       Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.start,
+              //                         children: [
+              //                           const Icon(
+              //                             Icons.location_pin,
+              //                             color: Colors.red,
+              //                             size: 18,
+              //                           ),
+              //                           Text(
+              //                             '4101,california',
+              //                             style: GoogleFonts.poppins(
+              //                                 color: AppThemes.textGray,
+              //                                 fontWeight: FontWeight.w500,
+              //                                 fontSize: 15),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 )
+              //               ],
+              //             ),
+              //           ),
+              //           const SizedBox(
+              //             height: 15,
+              //           )
+              //         ],
+              //       );
+              //     },
+              //   ),
+              // ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+              //   child: ListView.builder(
+              //     itemCount: 3,
+              //     shrinkWrap: true,
+              //     itemBuilder: (context, index) {
+              //       return Column(
+              //         children: [
+              //           Container(
+              //             decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.circular(12),
+              //               color: AppThemes.white,
+              //               boxShadow: [
+              //                 BoxShadow(
+              //                   color: Colors.black.withOpacity(0.2),
+              //                   spreadRadius: 1,
+              //                   blurRadius: 2,
+              //                   offset: const Offset(0, 2),
+              //                 ),
+              //               ],
+              //             ),
+              //             child: Column(
+              //               children: [
+              //                 Stack(
+              //                   children: [
+              //                     ClipRRect(
+              //                       borderRadius: BorderRadius.circular(12),
+              //                       child: Image.asset(
+              //                         AppAssets.collageImg,
+              //                         fit: BoxFit.cover,
+              //                         width: size.width,
+              //                         height: size.height * .16,
+              //                       ),
+              //                     ),
+              //                     const Positioned(
+              //                         right: 10,
+              //                         top: 10,
+              //                         child: Icon(Icons.favorite_border,
+              //                             size: 18, color: Colors.white)),
+              //                   ],
+              //                 ),
+              //                 Padding(
+              //                   padding: const EdgeInsets.all(8.0),
+              //                   child: Column(
+              //                     children: [
+              //                       Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.start,
+              //                         children: [
+              //                           Text(
+              //                             'Washington University',
+              //                             style: GoogleFonts.poppins(
+              //                                 fontWeight: FontWeight.w600,
+              //                                 fontSize: 17),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                       const SizedBox(
+              //                         height: 2,
+              //                       ),
+              //                       Row(
+              //                         mainAxisAlignment:
+              //                             MainAxisAlignment.start,
+              //                         children: [
+              //                           const Icon(
+              //                             Icons.location_pin,
+              //                             color: Colors.red,
+              //                             size: 18,
+              //                           ),
+              //                           Text(
+              //                             '4101,california',
+              //                             style: GoogleFonts.poppins(
+              //                                 color: AppThemes.textGray,
+              //                                 fontWeight: FontWeight.w500,
+              //                                 fontSize: 15),
+              //                           ),
+              //                         ],
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 )
+              //               ],
+              //             ),
+              //           ),
+              //           const SizedBox(
+              //             height: 15,
+              //           )
+              //         ],
+              //       );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),

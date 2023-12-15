@@ -7,8 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/appTheme.dart';
 
 
-
-
 class ApiUrls {
   static const String apiBaseUrl = 'http://13.127.76.67:3000/api/';
   static const String register = "${apiBaseUrl}user/register";
@@ -28,21 +26,22 @@ class ApiUrls {
   static const String privacyPolicyUrl = "${apiBaseUrl}common/pages/privacy-policy";
   static const String contactUsUrl = "${apiBaseUrl}common/pages/privacy-policy";
   static const String schoolListUrl = "${apiBaseUrl}school/list";
-  static const String getSchoolDetails = "${apiBaseUrl}school/1";
+  static const String getSchoolDetails = "${apiBaseUrl}school";
   static const String verifyOtpEmailSend = "${apiBaseUrl}user/resetViaEmail";
   static const String verifyMobileOtp = "${apiBaseUrl}user/verifyOtp";
   static const String verifyEmailOtp = "${apiBaseUrl}user/verifyOtpEmail";
   static const String resetViaSMS = "${apiBaseUrl}user/resetViaSMS";
   static const String otpByMobile = "${apiBaseUrl}user/otpByMobile";
   static const String addMissionUrl = "${apiBaseUrl}addmissions";
-
-
-
 }
+
 
 Future getAuthHeader() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   // pref.getString("cookie")!.toString().replaceAll('\"', '');
+  print("Enter");
+  print(pref.getString("cookie"));
+
   var gg ={
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',

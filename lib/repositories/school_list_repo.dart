@@ -11,7 +11,8 @@ import '../resourses/helper.dart';
 
 
 
-Future<SchoolListModel> schoolListRepo() async {
+Future<SchoolListModel> schoolListRepo(String query,String roletype) async {
+  print("api Call");
 
   // SharedPreferences pref = await SharedPreferences.getInstance();
   // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
@@ -21,7 +22,14 @@ Future<SchoolListModel> schoolListRepo() async {
   //   HttpHeaders.acceptHeader: 'application/json',
   //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
   // };
-  http.Response response = await http.post(Uri.parse(ApiUrls.schoolListUrl), headers: await getAuthHeader(),);
+  final Map<String, dynamic> MapData = {
+    "keyword": query,
+    "role_type": roletype,
+  };
+
+  final String jsonBody = json.encode(MapData);
+
+  http.Response response = await http.post(Uri.parse(ApiUrls.schoolListUrl), headers: await getAuthHeader(),body: jsonBody);
 
   log(response.body);
   if (response.statusCode == 200) {
