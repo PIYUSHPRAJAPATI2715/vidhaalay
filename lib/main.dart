@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
       title: 'vidhaalay',
       theme: ThemeData(
         fontFamily: "Poppins",
-
         appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(color: Colors.white),
             actionsIconTheme: IconThemeData(color: Colors.white),

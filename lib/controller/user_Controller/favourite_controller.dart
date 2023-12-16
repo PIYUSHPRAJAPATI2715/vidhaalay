@@ -9,13 +9,20 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 class FavouriteController extends GetxController {
   RxBool isFavouriteListLoading = false.obs;
   Rx<FavourateListModel> favourateListModel = FavourateListModel().obs;
+  RxString favForType = "Schools".obs;
 
   // Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
   Future getFavouriteListRepo() async {
     isFavouriteListLoading.value = false;
-
     print("api Call");
-    http.Response response = await http.get(Uri.parse(ApiUrls.getFavouriteListUrl), headers: await getAuthHeader(),);
+
+    final Map<String, dynamic> MapData = {
+      "fav_for": favForType.value,
+    };
+
+    final String jsonBody = json.encode(MapData);
+
+    http.Response response = await http.post(Uri.parse(ApiUrls.getFavouriteListUrl), headers: await getAuthHeader(),body: jsonBody);
 
     print(response.statusCode);
     if (response.statusCode == 200) {

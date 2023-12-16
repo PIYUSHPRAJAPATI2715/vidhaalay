@@ -24,21 +24,26 @@ class VerifyWithSms extends StatefulWidget {
 
 class _VerifyWithSmsState extends State<VerifyWithSms> {
 
+  final controller = Get.put(Controller());
+
   final formKey99 = GlobalKey<FormState>();
   TextEditingController mobileController = TextEditingController();
+  // var phone = Get.arguments[0];
+
+  @override
+  void initState() {
+    super.initState();
+    String mobileNo = Get.arguments;
+    mobileController.text = mobileNo;
+    // phone =  mobileController.text.toString();
+  }
+
   // getEmail() async{
   //   SharedPreferences pref = await SharedPreferences.getInstance();
   //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
   //   mobileController.text = model.data!.mobile.toString();
   // }
-  @override
-  void initState() {
-    super.initState();
-    // phone =  mobileController.text.toString();
 
-  }
-  final controller = Get.put(Controller());
-  // var phone = Get.arguments[0];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -155,7 +160,8 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                             verifySmsOtpSendRepo(mobile: mobileController.text.toString(),type: 'user',context: context).then((value) {
                               if(value.status == true){
                                 showToast(value.msg.toString().toString());
-                                Get.offAllNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text.toString()]);
+                                Get.toNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text]);
+                                // Get.offAllNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text.toString()]);
                               }else{
                                 showToast(value.msg.toString().toString());
                               }

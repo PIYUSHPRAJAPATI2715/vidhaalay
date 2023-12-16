@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
@@ -68,7 +69,10 @@ class _IntroPageScreenState extends State<IntroPageScreen> {
               width: size.width,
               child: CommonButton(
                 title: 'get started'.toUpperCase(),
-                onPressed: (){
+                onPressed: () async {
+                  final pref = await SharedPreferences.getInstance();
+                  pref.setBool("isFirstTime", false);
+
                   Get.offAllNamed(MyRouters.signInPage);
                 },
               ),

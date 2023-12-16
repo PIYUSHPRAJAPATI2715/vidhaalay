@@ -23,21 +23,36 @@ class _SplashState extends State<Splash> {
     super.initState();
     Timer(const Duration(seconds: 2), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      if(pref.getString("cookie") != null){
-        if (pref.getBool('emailVerify') == true){
-          Get.offAllNamed(MyRouters.drawerForUser);
-          if (pref.getBool('mobileVerify') == true){
-            Get.offAllNamed(MyRouters.drawerForUser);
-          }
-        }
-        else{
-          // Get.offAllNamed(MyRouters.verifyOtpLogin);
-          Get.offAllNamed(MyRouters.bottomNavigationUserScreen);
-        }
-      }
-      else{
+      bool? isFirstTime = pref.getBool("isFirstTime");
+      bool? isLoggedIn = pref.getBool("isLoggedIn");
+      // String? cookie = pref.getString("cookie");
+
+      if (isFirstTime == null) {
+        print("Enter0");
         Get.offAllNamed(MyRouters.introPageScreen);
+      } else if (isLoggedIn == null || !isLoggedIn) {
+        print("Enter1");
+        Get.offAllNamed(MyRouters.signInPage);
+      } else {
+        Get.offAllNamed(MyRouters.drawerForUser);
       }
+
+      // if(pref.getString("cookie") != null){
+      //   if (pref.getBool('emailVerify') == true){
+      //     Get.offAllNamed(MyRouters.drawerForUser);
+      //     if (pref.getBool('mobileVerify') == true){
+      //       Get.offAllNamed(MyRouters.drawerForUser);
+      //     }
+      //   }
+      //   else{
+      //     // Get.offAllNamed(MyRouters.verifyOtpLogin);
+      //     Get.offAllNamed(MyRouters.bottomNavigationUserScreen);
+      //   }
+      // }
+      // else{
+      //   Get.offAllNamed(MyRouters.introPageScreen);
+      // }
+
       // else{
       //     Get.offAllNamed(MyRouters.introPageScreen);
 

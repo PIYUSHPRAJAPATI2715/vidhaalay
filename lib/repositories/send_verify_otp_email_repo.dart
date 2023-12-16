@@ -21,7 +21,6 @@ Future<ModelCommon> verifyEmailOtpSend({email,context,type}) async {
   map['email'] = email;
   map['type'] =  type;
 
-
   print(map);
   final headers = {
     HttpHeaders.contentTypeHeader: 'application/json',

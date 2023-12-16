@@ -22,13 +22,28 @@ class VerifyOtpLogin extends StatefulWidget {
 
 class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
 
-  bool emailContainerClicked = true;
-  bool smsContainerClicked = false;
+  // bool emailContainerClicked = true;
+  // bool smsContainerClicked = false;
   String selectedContainerValue = 'Email';
 
   bool isEmail = false;
   RxString mobile = ''.obs;
   RxString email = ''.obs;
+  RxBool isEmailVerify = false.obs;
+  RxBool isMobileVerify = false.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    email.value = Get.arguments[0]!;
+    mobile.value = Get.arguments[1]!;
+    isMobileVerify.value = Get.arguments[2]!;
+    isEmailVerify.value = Get.arguments[3]!;
+    selectContainer();
+    checkVerify();
+  }
+
+
   checkVerify() async {
     SharedPreferences prefSms = await SharedPreferences.getInstance();
     SharedPreferences prefEmail = await SharedPreferences.getInstance();
@@ -38,14 +53,23 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
       Get.toNamed(MyRouters.drawerForUser);
     }
   }
-  @override
-  void initState() {
-    super.initState();
-    mobile.value = Get.arguments[0];
-    email.value = Get.arguments[1];
-    checkVerify();
 
+
+  selectContainer() {
+    if(!isEmailVerify.value) {
+      selectedContainerValue = 'Email';
+    } else if(!isMobileVerify.value) {
+      selectedContainerValue = 'SMS';
+    } else {
+      // Get.offAllNamed(MyRouters.drawerForUser);
+    }
+    setState(() {
+
+    });
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -114,121 +138,127 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                       const SizedBox(
                         height: 30,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            emailContainerClicked = true;
-                            smsContainerClicked = false;
-                            selectedContainerValue = 'Email';
-                          });
+                      Visibility(
+                        visible: !isEmailVerify.value,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              // emailContainerClicked = true;
+                              // smsContainerClicked = false;
+                              selectedContainerValue = 'Email';
+                            });
 
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color:  emailContainerClicked ?  AppThemes.primaryColor : Colors.transparent,
-                              width: 2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                offset: const Offset(0, 2),
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color:  selectedContainerValue == "Email" ?  AppThemes.primaryColor : Colors.transparent,
+                                width: 2,
                               ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset('assets/images/mail.svg'),
-                              SizedBox(width: size.width*.040,),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Text('Verify With Email',style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18
-                                    ),),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text('if you have email linked to your account',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppThemes.textGray,
-                                      ),
-                                    ),
-                                  ],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2),
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset('assets/images/mail.svg'),
+                                SizedBox(width: size.width*.040,),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Text('Verify With Email',style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18
+                                      ),),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text('if you have email linked to your account',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppThemes.textGray,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            smsContainerClicked = true;
-                            emailContainerClicked = false;
-                            selectedContainerValue = 'SMS';
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: smsContainerClicked ? AppThemes.primaryColor : Colors.transparent,
-                              width: 2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                offset: const Offset(0, 2),
+                      Visibility(
+                        visible: !isMobileVerify.value,
+                        child: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              // smsContainerClicked = true;
+                              // emailContainerClicked = false;
+                              selectedContainerValue = 'SMS';
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: selectedContainerValue == "SMS" ? AppThemes.primaryColor : Colors.transparent,
+                                width: 2,
                               ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.phone_android,color: AppThemes.primaryColor,),
-                              SizedBox(width: size.width*.040,),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const Text('Verify with SMS',style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18
-                                    ),),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text('if you have phone linked to your account',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppThemes.textGray,
-                                      ),
-                                    ),
-                                  ],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2),
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.phone_android,color: AppThemes.primaryColor,),
+                                SizedBox(width: size.width*.040,),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Text('Verify with SMS',style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18
+                                      ),),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text('if you have phone linked to your account',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppThemes.textGray,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -241,30 +271,53 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                           // SharedPreferences prefEmail = await SharedPreferences.getInstance();
                           // ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
                           // VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
-                          if (selectedContainerValue.isNotEmpty) {
-                            if (selectedContainerValue == 'Email') {
-                              if ( pref.getBool('emailVerify') == true) {
-                                showToast('Email Already Verified');
-                              }
-                              else {
-                                // print(email);
-                                Get.toNamed(MyRouters.verifyWithMail,arguments: mobile.toString());
-                              }
+                           bool? isEmailVerify = pref.getBool('emailVerify');
+                           bool? isMobileVerify = pref.getBool('mobileVerify');
+                           print("isEmailVerify : $isEmailVerify");
+                           print("isMobileVerify : $isMobileVerify");
+
+
+                           if (isEmailVerify == true && isMobileVerify == true) {
+                            pref.setBool('isLoggedIn', true);
+                            Get.offAllNamed(MyRouters.drawerForUser);
+                          } else if (selectedContainerValue == 'Email') {
+                            if (isEmailVerify == true) {
+                              showToast('Email Already Verified');
+                            } else {
+                              // print(email);
+                              Get.toNamed(MyRouters.verifyWithMail,
+                                  arguments: email.value);
                             }
-                            else if (selectedContainerValue == 'SMS') {
-                              if ( pref.getBool('mobileVerify') == true) {
-                                showToast('Phone Already Verified');
-                              }
-                              else {
-                                Get.toNamed(MyRouters.verifyWithSms,arguments: mobile.value);
-                              }
+                          } else if (selectedContainerValue == 'SMS') {
+                            if (isMobileVerify == true) {
+                              showToast('Phone Already Verified');
+                            } else {
+                              Get.toNamed(MyRouters.verifyWithSms,
+                                  arguments: mobile.value);
                             }
-                          }
-                          else {
+                          } else {
                             showToast('Please Select One');
                           }
 
-                          
+                          //  if (selectedContainerValue.isNotEmpty) {
+                          //   if (selectedContainerValue == 'Email') {
+                          //     if (pref.getBool('emailVerify') == true) {
+                          //       showToast('Email Already Verified');
+                          //     } else {
+                          //       // print(email);
+                          //       Get.toNamed(MyRouters.verifyWithMail,arguments: email.value);
+                          //     }
+                          //   }
+                          //   else if (selectedContainerValue == 'SMS') {
+                          //     if ( pref.getBool('mobileVerify') == true) {
+                          //       showToast('Phone Already Verified');
+                          //     } else {
+                          //       Get.toNamed(MyRouters.verifyWithSms,arguments: mobile.value);
+                          //     }
+                          //   }
+                          // } else {
+                          //   showToast('Please Select One');
+                          // }
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 0),

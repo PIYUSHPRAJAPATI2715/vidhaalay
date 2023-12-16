@@ -41,6 +41,13 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
   //
   // }
   final controller = Get.put(Controller());
+
+  @override
+  void initState() {
+    super.initState();
+    email = Get.arguments[0];
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -188,12 +195,33 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
                           verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
-                            SharedPreferences prefEmail = await SharedPreferences.getInstance();
-                            prefEmail.setString("cookie", jsonEncode(value));
-                            print(prefEmail.toString());
+                            print(value);
+                            print(value.data!.emailVerified);
+
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            pref.setBool('emailVerify', value.data!.emailVerified!);
+                            // pref.setString('cookie', value.data!.token.toString());
+
+                            // SharedPreferences prefEmail = await SharedPreferences.getInstance();
+                            // prefEmail.setString("cookie", jsonEncode(value));
+                            // print(prefEmail.toString());
+
+                            bool? isEmailVerify = pref.getBool('emailVerify');
+                            bool? isMobileVerify = pref.getBool('mobileVerify');
+                            print("isEmailVerify : $isEmailVerify");
+                            print("isMobileVerify : $isMobileVerify");
+
                             if(value.status == true){
                               showToast(value.msg.toString().toString());
-                              Get.offAllNamed(MyRouters.verifyOtpLogin);
+
+                              if (isEmailVerify == true && isMobileVerify == true) {
+                                pref.setBool('isLoggedIn', true);
+                                Get.offAllNamed(MyRouters.drawerForUser);
+                              } else {
+                                Get.back();
+                                Get.back();
+                              }
+                              // Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: []);
                             }else{
                               showToast(value.msg.toString().toString());
                             }

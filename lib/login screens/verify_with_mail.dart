@@ -31,18 +31,23 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
   //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
   //   emailController.text = model.data!.email.toString();
   // }
+
+  String email = '';
+  final formKey99 = GlobalKey<FormState>();
+  final controller = Get.put(Controller());
+  TextEditingController emailController = TextEditingController();
+
+
   @override
   void initState() {
     super.initState();
     // getEmail();
     // gmail = Get.arguments[0];
-     gmail = Get.arguments;
-    gmail = emailController.text.toString();
+     email = Get.arguments;
+     // print(email);
+     emailController.text = email;
   }
- String gmail = '';
-  final formKey99 = GlobalKey<FormState>();
-  final controller = Get.put(Controller());
-   TextEditingController emailController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -145,14 +150,15 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
                         height: 50,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          print(gmail.toString());
+                        onPressed: () async {
                           if (formKey99.currentState!.validate()) {
-                            verifyEmailOtpSend(context: context,email: emailController.text.toString(),type: 'user'
-                            ).then((value) async {
-                              if(value.status == true){
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            // pref.getString('type');
+                            // pref.getString('type').toString()
+                            verifyEmailOtpSend(context: context,email: emailController.text.toString(),type: "user").then((value) async {
+                              if(value.status == true) {
                                 showToast(value.msg.toString().toString());
-                                Get.toNamed(MyRouters.otpScreenEmail,);
+                                Get.toNamed(MyRouters.otpScreenEmail,arguments: [emailController.text]);
                               }else{
                                 showToast(value.msg.toString().toString());
                               }
