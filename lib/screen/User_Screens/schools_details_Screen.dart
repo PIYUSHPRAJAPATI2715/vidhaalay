@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 
@@ -11,7 +12,10 @@ import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 
 class SchoolsDetailsScreen extends StatefulWidget {
-  const SchoolsDetailsScreen({Key? key}) : super(key: key);
+  final String type;
+
+  const SchoolsDetailsScreen({super.key, this.type = "Schools"});
+
 
   @override
   State<SchoolsDetailsScreen> createState() => _SchoolsDetailsScreenState();
@@ -22,11 +26,14 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
   late TabController tabController;
 
   final getSchoolDetailsController = Get.put(GetSchoolListController());
+  FavouriteController favouriteController  = Get.put(FavouriteController());
+  String type  = "Schools";
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 5, vsync: this);
+    type = widget.type;
     // getSchoolDetailsController.getSchoolDetailsFunction();
   }
 
@@ -100,12 +107,24 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                     right: 15,
                     child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(MyRouters.favoritesScreen);
+                          bool isFavourite = getSchoolDetailsController.schoolDetailsModel.value.data?.favourite == null ? false
+                              : getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite!;
+                          // print(getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite);
+                          int id =  getSchoolDetailsController.schoolDetailsModel.value.data!.id!;
+
+                          favouriteController.addFavouriteInListRepo(id,type,!isFavourite);
+                          getSchoolDetailsController.getSchoolDetailsFunction(id.toString());
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.favorite,
-                          color: AppThemes.white,
-                        ))),
+                          color:  getSchoolDetailsController.schoolDetailsModel.value.data?.favourite == null ?
+                          AppThemes.white
+                              :
+                          getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite! ? Colors.deepOrange
+                              : AppThemes.white,
+                        )
+                    )
+                ),
                 Positioned.fill(
                   top: size.height * .268,
                   child: Container(
@@ -167,7 +186,6 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                               const SizedBox(
                                 width: 6,
                               ),
-
                               FittedBox(
                                 child: Text(
                                   getSchoolDetailsController.schoolDetailsModel.value.data!.address.toString(),
@@ -493,7 +511,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                       imageUrl: item.image.toString(),
                                                       fit: BoxFit.cover,
                                                       width: size.width,
-                                                      height: size.height * .16,
+                                                      height: size.height * .15,
                                                       errorWidget: (__, _, ___) =>
                                                           Image.asset(
                                                             AppAssets.collageImg,
@@ -511,14 +529,15 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                       fontSize: 15,
                                                       fontWeight: FontWeight.w500),
                                                 ),
-                                                 Text(
-                                                  'class ${item.classNo.toString()}  ${item.percentage.toString()}',
-                                                  style: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Colors.grey),
-                                                ),
-                                              ],
+                                                Text(
+                                                'class ${item.classNo.toString()}',
+                                                      style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.grey),
+                                                    ),
+                                                  ],
                                             )
                                           ],
                                         );

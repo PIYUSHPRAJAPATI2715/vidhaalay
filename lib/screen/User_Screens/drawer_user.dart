@@ -46,6 +46,7 @@ class _DrawerForUserState extends State<DrawerForUser> {
     if (modelSiteSettings.data != null) {
       sharedPreference.setString("token", jsonEncode(modelSiteSettings));
     }
+    sharedPreference.setBool("isFirstTime", false);
   }
   double value = 0;
   @override
