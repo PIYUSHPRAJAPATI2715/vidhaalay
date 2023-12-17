@@ -183,6 +183,8 @@ class _ForgotOtpSmsScreenState extends State<ForgotOtpSmsScreen> {
                           forgotSmsOtpRepo(context: context,mobile: mobile.toString(),otp: otpController.text.trim(),type: 'user'
                           ).then((value) async {
                             if(value.status == true){
+                              SharedPreferences pref = await SharedPreferences.getInstance();
+                              pref.setString('cookie', value.data!.token.toString());
                               showToast(value.msg.toString()!);
                               Get.toNamed(MyRouters.createPasswordScreen);
                             }else{

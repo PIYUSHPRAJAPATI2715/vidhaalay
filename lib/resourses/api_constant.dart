@@ -35,6 +35,7 @@ class ApiUrls {
   static const String resetPassword = "${apiBaseUrl}user/reset-password";
   static const String resetByMobile = "${apiBaseUrl}user/resetByMobile";
   static const String forgotOtpVerSms = "${apiBaseUrl}user/verifyOtpForgot";
+  static const String forgotOtpVerEmail = "${apiBaseUrl}user/verifyOtpEmailForgot";
 
 
   // User

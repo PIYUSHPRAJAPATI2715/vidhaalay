@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import '../models/forgot_sms_otp_model.dart';
 import '../models/model_common.dart';
 import '../resourses/api_constant.dart';
 import '../resourses/helper.dart';
@@ -77,7 +78,7 @@ Future<ModelCommon> changePassword({password, confirmPassword, context}) async {
   };
 
   http.Response response = await http.post(Uri.parse(ApiUrls.resetPassword),
-      body: jsonEncode(map), headers: headers);
+      body: jsonEncode(map), headers: await getAuthHeader());
 
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
@@ -91,7 +92,7 @@ Future<ModelCommon> changePassword({password, confirmPassword, context}) async {
   }
 }
 
-Future<ModelCommon> forgotSmsOtpRepo({mobile,context,type,otp}) async {
+Future<VerifyOtpSmsForgotModel> forgotSmsOtpRepo({mobile,context,type,otp}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context).insert(loader);
 
@@ -114,9 +115,9 @@ Future<ModelCommon> forgotSmsOtpRepo({mobile,context,type,otp}) async {
   log(response.body);
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
-    return ModelCommon.fromJson(jsonDecode(response.body));
+    return VerifyOtpSmsForgotModel.fromJson(jsonDecode(response.body));
   } else {
     Helpers.hideLoader(loader);
     print(jsonDecode(response.body));
-    return ModelCommon(msg: jsonDecode(response.body)["msg"], );
+    return VerifyOtpSmsForgotModel(msg: jsonDecode(response.body)["msg"], );
   }}

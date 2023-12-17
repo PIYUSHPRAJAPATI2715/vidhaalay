@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
@@ -164,8 +165,10 @@ class _OtpScreenState extends State<OtpScreen> {
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
                           print(email.toString());
-                          verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
+                          forgotEmailOtpRepo(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
                             if(value.status == true){
+                              SharedPreferences pref = await SharedPreferences.getInstance();
+                              pref.setString('cookie', value.data!.token.toString());
                               showToast(value.msg.toString().toString());
                               Get.toNamed(MyRouters.createPasswordScreen);
                             }else{
