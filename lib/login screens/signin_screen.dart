@@ -594,7 +594,7 @@ class _SignInPageState extends State<SignInPage> {
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
-    print("Token---------${googleAuth.accessToken}");
+    print("Token----------${googleAuth.accessToken}");
     print("Token---------${googleUser.email.toString()}");
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
     log(value.credential!.accessToken!);
