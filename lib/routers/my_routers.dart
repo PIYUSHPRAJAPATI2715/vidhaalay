@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
 
 import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
@@ -84,6 +85,10 @@ class MyRouters{
   static var myProfileTeacher = "/myProfileTeacher";
   static var verifyWithMail = "/verifyWithMail";
 
+  // user
+  static var addressScreen = "/addressScreen";
+
+
   //teacher
   static var drawerForTeacher = "/drawerForTeacher";
   static var sendNotificationScreen = "/sendNotificationScreen";
@@ -128,6 +133,7 @@ class MyRouters{
     GetPage(name: '/bottomNavigationUserScreen', page: () =>  const BottomNavigationUserScreen()),
     // GetPage(name: '/schoolsDetailsScreen', page: () =>   SchoolsDetailsScreen()),
     GetPage(name: '/settingScreenUser', page: () =>  const SettingScreenUser()),
+    GetPage(name: '/addressScreen', page: () =>  const AddressScreen()),
     GetPage(name: '/changePasswordUser', page: () =>  const ChangePasswordUser()),
     GetPage(name: '/myProfileScreen', page: () =>  const MyProfileScreen()),
     GetPage(name: '/favoritesScreen', page: () =>  const FavoritesScreen()),

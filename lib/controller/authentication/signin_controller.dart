@@ -113,7 +113,6 @@ class SignInController extends GetxController {
         // else if (!isMobileVerify) {
         //   print("E1");
         //   Get.offAllNamed(MyRouters.verifyOtpLogin,arguments: [value.data!.email.toString(),value.data!.mobile.toString(), isMobileVerify,isEmailVerify]);
-        //
         //   // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
         // }
         else {

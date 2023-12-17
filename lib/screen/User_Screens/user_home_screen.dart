@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/bottom_controller.dart';
 import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
+import 'package:vidhaalay_app/models/get_profile_model.dart';
+import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
@@ -39,14 +41,36 @@ class _UserHomeScreenState extends State<UserHomeScreen>
   final getAddressCon  = Get.put(GetProfileController());
   final bottomController = Get.put(BottomController());
 
+  String? location = null;
+
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      getAddressCon.getProfileData();
-    });
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(_handleTabChange);
+    getLocation();
+  }
+
+  @override
+  void dispose() {
+    // tabController.removeListener(_handleTabChange);
+    tabController.dispose();
+    super.dispose();
+  }
+
+  Future<void> getLocation() async {
+    GetProfileModel getProfileModel = GetProfileModel();
+
+    await getProfileRepo().then((value) {
+      getProfileModel = value;
+      setState(() {
+        location = getProfileModel.data?.address;
+      });
+      print("Location $location");
+      if(location == null) {
+        Get.to(() => AddressScreen(isAddressUpdateRequire: true,));
+      }
+    });
   }
 
   void _handleTabChange() {
@@ -64,26 +88,21 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     getSchoolListController.getSchoolListFunction();
   }
 
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
-  }
-
   logOutUser() async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-    LoginModel modelSiteSettings = LoginModel();
-    if (sharedPreference.getString("token") != null) {
-      modelSiteSettings =
-          LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
-    }
+    // LoginModel modelSiteSettings = LoginModel();
+    // if (sharedPreference.getString("token") != null) {
+    //   modelSiteSettings =
+    //       LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
+    // }
     await sharedPreference.clear();
     Get.offAllNamed(MyRouters.signInPage);
     showToast("Logged out");
-    if (modelSiteSettings.data != null) {
-      sharedPreference.setString("token", jsonEncode(modelSiteSettings));
-    }
+    // if (modelSiteSettings.data != null) {
+    //   sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+    // }
   }
+
   double value = 0;
 
   @override
@@ -159,21 +178,20 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             const SizedBox(
               width: 4,
             ),
-           Obx(() {
-             return GestureDetector(
+            GestureDetector(
                onTap: (){
-                 Get.to(() => const AddressScreen());
+                 Get.to(() => AddressScreen(address: location!,));
                },
                child: Text(
-                 getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
-                 :  'Select Address',
+                   location == null ? 'Select Address' : location!,
+                 // getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
+                 // :  'Select Address',
                  style: const TextStyle(
                      color: AppThemes.black,
                      fontWeight: FontWeight.w600,
                      fontSize: 15),
                ),
-             );
-           })
+             )
           ],
         ),
         actions: [
@@ -198,6 +216,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
           ),
         ],
       ),
+
       // drawer:
       // Container(
       //   width: size.width * 0.75,
@@ -716,16 +735,15 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     String imageUrl = item.image.toString();
                     imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
 
-                    // String? fav = item.favourite.toString();
-                    // bool isFavourite =  fav == null ? false : true;
-                    // print("favourtie : $fav");
-                    // print("favourtie : $isFavourite");
+                    bool isFavourite = item.favourite == null ? false : item.favourite!['favourite'];
+                    print("favourtie : $isFavourite");
 
                     return GestureDetector(
+
                       onTap: () {
                         getSchoolListController.getSchoolDetailsFunction(item.id.toString());
 
-                        Get.to(() =>  const SchoolsDetailsScreen(),
+                        Get.to(() =>  const SchoolsDetailsScreen(type: "Schools"),
                             transition: Transition.fadeIn,
                             duration:
                                 const Duration(milliseconds: 250));
@@ -767,26 +785,27 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         const Center(
                                             child: CircularProgressIndicator()),
                                       ),
-
                                     ),
                                     Positioned(
                                         right: 10,
                                         top: 10,
                                         child: GestureDetector(
                                             onTap: () {
-                                              favouriteController.addFavouriteInListRepo(item.id!,"Schools", true);
+                                              favouriteController.addFavouriteInListRepo(item.id!,"Schools", !isFavourite).then(
+                                                      (value) {
+                                                    _handleTabChange();
+                                                  });
 
                                               // Get.toNamed(MyRouters
                                               //     .favoritesScreen);
                                             },
-                                            child: const Icon(
-                                                Icons.favorite_border,
+                                            child: Icon(
+                                              Icons.favorite,
                                                 size: 18,
-                                                color:
-                                                // fav.favourite ?
-                                                // Colors.deepOrange :
-                                                Colors.white
-                                            ))),
+                                                color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                            )
+                                        )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -859,11 +878,14 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     var item = getSchoolListController.getSchoolListModel.value.data![index];
                     String imageUrl = item.image.toString();
                     imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
+                    bool isFavourite = item.favourite == null ? false : item.favourite!['favourite'];
+                    print("favourtie : $isFavourite");
+
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController.getSchoolDetailsFunction(item.id.toString());
 
-                        Get.to(() =>  const SchoolsDetailsScreen(),
+                        Get.to(() =>  const SchoolsDetailsScreen(type: "Colleges"),
                             transition: Transition.fadeIn,
                             duration:
                             const Duration(milliseconds: 250));
@@ -913,15 +935,20 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         child: GestureDetector(
                                             onTap: () {
                                               print(item.id);
-                                              favouriteController.addFavouriteInListRepo(item.id!,"Colleges", true);
+                                              favouriteController.addFavouriteInListRepo(item.id!,"Colleges", !isFavourite).then(
+                                                      (value) {
+                                                        _handleTabChange();
+                                                      });
                                               // Get.toNamed(MyRouters
                                               //     .favoritesScreen);
                                             },
-                                            child: const Icon(
-                                                Icons.favorite_border,
-                                                size: 18,
-                                                color: Colors.white
-                                            ))),
+                                            child:  Icon(
+                                              Icons.favorite,
+                                              size: 18,
+                                              color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                            )
+                                        )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -993,14 +1020,14 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     var item = getSchoolListController.getSchoolListModel.value.data![index];
                     String imageUrl = item.image.toString();
                     imageUrl = imageUrl.replaceAll('[', '').replaceAll(']', '');
-
-                    String favourtie = item.favourite.toString();
-                    print("favourtie : $favourtie");
+                    bool isFavourite = item.favourite == null ? false : item.favourite!['favourite'];
+                    print("favourtie : $isFavourite");
 
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController.getSchoolDetailsFunction(item.id.toString());
-                        Get.to(() =>  const SchoolsDetailsScreen(),
+
+                        Get.to(() =>  const SchoolsDetailsScreen(type: "Institute"),
                             transition: Transition.fadeIn,
                             duration:
                             const Duration(milliseconds: 250));
@@ -1042,26 +1069,21 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         const Center(
                                             child: CircularProgressIndicator()),
                                       ),
-
                                     ),
                                     Positioned(
                                         right: 10,
                                         top: 10,
                                         child: GestureDetector(
                                             onTap: () {
-                                              print(item.id);
-                                              favouriteController.addFavouriteInListRepo(item.id!,"Institute", true);
-                                              // Get.toNamed(MyRouters
-                                              //     .favoritesScreen);
+                                              favouriteController.addFavouriteInListRepo(item.id!,"Institute", !isFavourite).then(
+                                                      (value) {
+                                                    _handleTabChange();
+                                                  });
                                             },
-                                            child: const Icon(
-                                                Icons.favorite_border,
-                                                size: 18,
-                                                color:
-                                                // item.favourite != null ?
-                                                Colors.white
-                                                    // :
-                                                // Colors.deepOrange
+                                            child: Icon(
+                                              Icons.favorite,
+                                              size: 18,
+                                              color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
                                             )
                                         )
                                     ),

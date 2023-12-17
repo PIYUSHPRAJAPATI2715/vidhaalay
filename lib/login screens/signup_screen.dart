@@ -324,7 +324,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           ).then((value) async {
                             if(value.status == true){
                               showToast(value.msg.toString());
-                              Get.toNamed(MyRouters.signInPage);
+                              // Get.toNamed(MyRouters.signInPage);
+                              Get.offAllNamed(MyRouters.signInPage);
                             }else{
                               showToast(value.msg.toString());
                             }
@@ -338,7 +339,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           // }
                           setState(() {
                           });
-
                         }
                         else{
                           showValidation = true;

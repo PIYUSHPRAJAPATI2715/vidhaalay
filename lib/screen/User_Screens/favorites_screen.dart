@@ -22,7 +22,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
 
   FavouriteController favouriteController  = Get.put(FavouriteController());
 
-
   late TabController tabController;
   final TextEditingController searchController = TextEditingController();
 
@@ -32,6 +31,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
     favouriteController.getFavouriteListRepo();
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(_handleTabChange);
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 
   void _handleTabChange() {
@@ -49,11 +54,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
     favouriteController.getFavouriteListRepo();
   }
 
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
         centerTitle: true,
         leading:  IconButton(
           icon: Image.asset(AppAssets.arrowBack,width: 19,color: AppThemes.textBrown,),
-          onPressed: (){
+          onPressed: () {
             Get.toNamed(MyRouters.bottomNavigationUserScreen);
             // Get.back();
           },
@@ -187,6 +187,27 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                               imageUrl = imageUrl
                                   .replaceAll('[', '')
                                   .replaceAll(']', '');
+
+                              int favId =
+                              favouriteController
+                                  .favourateListModel
+                                  .value
+                                  .data![index]
+                                  .favForId!;
+                              String favFor =
+                              favouriteController
+                                  .favourateListModel
+                                  .value
+                                  .data![index]
+                                  .favFor!;
+
+                              bool isFavourite = favouriteController
+                                  .favourateListModel
+                                  .value
+                                  .data![index]
+                                  .favourite!;
+
+
                               return GestureDetector(
                                 onTap: () {
                                   // favouriteController.getSchoolDetailsFunction(item.id.toString());
@@ -241,27 +262,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                   top: 10,
                                                   child: GestureDetector(
                                                       onTap: () {
-                                                        int favId =
-                                                            favouriteController
-                                                                .favourateListModel
-                                                                .value
-                                                                .data![index]
-                                                                .favForId!;
-                                                        String favFor =
-                                                            favouriteController
-                                                                .favourateListModel
-                                                                .value
-                                                                .data![index]
-                                                                .favFor!;
-                                                        print(favId);
-                                                        print(favFor);
-                                                        print(item.id);
-                                                        // print();
-                                                        favouriteController
-                                                            .addFavouriteInListRepo(
-                                                                favId,
-                                                                favFor,
-                                                                false);
+                                                        // print(favId);
+                                                        // print(favFor);
+                                                        // print(item.id);
+
+                                                        favouriteController.addFavouriteInListRepo(favId,favFor, !isFavourite).then(
+                                                                (value) {
+                                                              _handleTabChange();
+                                                            });
 
                                                         // Get.toNamed(MyRouter
                                                         //     .favoritesScreen);
@@ -356,6 +364,26 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                     imageUrl = imageUrl
                         .replaceAll('[', '')
                         .replaceAll(']', '');
+
+                    int favId =
+                    favouriteController
+                        .favourateListModel
+                        .value
+                        .data![index]
+                        .favForId!;
+                    String favFor =
+                    favouriteController
+                        .favourateListModel
+                        .value
+                        .data![index]
+                        .favFor!;
+
+                    bool isFavourite = favouriteController
+                        .favourateListModel
+                        .value
+                        .data![index]
+                        .favourite!;
+
                     return GestureDetector(
                       onTap: () {
                         // favouriteController.getSchoolDetailsFunction(item.id.toString());
@@ -410,30 +438,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                         top: 10,
                                         child: GestureDetector(
                                             onTap: () {
-                                              int favId =
-                                              favouriteController
-                                                  .favourateListModel
-                                                  .value
-                                                  .data![index]
-                                                  .favForId!;
-                                              String favFor =
-                                              favouriteController
-                                                  .favourateListModel
-                                                  .value
-                                                  .data![index]
-                                                  .favFor!;
-                                              print(favId);
-                                              print(favFor);
-                                              print(item.id);
-                                              // print();
-                                              favouriteController
-                                                  .addFavouriteInListRepo(
-                                                  favId,
-                                                  favFor,
-                                                  false);
+                                              // print(favId);
+                                              // print(favFor);
+                                              // print(item.id);
 
-                                              // Get.toNamed(MyRouter
-                                              //     .favoritesScreen);
+                                              favouriteController.addFavouriteInListRepo(favId,favFor, !isFavourite).then(
+                                                      (value) {
+                                                    _handleTabChange();
+                                                  });
                                             },
                                             child: const Icon(
                                               Icons.favorite_border,
@@ -526,6 +538,26 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                     imageUrl = imageUrl
                         .replaceAll('[', '')
                         .replaceAll(']', '');
+
+                    int favId =
+                    favouriteController
+                        .favourateListModel
+                        .value
+                        .data![index]
+                        .favForId!;
+                    String favFor =
+                    favouriteController
+                        .favourateListModel
+                        .value
+                        .data![index]
+                        .favFor!;
+
+                    bool isFavourite = favouriteController
+                        .favourateListModel
+                        .value
+                        .data![index]
+                        .favourite!;
+
                     return GestureDetector(
                       onTap: () {
                         // favouriteController.getSchoolDetailsFunction(item.id.toString());
@@ -580,30 +612,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                         top: 10,
                                         child: GestureDetector(
                                             onTap: () {
-                                              int favId =
-                                              favouriteController
-                                                  .favourateListModel
-                                                  .value
-                                                  .data![index]
-                                                  .favForId!;
-                                              String favFor =
-                                              favouriteController
-                                                  .favourateListModel
-                                                  .value
-                                                  .data![index]
-                                                  .favFor!;
-                                              print(favId);
-                                              print(favFor);
-                                              print(item.id);
-                                              // print();
-                                              favouriteController
-                                                  .addFavouriteInListRepo(
-                                                  favId,
-                                                  favFor,
-                                                  false);
+                                              // print(favId);
+                                              // print(favFor);
+                                              // print(item.id);
 
-                                              // Get.toNamed(MyRouter
-                                              //     .favoritesScreen);
+                                              favouriteController.addFavouriteInListRepo(favId,favFor, !isFavourite).then(
+                                                      (value) {
+                                                    _handleTabChange();
+                                                  });
                                             },
                                             child: const Icon(
                                               Icons.favorite_border,

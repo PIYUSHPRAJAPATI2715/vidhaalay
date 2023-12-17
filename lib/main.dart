@@ -53,9 +53,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       debugShowCheckedModeBanner: false,
+      // initialRoute: "/bottomNavigationUserScreen",
+      // initialRoute: "/drawerForUser",
       initialRoute: "/",
       getPages:MyRouters.route,
     );
   }
 }
-
