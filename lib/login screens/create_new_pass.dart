@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 import '../../widgets/appTheme.dart';
+import '../repositories/reset_via_email_repo.dart';
+import '../resourses/api_constant.dart';
 
 
 
@@ -173,7 +175,15 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if(_formKey.currentState!.validate()){
-                            Get.toNamed(MyRouters.signInPage);
+                            changePassword(context: context,password: passwordController.text.trim(),confirmPassword: confirmPasswordController.text.trim()
+                            ).then((value) async {
+                              if(value.status == true){
+                                showToast(value.msg.toString()!);
+                                Get.toNamed(MyRouters.signInPage);
+                              }else{
+                                showToast(value.msg.toString()!);
+                              }
+                            });
                           }
                         },
                         style: ElevatedButton.styleFrom(

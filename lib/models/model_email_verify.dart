@@ -1,7 +1,7 @@
 class ModelEmailVerify {
   Data? data;
   bool? status;
-  String? msg;
+  dynamic msg;
 
   ModelEmailVerify({this.data, this.status, this.msg});
 
@@ -23,30 +23,30 @@ class ModelEmailVerify {
 }
 
 class Data {
-  int? id;
-  String? name;
-  String? email;
-  String? uniqueId;
-  String? mobile;
-  Null? dob;
-  Null? gender;
-  String? password;
-  Null? profileImage;
-  String? userType;
-  Null? soGoogle;
-  Null? soFacebook;
-  Null? emailOtp;
-  Null? mobileOtp;
-  String? deviceType;
-  String? fcmtoken;
+ dynamic id;
+  dynamic name;
+  dynamic email;
+  dynamic uniqueId;
+  dynamic mobile;
+  dynamic dob;
+  dynamic gender;
+  dynamic password;
+  dynamic profileImage;
+  dynamic userType;
+  dynamic soGoogle;
+  dynamic soFacebook;
+  dynamic emailOtp;
+  dynamic mobileOtp;
+  dynamic deviceType;
+  dynamic fcmtoken;
   bool? emailVerified;
   bool? mobileVerified;
-  Null? latitude;
-  Null? longitude;
-  Null? address;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic address;
+ dynamic status;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Data(
       {this.id,

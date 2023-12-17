@@ -32,6 +32,9 @@ class ApiUrls {
   static const String otpByMobile = "${apiBaseUrl}user/otpByMobile";
   static const String addMissionUrl = "${apiBaseUrl}addmissions";
   static const String addFavUrl = "${apiBaseUrl}favourite/addFav";
+  static const String resetPassword = "${apiBaseUrl}user/reset-password";
+  static const String resetByMobile = "${apiBaseUrl}user/resetByMobile";
+  static const String forgotOtpVerSms = "${apiBaseUrl}user/verifyOtpForgot";
 
 
   // User
@@ -52,12 +55,11 @@ Future getAuthHeader() async {
   var gg ={
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.acceptHeader: 'application/json',
-
     // HttpHeaders.authorizationHeader:"FLWSECK_TEST-SANDBOXDEMOKEY-X"
     if(pref.getString("cookie") != null)
       HttpHeaders.authorizationHeader: 'Bearer ${pref.getString("cookie")!.toString().replaceAll('\"', '')}',
   };
-  print(gg);
+  print('token isss${gg}');
   return gg;
 }
 // HttpHeaders.contentTypeHeader: 'application/json',

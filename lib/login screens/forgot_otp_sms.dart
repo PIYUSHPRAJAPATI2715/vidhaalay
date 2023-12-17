@@ -1,29 +1,38 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/appTheme.dart';
+import '../controller/common.dart';
+import '../models/login_model.dart';
+import '../repositories/reset_via_email_repo.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
+import '../routers/my_routers.dart';
 
-class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+class ForgotOtpSmsScreen extends StatefulWidget {
+  const ForgotOtpSmsScreen({Key? key}) : super(key: key);
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<ForgotOtpSmsScreen> createState() => _ForgotOtpSmsScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _ForgotOtpSmsScreenState extends State<ForgotOtpSmsScreen> {
+
   final formKey99 = GlobalKey<FormState>();
-  TextEditingController otpcontroller = TextEditingController();
-  String email = '';
+  TextEditingController otpController = TextEditingController();
+  final controller = Get.put(Controller());
+  String mobile = '';
+
   @override
   void initState() {
     super.initState();
-    email = Get.arguments;
+    mobile = Get.arguments;
   }
   @override
   Widget build(BuildContext context) {
@@ -113,8 +122,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     const SizedBox(
                       height: 9,
                     ),
-                     Text(
-                      'Enter your verification code sent on your email.',
+                    Text(
+                      'Enter your verification code sent on your Email',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -150,8 +159,16 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                               ],
                             )),
+                        validator: (v) {
+                          if (v!.isEmpty) {
+                            return "OTP code Required";
+                          } else if (v.length != 6) {
+                            return "Enter complete OTP code";
+                          }
+                          return null;
+                        },
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        controller: otpcontroller,
+                        controller: otpController,
                         keyboardType: TextInputType.number,
                         length: 6,
                         defaultPinTheme: defaultPinTheme,
@@ -163,13 +180,13 @@ class _OtpScreenState extends State<OtpScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
-                          print(email.toString());
-                          verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
+                          forgotSmsOtpRepo(context: context,mobile: mobile.toString(),otp: otpController.text.trim(),type: 'user'
+                          ).then((value) async {
                             if(value.status == true){
-                              showToast(value.msg.toString().toString());
+                              showToast(value.msg.toString()!);
                               Get.toNamed(MyRouters.createPasswordScreen);
                             }else{
-                              showToast(value.msg.toString().toString());
+                              showToast(value.msg.toString()!);
                             }
                           });
                         }

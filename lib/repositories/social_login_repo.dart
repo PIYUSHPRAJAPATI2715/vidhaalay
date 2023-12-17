@@ -10,19 +10,18 @@ import '../models/social_login_model.dart';
 
 import '../resourses/helper.dart';
 
-Future<SocialLoginModel> socialLogin(
-    {required String provider,required String token,
-      required BuildContext context}) async {
+Future<SocialLoginModel> socialLogin({required String email,required String name, photo,soGoogle,deviceType,context}) async {
 
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context).insert(loader);
 
   var map = <String, dynamic>{};
-  map['provider'] = provider;
-  map['token'] = token;
-  var fcmToken = await FirebaseMessaging
-      .instance
-      .getToken();
+  map['email'] = email;
+  map['name'] = name;
+  map['so_google'] = soGoogle;
+  map['photo'] = photo;
+  map['device_type'] = deviceType;
+  var fcmToken = await FirebaseMessaging.instance.getToken();
   map['device_token'] = fcmToken;
 
   final headers = {
@@ -35,7 +34,7 @@ Future<SocialLoginModel> socialLogin(
   log(map.toString());
   log(response.statusCode.toString());
   log(response.body);
-  if (response.statusCode == 200 || response.statusCode == 400) {
+  if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return SocialLoginModel.fromJson(json.decode(response.body));
   } else {

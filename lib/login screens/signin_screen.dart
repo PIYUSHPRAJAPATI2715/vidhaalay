@@ -33,7 +33,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
 
   final signInController  = Get.put(SignInController());
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   // String userType = 'user';
   // var userTypeitems = [
   //   'Institute Finding',
@@ -170,6 +170,7 @@ class _SignInPageState extends State<SignInPage> {
                         Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
                                 onTap: (){
@@ -194,6 +195,9 @@ class _SignInPageState extends State<SignInPage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           Image.asset('assets/images/google_logo.png',height: 25,),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
                                           const Text(
                                             "Google",
                                             style: TextStyle(
@@ -210,36 +214,44 @@ class _SignInPageState extends State<SignInPage> {
                               SizedBox(
                                 width: size.width*.060,
                               ),
-                              Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-                                    decoration:BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(50),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 2,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
-                          ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Image.asset('assets/images/facbook_image.png',height: 25,),
-                                        const Text(
-                                          "Facebook",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppThemes.black,
+                              InkWell(
+                                onTap: (){
+                                  // signInWithGoogle();
+                                },
+                                child: Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                                      decoration:BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(50),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.2),
+                                            spreadRadius: 1,
+                                            blurRadius: 2,
+                                            offset: const Offset(0, 2),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+                                        ],
+                                      ),
+                                      child:  Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Image.asset('assets/images/facbook_image.png',height: 25,),
+                                          const SizedBox(
+                                            width: 6,
+                                          ),
+                                          const Text(
+                                            "Facebook",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppThemes.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                ),
                               ),
                             ],
                           ),
@@ -545,32 +557,57 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
+  // signInWithGoogle() async {
+  //   await GoogleSignIn().signOut();
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
+  //     throw Exception(e);
+  //   });
+  //
+  //   log(googleUser!.email.toString());
+  //
+  //   final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+  //   final credential = GoogleAuthProvider.credential(
+  //     idToken: googleAuth.idToken,
+  //     accessToken: googleAuth.accessToken,
+  //   );
+  //   final value = await FirebaseAuth.instance.signInWithCredential(credential);
+  //   log(value.credential!.accessToken!);
+  //   //log(value.additionalUserInfo.a);
+  //   var fromToken = await FirebaseMessaging.instance.getToken();
+  //
+  //   socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+  //     if (value.status == true) {
+  //       SharedPreferences pref = await SharedPreferences.getInstance();
+  //       pref.setString('user_info', jsonEncode(value));
+  //       showToast(value.message.toString());
+  //       // Get.offAllNamed(MyRouters.bottomNavbar);
+  //     } else {
+  //       showToast(value.message.toString());
+  //     }
+  //   });
+  // }
   signInWithGoogle() async {
     await GoogleSignIn().signOut();
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
-      throw Exception(e);
-    });
-
-    log(googleUser!.email.toString());
-
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
     );
+    print("Token---------${googleAuth.accessToken}");
+    print("Token---------${googleUser.email.toString()}");
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
     log(value.credential!.accessToken!);
-    //log(value.additionalUserInfo.a);
-    var fromToken = await FirebaseMessaging.instance.getToken();
 
-    socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+    socialLogin(photo: googleUser.photoUrl.toString(),context: context, email: googleUser.email.toString(), name: googleUser.displayName.toString(),deviceType: signInController.deviceType.toString(),soGoogle: '1').then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
-        showToast(value.message.toString());
-        // Get.offAllNamed(MyRouters.bottomNavbar);
+        pref.setString('cookie', value.data!.token.toString());
+        showToast(value.msg.toString());
+        Get.offAllNamed(MyRouters.drawerForUser);
       } else {
-        showToast(value.message.toString());
+        showToast(value.msg.toString());
       }
     });
   }
