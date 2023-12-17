@@ -18,52 +18,54 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Timer(const Duration(seconds: 2), () async {
-  //     SharedPreferences pref = await SharedPreferences.getInstance();
-  //     if(pref.getString("cookie") != null){
-  //       if (pref.getBool('emailVerify') == true && pref.getBool('mobileVerify') == true){
-  //         Get.offAllNamed(MyRouters.drawerForUser);
-  //       }
-  //       else{
-  //         Get.offAllNamed(MyRouters.verifyOtpLogin);
-  //       }
-  //     }
-  //     else{
-  //       Get.offAllNamed(MyRouters.introPageScreen);
-  //     }
-  //     // else{
-  //     //     Get.offAllNamed(MyRouters.introPageScreen);
-  //
-  //   //     if(model.data!.emailVerified == true && model.data!.mobileVerified == true){
-  //   //       Get.offAllNamed(MyRouters.drawerForUser);
-  //   //     }else{
-  //   //       Get.offAllNamed(MyRouters.verifyOtpLogin);
-  //   //     }
-  //   //
-  //   //   }else{
-  //   //     Get.offAllNamed(MyRouters.introPageScreen);
-  //    }
-  //   );}
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 20), () async {
+    Timer(const Duration(seconds: 2), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      if(pref.getString("cookie") != null){
-        LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
-        if(model.data!.emailVerified == true && model.data!.mobileVerified == true){
-          Get.offAllNamed(MyRouters.drawerForUser);
-        }else{
-          Get.offAllNamed(MyRouters.verifyOtpLogin);
-        }
+      bool? isFirstTime = pref.getBool("isFirstTime");
+      bool? isLoggedIn = pref.getBool("isLoggedIn");
+      // String? cookie = pref.getString("cookie");
 
-      }else{
+      if (isFirstTime == null) {
+        print("Enter0");
         Get.offAllNamed(MyRouters.introPageScreen);
-      }});
-  }
+      } else if (isLoggedIn == null || !isLoggedIn) {
+        print("Enter1");
+        Get.offAllNamed(MyRouters.signInPage);
+      } else {
+        Get.offAllNamed(MyRouters.drawerForUser);
+      }
+
+      // if(pref.getString("cookie") != null){
+      //   if (pref.getBool('emailVerify') == true){
+      //     Get.offAllNamed(MyRouters.drawerForUser);
+      //     if (pref.getBool('mobileVerify') == true){
+      //       Get.offAllNamed(MyRouters.drawerForUser);
+      //     }
+      //   }
+      //   else{
+      //     // Get.offAllNamed(MyRouters.verifyOtpLogin);
+      //     Get.offAllNamed(MyRouters.bottomNavigationUserScreen);
+      //   }
+      // }
+      // else{
+      //   Get.offAllNamed(MyRouters.introPageScreen);
+      // }
+
+      // else{
+      //     Get.offAllNamed(MyRouters.introPageScreen);
+
+    //     if(model.data!.emailVerified == true && model.data!.mobileVerified == true){
+    //       Get.offAllNamed(MyRouters.drawerForUser);
+    //     }else{
+    //       Get.offAllNamed(MyRouters.verifyOtpLogin);
+    //     }
+    //
+    //   }else{
+    //     Get.offAllNamed(MyRouters.introPageScreen);
+     }
+    );}
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

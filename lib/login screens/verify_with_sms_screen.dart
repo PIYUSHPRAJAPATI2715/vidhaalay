@@ -24,19 +24,26 @@ class VerifyWithSms extends StatefulWidget {
 
 class _VerifyWithSmsState extends State<VerifyWithSms> {
 
+  final controller = Get.put(Controller());
+
   final formKey99 = GlobalKey<FormState>();
   TextEditingController mobileController = TextEditingController();
+  // var phone = Get.arguments[0];
+
   @override
   void initState() {
     super.initState();
-     if(Get.arguments !=null){
-       mobile = Get.arguments;
-       mobileController.text = mobile;
-     }
+    String mobileNo = Get.arguments;
+    mobileController.text = mobileNo;
+    // phone =  mobileController.text.toString();
   }
-  String mobile = '';
-  final controller = Get.put(Controller());
-  // var phone = Get.arguments[0];
+
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   mobileController.text = model.data!.mobile.toString();
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -126,37 +133,37 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                       CommonTextfield(
                         hintText: "phone",
                         obSecure: false,
-                        readOnly: true,
+                        readOnly: false,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
                         ],
                         keyboardType: TextInputType.number,
                         controller: mobileController,
-                        // validator: (value){
-                        //   if(value!.isEmpty){
-                        //     return "Mobile Number is required";
-                        //   }
-                        //   else if(value.length<10){
-                        //     return 'please enter correct number';
-                        //   }
-                        //   else{
-                        //     return null;
-                        //   }
-                        // },
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Mobile Number is required";
+                          }
+                          else if(value.length<10){
+                            return 'please enter correct number';
+                          }
+                          else{
+                            return null;
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          print(mobileController.text.toString());
                           if(formKey99.currentState!.validate()){
                             verifySmsOtpSendRepo(mobile: mobileController.text.toString(),type: 'user',context: context).then((value) {
                               if(value.status == true){
-                                showToast(value.msg);
-                                Get.offAllNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text.toString()]);
+                                showToast(value.msg.toString().toString());
+                                Get.toNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text]);
+                                // Get.offAllNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text.toString()]);
                               }else{
-                                showToast(value.msg);
+                                showToast(value.msg.toString().toString());
                               }
                             });
                           }

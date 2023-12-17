@@ -188,13 +188,31 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
                           verifySmsOtp(mobile:mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim().toString()).then((value) async{
+
+                            print(value);
+                            print(value.data!.mobileVerified);
+
                             SharedPreferences pref = await SharedPreferences.getInstance();
+                            pref.setBool('mobileVerify', value.data!.mobileVerified!);
                             pref.setString('cookie', value.data!.token.toString());
-                            if(value.status == true){
-                              showToast(value.msg);
-                              Get.offAllNamed(MyRouters.drawerForUser);
-                            }else{
-                              showToast(value.msg);
+                            bool? isEmailVerify = pref.getBool('emailVerify');
+                            bool? isMobileVerify = pref.getBool('mobileVerify');
+                            print("isEmailVerify : $isEmailVerify");
+                            print("isMobileVerify : $isMobileVerify");
+
+                            if(value.status == true) {
+                              showToast(value.msg.toString().toString());
+
+                              if (isEmailVerify == true && isMobileVerify == true) {
+                                pref.setBool('isLoggedIn', true);
+                                Get.offAllNamed(MyRouters.drawerForUser);
+                              } else {
+                                // Get.offAllNamed(MyRouters.drawerForUser);
+                                Get.back();
+                                Get.back();
+                              }
+                            } else {
+                              showToast(value.msg.toString().toString());
                             }
                           });
                         }

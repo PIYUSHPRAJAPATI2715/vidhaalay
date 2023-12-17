@@ -142,10 +142,10 @@ class _ForgetEmailScreenState extends State<ForgetEmailScreen> {
                             forgotPassOtpEmail(context: context,email: emailController.text,
                             ).then((value) async {
                               if(value.status == true){
-                                showToast(value.msg);
+                                showToast(value.msg.toString()!);
                                 Get.toNamed(MyRouters.otpScreenEmail);
                               }else{
-                                showToast(value.msg);
+                                showToast(value.msg.toString()!);
                               }
                             });
                           }

@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../controller/common.dart';
+import '../models/login_model.dart';
+import '../repositories/reset_via_email_repo.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
@@ -20,19 +25,29 @@ class VerifyWithMail extends StatefulWidget {
 }
 
 class _VerifyWithMailState extends State<VerifyWithMail> {
+  //
+  // getEmail() async{
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  //   emailController.text = model.data!.email.toString();
+  // }
+
+  String email = '';
+  final formKey99 = GlobalKey<FormState>();
+  final controller = Get.put(Controller());
+  TextEditingController emailController = TextEditingController();
 
 
   @override
   void initState() {
     super.initState();
     // getEmail();
-    gmail = Get.arguments;
-    emailController.text = gmail;
+    // gmail = Get.arguments[0];
+     email = Get.arguments;
+     // print(email);
+     emailController.text = email;
   }
-  String gmail = '';
-  final formKey99 = GlobalKey<FormState>();
-  final controller = Get.put(Controller());
-   TextEditingController emailController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,29 +136,31 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
                         height: 33,
                       ),
                       CommonTextfield(
-                        hintText: 'Enter Email',
+                        hintText:"gmail",
                         obSecure: false,
-                        readOnly: true,
-                        controller: emailController,
-                        // validator: MultiValidator([
-                        //   EmailValidator(
-                        //       errorText: 'enter a valid email address'),
-                        //   RequiredValidator(errorText: 'Please enter a email')
-                        // ]),
+                        readOnly: false,
+                        controller:emailController,
+                        validator: MultiValidator([
+                          EmailValidator(
+                              errorText: 'enter a valid email address'),
+                          RequiredValidator(errorText: 'Please enter a email')
+                        ]),
                       ),
                       const SizedBox(
                         height: 50,
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (formKey99.currentState!.validate()) {
-                            verifyEmailOtpSend(context: context, email: emailController.text.toString(),type: 'user'
-                            ).then((value) async {
-                              if(value.status == true){
-                                showToast(value.msg);
-                                Get.toNamed(MyRouters.otpScreenEmail,arguments: emailController.text.toString());
+                            SharedPreferences pref = await SharedPreferences.getInstance();
+                            // pref.getString('type');
+                            // pref.getString('type').toString()
+                            verifyEmailOtpSend(context: context,email: emailController.text.toString(),type: "user").then((value) async {
+                              if(value.status == true) {
+                                showToast(value.msg.toString().toString());
+                                Get.toNamed(MyRouters.otpScreenEmail,arguments: [emailController.text]);
                               }else{
-                                showToast(value.msg);
+                                showToast(value.msg.toString().toString());
                               }
                             });
                           }

@@ -35,9 +35,9 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
           password: confirmPasswordController.text.trim(),type: 'user'
       ).then((value) async {
         if(value.status == true){
-          showToast(value.msg);
+          showToast(value.msg.toString().toString());
         }else{
-          showToast(value.msg);
+          showToast(value.msg.toString().toString());
         }
       });
     }
