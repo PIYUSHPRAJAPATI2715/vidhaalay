@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/deshborad_controller.dart';
 import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
@@ -21,6 +22,7 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderStateMixin{
 
   FavouriteController favouriteController  = Get.put(FavouriteController());
+  final getSchoolListController  = Get.put(GetSchoolListController());
 
   late TabController tabController;
   final TextEditingController searchController = TextEditingController();
@@ -210,8 +212,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
 
                               return GestureDetector(
                                 onTap: () {
-                                  // favouriteController.getSchoolDetailsFunction(item.id.toString());
-                                  Get.to(() => const SchoolsDetailsScreen(),
+                                  getSchoolListController.getSchoolDetailsFunction(item.id.toString());
+                                  Get.to(() => const SchoolsDetailsScreen(type: 'Schools'),
                                       transition: Transition.fadeIn,
                                       duration:
                                           const Duration(milliseconds: 250));
@@ -274,12 +276,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                         // Get.toNamed(MyRouter
                                                         //     .favoritesScreen);
                                                       },
-                                                      child: const Icon(
-                                                        Icons.favorite_border,
+                                                      child: Icon(
+                                                        Icons.favorite,
                                                         size: 18,
-                                                        color:
-                                                            Colors.deepOrange,
-                                                      ))),
+                                                        color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                                      )
+                                                  )
+                                              ),
                                             ],
                                           ),
                                           Padding(
@@ -386,8 +389,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
 
                     return GestureDetector(
                       onTap: () {
-                        // favouriteController.getSchoolDetailsFunction(item.id.toString());
-                        Get.to(() => const SchoolsDetailsScreen(),
+                        getSchoolListController.getSchoolDetailsFunction(item.id.toString());
+                        Get.to(() => const SchoolsDetailsScreen(type: 'Colleges'),
                             transition: Transition.fadeIn,
                             duration:
                             const Duration(milliseconds: 250));
@@ -447,12 +450,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                     _handleTabChange();
                                                   });
                                             },
-                                            child: const Icon(
-                                              Icons.favorite_border,
+                                            child: Icon(
+                                              Icons.favorite,
                                               size: 18,
-                                              color:
-                                              Colors.deepOrange,
-                                            ))),
+                                              color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                            )
+                                        )
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -560,8 +564,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
 
                     return GestureDetector(
                       onTap: () {
-                        // favouriteController.getSchoolDetailsFunction(item.id.toString());
-                        Get.to(() => const SchoolsDetailsScreen(),
+                        getSchoolListController.getSchoolDetailsFunction(item.id.toString());
+                        Get.to(() => const SchoolsDetailsScreen(type: 'Institute'),
                             transition: Transition.fadeIn,
                             duration:
                             const Duration(milliseconds: 250));
@@ -621,12 +625,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                     _handleTabChange();
                                                   });
                                             },
-                                            child: const Icon(
-                                              Icons.favorite_border,
+                                            child: Icon(
+                                              Icons.favorite,
                                               size: 18,
-                                              color:
-                                              Colors.deepOrange,
-                                            ))),
+                                              color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                            )
+                                        )
+                                    ),
                                   ],
                                 ),
                                 Padding(
