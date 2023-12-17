@@ -16,11 +16,13 @@ Future<SocialLoginModel> socialLogin({required String email,required String name
   Overlay.of(context).insert(loader);
 
   var map = <String, dynamic>{};
+
   map['email'] = email;
   map['name'] = name;
   map['so_google'] = soGoogle;
   map['photo'] = photo;
   map['device_type'] = deviceType;
+
   var fcmToken = await FirebaseMessaging.instance.getToken();
   map['device_token'] = fcmToken;
 

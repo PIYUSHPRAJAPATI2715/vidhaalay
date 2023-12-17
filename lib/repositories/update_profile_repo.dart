@@ -14,8 +14,8 @@ import '../resourses/helper.dart';
 
 Future<UpdateProfileModel> updateProfileRepo({phone,context,name,email}) async {
 
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
   var map = <String, dynamic>{};
 
   map['mobile'] = phone;
@@ -26,11 +26,11 @@ Future<UpdateProfileModel> updateProfileRepo({phone,context,name,email}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
 
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+  // final headers = {
+  //   HttpHeaders.contentTypeHeader: 'application/json',
+  //   HttpHeaders.acceptHeader: 'application/json',
+  //   HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
+  // };
   http.Response response = await http.post(Uri.parse(ApiUrls.updateProfileUrl),
       body: jsonEncode(map), headers: await getAuthHeader());
 

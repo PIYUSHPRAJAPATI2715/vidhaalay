@@ -163,11 +163,11 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         CommonTextfield(
                             obSecure: false,
                             controller: emailController,
-                            readOnly: true,
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'email is required'),
-                              EmailValidator(errorText: "Enter valid email ")
-                              ]),
+                            readOnly: false,
+                            // validator: MultiValidator([
+                            //   RequiredValidator(errorText: 'email is required'),
+                            //   EmailValidator(errorText: "Enter valid email ")
+                            //   ]),
                             hintText: getProfileController.getProfileModel.value.data!.email.toString(),
                         ),
                         const SizedBox(
@@ -185,12 +185,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         ),
                         CommonTextfield(
                             obSecure: false,
-                            readOnly: true,
+                            readOnly: false,
                             controller: phoneController,
                             keyboardType: TextInputType.number,
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'number is required'),
-                               ]),
+
+                            // validator: MultiValidator([
+                            //   RequiredValidator(errorText: 'number is required'),
+                            //    ]),
                             hintText: getProfileController.getProfileModel.value.data!.mobile.toString(),
                         ),
                         const SizedBox(
