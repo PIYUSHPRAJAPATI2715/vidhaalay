@@ -17,6 +17,8 @@ import '../../controller/deshborad_controller.dart';
 import '../../controller/get_profile_controller.dart';
 import '../../models/login_model.dart';
 import '../../models/update_location_model.dart';
+import '../../repositories/addTo_fav_repo.dart';
+import '../../resourses/api_constant.dart';
 import '../../widgets/circular_progressindicator.dart';
 import 'address_screen.dart';
 
@@ -1316,5 +1318,53 @@ class _UserHomeScreenState extends State<UserHomeScreen>
         ),
       ),
     );
+
+  }
+  Column buildIconButton(int index, int index1, BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 31,
+          height: 30,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: IconButton(
+              onPressed: () {
+                addToWishlistRepo(context: context,favFor: 'school',favourite: getSchoolListController.getSchoolListModel.value.data![index].favourite.toString(),
+                    favId: getSchoolListController.getSchoolListModel.value.data![index].id.toString())
+                    .then((value) {
+                  showToast(value.msg.toString());
+                  if (value.status == true) {
+                    showToast(value.msg.toString());
+                    setState(() {});
+                  }
+                  return null;
+                });
+              },
+              icon: const Padding(
+                padding: EdgeInsets.only(
+                    right: 00.0, bottom: 0, top: 0, left: 0.0),
+                child: Icon(
+                  // _controller.model.value.data!.categoryProducts![index]
+                  //     .products![index1].isInWishlist.value ==
+                  //     true
+                  //     ? Icons.favorite
+                  //     :
+                Icons.favorite_border,
+                  // color: AppTheme.primaryColor,
+                  color: Color(0xFF000000),
+                  size: 17,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
+
+

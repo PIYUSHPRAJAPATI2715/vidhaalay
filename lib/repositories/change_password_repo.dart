@@ -14,8 +14,7 @@ import '../resourses/helper.dart';
 
 Future<ModelCommon> changePassRepo({oldPassword,context,password,type}) async {
 
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+
   var map = <String, dynamic>{};
 
   map['old_password'] = oldPassword;
@@ -26,11 +25,7 @@ Future<ModelCommon> changePassRepo({oldPassword,context,password,type}) async {
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
 
-  final headers = {
-    HttpHeaders.contentTypeHeader: 'application/json',
-    HttpHeaders.acceptHeader: 'application/json',
-    HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
-  };
+
   http.Response response = await http.post(Uri.parse(ApiUrls.changePassUrl),
       body: jsonEncode(map),    headers: await getAuthHeader(),);
 

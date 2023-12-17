@@ -1,12 +1,14 @@
-class ModelEmailVerify {
+class VerifyOtpEmailForgotModel {
   Data? data;
+  dynamic type;
   bool? status;
   dynamic msg;
 
-  ModelEmailVerify({this.data, this.status, this.msg});
+  VerifyOtpEmailForgotModel({this.data, this.type, this.status, this.msg});
 
-  ModelEmailVerify.fromJson(Map<String, dynamic> json) {
+  VerifyOtpEmailForgotModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    type = json['type'];
     status = json['status'];
     msg = json['msg'];
   }
@@ -16,6 +18,7 @@ class ModelEmailVerify {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
+    data['type'] = this.type;
     data['status'] = this.status;
     data['msg'] = this.msg;
     return data;
@@ -23,30 +26,30 @@ class ModelEmailVerify {
 }
 
 class Data {
- dynamic id;
+  dynamic id;
   dynamic name;
   dynamic email;
   dynamic uniqueId;
   dynamic mobile;
-  dynamic dob;
-  dynamic gender;
-  dynamic password;
-  dynamic profileImage;
+ dynamic dob;
+ dynamic gender;
+ dynamic profileImage;
   dynamic userType;
-  dynamic soGoogle;
-  dynamic soFacebook;
-  dynamic emailOtp;
+ dynamic soGoogle;
+ dynamic soFacebook;
+ dynamic emailOtp;
   dynamic mobileOtp;
-  dynamic deviceType;
-  dynamic fcmtoken;
+ dynamic deviceType;
+ dynamic fcmtoken;
   bool? emailVerified;
   bool? mobileVerified;
-  dynamic latitude;
-  dynamic longitude;
-  dynamic address;
- dynamic status;
+ dynamic latitude;
+ dynamic longitude;
+ dynamic address;
+  dynamic status;
   dynamic createdAt;
   dynamic updatedAt;
+  dynamic token;
 
   Data(
       {this.id,
@@ -56,7 +59,6 @@ class Data {
         this.mobile,
         this.dob,
         this.gender,
-        this.password,
         this.profileImage,
         this.userType,
         this.soGoogle,
@@ -72,7 +74,8 @@ class Data {
         this.address,
         this.status,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.token});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -82,7 +85,6 @@ class Data {
     mobile = json['mobile'];
     dob = json['dob'];
     gender = json['gender'];
-    password = json['password'];
     profileImage = json['profile_image'];
     userType = json['user_type'];
     soGoogle = json['so_google'];
@@ -99,6 +101,7 @@ class Data {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -110,7 +113,6 @@ class Data {
     data['mobile'] = this.mobile;
     data['dob'] = this.dob;
     data['gender'] = this.gender;
-    data['password'] = this.password;
     data['profile_image'] = this.profileImage;
     data['user_type'] = this.userType;
     data['so_google'] = this.soGoogle;
@@ -127,6 +129,7 @@ class Data {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['token'] = this.token;
     return data;
   }
 }

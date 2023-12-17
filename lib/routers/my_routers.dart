@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
 import '../login screens/forget_email_screen.dart';
+import '../login screens/forgot_otp_sms.dart';
+import '../login screens/forgot_otp_sms.dart';
 import '../login screens/forgot_pass_screen.dart';
 import '../login screens/forgot_sms_screen.dart';
 import '../login screens/intro_page_screen.dart';
@@ -95,6 +97,7 @@ class MyRouters{
   static var createTimeTableScreen = "/createTimeTableScreen";
   static var createExamTimeTable = "/createExamTimeTable";
   static var otpSmsScreen = "/otpSmsScreen";
+  static var forgotOtpSmsScreen = "/forgotOtpSmsScreen";
 
 
   static var route = [
@@ -115,6 +118,7 @@ class MyRouters{
     GetPage(name: '/createPasswordScreen', page: () =>  const CreatePasswordScreen()),
     GetPage(name: '/verifyWithSms', page: () =>  const VerifyWithSms()),
     GetPage(name: '/verifyOtpLoginSms', page: () =>  const VerifyOtpLoginSms()),
+    GetPage(name: '/forgotOtpSmsScreen', page: () =>  const ForgotOtpSmsScreen()),
 
     //student screens
     GetPage(name: '/bottomNavigationScreen', page: () =>  const BottomNavigationScreen()),

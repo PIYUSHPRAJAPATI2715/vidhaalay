@@ -105,8 +105,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       onTap: () {
                         setState(() {
                           emailContainerClicked = true;
-                          smsContainerClicked = false;
                           selectedContainerValue = 'Email';
+                          smsContainerClicked = false;
                         });
 
                       },
@@ -116,7 +116,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: emailContainerClicked ? AppThemes.primaryColor : Colors.transparent,
+                            color: selectedContainerValue == 'Email' ? AppThemes.primaryColor : Colors.transparent,
                             width: 2,
                           ),
                           boxShadow: [
@@ -177,7 +177,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: smsContainerClicked ? AppThemes.primaryColor : Colors.transparent,
+                            color: selectedContainerValue == 'SMS' ? AppThemes.primaryColor : Colors.transparent,
                             width: 2,
                           ),
                           boxShadow: [
