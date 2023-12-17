@@ -20,9 +20,7 @@ Future<SocialLoginModel> socialLogin(
   var map = <String, dynamic>{};
   map['provider'] = provider;
   map['token'] = token;
-  var fcmToken = await FirebaseMessaging
-      .instance
-      .getToken();
+  var fcmToken = await FirebaseMessaging.instance.getToken();
   map['device_token'] = fcmToken;
 
   final headers = {
