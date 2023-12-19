@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1639664119773773</string>
+    <string name="fb_login_protocol_scheme">fb1639664119773773</string>
+    <string name="facebook_client_token">b345c19bf5a3428ae26be8dfd64a8899</string>
+    <string name="app_name">"vidhaalay"</string>
+
+</resources>

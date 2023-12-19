@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -217,6 +218,7 @@ class _SignInPageState extends State<SignInPage> {
                               InkWell(
                                 onTap: (){
                                   // signInWithGoogle();
+                                  signInFaceBook();
                                 },
                                 child: Expanded(
                                     child: Container(
@@ -618,4 +620,27 @@ class _SignInPageState extends State<SignInPage> {
       }
     });
   }
+signInFaceBook() async {
+  final LoginResult loginResult = await FacebookAuth.instance
+      .login(permissions: ["public_profile", "email"], loginBehavior: LoginBehavior.webOnly);
+  print("qqqqqqqqqqqq");
+  final OAuthCredential oAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  final value = await FirebaseAuth.instance.signInWithCredential(oAuthCredential).then((value1) async {
+    socialLogin(photo: 'googleUser.photoUrl.toString()',context: context, email: 'googleUser.email.toString()', name: 'googleUser.displayName.toString()',deviceType: signInController.deviceType.toString(),soGoogle: '2').then((value) async {
+      if (value.status == true) {
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        pref.setString('cookie', value.data!.token.toString());
+        showToast(value.msg.toString());
+        Get.offAllNamed(MyRouters.drawerForUser);
+      } else {
+        showToast(value.msg.toString());
+      }
+    });
+  }).catchError((FirebaseAuthException? e) {
+    showToast(e.toString());
+    throw Exception(e!.message);
+  });
+  log("Firebase response.... ${value.toString()}");
+}
 }

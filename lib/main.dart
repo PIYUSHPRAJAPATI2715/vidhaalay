@@ -9,6 +9,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 // import 'notification_service/local_notifications.dart';
 
+//https://vidhaalay-a464e.firebaseapp.com/__/auth/handler
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore, // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
