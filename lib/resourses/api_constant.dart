@@ -24,7 +24,7 @@ class ApiUrls {
   static const String changePassUrl = "${apiBaseUrl}user/changePassword";
   static const String termsConditionUrl = "${apiBaseUrl}common/pages/term-conditions";
   static const String privacyPolicyUrl = "${apiBaseUrl}common/pages/privacy-policy";
-  static const String contactUsUrl = "${apiBaseUrl}common/pages/privacy-policy";
+  static const String contactUsUrl = "${apiBaseUrl}common/pages/contact-us";
   static const String verifyOtpEmailSend = "${apiBaseUrl}user/resetViaEmail";
   static const String verifyMobileOtp = "${apiBaseUrl}user/verifyOtp";
   static const String verifyEmailOtp = "${apiBaseUrl}user/verifyOtpEmail";

@@ -178,20 +178,24 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             const SizedBox(
               width: 4,
             ),
-            GestureDetector(
-               onTap: (){
-                 Get.to(() => AddressScreen(address: location!,));
-               },
-               child: Text(
-                   location == null ? 'Select Address' : location!,
-                 // getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
-                 // :  'Select Address',
-                 style: const TextStyle(
-                     color: AppThemes.black,
-                     fontWeight: FontWeight.w600,
-                     fontSize: 15),
+            Expanded(
+              child: GestureDetector(
+                 onTap: (){
+                   Get.to(() => AddressScreen(address: location!,));
+                 },
+                 child: Text(
+                     location == null ? 'Select Address' : location!,
+                   // getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
+                   // :  'Select Address',
+                   maxLines: 1,
+                   style: TextStyle(
+                     overflow: TextOverflow.ellipsis,
+                       color: AppThemes.black,
+                       fontWeight: FontWeight.w600,
+                       fontSize: 15),
+                 ),
                ),
-             )
+            )
           ],
         ),
         actions: [

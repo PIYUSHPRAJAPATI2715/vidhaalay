@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/setting_controller.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/contactus_screen.dart';
+import 'package:vidhaalay_app/screen/User_Screens/privacypolicy_screen.dart';
+import 'package:vidhaalay_app/screen/User_Screens/termsandcondition_screen.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -15,6 +19,7 @@ class SettingScreenUser extends StatefulWidget {
 }
 
 class _SettingScreenUserState extends State<SettingScreenUser> {
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -124,108 +129,123 @@ class _SettingScreenUserState extends State<SettingScreenUser> {
                       ),
                     ),
                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(AppAssets.termsIcon,height: 15,),
-                              const SizedBox(width: 12,),
-                              Text('Terms & Conditions',
-                              style: GoogleFonts.poppins(
-                                color: AppThemes.textBlackColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15
-                              ),
-                              )
-                            ],
-                          ),
-                         const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
-                        ],
-                      ),
-                    ),
-                   const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(AppAssets.privacyIcon,height: 15,),
-                              const SizedBox(width: 12,),
-                              Text('Privacy Policy',
-                              style: GoogleFonts.poppins(
-                                color: AppThemes.textBlackColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15
-                              ),
-                              )
-                            ],
-                          ),
-                         const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
-                        ],
+                    InkWell(
+                      onTap: (){
+                        Get.to(()=>TermsAndConditionScreen());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(AppAssets.termsIcon,height: 15,),
+                                const SizedBox(width: 12,),
+                                Text('Terms & Conditions',
+                                style: GoogleFonts.poppins(
+                                  color: AppThemes.textBlackColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15
+                                ),
+                                )
+                              ],
+                            ),
+                           const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
+                          ],
+                        ),
                       ),
                     ),
                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
+                    InkWell(
+                      onTap: (){
+                        Get.to(()=> PrivacyPolicyScreen());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(AppAssets.privacyIcon,height: 15,),
+                                const SizedBox(width: 12,),
+                                Text('Privacy Policy',
+                                style: GoogleFonts.poppins(
+                                  color: AppThemes.textBlackColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15
+                                ),
+                                )
+                              ],
+                            ),
+                           const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(AppAssets.contactIcon,height: 15,),
-                              const SizedBox(width: 12,),
-                              Text('Contact Us',
-                              style: GoogleFonts.poppins(
-                                color: AppThemes.textBlackColor,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15
-                              ),
-                              )
-                            ],
-                          ),
-                         const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
-                        ],
+                    ),
+                   const SizedBox(height: 20),
+                    InkWell(
+                      onTap: (){
+                        Get.to(()=> ContactUsScreen());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(AppAssets.contactIcon,height: 15,),
+                                const SizedBox(width: 12,),
+                                Text('Contact Us',
+                                style: GoogleFonts.poppins(
+                                  color: AppThemes.textBlackColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15
+                                ),
+                                )
+                              ],
+                            ),
+                           const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
+                          ],
+                        ),
                       ),
                     ),
                    const SizedBox(height: 20),

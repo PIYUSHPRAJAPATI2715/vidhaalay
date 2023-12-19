@@ -21,7 +21,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 20), () async {
+    Timer(const Duration(seconds: 10), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       bool? isFirstTime = pref.getBool("isFirstTime");
       bool? isLoggedIn = pref.getBool("isLoggedIn");
@@ -78,7 +78,7 @@ class _SplashState extends State<Splash> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/New Project.gif'),
+                Image.asset('assets/images/New-Project-1-1.GIF'),
                 // Text('vidhaalay'.toUpperCase(),
                 //   style: const TextStyle(
                 //       color: AppThemes.primaryColor,

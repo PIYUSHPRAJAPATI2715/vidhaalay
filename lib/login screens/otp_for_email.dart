@@ -195,8 +195,10 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
                           verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
-                            print(value);
-                            print(value.data!.emailVerified);
+                            showToast(value.msg.toString());
+
+                            print("value10:  $value");
+                            print(value.msg);
 
                             SharedPreferences pref = await SharedPreferences.getInstance();
                             pref.setBool('emailVerify', value.data!.emailVerified!);
@@ -212,8 +214,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                             print("isMobileVerify : $isMobileVerify");
 
                             if(value.status == true){
-                              showToast(value.msg.toString().toString());
-
+                              // showToast(value.msg.toString());
                               if (isEmailVerify == true && isMobileVerify == true) {
                                 pref.setBool('isLoggedIn', true);
                                 Get.offAllNamed(MyRouters.drawerForUser);
@@ -223,7 +224,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                               }
                               // Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: []);
                             }else{
-                              showToast(value.msg.toString().toString());
+                              // showToast(value.msg.toString());
                             }
                           });
                         }

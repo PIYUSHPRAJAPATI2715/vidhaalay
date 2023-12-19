@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final privacyPolicyModel = privacyPolicyModelFromJson(jsonString);
+//     final contactUsModel = contactUsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-PrivacyPolicyModel privacyPolicyModelFromJson(String str) => PrivacyPolicyModel.fromJson(json.decode(str));
+ContactUsModel contactUsModelFromJson(String str) => ContactUsModel.fromJson(json.decode(str));
 
-String privacyPolicyModelToJson(PrivacyPolicyModel data) => json.encode(data.toJson());
+String contactUsModelToJson(ContactUsModel data) => json.encode(data.toJson());
 
-class PrivacyPolicyModel {
+class ContactUsModel {
   Data data;
   bool status;
   String msg;
 
-  PrivacyPolicyModel({
+  ContactUsModel({
     required this.data,
     required this.status,
     required this.msg,
   });
 
-  factory PrivacyPolicyModel.fromJson(Map<String, dynamic> json) => PrivacyPolicyModel(
+  factory ContactUsModel.fromJson(Map<String, dynamic> json) => ContactUsModel(
     data: Data.fromJson(json["data"]),
     status: json["status"],
     msg: json["msg"],
