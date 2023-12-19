@@ -456,9 +456,16 @@ class _SignInPageState extends State<SignInPage> {
                         controller: signInController.passwordController,
                         obSecure: signInController.isPasswordVisibile.value,
                         hintText: "Password",
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: 'Password is required'),
-                        ]),
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'Password is required'),
+                              MinLengthValidator(8,
+                                  errorText:
+                                  'Password must be at least 8 digits long'),
+                              PatternValidator(
+                                  r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
+                                  errorText:
+                                  'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                            ]),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             signInController.isPasswordVisibile.value = !signInController.isPasswordVisibile.value;

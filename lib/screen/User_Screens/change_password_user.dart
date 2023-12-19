@@ -126,6 +126,14 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                                     size: 18,
                                     color: Colors.grey),
                               ),
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Old password is required";
+                                }
+                                 else {
+                                  return null;
+                                }
+                              },
                               hintText: 'Old Password'
                           ),
                          const SizedBox(
@@ -134,16 +142,9 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                           CommonTextfield(
                             controller: passwordController,
                               obSecure: isPasswordShow.value,
-                              validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return "Confirm password is required";
-                                } else if (value.trim().toString() !=
-                                    passwordController.text.trim()) {
-                                  return "Confirm password is not matching with password";
-                                } else {
-                                  return null;
-                                }
-                              },
+                              validator: MultiValidator([
+                                RequiredValidator(errorText: 'Old Password is required'),
+                              ]),
                               suffixIcon: GestureDetector(
                                 onTap: () {
                                   isPasswordShow.value = !isPasswordShow.value;
@@ -174,6 +175,16 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                                     size: 18,
                                     color: Colors.grey),
                               ),
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Confirm password is required";
+                                } else if (value.trim().toString() !=
+                                    passwordController.text.trim()) {
+                                  return "Confirm password is not matching with password";
+                                } else {
+                                  return null;
+                                }
+                              },
                               hintText: 'Confirm Password'
                           ),
                          const SizedBox(

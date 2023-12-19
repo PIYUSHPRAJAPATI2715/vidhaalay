@@ -126,8 +126,7 @@ Future<VerifyMobileModel> verifySmsOtp({mobile,context,type,otp}) async {
     return VerifyMobileModel.fromJson(jsonDecode(response.body));
   } else {
     Helpers.hideLoader(loader);
-    print(jsonDecode(response.body));
-    return VerifyMobileModel(msg: jsonDecode(response.body)["msg"], );
+    return VerifyMobileModel(msg: jsonDecode(response.body)["msg"]);
   }}
 
 Future<VerifyOtpEmailForgotModel> forgotEmailOtpRepo({email,context,type,otp}) async {

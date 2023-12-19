@@ -1,7 +1,7 @@
 class VerifyMobileModel {
   Data? data;
   bool? status;
-  String? msg;
+  dynamic msg;
 
   VerifyMobileModel({this.data, this.status, this.msg});
 
