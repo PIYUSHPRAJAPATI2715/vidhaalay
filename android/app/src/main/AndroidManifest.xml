@@ -8,6 +8,7 @@
         android:label="vidhaalay_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        android:usesCleartextTraffic="true"
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyDDl-_JOy_bj4MyQhYbKbGkZ0sfpbTZDNU"/>
         <activity
