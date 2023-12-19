@@ -7,11 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/bottom_controller.dart';
 import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
+import 'package:vidhaalay_app/controller/user_Controller/lectures_controller.dart';
 import 'package:vidhaalay_app/models/get_profile_model.dart';
 import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/lecture_list_screen.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -37,6 +39,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
   final TextEditingController searchController = TextEditingController();
   final getSchoolListController  = Get.put(GetSchoolListController());
   FavouriteController favouriteController  = Get.put(FavouriteController());
+  LecturesController lecturesController  = Get.put(LecturesController());
 
   final getAddressCon  = Get.put(GetProfileController());
   final bottomController = Get.put(BottomController());
@@ -48,6 +51,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     super.initState();
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(_handleTabChange);
+    lecturesController.getTopLectureListRepo();
     getLocation();
   }
 
@@ -111,61 +115,6 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     var theme = Theme.of(context);
     return Scaffold(
       backgroundColor: AppThemes.white,
-      // appBar: AppBar(
-      //   // automaticallyImplyLeading: false,
-      //   title: Row(
-      //     children: [
-      //       const Icon(
-      //         Icons.location_pin,
-      //         color: AppThemes.primaryColor,
-      //         size: 20,
-      //       ),
-      //       const SizedBox(
-      //         width: 4,
-      //       ),
-      //       Obx(() {
-      //         return GestureDetector(
-      //           onTap: () {
-      //             Get.to(() => const AddressScreen());
-      //           },
-      //           child: Text(
-      //             getAddressCon.isProfileLoading.value == true
-      //                 ? getAddressCon.getProfileModel.value.data!.address
-      //                 .toString()
-      //                 : 'Select Address',
-      //             style: const TextStyle(
-      //                 color: AppThemes.black,
-      //                 fontWeight: FontWeight.w600,
-      //                 fontSize: 15),
-      //           ),
-      //         );
-      //       })
-      //     ],
-      //   ),
-      //   iconTheme: IconThemeData(color: Colors.black),
-      //   actions: [
-      //     Padding(
-      //       padding: const EdgeInsets.only(right: 12.0),
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           GestureDetector(
-      //             onTap: () {
-      //               Get.toNamed(MyRouters.myProfileScreen);
-      //             },
-      //             child: ClipOval(
-      //               child: Image.asset(
-      //                 AppAssets.studentImg,
-      //                 height: 35,
-      //               ),
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
-
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title:  Row(
@@ -220,285 +169,6 @@ class _UserHomeScreenState extends State<UserHomeScreen>
           ),
         ],
       ),
-
-      // drawer:
-      // Container(
-      //   width: size.width * 0.75,
-      //   child: Drawer(
-      //     child : Center(
-      //       child: Stack(
-      //         children: [
-      //           Container(
-      //             decoration: const BoxDecoration(
-      //                 gradient: LinearGradient(
-      //                   colors: [
-      //                     AppThemes.primaryColor,
-      //                     AppThemes.primaryColor,
-      //                   ],
-      //                   begin: Alignment.bottomCenter,
-      //                   end: Alignment.topCenter,
-      //                 )),
-      //           ),
-      //           Align(
-      //             alignment: Alignment.topCenter,
-      //             child: SafeArea(
-      //                 child: Container(
-      //                   width: 200,
-      //                   padding: const EdgeInsets.all(8.0),
-      //                   child: SingleChildScrollView(
-      //                     child: Column(
-      //                       mainAxisAlignment: MainAxisAlignment.start,
-      //                       crossAxisAlignment: CrossAxisAlignment.start,
-      //                       children: [
-      //                         Theme(
-      //                           data: ThemeData(
-      //                               dividerColor: Colors.transparent
-      //                           ),
-      //                           child: SizedBox(
-      //                             height: size.height * 0.33,
-      //                             child: DrawerHeader(
-      //                               child: Column(
-      //                                 crossAxisAlignment: CrossAxisAlignment.center,
-      //                                 mainAxisAlignment: MainAxisAlignment.start,
-      //                                 children: [
-      //                                   const CircleAvatar(
-      //                                     radius: 60,
-      //                                     backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
-      //                                   ),
-      //                                   SizedBox(height: size.height * 0.016),
-      //                                   const Text(
-      //                                     "User", // Display user's name here
-      //                                     style: TextStyle(
-      //                                       fontSize: 21,
-      //                                       fontWeight: FontWeight.w600,
-      //                                       color: AppThemes.white,
-      //                                     ),
-      //                                   ),
-      //
-      //                                 ],
-      //                               ),
-      //                             ),
-      //                           ),
-      //                         ),
-      //                         ListTile(
-      //                           onTap: (){
-      //                             Get.toNamed(MyRouters.myProfileScreen);
-      //                           },
-      //                           visualDensity:
-      //                           const VisualDensity(
-      //                               horizontal: -4, vertical: -4),
-      //                           title: bottomController.currentIndex.value == 0
-      //                               ? const Text(
-      //                             'My Profile',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //                           )
-      //                               : const Text(
-      //                             'My Profile',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //
-      //                           ),
-      //                           leading: Icon(
-      //                             // Icons.person_2_outlined,
-      //                             Icons.person,
-      //                             color: bottomController.currentIndex.value ==
-      //                                 0 ? AppThemes.white : AppThemes.white,
-      //                             // width: 23,
-      //                             // height: 23,
-      //                           ),
-      //                         ),
-      //                         const SizedBox(height: 10,),
-      //                         ListTile(
-      //                           onTap: (){
-      //                             Get.toNamed(MyRouters.favoritesScreen);
-      //                           },
-      //                           visualDensity:
-      //                           const VisualDensity(
-      //                               horizontal: -4, vertical: -4),
-      //                           title: bottomController.currentIndex.value == 0
-      //                               ? const Text(
-      //                             'Favourite',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //                           )
-      //                               : const Text(
-      //                             'Favourite',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //
-      //                           ),
-      //                           leading: Icon(
-      //                             Icons.favorite_border,
-      //                             color: bottomController.currentIndex.value ==
-      //                                 0 ? AppThemes.white : AppThemes.white,
-      //                             // width: 23,
-      //                             // height: 23,
-      //                           ),
-      //                         ),
-      //                         const SizedBox(height: 10,),
-      //                         ListTile(
-      //                           onTap: (){
-      //                             Get.toNamed(MyRouters.notificationScreenUser);
-      //                           },
-      //                           visualDensity:
-      //                           const VisualDensity(
-      //                               horizontal: -4, vertical: -4),
-      //                           title: bottomController.currentIndex.value == 0
-      //                               ? const Text(
-      //                             'Notification',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //                           )
-      //                               : const Text(
-      //                             'Notification',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //
-      //                           ),
-      //                           leading: Image.asset(
-      //                             AppAssets.notification,
-      //                             height: 20,
-      //                             width: 24,
-      //                             color: bottomController.currentIndex.value ==
-      //                                 0 ? AppThemes.white : AppThemes.white,
-      //                             // width: 23,
-      //                             // height: 23,
-      //                           ),
-      //                         ),
-      //                         const SizedBox(height: 10,),
-      //                         ListTile(
-      //                           onTap: (){
-      //                             Get.toNamed(MyRouters.settingScreenUser);
-      //                           },
-      //                           visualDensity:
-      //                           const VisualDensity(
-      //                               horizontal: -4, vertical: -4),
-      //                           title: bottomController.currentIndex.value == 0
-      //                               ? const Text(
-      //                             'Settings',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //                           )
-      //                               : const Text(
-      //                             'Settings',
-      //                             style: TextStyle(
-      //                                 color: AppThemes.white,
-      //                                 fontSize: 18,
-      //                                 fontWeight: FontWeight.w500),
-      //
-      //                           ),
-      //                           leading: Icon(
-      //                             // "assets/icons/home.png",
-      //                             Icons.settings_outlined,
-      //                             color: bottomController.currentIndex.value ==
-      //                                 0 ? AppThemes.white : AppThemes.white,
-      //                             // width: 23,
-      //                             // height: 23,
-      //                           ),
-      //                         ),
-      //                         SizedBox(height: size.height*.16,),
-      //                         InkWell(
-      //                           onTap: () async{
-      //                             await logOutUser();
-      //                           },
-      //                           child: Container(
-      //                             padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
-      //                             decoration: BoxDecoration(
-      //                                 borderRadius: BorderRadius.circular(50),
-      //                                 border: Border.all(
-      //                                     color: Colors.white,
-      //                                     width: 2
-      //                                 )
-      //                             ),
-      //                             child: const Text(
-      //                               'LOGOUT',
-      //                               style: TextStyle(
-      //                                 fontSize: 18,
-      //                                 color: Colors.white,
-      //                               ),
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ],
-      //                     ),
-      //                   ),
-      //                 )),
-      //           ),
-      //           // TweenAnimationBuilder(
-      //           //     tween: Tween<double>(begin: 0, end: value),
-      //           //     duration: const Duration(milliseconds: 500),
-      //           //     curve: Curves.easeInCirc,
-      //           //     builder: (_, double val, __) {
-      //           //       return (Transform(
-      //           //         transform: Matrix4.identity()
-      //           //           ..setEntry(3, 2, 0.001)..setEntry(0, 3, -200 * val)
-      //           //           ..rotateY((pi / 6) * val),
-      //           //         child: const Scaffold(
-      //           //           body:  BottomNavigationUserScreen(),
-      //           //         ),
-      //           //       ));
-      //           //     }),
-      //           GestureDetector(
-      //             onHorizontalDragUpdate: (e) {
-      //               if (e.delta.dx > 0) {
-      //                 setState(() {
-      //                   value = 1;
-      //                 });
-      //               }
-      //               else {
-      //                 setState(() {
-      //                   value = 0;
-      //                 });
-      //               }
-      //             },
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //     // child: Column(
-      //     //   children: [
-      //     //     InkWell(
-      //     //       onTap: () async{
-      //     //         await logOutUser();
-      //     //       },
-      //     //       child: Container(
-      //     //         padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
-      //     //         decoration: BoxDecoration(
-      //     //             borderRadius: BorderRadius.circular(50),
-      //     //             border: Border.all(
-      //     //                 color: Colors.white,
-      //     //                 width: 2
-      //     //             )
-      //     //         ),
-      //     //         child: const Text(
-      //     //           'LOGOUT',
-      //     //           style: TextStyle(
-      //     //             fontSize: 18,
-      //     //             color: Colors.white,
-      //     //           ),
-      //     //         ),
-      //     //       ),
-      //     //     ),
-      //     //   ],
-      //     // ),
-      //   ),
-      // ),
-
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (_, __) {
@@ -574,24 +244,30 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                 fontSize: 17,
                                 fontWeight: FontWeight.w600),
                           ),
-                          const Text(
-                            'View All',
-                            style: TextStyle(
-                                color: AppThemes.primaryColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => LectureListScreen());
+                            },
+                            child: const Text(
+                              'View All',
+                              style: TextStyle(
+                                  color: AppThemes.primaryColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           )
                         ],
                       ),
                       const SizedBox(
                         height: 18,
                       ),
-                      SizedBox(
-                        height: size.height * .25,
+
+                      lecturesController.isLectureListLoading.value ? CommonProgressIndicator() : SizedBox(
+                        height: size.height * .22,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: 5,
+                          itemCount: lecturesController.lectureListModel.value.data!.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding:
@@ -602,7 +278,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   Container(
                                     width: size.width * .35,
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 13, horizontal: 5),
+                                        vertical: 8, horizontal: 7),
                                     decoration: BoxDecoration(
                                       color: AppThemes.lightBlue,
                                       borderRadius: BorderRadius.circular(8),
@@ -619,29 +295,59 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Image.asset(
-                                          AppAssets.lectureImg,
-                                          width: size.width * .33,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: CachedNetworkImage(
+                                            imageUrl: lecturesController.lectureListModel.value.data![index].image!,
+                                            fit: BoxFit.cover,
+                                            width: size.width * .33,
+                                            height: size.height * .09,
+                                            errorWidget: (__, _, ___) =>
+                                                Image.asset(
+                                                  AppAssets.collageImg,
+                                                  fit: BoxFit.cover,
+                                                  width: size.width,
+                                                  height: size.height * .16,
+                                                ),
+                                            placeholder: (__, _) =>
+                                            const Center(
+                                                child: CircularProgressIndicator()),
+                                          ),
                                         ),
+                                        // Image.network(
+                                        //   lecturesController.lectureListModel.value.data![index].image!,
+                                        //   width: size.width * .33,
+                                        // ),
+                                        // Image.asset(
+                                        //   AppAssets.lectureImg,
+                                        //   width: size.width * .33,
+                                        // ),
                                         const SizedBox(
-                                          height: 11,
+                                          height: 5,
                                         ),
                                         Text(
-                                          'Creative Art Design',
+                                            lecturesController.lectureListModel.value.data![index].name!,
+                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
                                           style: GoogleFonts.poppins(
                                               color: AppThemes.white,
                                               fontWeight: FontWeight.w700,
                                               fontSize: 12),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                         const SizedBox(
                                           height: 3,
                                         ),
-                                        const Text(
-                                          'Creative Art Design here dummy data',
+                                        Text(
+                                          lecturesController.lectureListModel.value.data![index].description!,
+                                          // 'Creative Art Design here dummy data',
+                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
                                           style: TextStyle(
                                               color: AppThemes.white,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 10),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         )
                                       ],
                                     ),
@@ -652,9 +358,12 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                           },
                         ),
                       ),
+
                       const SizedBox(
                         height: 34,
                       ),
+
+
                       Container(
                         height: 35,
                         decoration: BoxDecoration(

@@ -43,6 +43,9 @@ class ApiUrls {
   static const String getSchoolDetails = "${apiBaseUrl}school";
   static const String getFavouriteListUrl = "${apiBaseUrl}favourite";
   static const String addFavourite = "${apiBaseUrl}favourite/addFav";
+  static const String topLectures = "${apiBaseUrl}lectures/top-lectures";
+  static const String allLectures = "${apiBaseUrl}lectures/all-lectures";
+  static const String getLecturesDetails = "${apiBaseUrl}lectures/lecture-by-id";
 
 }
 

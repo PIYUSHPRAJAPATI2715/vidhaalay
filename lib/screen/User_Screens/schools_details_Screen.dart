@@ -1,4 +1,4 @@
-// import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +28,10 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
   final getSchoolDetailsController = Get.put(GetSchoolListController());
   FavouriteController favouriteController  = Get.put(FavouriteController());
   String type  = "Schools";
+
+  final CarouselController _controller = CarouselController();
+  int _current = 0;
+
 
   @override
   void initState() {
@@ -84,24 +88,63 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                   color: Colors.white,
                 ),
 
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.elliptical(190, 85)),
-                  child:  CachedNetworkImage(
-                    imageUrl:  getSchoolDetailsController.schoolDetailsModel.value.data!.image.toString(),
-                    fit: BoxFit.cover,
-                    width: double.maxFinite,
-                    errorWidget: (__, _, ___) =>
-                        Image.asset(
-                          AppAssets.collageImg,
-                          fit: BoxFit.cover,
-                          width: double.maxFinite,
-                        ),
-                    placeholder: (__, _) =>
-                    const Center(
-                        child: CircularProgressIndicator()),
+                CarouselSlider(
+                  // items: productController.imgList
+                  items : getSchoolDetailsController.schoolDetailsModel.value.data!.image!.map((item) => ClipRRect(
+                      // borderRadius: BorderRadius.only(
+                      //     bottomLeft: Radius.elliptical(190, 85)),
+                      child:  CachedNetworkImage(
+                        imageUrl:  item.toString(),
+                        // getSchoolDetailsController.schoolDetailsModel.value.data!.image![0].toString(),
+                        fit: BoxFit.cover,
+                        width: double.maxFinite,
+                        height:  double.maxFinite,
+                        // size.height * 0.04,
+                        errorWidget: (__, _, ___) =>
+                            Image.asset(
+                              AppAssets.collageImg,
+                              fit: BoxFit.cover,
+                              width: double.maxFinite,
+                            ),
+                        placeholder: (__, _) =>
+                        const Center(
+                            child: CircularProgressIndicator()),
+                      )
                   )
+                  ).toList(),
+                  carouselController: _controller,
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: false,
+                      // autoPlayCurve: Curves.linear,
+                      aspectRatio: 4/3,
+                      viewportFraction: 1.0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      }),
                 ),
+
+
+                // ClipRRect(
+                //   borderRadius: const BorderRadius.only(
+                //       bottomLeft: Radius.elliptical(190, 85)),
+                //   child:  CachedNetworkImage(
+                //     imageUrl:  getSchoolDetailsController.schoolDetailsModel.value.data!.image![0].toString(),
+                //     fit: BoxFit.cover,
+                //     width: double.maxFinite,
+                //     errorWidget: (__, _, ___) =>
+                //         Image.asset(
+                //           AppAssets.collageImg,
+                //           fit: BoxFit.cover,
+                //           width: double.maxFinite,
+                //         ),
+                //     placeholder: (__, _) =>
+                //     const Center(
+                //         child: CircularProgressIndicator()),
+                //   )
+                // ),
                 Positioned(
                     top: 10,
                     right: 15,
@@ -111,9 +154,9 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                               : getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite!;
                           // print(getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite);
                           int id =  getSchoolDetailsController.schoolDetailsModel.value.data!.id!;
-
-                          favouriteController.addFavouriteInListRepo(id,type,!isFavourite);
-                          getSchoolDetailsController.getSchoolDetailsFunction(id.toString());
+                          favouriteController.addFavouriteInListRepo(id,type,!isFavourite).then((value) {
+                            getSchoolDetailsController.getSchoolDetailsFunction(id.toString());
+                          });
                         },
                         child: Icon(
                           Icons.favorite,
@@ -141,8 +184,26 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: getSchoolDetailsController.schoolDetailsModel.value.data!.image!.asMap().entries.map((entry) {
+                              return GestureDetector(
+                                onTap: () => _controller.animateToPage(entry.key),
+                                child: Container(
+                                  width: size.width * 0.02,
+                                  height: size.height * 0.02,
+                                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _current == entry.key ? AppThemes.primaryColor : AppThemes.textGray
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+
                           const SizedBox(
-                            height: 30,
+                            height: 5,
                           ),
                            Text(
                              getSchoolDetailsController.schoolDetailsModel.value.data!.name.toString(),
@@ -511,13 +572,13 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                       imageUrl: item.image.toString(),
                                                       fit: BoxFit.cover,
                                                       width: size.width,
-                                                      height: size.height * .15,
+                                                      height: size.height * .14,
                                                       errorWidget: (__, _, ___) =>
                                                           Image.asset(
                                                             AppAssets.collageImg,
                                                             fit: BoxFit.cover,
                                                             width: size.width,
-                                                            height: size.height * .16,
+                                                            height: size.height * .14,
                                                           ),
                                                       placeholder: (__, _) =>
                                                       const Center(
@@ -528,6 +589,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                   style: const TextStyle(
                                                       fontSize: 15,
                                                       fontWeight: FontWeight.w500),
+                                                   maxLines: 1,
+                                                   overflow: TextOverflow.ellipsis,
                                                 ),
                                                 Text(
                                                 'class ${item.classNo.toString()}',

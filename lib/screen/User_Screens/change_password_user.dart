@@ -34,10 +34,13 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
       changePassRepo(context: context,oldPassword: oldPasswordController.text.trim(),
           password: confirmPasswordController.text.trim(),type: 'user'
       ).then((value) async {
+        // showToast(value.msg.toString());
+
         if(value.status == true){
-          showToast(value.msg.toString().toString());
+          Get.back();
+          // showToast(value.msg.toString());
         }else{
-          showToast(value.msg.toString().toString());
+          // showToast(value.msg.toString());
         }
       });
     }
@@ -143,7 +146,7 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
                             controller: passwordController,
                               obSecure: isPasswordShow.value,
                               validator: MultiValidator([
-                                RequiredValidator(errorText: 'Old Password is required'),
+                                RequiredValidator(errorText: 'New Password is required'),
                               ]),
                               suffixIcon: GestureDetector(
                                 onTap: () {

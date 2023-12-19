@@ -30,13 +30,16 @@ Future<ModelCommon> changePassRepo({oldPassword,context,password,type}) async {
       body: jsonEncode(map),    headers: await getAuthHeader(),);
 
   log(response.body);
+  Map<String, dynamic> responseData = json.decode(response.body);
+  showToast(responseData['msg'].toString());
 
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);
     return ModelCommon.fromJson(jsonDecode(response.body));
   } else {
     Helpers.hideLoader(loader);
-    Helpers.createSnackBar(context, response.body.toString());
+
+    // Helpers.createSnackBar(context, response.body['msg']);
     throw Exception(response.body);
   }
 }
