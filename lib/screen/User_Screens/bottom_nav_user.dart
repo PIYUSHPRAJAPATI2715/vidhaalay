@@ -156,9 +156,10 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                   ),
                   GestureDetector(
                     onTap: (){
-    controller.scaffoldKeyUser.currentState!.openDrawer();
-                      // controller.currentIndexUser.value = 4;
-                    // DrawerForUser();
+                   // controller.scaffoldKeyUser.currentState!.openDrawer();
+                   //    controller.currentIndexUser.value = 4;
+                    DrawerForUser();
+                    print('click ');
                     setState(() {
 
                     });} ,

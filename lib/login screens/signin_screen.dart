@@ -614,6 +614,7 @@ class _SignInPageState extends State<SignInPage> {
         pref.setString('user_info', jsonEncode(value));
         pref.setString('cookie', value.data!.token.toString());
         showToast(value.msg.toString());
+        pref.setBool('isLoggedIn', true);
         Get.offAllNamed(MyRouters.drawerForUser);
       } else {
         showToast(value.msg.toString());
@@ -633,6 +634,7 @@ signInFaceBook() async {
         pref.setString('user_info', jsonEncode(value));
         pref.setString('cookie', value.data!.token.toString());
         showToast(value.msg.toString());
+        pref.setBool('isLoggedIn', true);
         Get.offAllNamed(MyRouters.drawerForUser);
       } else {
         showToast(value.msg.toString());
