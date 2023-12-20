@@ -620,13 +620,14 @@ class _SignInPageState extends State<SignInPage> {
       }
     });
   }
+
 signInFaceBook() async {
   final LoginResult loginResult = await FacebookAuth.instance
       .login(permissions: ["public_profile", "email"], loginBehavior: LoginBehavior.webOnly);
   print("qqqqqqqqqqqq");
   final OAuthCredential oAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
   final value = await FirebaseAuth.instance.signInWithCredential(oAuthCredential).then((value1) async {
-    socialLogin(photo: 'googleUser.photoUrl.toString()',context: context, email: 'googleUser.email.toString()', name: 'googleUser.displayName.toString()',deviceType: signInController.deviceType.toString(),soGoogle: '2').then((value) async {
+    socialFacebook(context: context, email: value1.user!.email.toString(), name:  value1.user!.displayName.toString(),deviceType: signInController.deviceType.toString()).then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
