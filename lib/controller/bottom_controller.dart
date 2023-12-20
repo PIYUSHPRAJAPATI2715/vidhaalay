@@ -49,7 +49,7 @@ class BottomController extends GetxController {
 
   var screensUser = [
     const UserHomeScreen(),
-    const VideoScreen(),
+    // const VideoScreen(),
     const MyLecturesScreen(),
     const NotificationScreenUser(),
     // const DrawerForUser(),
