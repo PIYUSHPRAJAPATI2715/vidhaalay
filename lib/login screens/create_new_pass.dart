@@ -25,7 +25,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
   TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
   RxBool isPasswordShow = true.obs;
   RxBool isConfirmedPasswordShow = true.obs;
   @override
@@ -85,7 +85,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child:  Form(
-                  key: _formKey,
+                  key: _formKey1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -174,12 +174,12 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {
-                          if(_formKey.currentState!.validate()){
+                          if(_formKey1.currentState!.validate()){
                             changePassword(context: context,password: passwordController.text.trim(),confirmPassword: confirmPasswordController.text.trim()
                             ).then((value) async {
                               if(value.status == true){
                                 showToast(value.msg.toString()!);
-                                Get.toNamed(MyRouters.signInPage);
+                                Get.offAllNamed(MyRouters.signInPage);
                               }else{
                                 showToast(value.msg.toString()!);
                               }
