@@ -40,7 +40,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Obx(
-        () => Container(
+            () => Container(
           height: size.height,
           width: size.width,
           // color: Colors.deepOrange,
@@ -48,145 +48,145 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             alignment: Alignment.topCenter,
             children: [
               Padding(
-                 padding: EdgeInsets.only(top: size.height * 0.37,left: 20,right: 20),
-                 child: SingleChildScrollView(
-                   physics: BouncingScrollPhysics(),
-                   scrollDirection: Axis.vertical,
-                   child: Form(
-                     key: getProfileController.formKey,
-                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.start,
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text('Name',
-                           style: GoogleFonts.poppins(
-                               fontWeight: FontWeight.w500,
-                               fontSize: 14,
-                               color: AppThemes.textGray
-                           ),
-                         ),
-                         const SizedBox(
-                           height: 5,
-                         ),
-                         CommonTextfield(
-                           obSecure: false,
-                           controller: getProfileController.nameController,
-                           hintText: 'Enter name here',
-                           // hintText:  getProfileController.getProfileModel.value.data!.name.toString(),
-                           validator: MultiValidator([
-                             RequiredValidator(errorText: 'name is required'),
-                           ]),
-                         ),
-                         const SizedBox(
-                           height: 20,
-                         ),
-                         Text('Email Address',
-                           style: GoogleFonts.poppins(
-                               fontWeight: FontWeight.w500,
-                               fontSize: 14,
-                               color: AppThemes.textGray
-                           ),
-                         ),
-                         SizedBox(
-                           height: 5,
-                         ),
-                         CommonTextfield(
-                           obSecure: false,
-                           controller: getProfileController.emailController,
-                           readOnly: false,
-                           validator: MultiValidator([
-                             RequiredValidator(errorText: 'email is required'),
-                             EmailValidator(errorText: "Enter valid email ")
-                           ]),
-                             hintText: 'Enter email here'
-                             // hintText: getProfileController.getProfileModel.value.data!.email.toString(),
-                         ),
-                         const SizedBox(
-                           height: 20,
-                         ),
-                         Text('Mobile Number',
-                           style: GoogleFonts.poppins(
-                               fontWeight: FontWeight.w500,
-                               fontSize: 14,
-                               color: AppThemes.textGray
-                           ),
-                         ),
-                         const SizedBox(
-                           height: 5,
-                         ),
-                         CommonTextfield(
-                           obSecure: false,
-                           readOnly: false,
-                           controller: getProfileController.phoneController,
-                           keyboardType: TextInputType.number,
-                           hintText: 'Enter number here',
-                           // getProfileController.getProfileModel.value.data!.mobile.toString(),
-                           validator: (value){
-                             if(value!.isEmpty){
-                               return "Mobile Number is required";
-                             }
-                             else if(value.length<10){
-                               return 'please enter correct number';
-                             }
-                             else{
-                               return null;
-                             }
-                           },
-                           inputFormatters: [
-                             LengthLimitingTextInputFormatter(10),
-                           ],
-                         ),
-                         const SizedBox(
-                           height: 20,
-                         ),
-                         Text('Unique Id',
-                           style: GoogleFonts.poppins(
-                               fontWeight: FontWeight.w500,
-                               fontSize: 14,
-                               color: AppThemes.textGray
-                           ),
-                         ),
-                         const SizedBox(
-                           height: 5,
-                         ),
-                         CommonTextfield(
-                           obSecure: false,
-                           readOnly: true,
-                           onTap: () {
-                             // showToast("you can not change your unique Id");
-                           },
-                           controller: getProfileController.uniqueIdController,
-                           hintText: getProfileController.getProfileModel.value.data!.uniqueId.toString(),
-                         ),
-                         const SizedBox(
-                           height: 30,
-                         ),
-                         ElevatedButton(
-                           onPressed: () {
-                             getProfileController.updateProfile(context);
-                           },
-                           style: ElevatedButton.styleFrom(
-                             minimumSize: const Size(double.maxFinite, 0),
-                             padding: const EdgeInsets.symmetric(vertical: 12),
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(50),
-                             ),
-                             backgroundColor: AppThemes.primaryColor,
-                           ),
-                           child: Text(
-                             "save".toUpperCase(),
-                             style: const TextStyle(
-                               color: Colors.white,
-                               fontSize: 16,
-                               fontWeight: FontWeight.w600,
-                             ),
-                           ),
-                         ),
-                       ],
-                     ),
-                   ),
-                 ),
-               ),
+                padding: EdgeInsets.only(top: size.height * 0.37,left: 20,right: 20),
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  child: Form(
+                    key: getProfileController.formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Name',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                          obSecure: false,
+                          controller: getProfileController.nameController,
+                          hintText: 'Enter name here',
+                          // hintText:  getProfileController.getProfileModel.value.data!.name.toString(),
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'name is required'),
+                          ]),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text('Email Address',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                            obSecure: false,
+                            controller: getProfileController.emailController,
+                            readOnly: false,
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'email is required'),
+                              EmailValidator(errorText: "Enter valid email ")
+                            ]),
+                            hintText: 'Enter email here'
+                          // hintText: getProfileController.getProfileModel.value.data!.email.toString(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text('Mobile Number',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                          obSecure: false,
+                          readOnly: false,
+                          controller: getProfileController.phoneController,
+                          keyboardType: TextInputType.number,
+                          hintText: 'Enter number here',
+                          // getProfileController.getProfileModel.value.data!.mobile.toString(),
+                          validator: (value){
+                            if(value!.isEmpty){
+                              return "Mobile Number is required";
+                            }
+                            else if(value.length<10){
+                              return 'please enter correct number';
+                            }
+                            else{
+                              return null;
+                            }
+                          },
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(10),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text('Unique Id',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: AppThemes.textGray
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        CommonTextfield(
+                          obSecure: false,
+                          readOnly: true,
+                          onTap: () {
+                            // showToast("you can not change your unique Id");
+                          },
+                          controller: getProfileController.uniqueIdController,
+                          hintText: getProfileController.getProfileModel.value.data!.uniqueId.toString(),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            getProfileController.updateProfile(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.maxFinite, 0),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            backgroundColor: AppThemes.primaryColor,
+                          ),
+                          child: Text(
+                            "save".toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               Stack(
                 alignment: Alignment.topCenter,
                 children: [

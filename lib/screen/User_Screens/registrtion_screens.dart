@@ -452,6 +452,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               if (kk == 0)
                 Container(
+
                   decoration: const BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(50)),
@@ -904,6 +905,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               if (kk == .2)
                 Container(
+                  height: Get.height,
                   decoration: const BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(50)),
@@ -1458,9 +1460,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               child: const Text('Continue',style: TextStyle(color: Colors.white),),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+
                         ],
                       ),
                     ),
@@ -1468,6 +1468,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               if (kk == 0.4)
                 Container(
+                  height: Get.height,
                   decoration: const BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(50)),
@@ -1629,7 +1630,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 50,
                           ),
                         ],
                       ),
@@ -1638,6 +1639,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               if (kk == 0.6)
                 Container(
+
                   decoration: const BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(50)),
@@ -2015,6 +2017,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               if (kk == 0.8)
                 Container(
+
                   decoration: const BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(50)),
@@ -2341,7 +2344,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               if (kk == 1)
                 Container(
-                  height: AddSize.screenHeight,
+                  height: Get.height,
+                  // height: AddSize.screenHeight,
                   decoration: const BoxDecoration(
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(50)),
