@@ -121,6 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   continueStep() {
     if (currentStep < 5) {
       setState(() {
+        print("currentStep : $currentStep");
         currentStep = currentStep + 1; //currentStep+=1;
       });
     }
@@ -231,9 +232,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // TODO: implement initState
     super.initState();
     getCountryController.getCountryListFunction();
-    getCountryController.getCityListFunction();
-
+    // getCountryController.getCityListFunction();
   }
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -299,15 +301,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 width: 50,
                                 height: 50,
                                 decoration: const BoxDecoration(
-                                  image:  DecorationImage(image: AssetImage(AppAssets.activeStep)),
+                                  // color: Colors.deepOrange,
+                                  image:  DecorationImage(image: AssetImage(AppAssets.activeStep),fit: BoxFit.fill),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    (index + 1).toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      color: AppThemes.primaryColor,
-                                      fontSize: 12,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        color: AppThemes.primaryColor,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -316,7 +322,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                     )
-
                   ],
                 ),
               ),
@@ -889,6 +894,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   kk = 0.2;
+                                  getCountryController.getCountryListFunction();
                                   setState(() {});
                                 }
                               },
@@ -1037,66 +1043,188 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           const SizedBox(
                             height: 10,
                           ),
+
+
                          Obx(() {
                          return getCountryController.isDataLoading.value == true ?
-                           Container(
-                               height: 55,
-                               width: Get.width,
-                               decoration: BoxDecoration(
+                         // Container(
+                         //   height: 50,
+                         //   child: DropdownButtonFormField<String>(
+                         //     itemHeight: 50, // Adjust the height as needed
+                         //     value: 'Option 1',
+                         //     menuMaxHeight: size.height * 0.3,
+                         //     // alignment: Alignment.topCenter,
+                         //     textStyle:  TextStyle(
+                         //         color: Colors.grey,
+                         //         fontSize: AddSize.font14),
+                         //     style: TextStyle(
+                         //       color: Colors.grey,
+                         //     ),
+                         //     items: [
+                         //       DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
+                         //       DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
+                         //       DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
+                         //       DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
+                         //       DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
+                         //       DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
+                         //       DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
+                         //     ],
+                         //     onChanged: (value) {
+                         //       // Handle dropdown value change
+                         //     },
+                         //     decoration: InputDecoration(
+                         //
+                         //       fillColor: const Color(0xFFF2F2F2),
+                         //       // contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                         //       focusedBorder: OutlineInputBorder(
+                         //         borderSide: const BorderSide(color: Colors.grey),
+                         //         borderRadius: BorderRadius.circular(50.0),
+                         //       ),
+                         //       enabledBorder: const OutlineInputBorder(
+                         //           borderSide: BorderSide(color: Colors.grey),
+                         //           borderRadius:
+                         //           BorderRadius.all(Radius.circular(50.0))
+                         //       ),
+                         //     ),
+                         //   ),
+                         // )
+
+                         // SizedBox(
+                         //   height: 40,
+                         //   // width: size.width * 0.93,
+                         //   child: DropdownMenu<String>(
+                         //     width: size.width * 0.93,
+                         //     menuHeight: size.height * 0.3,
+                         //     hintText: 'Select Department',
+                         //     textStyle:  TextStyle(
+                         //         color: Colors.grey,
+                         //         fontSize: AddSize.font14),
+                         //     onSelected: (String? value) {
+                         //       setState(() {
+                         //         // var dropdownValue = value!;
+                         //         getCountryController.selectedAllergensValue = value!;
+                         //         print(value);
+                         //       });
+                         //     },
+                         //     dropdownMenuEntries: getCountryController.getCountryModel.value.data!.country!.toList().map((value) {
+                         //       return DropdownMenuEntry(value: value.id.toString(), label: value.name.toString());
+                         //     }).toList(),
+                         //   ),
+                         // )
+
+                           DropdownMenuTheme(
+                           data: DropdownMenuThemeData(
+                             menuStyle: MenuStyle(
+                               // backgroundColor:MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                               //   return Colors.white;
+                               // }),
+                               surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                 return Colors.white;
+                               }),
+                             ),
+                             textStyle: TextStyle(
+                                 color: Colors.grey,
+                                 fontSize: AddSize.font14),
+                             inputDecorationTheme: InputDecorationTheme(
+                               hintStyle: TextStyle(
+                                   color: Colors.grey,
+                                   fontSize: AddSize.font14),
+                               enabledBorder: OutlineInputBorder(
+                                   gapPadding: 0.0,
                                    borderRadius: BorderRadius.circular(50),
-                                   border: Border.all(
-                                       color: Colors.grey,
-                                       width: 0.5
+                                   borderSide: BorderSide(
+                                       color: Colors.grey!.withOpacity(0.5),
+                                       width: 1
                                    )
                                ),
-                             child: DropdownButtonFormField<dynamic>(
-                               focusColor: Colors.white,
-                               isExpanded: true,
-                               validator: (value) {
-                                 if (value == null) {
-                                   return 'Please enter allergens';
-                                 }
-                               },
-                               iconEnabledColor: const Color(0xff97949A),
-                               icon: const Icon(Icons.keyboard_arrow_down),
-                               hint: Text(
-                                 "Select Country",
-                                 style: TextStyle(
-                                     color: Colors.grey,
-                                     fontSize: AddSize.font14),
-                                 textAlign: TextAlign.justify,
-                               ),
-                               decoration: InputDecoration(
-                                   fillColor: const Color(0xFFF2F2F2),
-                                   contentPadding:
-                                   const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                   focusedBorder: OutlineInputBorder(
-                                     borderSide: const BorderSide(color: Colors.transparent),
-                                     borderRadius: BorderRadius.circular(50.0),
-                                   ),
-                                   enabledBorder: const OutlineInputBorder(
-                                       borderSide: BorderSide(color: Colors.transparent),
-                                       borderRadius:
-                                       BorderRadius.all(Radius.circular(50.0)))),
-                               value: getCountryController.selectedAllergensValue,
-                               items: getCountryController.getCountryModel.value.data!.country!.toList().map((value) {
-                                 return DropdownMenuItem(
-                                   value: value.id.toString(),
-                                   child: Text(
-                                     value.name.toString(),
-                                     style: TextStyle(
-                                         color: Colors.grey,
-                                         fontSize: AddSize.font14),
-                                   ),
-                                 );
-                               }).toList(),
-                               onChanged: (newValue) {
-                                 setState(() {
-                                   getCountryController.selectedAllergensValue = newValue!;
-                                 });
-                               },
                              ),
-                           ): SizedBox();
+                           ),
+                           child: Container(
+                             height: 55,
+                             // width: size.width * 0.93,
+                             child: DropdownMenu<String>(
+                               width: size.width * 0.93,
+                               menuHeight: size.height * 0.3,
+                               hintText: 'Select Country',
+                               textStyle:  TextStyle(
+                                   color: Colors.grey,
+                                   fontSize: AddSize.font14),
+                               onSelected: (String? value) {
+                                 getCountryController.selectCountyValue = value!;
+                                 print(value);
+                               },
+                               trailingIcon: const Icon(Icons.keyboard_arrow_down),
+                               dropdownMenuEntries: getCountryController.getCountryModel.value.data!.country!.toList().map((value) {
+                                 return DropdownMenuEntry(value: value.id.toString(), label: value.name.toString());
+                               }).toList(),
+                             ),
+                           ),
+                         )
+
+                         // Container(
+                         //       height: 55,
+                         //       width: Get.width,
+                         //       decoration: BoxDecoration(
+                         //           borderRadius: BorderRadius.circular(50),
+                         //           border: Border.all(
+                         //               color: Colors.grey,
+                         //               width: 0.5
+                         //           )
+                         //       ),
+                         //     child:
+                         //     DropdownButtonFormField<dynamic>(
+                         //       focusColor: Colors.white,
+                         //       isExpanded: true,
+                         //       validator: (value) {
+                         //         if (value == null) {
+                         //           return 'Please enter allergens';
+                         //         }
+                         //       },
+                         //       iconEnabledColor: const Color(0xff97949A),
+                         //       icon: const Icon(Icons.keyboard_arrow_down),
+                         //       hint: Text(
+                         //         "Select Country",
+                         //         style: TextStyle(
+                         //             color: Colors.grey,
+                         //             fontSize: AddSize.font14),
+                         //         textAlign: TextAlign.justify,
+                         //       ),
+                         //       menuMaxHeight: size.height * 0.3,
+                         //       alignment: Alignment.bottomCenter,
+                         //
+                         //       decoration: InputDecoration(
+                         //           fillColor: const Color(0xFFF2F2F2),
+                         //           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                         //           focusedBorder: OutlineInputBorder(
+                         //             borderSide: const BorderSide(color: Colors.transparent),
+                         //             borderRadius: BorderRadius.circular(50.0),
+                         //           ),
+                         //           enabledBorder: const OutlineInputBorder(
+                         //               borderSide: BorderSide(color: Colors.transparent),
+                         //               borderRadius:
+                         //               BorderRadius.all(Radius.circular(50.0))
+                         //           ),
+                         //       ),
+                         //       value: getCountryController.selectedAllergensValue,
+                         //       items: getCountryController.getCountryModel.value.data!.country!.toList().map((value) {
+                         //         return DropdownMenuItem(
+                         //           value: value.id.toString(),
+                         //           child: Text(
+                         //             value.name.toString(),
+                         //             style: TextStyle(
+                         //                 color: Colors.grey,
+                         //                 fontSize: AddSize.font14),
+                         //           ),
+                         //         );
+                         //       }).toList(),
+                         //       onChanged: (newValue) {
+                         //         setState(() {
+                         //           getCountryController.selectedAllergensValue = newValue!;
+                         //         });
+                         //       },
+                         //     ),
+                         //   )
+                               : SizedBox();
                          }),
                           const SizedBox(
                             height: 25,
@@ -1120,7 +1248,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 RequiredValidator(
                                     errorText:
                                     'Please Enter address'),
-
                               ]),
                             ),
                           ),
@@ -1137,138 +1264,247 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           Obx(() {
                             return getCountryController.isDataLoading.value == true ?
-                            Container(
-                              height: 55,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                      color: Colors.grey,
-                                      width: 0.5
-                                  )
-                              ),
-                              child: DropdownButtonFormField<dynamic>(
-                                focusColor: Colors.white,
-                                isExpanded: true,
-                                validator: (value) {
-                                  if (value == null) {
-                                    return 'Please enter allergens';
-                                  }
-                                },
-                                iconEnabledColor: const Color(0xff97949A),
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                hint: Text(
-                                  "Select State",
-                                  style: TextStyle(
+                            DropdownMenuTheme(
+                              data: DropdownMenuThemeData(
+                                menuStyle: MenuStyle(
+                                  // backgroundColor:MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                  //   return Colors.white;
+                                  // }),
+                                  surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                    return Colors.white;
+                                  }),
+                                ),
+                                textStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: AddSize.font14),
+                                inputDecorationTheme: InputDecorationTheme(
+                                  hintStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: AddSize.font14),
-                                  textAlign: TextAlign.justify,
+                                  enabledBorder: OutlineInputBorder(
+                                      gapPadding: 0.0,
+                                      borderRadius: BorderRadius.circular(50),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey!.withOpacity(0.5),
+                                          width: 1
+                                      )
+                                  ),
                                 ),
-                                decoration: InputDecoration(
-                                    fillColor: const Color(0xFFF2F2F2),
-                                    contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(color: Colors.transparent),
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(50.0)))),
-                                value: selectedCityValue,
-                                items: getCountryController.getCountryModel.value.data!.state!.toList().map((value) {
-                                  return DropdownMenuItem(
-                                    value: value.id.toString(),
-                                    child: Text(
-                                      value.name.toString(),
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: AddSize.font14),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    selectedCityValue = newValue!;
-                                  });
-                                },
                               ),
-                            ): SizedBox();
+                              child: Container(
+                                height: 55,
+                                // width: size.width * 0.93,
+                                child: DropdownMenu<String>(
+                                  width: size.width * 0.93,
+                                  menuHeight: size.height * 0.3,
+                                  hintText: 'Select State',
+                                  textStyle:  TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: AddSize.font14),
+                                  onSelected: (String? value) {
+                                    getCountryController.selectStateValue = value!;
+                                    getCountryController.getCityListFunction(getCountryController.selectStateValue!);
+                                    print(value);
+                                  },
+                                  trailingIcon: const Icon(Icons.keyboard_arrow_down),
+                                  dropdownMenuEntries: getCountryController.getCountryModel.value.data!.state!.toList().map((value) {
+                                    return DropdownMenuEntry(value: value.id.toString(), label: value.name.toString());
+                                  }).toList(),
+                                ),
+                              ),
+                            )
+
+                            // Container(
+                            //   height: 55,
+                            //   width: Get.width,
+                            //   decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(50),
+                            //       border: Border.all(
+                            //           color: Colors.grey,
+                            //           width: 0.5
+                            //       )
+                            //   ),
+                            //   child: DropdownButtonFormField<dynamic>(
+                            //     focusColor: Colors.white,
+                            //     isExpanded: true,
+                            //     validator: (value) {
+                            //       if (value == null) {
+                            //         return 'Please enter allergens';
+                            //       }
+                            //     },
+                            //     iconEnabledColor: const Color(0xff97949A),
+                            //     icon: const Icon(Icons.keyboard_arrow_down),
+                            //     hint: Text(
+                            //       "Select State",
+                            //       style: TextStyle(
+                            //           color: Colors.grey,
+                            //           fontSize: AddSize.font14),
+                            //       textAlign: TextAlign.justify,
+                            //     ),
+                            //     decoration: InputDecoration(
+                            //         fillColor: const Color(0xFFF2F2F2),
+                            //         contentPadding:
+                            //         const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            //         focusedBorder: OutlineInputBorder(
+                            //           borderSide: const BorderSide(color: Colors.transparent),
+                            //           borderRadius: BorderRadius.circular(50.0),
+                            //         ),
+                            //         enabledBorder: const OutlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.transparent),
+                            //             borderRadius:
+                            //             BorderRadius.all(Radius.circular(50.0)))),
+                            //     value: selectedCityValue,
+                            //     items: getCountryController.getCountryModel.value.data!.state!.toList().map((value) {
+                            //       return DropdownMenuItem(
+                            //         value: value.id.toString(),
+                            //         child: Text(
+                            //           value.name.toString(),
+                            //           style: TextStyle(
+                            //               color: Colors.grey,
+                            //               fontSize: AddSize.font14),
+                            //         ),
+                            //       );
+                            //     }).toList(),
+                            //     onChanged: (newValue) {
+                            //       setState(() {
+                            //         selectedCityValue = newValue!;
+                            //       });
+                            //     },
+                            //   ),
+                            // )
+                                : SizedBox();
                           }),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('City',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
+
 
                                Obx(() {
                           return getCountryController.isGetCityLoading.value == true ?
-                          Container(
-                          height: 55,
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                          color: Colors.grey,
-                          width: 0.5
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('City',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              DropdownMenuTheme(
+                                data: DropdownMenuThemeData(
+                                  menuStyle: MenuStyle(
+                                    // backgroundColor:MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                    //   return Colors.white;
+                                    // }),
+                                    surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                      return Colors.white;
+                                    }),
+                                  ),
+                                  textStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: AddSize.font14),
+                                  inputDecorationTheme: InputDecorationTheme(
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: AddSize.font14),
+                                    enabledBorder: OutlineInputBorder(
+                                        gapPadding: 0.0,
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey!.withOpacity(0.5),
+                                            width: 1
+                                        )
+                                    ),
+                                  ),
+                                ),
+                                child: Container(
+                                  height: 55,
+                                  // width: size.width * 0.93,
+                                  child: DropdownMenu<String>(
+                                    width: size.width * 0.93,
+                                    menuHeight: size.height * 0.3,
+                                    hintText: 'Select City',
+                                    textStyle:  TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: AddSize.font14),
+                                    onSelected: (String? value) {
+                                      getCountryController.selectCityValue = value!;
+                                      print(value);
+                                    },
+                                    trailingIcon: const Icon(Icons.keyboard_arrow_down),
+                                    dropdownMenuEntries: getCountryController.getCityListModel.value.data!.toList().map((value) {
+                                      return DropdownMenuEntry(value: value.id.toString(), label: value.city.toString());
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ],
                           )
-                          ),
-                          child: DropdownButtonFormField<dynamic>(
-                          focusColor: Colors.white,
-                          isExpanded: true,
-                          validator: (value) {
-                          if (value == null) {
-                          return 'Please enter allergens';
-                          }
-                          return null;
-                          },
-                          iconEnabledColor: const Color(0xff97949A),
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          hint: Text(
-                          "Select City",
-                          style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: AddSize.font14),
-                          textAlign: TextAlign.justify,
-                          ),
-                          decoration: InputDecoration(
-                          fillColor: const Color(0xFFF2F2F2),
-                          contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                          focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(50.0)))),
-                          value: getCountryController.selectCityValue,
-                          items: getCountryController.getCityListModel.value.data!.toList().map((value) {
-                          return DropdownMenuItem(
-                          value: value.id.toString(),
-                          child: Text(
-                          value.city.toString(),
-                          style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: AddSize.font14),
-                          ),
-                          );
-                          }).toList(),
-                          onChanged: (newValue) {
-                          setState(() {
-                          getCountryController.selectCityValue = newValue!;
-                          });
-                          },
-                          ),
-                          ): SizedBox();
+
+                          // Container(
+                          // height: 55,
+                          // width: Get.width,
+                          // decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(50),
+                          // border: Border.all(
+                          // color: Colors.grey,
+                          // width: 0.5
+                          // )
+                          // ),
+                          // child: DropdownButtonFormField<dynamic>(
+                          // focusColor: Colors.white,
+                          // isExpanded: true,
+                          // validator: (value) {
+                          // if (value == null) {
+                          // return 'Please enter allergens';
+                          // }
+                          // return null;
+                          // },
+                          // iconEnabledColor: const Color(0xff97949A),
+                          // icon: const Icon(Icons.keyboard_arrow_down),
+                          // hint: Text(
+                          // "Select City",
+                          // style: TextStyle(
+                          // color: Colors.grey,
+                          // fontSize: AddSize.font14),
+                          // textAlign: TextAlign.justify,
+                          // ),
+                          // decoration: InputDecoration(
+                          // fillColor: const Color(0xFFF2F2F2),
+                          // contentPadding:
+                          // const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          // focusedBorder: OutlineInputBorder(
+                          // borderSide: const BorderSide(color: Colors.transparent),
+                          // borderRadius: BorderRadius.circular(50.0),
+                          // ),
+                          // enabledBorder: const OutlineInputBorder(
+                          // borderSide: BorderSide(color: Colors.transparent),
+                          // borderRadius:
+                          // BorderRadius.all(Radius.circular(50.0)))),
+                          // value: getCountryController.selectCityValue,
+                          // items: getCountryController.getCityListModel.value.data!.toList().map((value) {
+                          // return DropdownMenuItem(
+                          // value: value.id.toString(),
+                          // child: Text(
+                          // value.city.toString(),
+                          // style: TextStyle(
+                          // color: Colors.grey,
+                          // fontSize: AddSize.font14),
+                          // ),
+                          // );
+                          // }).toList(),
+                          // onChanged: (newValue) {
+                          // setState(() {
+                          // getCountryController.selectCityValue = newValue!;
+                          // });
+                          // },
+                          // ),
+                          // )
+
+                              : SizedBox();
                           }),
 
                           // Container(
@@ -1439,7 +1675,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 25,
                           ),
                           SizedBox(
                             width: double.maxFinite,

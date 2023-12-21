@@ -12,7 +12,6 @@ import '../resourses/helper.dart';
 
 
 Future<getCountryListModel> getCountryListRepo() async {
-
   SharedPreferences pref = await SharedPreferences.getInstance();
   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
 
@@ -21,29 +20,34 @@ Future<getCountryListModel> getCountryListRepo() async {
     HttpHeaders.authorizationHeader: 'Bearer ${model.data!.token.toString()}',
   };
 
-
   // try {
-    http.Response response = await http.get(Uri.parse(ApiUrls.getCountryState),
-      headers: await getAuthHeader(),);
+  http.Response response = await http.get(
+    Uri.parse(ApiUrls.getCountryState),
+    headers: await getAuthHeader(),
+  );
 
-    log(response.body.toString());
+  print("API Status");
+  print(response.statusCode.toString());
+  print(response.body.toString());
+
   if (response.statusCode == 200) {
     print(jsonDecode(response.body));
     return getCountryListModel.fromJson(jsonDecode(response.body));
-
-  }
-  else {
+  } else {
     if (kDebugMode) {
       print(jsonDecode(response.body));
     }
-    return getCountryListModel(msg: jsonDecode(response.body)["message"], );
+    return getCountryListModel(
+      msg: jsonDecode(response.body)["message"],
+    );
   }
-    }
+}
 
 Future<GetCityModel> getCityListRepo({id}) async {
-
   SharedPreferences pref = await SharedPreferences.getInstance();
   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
+
+  // print(object)
 
   var headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
@@ -51,21 +55,19 @@ Future<GetCityModel> getCityListRepo({id}) async {
   };
 
   // try {
-    http.Response response = await http.get(Uri.parse(ApiUrls.getCityUrl+id),
-        headers: headers);
+  http.Response response =
+      await http.get(Uri.parse(ApiUrls.getCityUrl + id), headers: headers);
 
-    log(response.body.toString());
+  log(response.body.toString());
   if (response.statusCode == 200) {
     print(jsonDecode(response.body));
     return GetCityModel.fromJson(jsonDecode(response.body));
-
-  }
-  else {
+  } else {
     if (kDebugMode) {
       print(jsonDecode(response.body));
     }
-    return GetCityModel(msg: jsonDecode(response.body)["message"], );
+    return GetCityModel(
+      msg: jsonDecode(response.body)["message"],
+    );
   }
-    }
-
-
+}
