@@ -47,10 +47,39 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: () {controller.currentIndexUser.value = 0;
+                    onTap: (){
+                      controller.scaffoldKeyUser.currentState!.openDrawer();
+                      //    controller.currentIndexUser.value = 4;
+                      // DrawerForUser();
+                      // print('click ');
                       setState(() {
 
-                      });
+                      });} ,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          AppAssets.moreIcon,
+                          width: 22,
+                          height: 22,
+                          color: controller.currentIndexUser.value == 2 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text('More',style: GoogleFonts.poppins(
+                            color: controller.currentIndexUser.value == 2 ? AppThemes
+                                .white : AppThemes.whiteOff,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500
+                        ),)
+                      ],
+                    ),
+                  ),
+
+                  GestureDetector(
+                    onTap: () {controller.currentIndexUser.value = 0;
+                      setState(() {});
                       } ,
                     child: Column(
                       children: [
@@ -73,33 +102,6 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                       ],
                     ),
                   ),
-                  // GestureDetector(
-                  //   onTap: () {controller.currentIndexUser.value = 1;
-                  //   setState(() {
-                  //
-                  //   });
-                  //     } ,
-                  //   child: Column(
-                  //     children: [
-                  //       Image.asset(
-                  //         AppAssets.videoIcon,
-                  //         color: controller.currentIndexUser.value == 1 ? AppThemes
-                  //             .white : AppThemes.whiteOff,
-                  //         width: 22,
-                  //         height: 22,
-                  //       ),
-                  //       const SizedBox(
-                  //         height: 4,
-                  //       ),
-                  //       Text('Videos',style: GoogleFonts.poppins(
-                  //           color: controller.currentIndexUser.value == 1 ? AppThemes
-                  //               .white : AppThemes.whiteOff,
-                  //           fontSize: 10,
-                  //           fontWeight: FontWeight.w500
-                  //       ),)
-                  //     ],
-                  //   ),
-                  // ),
                   GestureDetector(
                     onTap: () {controller.currentIndexUser.value = 1;
                     setState(() {
@@ -109,7 +111,7 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                     child: Column(
                       children: [
                         Image.asset(
-                          AppAssets.myLecturesIcon,
+                          AppAssets.videoIcon,
                           color: controller.currentIndexUser.value == 1 ? AppThemes
                               .white : AppThemes.whiteOff,
                           width: 22,
@@ -118,7 +120,7 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                         const SizedBox(
                           height: 4,
                         ),
-                        Text('My Lectures',style: GoogleFonts.poppins(
+                        Text('Videos',style: GoogleFonts.poppins(
                             color: controller.currentIndexUser.value == 1 ? AppThemes
                                 .white : AppThemes.whiteOff,
                             fontSize: 10,
@@ -127,63 +129,61 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {controller.currentIndexUser.value = 2;
+                  // GestureDetector(
+                  //   onTap: () {controller.currentIndexUser.value = 1;
+                  //   setState(() {
+                  //
+                  //   });
+                  //     } ,
+                  //   child: Column(
+                  //     children: [
+                  //       Image.asset(
+                  //         AppAssets.myLecturesIcon,
+                  //         color: controller.currentIndexUser.value == 1 ? AppThemes
+                  //             .white : AppThemes.whiteOff,
+                  //         width: 22,
+                  //         height: 22,
+                  //       ),
+                  //       const SizedBox(
+                  //         height: 4,
+                  //       ),
+                  //       Text('My Lectures',style: GoogleFonts.poppins(
+                  //           color: controller.currentIndexUser.value == 1 ? AppThemes
+                  //               .white : AppThemes.whiteOff,
+                  //           fontSize: 10,
+                  //           fontWeight: FontWeight.w500
+                  //       ),)
+                  //     ],
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {controller.currentIndexUser.value = 2;
+                  //
+                  //   setState(() {
+                  //
+                  //   });} ,
+                  //   child: Column(
+                  //     children: [
+                  //       Image.asset(
+                  //         AppAssets.notification,
+                  //         width: 22,
+                  //         height: 22,
+                  //         color: controller.currentIndexUser.value == 2 ? AppThemes
+                  //             .white : AppThemes.whiteOff,
+                  //       ),
+                  //       const SizedBox(
+                  //         height: 4,
+                  //       ),
+                  //       Text('Notifications',style: GoogleFonts.poppins(
+                  //           color: controller.currentIndexUser.value == 2 ? AppThemes
+                  //               .white : AppThemes.whiteOff,
+                  //           fontSize: 10,
+                  //           fontWeight: FontWeight.w500
+                  //       ),)
+                  //     ],
+                  //   ),
+                  // ),
 
-                    setState(() {
-
-                    });} ,
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          AppAssets.notification,
-                          width: 22,
-                          height: 22,
-                          color: controller.currentIndexUser.value == 2 ? AppThemes
-                              .white : AppThemes.whiteOff,
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text('Notifications',style: GoogleFonts.poppins(
-                            color: controller.currentIndexUser.value == 2 ? AppThemes
-                                .white : AppThemes.whiteOff,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500
-                        ),)
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                   // controller.scaffoldKeyUser.currentState!.openDrawer();
-                   //    controller.currentIndexUser.value = 4;
-                    DrawerForUser();
-                    print('click ');
-                    setState(() {
-
-                    });} ,
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          AppAssets.moreIcon,
-                          width: 22,
-                          height: 22,
-                          color: controller.currentIndexUser.value == 3 ? AppThemes
-                              .white : AppThemes.whiteOff,
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text('More',style: GoogleFonts.poppins(
-                            color: controller.currentIndexUser.value == 3 ? AppThemes
-                                .white : AppThemes.whiteOff,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500
-                        ),)
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ],

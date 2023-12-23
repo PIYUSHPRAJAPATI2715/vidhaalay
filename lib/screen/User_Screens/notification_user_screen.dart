@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay_app/screen/User_Screens/notification_detail_user_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 
@@ -117,7 +118,8 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
           automaticallyImplyLeading: true,
           backgroundColor: AppThemes.white,
           title: Text(
-            "Event Calender",
+            "Notification Calender",
+            // "Event Calender",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 color: AppThemes.black,
@@ -331,74 +333,79 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                               String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
                               return Column(
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18).copyWith(top: 10),
-                                    color: const Color(0xffecffd2),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(()=> UserNotificationDetailScreen(id: notificationController.getNotificationModel.value.data![index].id.toString()));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18).copyWith(top: 10),
+                                      color: const Color(0xffecffd2),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
 
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 2.0),
-                                                child: Image.asset(
-                                                  AppAssets.greenInfo,
-                                                  height: 14,
-                                                  width: 14,
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 2.0),
+                                                  child: Image.asset(
+                                                    AppAssets.greenInfo,
+                                                    height: 14,
+                                                    width: 14,
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          items.title.toString(),
-                                                          style: GoogleFonts.poppins(
-                                                              color:
-                                                              AppThemes.primaryColor,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                              FontWeight.w500),
-                                                        ),
-                                                        Text(
-                                                          formattedDate.toString(),
-                                                          style: GoogleFonts.poppins(
-                                                              color: Colors.grey,
-                                                              fontSize: 13,
-                                                              fontWeight: FontWeight.w400),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            items.title.toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                color:
+                                                                AppThemes.primaryColor,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                FontWeight.w500),
+                                                          ),
+                                                          Text(
+                                                            formattedDate.toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                color: Colors.grey,
+                                                                fontSize: 13,
+                                                                fontWeight: FontWeight.w400),
+                                                          ),
+                                                        ],
+                                                      ),
 
-                                                    Text(
-                                                      items.message.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                          color: Colors.grey,
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                          FontWeight.w500),
-                                                    ),
-                                                  ],
+                                                      Text(
+                                                        items.message.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            color: Colors.grey,
+                                                            fontSize: 10,
+                                                            fontWeight:
+                                                            FontWeight.w500),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
 
 
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(

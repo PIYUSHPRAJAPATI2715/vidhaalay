@@ -1,11 +1,11 @@
-class CountryListModel {
+class StateListModel {
   List<Data>? data;
   bool? status;
   String? msg;
 
-  CountryListModel({this.data, this.status, this.msg});
+  StateListModel({this.data, this.status, this.msg});
 
-  CountryListModel.fromJson(Map<String, dynamic> json) {
+  StateListModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
@@ -29,21 +29,21 @@ class CountryListModel {
 
 class Data {
   int? id;
-  String? countrycode;
+  int? countryId;
   String? name;
 
-  Data({this.id, this.countrycode, this.name});
+  Data({this.id, this.countryId, this.name});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    countrycode = json['countrycode'];
+    countryId = json['country_id'];
     name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['countrycode'] = this.countrycode;
+    data['country_id'] = this.countryId;
     data['name'] = this.name;
     return data;
   }

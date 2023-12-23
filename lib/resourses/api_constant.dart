@@ -15,7 +15,8 @@ class ApiUrls {
   static const String login = "${apiBaseUrl}user/login";
   static const String resetViaEmail = "${apiBaseUrl}user/resetViaEmail";
   static const String resetViaSms = "${apiBaseUrl}user/resetViaSMS";
-  static const String getCountryState = "${apiBaseUrl}common/countryStateList";
+  static const String getCountryUrl = "${apiBaseUrl}common/countryStateList";
+  static const String getStateUrl = "${apiBaseUrl}common/state";
   static const String getCityUrl = "${apiBaseUrl}common/city/";
   static const String notificationUrl = "${apiBaseUrl}notification";
   static const String getFaqUrl = "${apiBaseUrl}common/faqs";
@@ -41,6 +42,7 @@ class ApiUrls {
 
   // User
   static const String schoolListUrl = "${apiBaseUrl}school/list";
+  static const String topschoolListUrl = "${apiBaseUrl}school/top";
   static const String getSchoolDetails = "${apiBaseUrl}school";
   static const String getFavouriteListUrl = "${apiBaseUrl}favourite";
   static const String addFavourite = "${apiBaseUrl}favourite/addFav";

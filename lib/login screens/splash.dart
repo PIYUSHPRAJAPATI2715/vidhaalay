@@ -34,7 +34,16 @@ class _SplashState extends State<Splash> {
         print("Enter1");
         Get.offAllNamed(MyRouters.signInPage);
       } else {
-        Get.offAllNamed(MyRouters.drawerForUser);
+        String? userType = pref.getString("type");
+          if(userType == "student") {
+            // Get.offAllNamed(MyRouters.drawerForTeacher);
+          } else if(userType == "user") {
+            Get.offAllNamed(MyRouters.drawerForUser);
+          } else if(userType == "teacher") {
+            Get.offAllNamed(MyRouters.drawerForTeacher);
+          } else {
+            Get.offAllNamed(MyRouters.drawerForUser);
+          }
       }
 
       // if(pref.getString("cookie") != null){

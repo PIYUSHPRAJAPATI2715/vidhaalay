@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/login%20screens/verify_screen_sms_mail.dart';
 import 'package:vidhaalay_app/models/favourite_model_user.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
+import 'package:vidhaalay_app/models/login_model_teacher.dart';
 import 'package:vidhaalay_app/models/school_list_model.dart';
 import 'package:vidhaalay_app/repositories/login_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
@@ -33,12 +34,8 @@ class SignInController extends GetxController {
   ];
 
   RxBool isLoading = false.obs;
-
-
   String deviceType = '';
   String deviceToken = '';
-
-
 
   getDeviceInfo() async {
     deviceType = getDeviceType();
@@ -89,42 +86,81 @@ class SignInController extends GetxController {
         Helpers.hideLoader(loader);
         showToast(responseData['msg'].toString());
 
-        final value  = LoginModel.fromJson(jsonDecode(response.body));
-        print("value : $value");
-
-        bool isEmailVerify = value.data!.emailVerified!;
-        bool isMobileVerify = value.data!.mobileVerified!;
-        print("isEmailVerify : $isEmailVerify");
-        print("isMobileVerify : $isMobileVerify");
-
         SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString('cookie', value.data!.token.toString());
-        pref.setString('type', value.data!.userType.toString());
-        pref.setBool('emailVerify', isEmailVerify);
-        pref.setBool('mobileVerify', isMobileVerify);
 
-        if(!isEmailVerify || !isMobileVerify) {
-          print("E0");
-          // Get.to(() => VerifyOtpLogin());
-          Get.offAllNamed(MyRouters.verifyOtpLogin,arguments: [value.data!.email.toString(),value.data!.mobile.toString(), isMobileVerify,isEmailVerify]);
+        if (userType.value == "user") {
+          print("Enter");
+          final value = LoginModel.fromJson(jsonDecode(response.body));
+          print("value : $value");
 
-          // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
-        }
-        // else if (!isMobileVerify) {
-        //   print("E1");
-        //   Get.offAllNamed(MyRouters.verifyOtpLogin,arguments: [value.data!.email.toString(),value.data!.mobile.toString(), isMobileVerify,isEmailVerify]);
-        //   // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
-        // }
-        else {
+          bool isEmailVerify = value.data!.emailVerified!;
+          bool isMobileVerify = value.data!.mobileVerified!;
+          String userRole = value.data!.userType.toString();
+          print("isEmailVerify : $isEmailVerify");
+          print("isMobileVerify : $isMobileVerify");
+
+          pref.setString('cookie', value.data!.token.toString());
+          pref.setString('type', value.data!.userType.toString());
+          pref.setBool('emailVerify', isEmailVerify);
+          pref.setBool('mobileVerify', isMobileVerify);
+
+          if (!isEmailVerify || !isMobileVerify) {
+            print("E0");
+            // Get.to(() => VerifyOtpLogin());
+            Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: [
+              value.data!.email.toString(),
+              value.data!.mobile.toString(),
+              isMobileVerify,
+              isEmailVerify
+            ]);
+
+            // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
+          } else {
+            pref.setBool('isLoggedIn', true);
+            Get.offAllNamed(MyRouters.drawerForUser);
+          }
+        } else if (userType.value == "teacher") {
+          final value = LoginModelTeacher.fromJson(jsonDecode(response.body));
+
+          print("Enter Teacher");
           pref.setBool('isLoggedIn', true);
-          Get.offAllNamed(MyRouters.drawerForUser);
-        }
+          pref.setString('cookie', value.data!.token.toString());
+          pref.setString('type', value.data!.userType.toString());
+          Get.offAllNamed(MyRouters.drawerForTeacher);
 
+        } else if (userType.value == "student") {
+
+        } else {
+
+        }
       } else {
         Helpers.hideLoader(loader);
         showToast(responseData['msg'].toString());
-
       }
+
+      // if(!isEmailVerify || !isMobileVerify) {
+    //       print("E0");
+    //       // Get.to(() => VerifyOtpLogin());
+    //       Get.offAllNamed(MyRouters.verifyOtpLogin,arguments: [value.data!.email.toString(),value.data!.mobile.toString(), isMobileVerify,isEmailVerify]);
+    //
+    //       // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
+    //     } else if(userType.value == "teacher") {
+    //
+    //       print("Enter Teacher");
+    //       pref.setBool('isLoggedIn', true);
+    //       Get.offAllNamed(MyRouters.drawerForTeacher);
+    //
+    //     } else {
+    //
+    //       pref.setBool('isLoggedIn', true);
+    //       Get.offAllNamed(MyRouters.drawerForUser);
+    //     }
+    //
+    //   } else {
+    //     Helpers.hideLoader(loader);
+    //     showToast(responseData['msg'].toString());
+    //
+    //   }
 
       // loginRepo(context: context,type:'user',email: emailController.text.trim(),
       //     password: passwordController.text.trim(),deviceType: getDeviceType().toString() ,deviceToken: token

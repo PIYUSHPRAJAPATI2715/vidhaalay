@@ -33,6 +33,7 @@ class BottomController extends GetxController {
     const EventsScreen(),
     const MoreScreen(),
   ];
+
   var teacherScreens = [
     const TeacherHomeScreen(),
     const TeacherAttendanceScreen(),
@@ -40,7 +41,6 @@ class BottomController extends GetxController {
     const TeacherEventsScreen(),
     const TeacherMoreScreen(),
   ];
-
   RxInt currentIndex = 0.obs;
   RxInt currentIndexTeacher = 0.obs;
 
@@ -49,9 +49,9 @@ class BottomController extends GetxController {
 
   var screensUser = [
     const UserHomeScreen(),
-    // const VideoScreen(),
-    const MyLecturesScreen(),
-    const NotificationScreenUser(),
+    const VideoScreen(),
+    // const MyLecturesScreen(),
+    // const NotificationScreenUser(),
     // const DrawerForUser(),
      const UserMoreScreen(),
 

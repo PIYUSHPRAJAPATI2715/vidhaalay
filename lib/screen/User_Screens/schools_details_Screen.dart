@@ -36,7 +36,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: 6, vsync: this);
     type = widget.type;
     // getSchoolDetailsController.getSchoolDetailsFunction();
   }
@@ -156,6 +156,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                           int id =  getSchoolDetailsController.schoolDetailsModel.value.data!.id!;
                           favouriteController.addFavouriteInListRepo(id,type,!isFavourite).then((value) {
                             getSchoolDetailsController.getSchoolDetailsFunction(id.toString());
+                            getSchoolDetailsController.getSchoolListFunction();
                           });
                         },
                         child: Icon(
@@ -163,7 +164,9 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                           color:  getSchoolDetailsController.schoolDetailsModel.value.data?.favourite == null ?
                           AppThemes.white
                               :
-                          getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite! ? Colors.deepOrange
+                          getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite! ?
+                          AppThemes.primaryColor
+                          // Colors.deepOrange
                               : AppThemes.white,
                         )
                     )
@@ -325,6 +328,15 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                         fontWeight: FontWeight.w500),
                                                   ),
                                                 ),
+                                                Tab(
+                                                  child: Text(
+                                                    "Eligibility",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w500),
+                                                  ),
+                                                ),
 
                                                 Tab(
                                                   child: Text(
@@ -353,7 +365,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                               indicator: BoxDecoration(
                                                   borderRadius:
                                                   BorderRadius.circular(50),
-                                                  color: AppThemes.black),
+                                                  color: AppThemes.black)
                                             ),
                                           ),
                                         ),
@@ -886,6 +898,168 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                       ],
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 20,),
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemCount: getSchoolDetailsController.schoolDetailsModel.value.data!.feeStructure!.length,
+                                            itemBuilder: (context, index) {
+                                              var item = getSchoolDetailsController.schoolDetailsModel.value.data!.feeStructure![index];
+                                              return Column(
+                                                children: <Widget>[
+
+                                                  Container(
+                                                    padding: const EdgeInsets.all(1),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+
+                                                        borderRadius:
+                                                        BorderRadius.circular(12),
+                                                        boxShadow: const [
+                                                          BoxShadow(
+                                                              color: Colors.black26,
+                                                              blurRadius: 1,
+                                                              offset: Offset(1, 1))
+                                                        ]),
+                                                    child: Theme(
+                                                      data: Theme.of(context).copyWith(
+                                                          dividerColor:
+                                                          Colors.transparent),
+                                                      child: ExpansionTile(
+
+                                                        backgroundColor:
+                                                        const Color(0xFFFCFBFA),
+                                                        iconColor:
+                                                        Colors.black,
+                                                        collapsedIconColor:
+                                                        Colors.black,
+                                                        childrenPadding:
+                                                        const EdgeInsets.all(1),
+                                                        title: Text(
+                                                          item.title.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                            color:
+                                                            const Color(0xFF1D1D1D),
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                        children:  <Widget>[
+                                                          ListTile(
+                                                            iconColor:
+                                                            const Color(0xFF07B6CA),
+                                                            isThreeLine: true,
+                                                            subtitle: Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  children:  [
+                                                                    const Text(
+                                                                      'Admission Regestration',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      item.registration.toString(),
+                                                                      style: const TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(height: 8,),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  children:  [
+                                                                    const Text(
+                                                                      '1st Quarter (Apr-Jul)',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      item.quarter1.toString(),
+                                                                      style: const TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(height: 8,),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  children:  [
+                                                                    const Text(
+                                                                      '2nd Quarter (Aug-Nov)',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      item.quarter2.toString(),
+                                                                      style: const TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(height: 8,),
+                                                                Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  children:  [
+                                                                    const Text(
+                                                                      '3rd Quarter (Dec-Mar)',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      item.quarter3.toString(),
+                                                                      style: const TextStyle(
+                                                                          color:
+                                                                          Colors.grey,
+                                                                          fontSize: 12,fontWeight: FontWeight.w300
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const SizedBox(height: 8,),
+                                                              ],
+                                                            ),
+                                                            dense: true,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                ],
+                                              );
+                                            }),
+                                      ],
+                                    ),
+                                  ),
 
                                 ],
                               ),
@@ -899,7 +1073,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
               ],
             ),
           ) : const CommonProgressIndicator(),
-        bottomNavigationBar: GestureDetector(
+
+        bottomNavigationBar:  getSchoolDetailsController.isSchoolDetailsLoading.value == true ? GestureDetector(
           onTap: () {
             Get.toNamed(MyRouters.registrationScreen);
           },
@@ -916,7 +1091,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
               ),
             ),
           ),
-        ),
+        )  : SizedBox.shrink()
       ),
     );
   }

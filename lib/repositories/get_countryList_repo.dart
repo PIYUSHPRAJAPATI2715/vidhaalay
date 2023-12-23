@@ -11,7 +11,7 @@ import '../resourses/api_constant.dart';
 import '../resourses/helper.dart';
 
 
-Future<getCountryListModel> getCountryListRepo() async {
+Future<CountryListModel> getCountryListRepo() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
 
@@ -22,7 +22,7 @@ Future<getCountryListModel> getCountryListRepo() async {
 
   // try {
   http.Response response = await http.get(
-    Uri.parse(ApiUrls.getCountryState),
+    Uri.parse(ApiUrls.getCountryUrl),
     headers: await getAuthHeader(),
   );
 
@@ -32,12 +32,12 @@ Future<getCountryListModel> getCountryListRepo() async {
 
   if (response.statusCode == 200) {
     print(jsonDecode(response.body));
-    return getCountryListModel.fromJson(jsonDecode(response.body));
+    return CountryListModel.fromJson(jsonDecode(response.body));
   } else {
     if (kDebugMode) {
       print(jsonDecode(response.body));
     }
-    return getCountryListModel(
+    return CountryListModel(
       msg: jsonDecode(response.body)["message"],
     );
   }

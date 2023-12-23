@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/repositories/update_profile_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../models/get_faq_model.dart';
 import '../models/get_notification_model.dart';
 import '../models/get_profile_model.dart';
@@ -20,7 +26,7 @@ class GetProfileController extends GetxController {
 
   RxBool isProfileLoading = false.obs;
   Rx<GetProfileModel> getProfileModel = GetProfileModel().obs;
-
+  RxString imagePath = "".obs;
 
   Future getProfileData() async {
     isProfileLoading.value = false;
@@ -34,6 +40,19 @@ class GetProfileController extends GetxController {
     });
   }
 
+  Future pickGalleryImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery,);
+    print("pickedFile : ${pickedFile!.path}");
+    if(pickedFile != null) {
+      imagePath.value = pickedFile.path;
+      // File image = File(pickedFile.path);
+      showToast("Image picked.");
+    } else {
+      showToast("No Image picked.");
+      Get.back();
+    }
+  }
+
   updateProfile(BuildContext context) {
     if (formKey.currentState!.validate()) {
       FocusManager.instance.primaryFocus!.unfocus();
@@ -42,7 +61,31 @@ class GetProfileController extends GetxController {
           phone: phoneController.text.trim(),
       ).then((value) async {
         if(value.status == true){
-          showToast(value.msg.toString());
+
+          bool isEmailVerify = value.data!.emailVerified!;
+          bool isMobileVerify = value.data!.mobileVerified!;
+          // String userRole = value.data!.userType.toString();
+          print("isEmailVerify : $isEmailVerify");
+          print("isMobileVerify : $isMobileVerify");
+
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setBool('emailVerify', isEmailVerify);
+          pref.setBool('mobileVerify', isMobileVerify);
+
+          if (!isEmailVerify || !isMobileVerify) {
+            showToast("Please verify your details.");
+
+            Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: [
+              value.data!.email.toString(),
+              value.data!.mobile.toString(),
+              isMobileVerify,
+              isEmailVerify
+            ]);
+
+          } else {
+            showToast(value.msg.toString());
+          }
+
         }else{
           showToast(value.msg.toString().toString());
         }
