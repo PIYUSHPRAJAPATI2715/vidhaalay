@@ -52,35 +52,35 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
     Size size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     return Obx(
-      () => Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Image.asset(
-              AppAssets.arrowBack,
-              width: 19,
-              color: AppThemes.textBrown,
+          () => Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Image.asset(
+                AppAssets.arrowBack,
+                width: 19,
+                color: AppThemes.textBrown,
+              ),
+              onPressed: () {
+                Get.back();
+              },
             ),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          title:  getSchoolDetailsController.isSchoolDetailsLoading.value == true ? Text(
+            title:  getSchoolDetailsController.isSchoolDetailsLoading.value == true ? Text(
               getSchoolDetailsController.schoolDetailsModel.value.data!.name.toString(),
-            style: const  TextStyle(
-                color: AppThemes.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 15),
-          ) : Text(
-            "Loading...",
-            style: const  TextStyle(
-                color: AppThemes.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 15),
+              style: const  TextStyle(
+                  color: AppThemes.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15),
+            ) : Text(
+              "Loading...",
+              style: const  TextStyle(
+                  color: AppThemes.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15),
+            ),
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
-        body: getSchoolDetailsController.isSchoolDetailsLoading.value == true ?
+          body: getSchoolDetailsController.isSchoolDetailsLoading.value == true ?
           SafeArea(
             child: Stack(
               children: [
@@ -91,8 +91,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                 CarouselSlider(
                   // items: productController.imgList
                   items : getSchoolDetailsController.schoolDetailsModel.value.data!.image!.map((item) => ClipRRect(
-                      // borderRadius: BorderRadius.only(
-                      //     bottomLeft: Radius.elliptical(190, 85)),
+                    // borderRadius: BorderRadius.only(
+                    //     bottomLeft: Radius.elliptical(190, 85)),
                       child:  CachedNetworkImage(
                         imageUrl:  item.toString(),
                         // getSchoolDetailsController.schoolDetailsModel.value.data!.image![0].toString(),
@@ -145,6 +145,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                 //         child: CircularProgressIndicator()),
                 //   )
                 // ),
+
                 Positioned(
                     top: 10,
                     right: 15,
@@ -208,8 +209,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                           const SizedBox(
                             height: 5,
                           ),
-                           Text(
-                             getSchoolDetailsController.schoolDetailsModel.value.data!.name.toString(),
+                          Text(
+                            getSchoolDetailsController.schoolDetailsModel.value.data!.name.toString(),
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w800),
                           ),
@@ -226,8 +227,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                               const SizedBox(
                                 width: 6,
                               ),
-                               Text(
-                                 '${getSchoolDetailsController.schoolDetailsModel.value.data!.openTime.toString()}  ${getSchoolDetailsController.schoolDetailsModel.value.data!.closeTime.toString()}',
+                              Text(
+                                '${getSchoolDetailsController.schoolDetailsModel.value.data!.openTime.toString()}  ${getSchoolDetailsController.schoolDetailsModel.value.data!.closeTime.toString()}',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                     fontSize: 11,
@@ -267,6 +268,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                           ),
                           SizedBox(
                             height: double.maxFinite,
+                            width: double.maxFinite,
                             child: NestedScrollView(
                               headerSliverBuilder: (_, __) {
                                 return [
@@ -288,84 +290,85 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                               ),
                                             ),
                                             child: TabBar(
-                                              physics:
-                                              const AlwaysScrollableScrollPhysics(),
-                                              isScrollable: true,
-                                              tabs: const [
-                                                Tab(
-                                                  child: Text(
-                                                    "Info",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500),
+                                                physics:
+                                                const AlwaysScrollableScrollPhysics(),
+                                                isScrollable: true,
+                                                tabs: const [
+                                                  Tab(
+                                                    child: Text(
+                                                      "Info",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500),
+                                                    ),
                                                   ),
-                                                ),
-                                                Tab(
-                                                  child: Text(
-                                                    "Top Student",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500),
+                                                  Tab(
+                                                    child: Text(
+                                                      "Top Student",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500),
+                                                    ),
                                                   ),
-                                                ),
-                                                Tab(
-                                                  child: Text(
-                                                    "Achievements",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500),
+                                                  Tab(
+                                                    child: Text(
+                                                      "Achievements",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500),
+                                                    ),
                                                   ),
-                                                ),
-                                                Tab(
-                                                  child: Text(
-                                                    "Gallery",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500),
+                                                  Tab(
+                                                    child: Text(
+                                                      "Gallery",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500),
+                                                    ),
                                                   ),
-                                                ),
-                                                Tab(
-                                                  child: Text(
-                                                    "Eligibility",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500),
+                                                  Tab(
+                                                    child: Text(
+                                                      "Eligibility",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500),
+                                                    ),
                                                   ),
-                                                ),
 
-                                                Tab(
-                                                  child: Text(
-                                                    "Fee Structure",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500),
+                                                  Tab(
+                                                    child: Text(
+                                                      "Fee Structure",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                              padding: EdgeInsets.zero,
-                                              unselectedLabelColor:
-                                              const Color(0xFF909090),
-                                              labelColor: AppThemes.white,
-                                              labelStyle: const TextStyle(
-                                                  color: Color(0xFF1A2E33),
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
-                                              unselectedLabelStyle: const TextStyle(
-                                                  color: Color(0xFF909090),
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500),
-                                              controller: tabController,
-                                              indicatorSize: TabBarIndicatorSize.tab,
-                                              indicator: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(50),
-                                                  color: AppThemes.black)
+                                                ],
+                                                padding: EdgeInsets.symmetric(horizontal: 0),
+                                                tabAlignment: TabAlignment.start,
+                                                unselectedLabelColor:
+                                                const Color(0xFF909090),
+                                                labelColor: AppThemes.white,
+                                                labelStyle: const TextStyle(
+                                                    color: Color(0xFF1A2E33),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                                unselectedLabelStyle: const TextStyle(
+                                                    color: Color(0xFF909090),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500),
+                                                controller: tabController,
+                                                indicatorSize: TabBarIndicatorSize.tab,
+                                                indicator: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(50),
+                                                    color: AppThemes.black)
                                             ),
                                           ),
                                         ),
@@ -396,8 +399,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                         Text(
-                                           getSchoolDetailsController.schoolDetailsModel.value.data!.info!.aboutUs.toString(),
+                                        Text(
+                                          getSchoolDetailsController.schoolDetailsModel.value.data!.info!.aboutUs.toString(),
                                           style: const TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.w500,
@@ -419,25 +422,25 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                         Row(
                                           children: [
                                             ClipOval(
-                                                child: CachedNetworkImage(
-                                                  imageUrl:  getSchoolDetailsController.schoolDetailsModel.value.data!.info!.principalImage.toString(),
-                                                  fit: BoxFit.cover,
-                                                  width: 80,
-                                                  height: 80,
-                                                  errorWidget: (__, _, ___) =>
-                                                      Image.asset(
-                                                        AppAssets.studentImg,
-                                                        width: 80,
-                                                      ),
-                                                  placeholder: (__, _) =>
-                                                  const Center(
-                                                      child: CircularProgressIndicator()),
-                                                ),
-                                               ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:  getSchoolDetailsController.schoolDetailsModel.value.data!.info!.principalImage.toString(),
+                                                fit: BoxFit.cover,
+                                                width: 80,
+                                                height: 80,
+                                                errorWidget: (__, _, ___) =>
+                                                    Image.asset(
+                                                      AppAssets.studentImg,
+                                                      width: 80,
+                                                    ),
+                                                placeholder: (__, _) =>
+                                                const Center(
+                                                    child: CircularProgressIndicator()),
+                                              ),
+                                            ),
                                             const SizedBox(
                                               width: 12,
                                             ),
-                                             Expanded(
+                                            Expanded(
                                               child: Text(
                                                 getSchoolDetailsController.schoolDetailsModel.value.data!.info!.principalDetail.toString(),
                                                 style: const TextStyle(
@@ -563,14 +566,15 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                     padding:
                                     const EdgeInsets.symmetric(vertical: 24.0),
                                     child: GridView.builder(
-                                      itemCount: getSchoolDetailsController.schoolDetailsModel.value.data!.topStudents!.length,
+                                      itemCount:
+                                      getSchoolDetailsController.schoolDetailsModel.value.data!.topStudents!.length,
                                       shrinkWrap: true,
                                       gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 3,
                                           mainAxisSpacing: 2,
                                           crossAxisSpacing: 10,
-                                          mainAxisExtent: 160),
+                                          mainAxisExtent: 170),
                                       itemBuilder: (context, index) {
                                         var item = getSchoolDetailsController.schoolDetailsModel.value.data!.topStudents![index];
                                         return Column(
@@ -578,41 +582,51 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                           children: [
                                             Column(
                                               children: [
-                                                ClipRRect(
+                                                Container(
+                                                  width: size.width,
+                                                  height: size.height * .145,
+                                                  decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(10),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: item.image.toString(),
-                                                      fit: BoxFit.cover,
-                                                      width: size.width,
-                                                      height: size.height * .14,
-                                                      errorWidget: (__, _, ___) =>
-                                                          Image.asset(
-                                                            AppAssets.collageImg,
-                                                            fit: BoxFit.cover,
-                                                            width: size.width,
-                                                            height: size.height * .14,
-                                                          ),
-                                                      placeholder: (__, _) =>
-                                                      const Center(
-                                                          child: CircularProgressIndicator()),
-                                                    )),
-                                                 Text(
-                                                   item.name.toString(),
+                                                  ),
+                                                  // color: Colors.black,
+                                                  child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: item.image.toString(),
+                                                        fit: BoxFit.cover,
+                                                        // width: size.width,
+                                                        // height: size.height * .14,
+                                                        errorWidget: (__, _, ___) =>
+                                                            Image.asset(
+                                                              AppAssets.collageImg,
+                                                              fit: BoxFit.cover,
+                                                              width: size.width,
+                                                              height: size.height * .14,
+                                                            ),
+                                                        placeholder: (__, _) =>
+                                                        const Center(
+                                                            child: CircularProgressIndicator()),
+                                                      )),
+                                                ),
+                                                Text(
+                                                  item.name.toString(),
                                                   style: const TextStyle(
                                                       fontSize: 15,
                                                       fontWeight: FontWeight.w500),
-                                                   maxLines: 1,
-                                                   overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                                 Text(
-                                                'class ${item.classNo.toString()}',
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.grey),
-                                                    ),
-                                                  ],
+                                                  'class ${item.classNo.toString()}',
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      color: Colors.grey),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ],
                                             )
                                           ],
                                         );
@@ -663,22 +677,22 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                       const Center(
                                                           child: CircularProgressIndicator()),
                                                     )),
-                                                 Text(
-                                                   item.name.toString(),
+                                                Text(
+                                                  item.name.toString(),
                                                   style: const TextStyle(
                                                       fontSize: 15,
                                                       fontWeight: FontWeight.w500,
                                                       color: Colors.black),
                                                 ),
-                                                 Text(
+                                                Text(
                                                   item.year.toString(),
                                                   style: const TextStyle(
                                                       fontSize: 12,
                                                       fontWeight: FontWeight.w600,
                                                       color: Color(0xFFfcd69f)),
                                                 ),
-                                                 Text(
-                                                item.description.toString(),
+                                                Text(
+                                                  item.description.toString(),
                                                   style: const TextStyle(
                                                       fontSize: 12,
                                                       fontWeight: FontWeight.w500,
@@ -698,40 +712,41 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                       itemCount: getSchoolDetailsController.schoolDetailsModel.value.data!.gallery!.length,
                                       shrinkWrap: true,
                                       gridDelegate:
-                                       SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          mainAxisSpacing: 5,
-                                          crossAxisSpacing: 10,
-                                          mainAxisExtent: size.height*.18),
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            mainAxisSpacing: 2,
+                                            crossAxisSpacing: 10,
+                                            mainAxisExtent: 130),
+
+                                      // SliverGridDelegateWithFixedCrossAxisCount(
+                                        // crossAxisCount: 2,
+                                          // mainAxisSpacing: 5,
+                                          // crossAxisSpacing: 10,
+                                          // mainAxisExtent: size.height*.20),
                                       itemBuilder: (context, index) {
                                         var item = getSchoolDetailsController.schoolDetailsModel.value.data!.gallery![index];
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                ClipRRect(
-                                                    borderRadius:
-                                                    BorderRadius.circular(10),
-                                                    child:  CachedNetworkImage(
-                                                      imageUrl: item.url.toString(),
+                                        return Container(
+                                          // color: Colors.green,
+                                          child: ClipRRect(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              child:  CachedNetworkImage(
+                                                imageUrl: item.url.toString(),
+                                                fit: BoxFit.cover,
+                                                // width: size.width,
+                                                // height: size.height * .16,
+                                                errorWidget: (__, _, ___) =>
+                                                    Image.asset(
+                                                      AppAssets.collageImg,
                                                       fit: BoxFit.cover,
                                                       width: size.width,
                                                       height: size.height * .16,
-                                                      errorWidget: (__, _, ___) =>
-                                                          Image.asset(
-                                                            AppAssets.collageImg,
-                                                            fit: BoxFit.cover,
-                                                            width: size.width,
-                                                            height: size.height * .16,
-                                                          ),
-                                                      placeholder: (__, _) =>
-                                                      const Center(
-                                                          child: CircularProgressIndicator()),
-                                                    ))
-                                              ],
-                                            )
-                                          ],
+                                                    ),
+                                                placeholder: (__, _) =>
+                                                const Center(
+                                                    child: CircularProgressIndicator()),
+                                              )
+                                          ),
                                         );
                                       },
                                     ),
@@ -1060,7 +1075,6 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                       ],
                                     ),
                                   ),
-
                                 ],
                               ),
                             ),
@@ -1072,26 +1086,29 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                 ),
               ],
             ),
-          ) : const CommonProgressIndicator(),
+          ) : SizedBox(
+              height: size.height,
+              width: size.width,
+              child: Center(child: const CommonProgressIndicator())),
 
-        bottomNavigationBar:  getSchoolDetailsController.isSchoolDetailsLoading.value == true ? GestureDetector(
-          onTap: () {
-            Get.toNamed(MyRouters.registrationScreen);
-          },
-          child: Container(
-            height: 44,
-            color: AppThemes.primaryColor,
-            child: Center(
-              child: Text(
-                "apply for admission".toUpperCase(),
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    color: AppThemes.white),
+          bottomNavigationBar:  getSchoolDetailsController.isSchoolDetailsLoading.value == true ? GestureDetector(
+            onTap: () {
+              Get.toNamed(MyRouters.registrationScreen);
+            },
+            child: Container(
+              height: 44,
+              color: AppThemes.primaryColor,
+              child: Center(
+                child: Text(
+                  "apply for admission".toUpperCase(),
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                      color: AppThemes.white),
+                ),
               ),
             ),
-          ),
-        )  : SizedBox.shrink()
+          )  : SizedBox.shrink()
       ),
     );
   }

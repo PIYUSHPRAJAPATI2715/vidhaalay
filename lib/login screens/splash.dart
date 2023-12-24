@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../routers/my_routers.dart';
+import '../controller/bottom_controller.dart';
 import '../models/get_profile_model.dart';
+import '../screen/User_Screens/new_bottom_screen.dart';
 import '../widgets/appTheme.dart';
 import '../models/login_model.dart';
 
@@ -17,6 +19,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  BottomController bottomController  = Get.put(BottomController());
 
   @override
   void initState() {
@@ -38,6 +41,7 @@ class _SplashState extends State<Splash> {
           if(userType == "student") {
             // Get.offAllNamed(MyRouters.drawerForTeacher);
           } else if(userType == "user") {
+            // Get.offAll(()=>BottomBarScreen(),arguments: {bottomController.currentIndex.value = 0});
             Get.offAllNamed(MyRouters.drawerForUser);
           } else if(userType == "teacher") {
             Get.offAllNamed(MyRouters.drawerForTeacher);

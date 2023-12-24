@@ -256,7 +256,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        getProfileController.pickGalleryImage();
+                        getProfileController.selectOption(context);
+                        // getProfileController.pickGalleryImage();
                       },
                       child: Container(
                         padding: const EdgeInsets.all(6),
@@ -276,4 +277,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         )
     );
   }
+
+
 }

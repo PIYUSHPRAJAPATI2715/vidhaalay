@@ -26,6 +26,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
   RxString year = "".obs;
   RxString monthName = "".obs;
   RxString clinicId = "".obs;
+  int selectedMonthIndex = 0;
   int selectedIndex = 0;
 
   var now = DateTime.now();
@@ -38,11 +39,30 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
   @override
   void initState() {
     super.initState();
-    notificationController.getNotificationData();
     year.value = DateFormat('yyyy').format(DateTime.now());
     month.value = DateFormat('MM').format(DateTime.now());
+
+    print("month");
+    print(month.value);
+    selectedMonthIndex =  int.parse(month.value);
+    print(selectedMonthIndex);
+
     monthName.value = DateFormat('MMMM').format(DateTime.now());
+    print("monthName.value : ${monthName.value}");
+    notificationController.getNotificationData(monthName.value);
+
+
     day.value = DateFormat('dd').format(DateTime.now());
+
+    log(day.value);
+    log(month.value);
+    log(year.value);
+
+    String date = year.value+"-"+ month.value +"-"+ day.value;
+    log(date);
+
+    notificationController.getNotificationData(date);
+
     getYear();
     now = DateTime.now();
     totalDays = daysInMonth(now);
@@ -173,7 +193,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                       (BuildContext context, int index) {
                                     return InkWell(
                                       onTap: () {
-                                        selectedIndex = index;
+                                        selectedMonthIndex = index;
                                         month.value = "${index + 1}".length != 2
                                             ? "0${index + 1}"
                                             : "${index + 1}";
@@ -197,9 +217,10 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 17,
-                                                color: index == selectedIndex
+                                                color: index == selectedMonthIndex
                                                     ? Colors.white
-                                                    : Colors.black)),
+                                                    : Colors.black)
+                                        ),
                                       ),
                                     );
                                   },
@@ -237,10 +258,18 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                             : formattedDate;
                                         // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
                                         // year.value = formattedDate2;
+                                        log(day.value);
                                         log(month.value);
+                                        log(year.value);
+
                                         monthName.value = DateFormat('MMMM')
                                             .format(DateTime.parse(
                                             "${year.value}-${month.value}-${day.value}"));
+
+                                        String date = year.value+"-"+ month.value +"-"+ day.value;
+                                        log(date);
+
+                                        notificationController.getNotificationData(date);
                                       });
                                     },
                                     child: Padding(
@@ -323,7 +352,15 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                           const SizedBox(
                             height: 10,
                           ),
-                          ListView.builder(
+                          notificationController.getNotificationModel.value.data!.isEmpty ?
+                              Container(
+                                height: size.height * .5,
+                                // color: Colors.red,
+                                child: Center(
+                                  child: Text("No notification found for this date",),
+                                ),
+                              )
+                              : ListView.builder(
                             itemCount: notificationController.getNotificationModel.value.data!.length,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),

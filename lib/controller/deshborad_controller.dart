@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
@@ -13,6 +12,7 @@ import 'package:http/http.dart' as http;
 class GetSchoolListController extends GetxController {
   RxString roleType = "S".obs;
   RxBool isSchoolListLoading = false.obs;
+  // RxBool isNoRecord = false.obs;
   RxBool isSchoolDetailsLoading = false.obs;
   Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
   Rx<SchoolDetailsModel> schoolDetailsModel = SchoolDetailsModel().obs;
@@ -34,6 +34,11 @@ class GetSchoolListController extends GetxController {
     await schoolListRepo(query,roleType.value).then((value) {
       isSchoolListLoading.value = true;
       getSchoolListModel.value = value;
+      // if(value.data!.isEmpty){
+      //   isNoRecord.value = true;
+      // }else{
+      //   isNoRecord.value = false;
+      // }
       print(value);
     });
   }

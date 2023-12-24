@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/bottom_controller.dart';
 import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
@@ -23,6 +24,7 @@ import '../../models/login_model.dart';
 import '../../models/update_location_model.dart';
 import '../../repositories/addTo_fav_repo.dart';
 import '../../resourses/api_constant.dart';
+import '../../resourses/size.dart';
 import '../../widgets/circular_progressindicator.dart';
 import 'address_screen.dart';
 import 'notification_user_screen.dart';
@@ -213,7 +215,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                               filled: true,
                               suffixIcon: IconButton(
                                 onPressed: () {
-
+                                  FocusScopeNode currentFocus = FocusScope.of(context);
+                                  if (!currentFocus.hasPrimaryFocus) {
+                                    currentFocus.unfocus();
+                                  }
                                   getSchoolListController.getSearchSchoolListFunction(searchController.text);
 
                                   // Get.to(const SearchScreenData());
@@ -334,7 +339,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => LectureListScreen());
+                                          // Get.to(() => LectureListScreen());
                                         },
                                         child: const Text(
                                           'View All',
@@ -351,10 +356,12 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   ),
                                   Obx(
                                         () {
-                                      return getSchoolListController.isTopSchoolListLoading.value ? Container(
+                                      return getSchoolListController.isTopSchoolListLoading.value ?
+                                      Container(
                                           height: size.height * .22,
                                           width: size.width,
-                                          child: Center(child: CommonProgressIndicator())
+                                          child:
+                                        Center(child: CommonProgressIndicator())
                                       ) : Container(
                                         height: size.height * .22,
                                         width: size.width,
@@ -368,88 +375,96 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                               padding:
                                               const EdgeInsets.symmetric(horizontal: 12.0)
                                                   .copyWith(left: 0),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: size.width * .35,
-                                                    padding: const EdgeInsets.symmetric(
-                                                        vertical: 8, horizontal: 7),
-                                                    decoration: BoxDecoration(
-                                                      color: AppThemes.lightBlue,
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black.withOpacity(0.2),
-                                                          spreadRadius: 1,
-                                                          blurRadius: 2,
-                                                          offset: const Offset(0, 2),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  String id = getSchoolListController.topSchoolListModel.value.data![index].id.toString();
+                                                  print(id);
+                                                  getSchoolListController.getSchoolDetailsFunction(id);
+
+                                                  Get.to(() =>  const SchoolsDetailsScreen(type: "Schools"),
+                                                      transition: Transition.fadeIn,
+                                                      duration:
+                                                      const Duration(milliseconds: 250));
+                                                },
+                                                child: Container(
+                                                  width: size.width * .35,
+                                                  padding: const EdgeInsets.symmetric(
+                                                      vertical: 8, horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: AppThemes.lightBlue,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black.withOpacity(0.2),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 2,
+                                                        offset: const Offset(0, 2),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: getSchoolListController.topSchoolListModel.value.data![index].image![0],
+                                                          fit: BoxFit.cover,
+                                                          width: size.width * .33,
+                                                          height: size.height * .09,
+                                                          errorWidget: (__, _, ___) =>
+                                                              Image.asset(
+                                                                AppAssets.collageImg,
+                                                                fit: BoxFit.cover,
+                                                                width: size.width,
+                                                                height: size.height * .16,
+                                                              ),
+                                                          placeholder: (__, _) =>
+                                                          const Center(
+                                                              child: CircularProgressIndicator()),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          child: CachedNetworkImage(
-                                                            imageUrl: getSchoolListController.topSchoolListModel.value.data![index].image![0],
-                                                            fit: BoxFit.cover,
-                                                            width: size.width * .33,
-                                                            height: size.height * .09,
-                                                            errorWidget: (__, _, ___) =>
-                                                                Image.asset(
-                                                                  AppAssets.collageImg,
-                                                                  fit: BoxFit.cover,
-                                                                  width: size.width,
-                                                                  height: size.height * .16,
-                                                                ),
-                                                            placeholder: (__, _) =>
-                                                            const Center(
-                                                                child: CircularProgressIndicator()),
-                                                          ),
-                                                        ),
-                                                        // Image.network(
-                                                        //   lecturesController.lectureListModel.value.data![index].image!,
-                                                        //   width: size.width * .33,
-                                                        // ),
-                                                        // Image.asset(
-                                                        //   AppAssets.lectureImg,
-                                                        //   width: size.width * .33,
-                                                        // ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          getSchoolListController.topSchoolListModel.value.data![index].name!,
-                                                          // lecturesController.lectureListModel.value.data![index].name!,
-                                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                                          style: GoogleFonts.poppins(
-                                                              color: AppThemes.white,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontSize: 12),
-                                                          maxLines: 3,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 3,
-                                                        ),
-                                                        Text(
-                                                          getSchoolListController.topSchoolListModel.value.data![index].address!,
-                                                          // lecturesController.lectureListModel.value.data![index].description!,
-                                                          // 'Creative Art Design here dummy data',
-                                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                                          style: TextStyle(
-                                                              color: AppThemes.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: 10),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
+                                                      ),
+                                                      // Image.network(
+                                                      //   lecturesController.lectureListModel.value.data![index].image!,
+                                                      //   width: size.width * .33,
+                                                      // ),
+                                                      // Image.asset(
+                                                      //   AppAssets.lectureImg,
+                                                      //   width: size.width * .33,
+                                                      // ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        getSchoolListController.topSchoolListModel.value.data![index].name!,
+                                                        // lecturesController.lectureListModel.value.data![index].name!,
+                                                        // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppThemes.white,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 12),
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Text(
+                                                        getSchoolListController.topSchoolListModel.value.data![index].address!,
+                                                        // lecturesController.lectureListModel.value.data![index].description!,
+                                                        // 'Creative Art Design here dummy data',
+                                                        // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                                        style: TextStyle(
+                                                            color: AppThemes.white,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 10),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             );
                                           },
@@ -703,88 +718,96 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                               padding:
                                               const EdgeInsets.symmetric(horizontal: 12.0)
                                                   .copyWith(left: 0),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: size.width * .35,
-                                                    padding: const EdgeInsets.symmetric(
-                                                        vertical: 8, horizontal: 7),
-                                                    decoration: BoxDecoration(
-                                                      color: AppThemes.lightBlue,
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black.withOpacity(0.2),
-                                                          spreadRadius: 1,
-                                                          blurRadius: 2,
-                                                          offset: const Offset(0, 2),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  String id = getSchoolListController.topSchoolListModel.value.data![index].id.toString();
+                                                  print(id);
+                                                  getSchoolListController.getSchoolDetailsFunction(id);
+
+                                                  Get.to(() =>  const SchoolsDetailsScreen(type: "Colleges"),
+                                                      transition: Transition.fadeIn,
+                                                      duration:
+                                                      const Duration(milliseconds: 250));
+                                                },
+                                                child: Container(
+                                                  width: size.width * .35,
+                                                  padding: const EdgeInsets.symmetric(
+                                                      vertical: 8, horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: AppThemes.lightBlue,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black.withOpacity(0.2),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 2,
+                                                        offset: const Offset(0, 2),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: getSchoolListController.topSchoolListModel.value.data![index].image![0],
+                                                          fit: BoxFit.cover,
+                                                          width: size.width * .33,
+                                                          height: size.height * .09,
+                                                          errorWidget: (__, _, ___) =>
+                                                              Image.asset(
+                                                                AppAssets.collageImg,
+                                                                fit: BoxFit.cover,
+                                                                width: size.width,
+                                                                height: size.height * .16,
+                                                              ),
+                                                          placeholder: (__, _) =>
+                                                          const Center(
+                                                              child: CircularProgressIndicator()),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          child: CachedNetworkImage(
-                                                            imageUrl: getSchoolListController.topSchoolListModel.value.data![index].image![0],
-                                                            fit: BoxFit.cover,
-                                                            width: size.width * .33,
-                                                            height: size.height * .09,
-                                                            errorWidget: (__, _, ___) =>
-                                                                Image.asset(
-                                                                  AppAssets.collageImg,
-                                                                  fit: BoxFit.cover,
-                                                                  width: size.width,
-                                                                  height: size.height * .16,
-                                                                ),
-                                                            placeholder: (__, _) =>
-                                                            const Center(
-                                                                child: CircularProgressIndicator()),
-                                                          ),
-                                                        ),
-                                                        // Image.network(
-                                                        //   lecturesController.lectureListModel.value.data![index].image!,
-                                                        //   width: size.width * .33,
-                                                        // ),
-                                                        // Image.asset(
-                                                        //   AppAssets.lectureImg,
-                                                        //   width: size.width * .33,
-                                                        // ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          getSchoolListController.topSchoolListModel.value.data![index].name!,
-                                                          // lecturesController.lectureListModel.value.data![index].name!,
-                                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                                          style: GoogleFonts.poppins(
-                                                              color: AppThemes.white,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontSize: 12),
-                                                          maxLines: 3,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 3,
-                                                        ),
-                                                        Text(
-                                                          getSchoolListController.topSchoolListModel.value.data![index].address!,
-                                                          // lecturesController.lectureListModel.value.data![index].description!,
-                                                          // 'Creative Art Design here dummy data',
-                                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                                          style: TextStyle(
-                                                              color: AppThemes.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: 10),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
+                                                      ),
+                                                      // Image.network(
+                                                      //   lecturesController.lectureListModel.value.data![index].image!,
+                                                      //   width: size.width * .33,
+                                                      // ),
+                                                      // Image.asset(
+                                                      //   AppAssets.lectureImg,
+                                                      //   width: size.width * .33,
+                                                      // ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        getSchoolListController.topSchoolListModel.value.data![index].name!,
+                                                        // lecturesController.lectureListModel.value.data![index].name!,
+                                                        // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppThemes.white,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 12),
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Text(
+                                                        getSchoolListController.topSchoolListModel.value.data![index].address!,
+                                                        // lecturesController.lectureListModel.value.data![index].description!,
+                                                        // 'Creative Art Design here dummy data',
+                                                        // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                                        style: TextStyle(
+                                                            color: AppThemes.white,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 10),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             );
                                           },
@@ -842,88 +865,96 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                               padding:
                                               const EdgeInsets.symmetric(horizontal: 12.0)
                                                   .copyWith(left: 0),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: size.width * .35,
-                                                    padding: const EdgeInsets.symmetric(
-                                                        vertical: 8, horizontal: 7),
-                                                    decoration: BoxDecoration(
-                                                      color: AppThemes.lightBlue,
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black.withOpacity(0.2),
-                                                          spreadRadius: 1,
-                                                          blurRadius: 2,
-                                                          offset: const Offset(0, 2),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  String id = getSchoolListController.topSchoolListModel.value.data![index].id.toString();
+                                                  print(id);
+                                                  getSchoolListController.getSchoolDetailsFunction(id);
+
+                                                  Get.to(() =>  const SchoolsDetailsScreen(type: "Institute"),
+                                                      transition: Transition.fadeIn,
+                                                      duration:
+                                                      const Duration(milliseconds: 250));
+                                                },
+                                                child: Container(
+                                                  width: size.width * .35,
+                                                  padding: const EdgeInsets.symmetric(
+                                                      vertical: 8, horizontal: 7),
+                                                  decoration: BoxDecoration(
+                                                    color: AppThemes.lightBlue,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black.withOpacity(0.2),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 2,
+                                                        offset: const Offset(0, 2),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: getSchoolListController.topSchoolListModel.value.data![index].image![0],
+                                                          fit: BoxFit.cover,
+                                                          width: size.width * .33,
+                                                          height: size.height * .09,
+                                                          errorWidget: (__, _, ___) =>
+                                                              Image.asset(
+                                                                AppAssets.collageImg,
+                                                                fit: BoxFit.cover,
+                                                                width: size.width,
+                                                                height: size.height * .16,
+                                                              ),
+                                                          placeholder: (__, _) =>
+                                                          const Center(
+                                                              child: CircularProgressIndicator()),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          child: CachedNetworkImage(
-                                                            imageUrl: getSchoolListController.topSchoolListModel.value.data![index].image![0],
-                                                            fit: BoxFit.cover,
-                                                            width: size.width * .33,
-                                                            height: size.height * .09,
-                                                            errorWidget: (__, _, ___) =>
-                                                                Image.asset(
-                                                                  AppAssets.collageImg,
-                                                                  fit: BoxFit.cover,
-                                                                  width: size.width,
-                                                                  height: size.height * .16,
-                                                                ),
-                                                            placeholder: (__, _) =>
-                                                            const Center(
-                                                                child: CircularProgressIndicator()),
-                                                          ),
-                                                        ),
-                                                        // Image.network(
-                                                        //   lecturesController.lectureListModel.value.data![index].image!,
-                                                        //   width: size.width * .33,
-                                                        // ),
-                                                        // Image.asset(
-                                                        //   AppAssets.lectureImg,
-                                                        //   width: size.width * .33,
-                                                        // ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          getSchoolListController.topSchoolListModel.value.data![index].name!,
-                                                          // lecturesController.lectureListModel.value.data![index].name!,
-                                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                                          style: GoogleFonts.poppins(
-                                                              color: AppThemes.white,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontSize: 12),
-                                                          maxLines: 3,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 3,
-                                                        ),
-                                                        Text(
-                                                          getSchoolListController.topSchoolListModel.value.data![index].address!,
-                                                          // lecturesController.lectureListModel.value.data![index].description!,
-                                                          // 'Creative Art Design here dummy data',
-                                                          // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                                          style: TextStyle(
-                                                              color: AppThemes.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: 10),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
+                                                      ),
+                                                      // Image.network(
+                                                      //   lecturesController.lectureListModel.value.data![index].image!,
+                                                      //   width: size.width * .33,
+                                                      // ),
+                                                      // Image.asset(
+                                                      //   AppAssets.lectureImg,
+                                                      //   width: size.width * .33,
+                                                      // ),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        getSchoolListController.topSchoolListModel.value.data![index].name!,
+                                                        // lecturesController.lectureListModel.value.data![index].name!,
+                                                        // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppThemes.white,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 12),
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Text(
+                                                        getSchoolListController.topSchoolListModel.value.data![index].address!,
+                                                        // lecturesController.lectureListModel.value.data![index].description!,
+                                                        // 'Creative Art Design here dummy data',
+                                                        // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                                        style: TextStyle(
+                                                            color: AppThemes.white,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 10),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             );
                                           },
@@ -947,7 +978,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             controller: tabController,
             children: [
               Obx(() {
-                return getSchoolListController.isSchoolListLoading.value == true ? ListView.builder(
+                return getSchoolListController.isSchoolListLoading.value == true ?
+                getSchoolListController.getSchoolListModel.value.data!.isEmpty ? Center(child: Text("No Data Found",style: TextStyle(
+                    color: Colors.black
+                ),),) :  ListView.builder(
                       itemCount: getSchoolListController
                           .getSchoolListModel.value.data!.length,
                       shrinkWrap: true,
@@ -1092,11 +1126,13 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                         );
                       },
                     )
-                        : const CommonProgressIndicator();
+                        :  CommonProgressIndicator();
               }),
 
               Obx(() {
-                return getSchoolListController.isSchoolListLoading.value == true ? ListView.builder(
+                return getSchoolListController.isSchoolListLoading.value == true ? getSchoolListController.getSchoolListModel.value.data!.isEmpty ?  Center(child: Text("No Data Found",style: TextStyle(
+                    color: Colors.black
+                ),),) :  ListView.builder(
                   itemCount: getSchoolListController
                       .getSchoolListModel.value.data!.length,
                   shrinkWrap: true,
@@ -1242,8 +1278,11 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                 )
                     : const CommonProgressIndicator();
               }),
-              Obx(() {
-                return getSchoolListController.isSchoolListLoading.value == true ? ListView.builder(
+
+               Obx(() {
+                return getSchoolListController.isSchoolListLoading.value == true ? getSchoolListController.getSchoolListModel.value.data!.isEmpty ?  Center(child: Text("No Data Found",style: TextStyle(
+                    color: Colors.black
+                ),),) :  ListView.builder(
                   itemCount: getSchoolListController
                       .getSchoolListModel.value.data!.length,
                   shrinkWrap: true,

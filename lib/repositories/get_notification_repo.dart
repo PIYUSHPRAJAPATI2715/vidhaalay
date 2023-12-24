@@ -10,7 +10,7 @@ import '../models/login_model.dart';
 import '../resourses/api_constant.dart';
 
 
-Future<GetNotificationModel> notificationRepo() async {
+Future<GetNotificationModel> notificationRepo(String dateFormat) async {
   // SharedPreferences pref = await SharedPreferences.getInstance();
   // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));
   //
@@ -20,8 +20,14 @@ Future<GetNotificationModel> notificationRepo() async {
   // };
 
   try {
-    final response = await http.get(
+
+    Map body = {
+      "date": dateFormat
+    };
+
+    final response = await http.post(
         Uri.parse(ApiUrls.notificationUrl),
+      body: jsonEncode(body),
       headers: await getAuthHeader(),);
     if (response.statusCode == 200) {
       log("Notification Repository...${response.body}");

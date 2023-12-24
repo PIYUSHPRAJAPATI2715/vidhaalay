@@ -56,16 +56,24 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
           ],
         ),
 
-        body: notificationController.isDetailsLoading.value == false ? const CommonProgressIndicator() :  Stack(
+        body: notificationController.isDetailsLoading.value == false ?  SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Center(child: const CommonProgressIndicator())
+        ) :  Stack(
           children: [
             Container(
               height: size.height,
               width: size.width,
               color: Colors.white,
             ),
-            ClipRRect(
-                borderRadius : const BorderRadius.only(bottomLeft: Radius.circular(100)),
-                child: Image.asset(AppAssets.holiImg,)),
+            Container(
+              width: size.width,
+              child: ClipRRect(
+                  borderRadius : const BorderRadius.only(bottomLeft: Radius.circular(100)),
+                  child: Image.asset(AppAssets.holiImg,)
+              ),
+            ),
 
             Positioned.fill(
               top: 200,

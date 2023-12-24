@@ -53,7 +53,7 @@ class BottomController extends GetxController {
     // const MyLecturesScreen(),
     // const NotificationScreenUser(),
     // const DrawerForUser(),
-     const UserMoreScreen(),
+    const UserMoreScreen(),
 
   ];
   final TextEditingController emailController = TextEditingController();

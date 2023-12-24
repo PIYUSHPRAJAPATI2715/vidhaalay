@@ -79,8 +79,8 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
 
                   GestureDetector(
                     onTap: () {controller.currentIndexUser.value = 0;
-                      setState(() {});
-                      } ,
+                    setState(() {});
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(
@@ -107,7 +107,7 @@ class _BottomNavigationUserScreenState extends State<BottomNavigationUserScreen>
                     setState(() {
 
                     });
-                      } ,
+                    } ,
                     child: Column(
                       children: [
                         Image.asset(

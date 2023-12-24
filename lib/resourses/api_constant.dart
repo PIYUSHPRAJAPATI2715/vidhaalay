@@ -23,6 +23,7 @@ class ApiUrls {
   static const String getProfileUrl = "${apiBaseUrl}user/my-profile";
   static const String updateLocationUrl = "${apiBaseUrl}user/update-location";
   static const String updateProfileUrl = "${apiBaseUrl}user/update-profile";
+  static const String uploadProfileImageUrl = "${apiBaseUrl}user/uploadProfile/user";
   static const String changePassUrl = "${apiBaseUrl}user/changePassword";
   static const String termsConditionUrl = "${apiBaseUrl}common/pages/term-conditions";
   static const String privacyPolicyUrl = "${apiBaseUrl}common/pages/privacy-policy";
