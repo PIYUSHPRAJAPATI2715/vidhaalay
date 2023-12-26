@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/models/get_profile_model.dart';
+import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay_app/screen/User_Screens/notification_user_screen.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -24,38 +30,96 @@ class _VideoScreenState extends State<VideoScreen> {
     'English',
     'French',
   ];
+  String? location = null;
+
+  Future<void> getLocation() async {
+    GetProfileModel getProfileModel = GetProfileModel();
+
+    await getProfileRepo().then((value) {
+      getProfileModel = value;
+      setState(() {
+        location = getProfileModel.data?.address;
+      });
+      print("Location $location");
+      if(location == null) {
+        Get.to(() => AddressScreen(isAddressUpdateRequire: true,));
+      }
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: const[
-            Icon(Icons.location_pin,color: AppThemes.primaryColor,size: 20,),
-            SizedBox(width: 4,),
-            Text('2282 Lakewood Drive',
-              style: TextStyle(
-                  color: AppThemes.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15
-              ),),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title:  Row(
+            children: [
+              const Icon(
+                Icons.location_pin,
+                color: AppThemes.primaryColor,
+                size: 20,
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                    Get.to(() => AddressScreen(address: location!,));
+                  },
+                  child: Text(
+                    location == null ? 'Select Address' : location!,
+                    // getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
+                    // :  'Select Address',
+                    maxLines: 1,
+                    style: TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        color: AppThemes.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15),
+                  ),
+                ),
+              )
+            ],
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                        onTap: (){
+                          Get.to(()=>NotificationScreenUser());
+                        },
+                        child: Icon(Icons.notifications,color: Colors.grey,size: 28,)),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(MyRouters.myProfileScreen);
+                    },
+                    child: ClipOval(
+                      child: Image.asset(
+                        AppAssets.studentImg,
+                        height: 35,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right:12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipOval(
-                  child: Image.asset(AppAssets.studentImg,height: 35,),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(

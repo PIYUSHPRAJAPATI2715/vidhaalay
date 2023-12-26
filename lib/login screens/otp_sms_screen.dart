@@ -130,7 +130,7 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                       height: 9,
                     ),
                     Text(
-                      'Enter your verification code sent on your Email',
+                      'Enter your verification code sent on your mobile number',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,

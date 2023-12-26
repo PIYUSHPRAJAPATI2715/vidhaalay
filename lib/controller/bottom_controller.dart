@@ -45,16 +45,16 @@ class BottomController extends GetxController {
   RxInt currentIndexTeacher = 0.obs;
 
   // user screens
-  RxInt currentIndexUser = 0.obs;
+  RxInt currentIndexUser = 1.obs;
 
   var screensUser = [
+    // const DrawerForUser(),
+    const UserMoreScreen(),
     const UserHomeScreen(),
     const VideoScreen(),
     // const MyLecturesScreen(),
     // const NotificationScreenUser(),
     // const DrawerForUser(),
-    const UserMoreScreen(),
-
   ];
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();

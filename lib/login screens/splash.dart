@@ -5,9 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../routers/my_routers.dart';
-import '../controller/bottom_controller.dart';
 import '../models/get_profile_model.dart';
-import '../screen/User_Screens/new_bottom_screen.dart';
+import '../screen/User_Screens/bottom_nav_user.dart';
 import '../widgets/appTheme.dart';
 import '../models/login_model.dart';
 
@@ -19,7 +18,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  BottomController bottomController  = Get.put(BottomController());
 
   @override
   void initState() {
@@ -38,16 +36,17 @@ class _SplashState extends State<Splash> {
         Get.offAllNamed(MyRouters.signInPage);
       } else {
         String? userType = pref.getString("type");
-          if(userType == "student") {
-            // Get.offAllNamed(MyRouters.drawerForTeacher);
-          } else if(userType == "user") {
-            // Get.offAll(()=>BottomBarScreen(),arguments: {bottomController.currentIndex.value = 0});
-            Get.offAllNamed(MyRouters.drawerForUser);
-          } else if(userType == "teacher") {
-            Get.offAllNamed(MyRouters.drawerForTeacher);
-          } else {
-            Get.offAllNamed(MyRouters.drawerForUser);
-          }
+        if(userType == "student") {
+          // Get.offAllNamed(MyRouters.drawerForTeacher);
+        } else if(userType == "user") {
+          Get.offAll(()=>BottomNavigationUserScreen());
+          // Get.offAllNamed(MyRouters.bottomNavigationScreen);
+          // Get.offAllNamed(MyRouters.drawerForUser);
+        } else if(userType == "teacher") {
+          Get.offAllNamed(MyRouters.drawerForTeacher);
+        } else {
+          Get.offAllNamed(MyRouters.drawerForUser);
+        }
       }
 
       // if(pref.getString("cookie") != null){
@@ -69,15 +68,15 @@ class _SplashState extends State<Splash> {
       // else{
       //     Get.offAllNamed(MyRouters.introPageScreen);
 
-    //     if(model.data!.emailVerified == true && model.data!.mobileVerified == true){
-    //       Get.offAllNamed(MyRouters.drawerForUser);
-    //     }else{
-    //       Get.offAllNamed(MyRouters.verifyOtpLogin);
-    //     }
-    //
-    //   }else{
-    //     Get.offAllNamed(MyRouters.introPageScreen);
-     }
+      //     if(model.data!.emailVerified == true && model.data!.mobileVerified == true){
+      //       Get.offAllNamed(MyRouters.drawerForUser);
+      //     }else{
+      //       Get.offAllNamed(MyRouters.verifyOtpLogin);
+      //     }
+      //
+      //   }else{
+      //     Get.offAllNamed(MyRouters.introPageScreen);
+    }
     );}
 
   Widget build(BuildContext context) {

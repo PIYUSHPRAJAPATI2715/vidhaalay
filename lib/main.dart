@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       // initialRoute: "/drawerForTeacher",
       getPages:MyRouters.route,
+      // home: MainColumn(),
     );
   }
 }

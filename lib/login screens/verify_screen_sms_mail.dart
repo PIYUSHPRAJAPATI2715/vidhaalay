@@ -133,7 +133,8 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
                         ),
                         Text(
-                          "Please verify mail and phone to access dashboard",
+                          !isMobileVerify.value && !isEmailVerify.value ? "Please verify mail and phone to access dashboard"
+                           : !isMobileVerify.value ? "Please verify phone to access dashboard" : "Please verify mail to access dashboard",
                           style: GoogleFonts.poppins(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
@@ -276,17 +277,18 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                             // SharedPreferences prefEmail = await SharedPreferences.getInstance();
                             // ModelEmailVerify verifyMailModel = ModelEmailVerify.fromJson(jsonDecode(prefEmail.getString("cookie")!));
                             // VerifyMobileModel verifySmsModel = VerifyMobileModel.fromJson(jsonDecode(prefSms.getString("cookie")!));
-                             bool? isEmailVerify = pref.getBool('emailVerify');
-                             bool? isMobileVerify = pref.getBool('mobileVerify');
-                             print("isEmailVerify : $isEmailVerify");
-                             print("isMobileVerify : $isMobileVerify");
+                             bool? isEmailVerify0 = pref.getBool('emailVerify');
+                             bool? isMobileVerify0 = pref.getBool('mobileVerify');
+                             print("isEmailVerify : $isEmailVerify0");
+                             print("isMobileVerify : $isMobileVerify0");
 
-
-                             if (isEmailVerify == true && isMobileVerify == true) {
+                             if (isEmailVerify0 == true && isMobileVerify0 == true) {
                               pref.setBool('isLoggedIn', true);
                               Get.offAllNamed(MyRouters.drawerForUser);
                             } else if (selectedContainerValue == 'Email') {
-                              if (isEmailVerify == true) {
+                              if (isEmailVerify0 == true) {
+                                isEmailVerify.value = true;
+                                selectedContainerValue = 'SMS';
                                 showToast('Email Already Verified');
                               } else {
                                 // print(email);
@@ -294,7 +296,9 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                                     arguments: email.value);
                               }
                             } else if (selectedContainerValue == 'SMS') {
-                              if (isMobileVerify == true) {
+                              if (isMobileVerify0 == true) {
+                                isMobileVerify.value = true;
+                                selectedContainerValue = 'Email';
                                 showToast('Phone Already Verified');
                               } else {
                                 Get.toNamed(MyRouters.verifyWithSms,
@@ -303,6 +307,9 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                             } else {
                               showToast('Please Select One');
                             }
+                            setState(() {
+
+                            });
 
                             //  if (selectedContainerValue.isNotEmpty) {
                             //   if (selectedContainerValue == 'Email') {

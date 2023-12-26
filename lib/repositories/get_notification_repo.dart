@@ -29,7 +29,9 @@ Future<GetNotificationModel> notificationRepo(String dateFormat) async {
         Uri.parse(ApiUrls.notificationUrl),
       body: jsonEncode(body),
       headers: await getAuthHeader(),);
+    print("call back");
     if (response.statusCode == 200) {
+      print("Notification Repository...${response.body}");
       log("Notification Repository...${response.body}");
       return GetNotificationModel.fromJson(jsonDecode(response.body));
     } else {

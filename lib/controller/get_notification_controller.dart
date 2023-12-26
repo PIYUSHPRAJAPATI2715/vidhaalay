@@ -12,6 +12,7 @@ import '../repositories/get_notification_repo.dart';
 
 class GetNotificationController extends GetxController {
   RxBool isDataLoading = false.obs;
+  RxBool isNoData = false.obs;
   RxBool isDetailsLoading = false.obs;
   // RxBool isDataLoadingFaq = false.obs;
   Rx<GetNotificationModel> getNotificationModel = GetNotificationModel().obs;

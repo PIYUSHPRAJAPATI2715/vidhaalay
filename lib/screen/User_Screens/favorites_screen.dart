@@ -139,6 +139,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                             //   ),
                             // ),
                           ],
+                          dividerColor: Colors.transparent,
                           padding: EdgeInsets.zero,
                           unselectedLabelColor: const Color(0xFF909090),
                           labelColor: AppThemes.white,

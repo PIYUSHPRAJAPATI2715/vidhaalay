@@ -33,6 +33,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
   var totalDays;
   var listOfDates;
   var todayDay;
+  var FullDate;
 
   final notificationController = Get.put(GetNotificationController());
 
@@ -137,6 +138,13 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
           centerTitle: true,
           automaticallyImplyLeading: true,
           backgroundColor: AppThemes.white,
+          leading:  IconButton(
+            icon: Image.asset(AppAssets.arrowBack,width: 19,color: AppThemes.textBrown,),
+            onPressed: () {
+              Get.toNamed(MyRouters.bottomNavigationUserScreen);
+              // Get.back();
+            },
+          ),
           title: Text(
             "Notification Calender",
             // "Event Calender",
@@ -332,7 +340,12 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                         BorderRadius.only(topRight: Radius.circular(50)),
                   ),
                   child: Obx(() {
-                    return notificationController.isDataLoading.value == true ?
+                    return notificationController.isNoData.value == true ? Center(
+                      child: Text("No Longer Notification Available",style: TextStyle(
+                          color: Colors.black,
+                        fontSize: 15
+                      ),),
+                    ) :notificationController.isDataLoading.value == true ?
                     SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 0),
