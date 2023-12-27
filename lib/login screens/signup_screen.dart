@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/termsandcondition_screen.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_textfield.dart';
 import '../controller/common.dart';
@@ -278,35 +279,63 @@ class _SignupScreenState extends State<SignupScreen> {
                                    ),
                                  ),
                                ),
-                               Expanded(
-                                 child: RichText(
-                                   text: const TextSpan(
-                                     style: TextStyle(
-                                       fontWeight: FontWeight.w300,
-                                       fontSize: 14,
-                                       color: Color(0xFF333F48), // Default text color
-                                     ),
-                                     children: <TextSpan>[
-                                       TextSpan(
-                                         text: 'By creating an account you agree to ',
+                               Container(
+                                   // width: 230,
+                                   child: Column(
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       Text('By creating an account you agree to ',
                                          style: TextStyle(
                                            fontWeight: FontWeight.w500,
                                            fontSize: 13,
                                            color: AppThemes.black, // Default text color
                                          ),
                                        ),
-                                       TextSpan(
-                                         text: 'Terms & Conditions',
-                                         style: TextStyle(
-                                           color: AppThemes.primaryColor,
-                                           fontWeight: FontWeight.w500,
-                                           fontSize: 13,// Change the color for "Terms & Conditions"
-                                         ),
+                                       GestureDetector(
+                                           onTap: () {
+                                             Get.to(() => TermsAndConditionScreen());
+                                           },
+                                           child: Text('Terms & Conditions',
+                                             style: TextStyle(
+                                               color: AppThemes.primaryColor,
+                                               fontWeight: FontWeight.w500,
+                                               fontSize: 13,// Change the color for "Terms & Conditions"
+                                             ),
+                                           )
                                        ),
                                      ],
-                                   ),
-                                 ),
+                                   )
                                ),
+                               // Expanded(
+                               //   child: RichText(
+                               //     text: const TextSpan(
+                               //       style: TextStyle(
+                               //         fontWeight: FontWeight.w300,
+                               //         fontSize: 14,
+                               //         color: Color(0xFF333F48), // Default text color
+                               //       ),
+                               //       children: <TextSpan>[
+                               //         TextSpan(
+                               //           text: 'By creating an account you agree to ',
+                               //           style: TextStyle(
+                               //             fontWeight: FontWeight.w500,
+                               //             fontSize: 13,
+                               //             color: AppThemes.black, // Default text color
+                               //           ),
+                               //         ),
+                               //         TextSpan(
+                               //           text: 'Terms & Conditions',
+                               //           style: TextStyle(
+                               //             color: AppThemes.primaryColor,
+                               //             fontWeight: FontWeight.w500,
+                               //             fontSize: 13,// Change the color for "Terms & Conditions"
+                               //           ),
+                               //         ),
+                               //       ],
+                               //     ),
+                               //   ),
+                               // ),
                              ],
                            ),
                          ],

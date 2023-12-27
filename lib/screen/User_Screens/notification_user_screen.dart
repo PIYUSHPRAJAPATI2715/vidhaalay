@@ -64,7 +64,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
 
     notificationController.getNotificationData(date);
 
-    getYear();
+    // getYear();
     now = DateTime.now();
     totalDays = daysInMonth(now);
     listOfDates = List<int>.generate(totalDays, (i) => i + 1);
@@ -112,14 +112,21 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
     "November",
     "December"
   ];
-  List<int> years = [];
 
-  List<int> getYear() {
-    for (int i = 2023; i <= 2050; i++) {
-      years.add(i);
-    }
-    return years;
-  }
+
+  List<int> years = [
+    2023,
+    2024,
+  ];
+
+  // List<int> years = [];
+
+  // List<int> getYear() {
+  //   for (int i = 2023; i <= 2050; i++) {
+  //     years.add(i);
+  //   }
+  //   return years;
+  // }
 
   int daysInMonth(DateTime date) {
     var firstDayThisMonth = DateTime(date.year, date.month, date.day);
@@ -184,7 +191,60 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 10),
+                        Container(
+                          height: size.height*.045,
+                          decoration: BoxDecoration(
+                            // color: Colors.amberAccent,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount: years.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        selectedMonthIndex = index;
+                                        month.value = "${index + 1}".length != 2
+                                            ? "0${index + 1}"
+                                            : "${index + 1}";
+                                        monthName.value = DateFormat('MMMM')
+                                            .format(DateTime.parse(
+                                            "${year.value}-${month.value}-${day.value}"));
+                                        now = DateTime.parse(
+                                            "${year.value}-${month.value}-${day.value}");
+                                        totalDays = daysInMonth(now);
+                                        listOfDates = List<int>.generate(
+                                            totalDays, (i) => i + 1);
+                                        todayDay = DateFormat('dd').format(now);
+                                        getWeekDates(now);
+                                        log(DateFormat('EEEE').format(now));
+                                        // Get.back();
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10,vertical: 5),
+                                        child: Text(years[index].toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: index == selectedMonthIndex
+                                                    ? Colors.white
+                                                    : Colors.black)
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
                         Container(
                           height: size.height*.070,
                           decoration: BoxDecoration(

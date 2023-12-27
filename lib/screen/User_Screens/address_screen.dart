@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
@@ -11,9 +13,11 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:vidhaalay_app/controller/deshborad_controller.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
+import 'package:vidhaalay_app/widgets/common_textfield.dart';
 
 import '../../controller/get_profile_controller.dart';
 import '../../repositories/location_update_repo.dart';
@@ -56,6 +60,73 @@ class _AddressScreenState extends State<AddressScreen> {
     print("isAddressUpdateRequire : $isAddressUpdateRequire");
   }
 
+  getCurrentLocation() async {
+    try {
+      LocationPermission permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        print("LiveLocation Addd");
+        return null;
+      } else {
+        OverlayEntry loader = Helpers.overlayLoader(context);
+        Overlay.of(context)!.insert(loader);
+
+        await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high,
+            forceAndroidLocationManager: true
+        ).then((Position position) {
+          Helpers.hideLoader(loader);
+
+          getAddressFromLatLng(position.latitude,position.longitude);
+           print(position);
+        });
+      }
+      // return position;
+    } catch (e) {
+      print('Error getting location: $e');
+      // return null;
+    }
+  }
+
+  Future<String?> getAddressFromLatLng(double latitude, double longitude) async {
+    print("Enter 2");
+    try {
+      List<Placemark> placemarks =
+      await placemarkFromCoordinates(latitude, longitude);
+      // Placemark place = placemarks[0];
+      // String address =  "${placemarks.first.street}, ${placemarks.first.name}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.administrativeArea}";
+      String address =  "${placemarks.first.name}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.administrativeArea}";
+
+      print("LiveLocation Adddress : ${address}");
+
+      updateLocationRepo(
+          context: context,
+          address: address,
+          lat: latitude,
+          long: longitude)
+          .then((value) {
+        if (value.status == true) {
+          log(value.status.toString());
+          getAddressCon.getProfileData();
+          getSchoolListController.getSchoolListFunction();
+          getSchoolListController.getTopLectureListRepo();
+          // Get.back();
+          Get.offAllNamed(MyRouters.drawerForUser);
+
+          showToast(value.msg.toString().toString());
+        } else {
+          showToast(value.msg.toString().toString());
+        }
+      });
+
+      int pincode =  int.parse(placemarks.first.postalCode.toString());
+      return address;
+    } catch (e) {
+      debugPrint("Error: $e");
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -96,6 +167,51 @@ class _AddressScreenState extends State<AddressScreen> {
           padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 13),
+                child: CommonTextfield(
+                    // controller: passwordController,
+                    hintText: "Pick your current location",
+                    prefix: Icon(
+                        Icons.my_location,
+                        size: 23,
+                        color: Colors.grey),
+                  obSecure: false,
+                  readOnly: true,
+                  onTap: () {
+                      getCurrentLocation();
+                  },
+                ),
+              ),
+
+              // Container(
+              //   width: size.width,
+              //   height: size.height * 0.055,
+              //   margin: EdgeInsets.symmetric(horizontal: 15),
+              //   padding: EdgeInsets.symmetric(horizontal: 15),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(50),
+              //     border: Border.all(
+              //       color: Colors.grey
+              //     )
+              //   ),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //       Icon(Icons.my_location,size: 25,),
+              //       Text('Pick your current location'),
+              //     ],
+              //   ),
+              // ),
+
+              // ListTile(
+              //
+              //   title: Text('Pick your current location'),
+              // ),
+              SizedBox(
+                height: 15,
+              ),
+
               GooglePlaceAutoCompleteTextField(
                   textEditingController: address,
                   googleAPIKey: googleApikey,

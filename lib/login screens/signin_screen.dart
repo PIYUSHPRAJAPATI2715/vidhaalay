@@ -301,13 +301,12 @@ class _SignInPageState extends State<SignInPage> {
                           child: DropdownButton(
                             value: signInController.userType.value,
                             isExpanded: true,
-                            underline: Container(),
+                            underline : Container(),
                             icon: const Icon(Icons.keyboard_arrow_down),
-                            items:
-                                signInController.userTypeData.map((Map items) {
+                            items: signInController.userTypeData.map((Map items) {
                               return DropdownMenuItem(
                                 value: items['key'].toString(),
-                                child: Text(
+                                child : Text(
                                   items['value'].toString(),
                                   style: const TextStyle(
                                     color: Colors.grey,

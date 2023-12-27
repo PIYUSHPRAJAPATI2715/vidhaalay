@@ -66,7 +66,7 @@ dependencies:
   carousel_slider: ^4.2.1
   image_picker: ^1.0.5
   google_places_flutter: ^2.0.6
-
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

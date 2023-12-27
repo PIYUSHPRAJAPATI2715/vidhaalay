@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/controller/bottom_controller.dart';
 import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
 import 'package:vidhaalay_app/controller/user_Controller/lectures_controller.dart';
@@ -133,7 +134,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             ),
             Expanded(
               child: GestureDetector(
-                 onTap: (){
+                 onTap: () {
                    Get.to(() => AddressScreen(address: location!,));
                  },
                  child: Text(
@@ -357,12 +358,49 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   Obx(
                                         () {
                                       return getSchoolListController.isTopSchoolListLoading.value ?
-                                      Container(
+                                          // SizedBox.shrink()
+                                      Shimmer.fromColors(
+                                        baseColor:
+                                        Colors.grey.shade500,
+                                        highlightColor:
+                                        Colors.grey.shade100,
+                                        child: Container(
                                           height: size.height * .22,
-                                          width: size.width,
-                                          child:
-                                        Center(child: CommonProgressIndicator())
-                                      ) : Container(
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            physics:
+                                                BouncingScrollPhysics(),
+                                            // physics: const AlwaysScrollableScrollPhysics(),
+                                            itemCount: 3,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                                child: Container(
+                                                  height: size.height * .22,
+                                                            width: size.width * .35,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Colors
+                                                                  .white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      )
+
+                                      // Container(
+                                      //     height: size.height * .22,
+                                      //     width: size.width,
+                                      //     child:
+                                      //   Center(child: CommonProgressIndicator())
+                                      // )
+                                          : Container(
                                         height: size.height * .22,
                                         width: size.width,
                                         child: ListView.builder(
@@ -701,11 +739,48 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   ),
                                   Obx(
                                         () {
-                                      return getSchoolListController.isTopSchoolListLoading.value ? Container(
+                                      return getSchoolListController.isTopSchoolListLoading.value ?
+                                      Shimmer.fromColors(
+                                        baseColor:
+                                        Colors.grey.shade500,
+                                        highlightColor:
+                                        Colors.grey.shade100,
+                                        child: Container(
                                           height: size.height * .22,
-                                          width: size.width,
-                                          child: Center(child: CommonProgressIndicator())
-                                      ) : Container(
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            physics:
+                                            BouncingScrollPhysics(),
+                                            // physics: const AlwaysScrollableScrollPhysics(),
+                                            itemCount: 3,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                                child: Container(
+                                                  height: size.height * .22,
+                                                  width: size.width * .35,
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    color: Colors
+                                                        .white,
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        10),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      )
+
+                                      // Container(
+                                      //     height: size.height * .22,
+                                      //     width: size.width,
+                                      //     child: Center(child: CommonProgressIndicator())
+                                      // )
+                                          : Container(
                                         height: size.height * .22,
                                         width: size.width,
                                         child: ListView.builder(
@@ -848,11 +923,48 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                   ),
                                   Obx(
                                         () {
-                                      return getSchoolListController.isTopSchoolListLoading.value ? Container(
+                                      return getSchoolListController.isTopSchoolListLoading.value ?
+                                      Shimmer.fromColors(
+                                        baseColor:
+                                        Colors.grey.shade500,
+                                        highlightColor:
+                                        Colors.grey.shade100,
+                                        child: Container(
                                           height: size.height * .22,
-                                          width: size.width,
-                                          child: Center(child: CommonProgressIndicator())
-                                      ) : Container(
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            physics:
+                                            BouncingScrollPhysics(),
+                                            // physics: const AlwaysScrollableScrollPhysics(),
+                                            itemCount: 3,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                                child: Container(
+                                                  height: size.height * .22,
+                                                  width: size.width * .35,
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    color: Colors
+                                                        .white,
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        10),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      )
+
+                                      // Container(
+                                      //     height: size.height * .22,
+                                      //     width: size.width,
+                                      //     child: Center(child: CommonProgressIndicator())
+                                      // )
+                                          : Container(
                                         height: size.height * .22,
                                         width: size.width,
                                         child: ListView.builder(
@@ -979,9 +1091,11 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             children: [
               Obx(() {
                 return getSchoolListController.isSchoolListLoading.value == true ?
-                getSchoolListController.getSchoolListModel.value.data!.isEmpty ? Center(child: Text("No Data Found",style: TextStyle(
+                getSchoolListController.getSchoolListModel.value.data!.isEmpty ?
+                Center(child: Text("No Data Found",style: TextStyle(
                     color: Colors.black
-                ),),) :  ListView.builder(
+                ),),)
+                    :  ListView.builder(
                       itemCount: getSchoolListController
                           .getSchoolListModel.value.data!.length,
                       shrinkWrap: true,
@@ -1126,7 +1240,40 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                         );
                       },
                     )
-                        :  CommonProgressIndicator();
+                        :
+                Shimmer.fromColors(
+                  baseColor:
+                  Colors.grey.shade500,
+                  highlightColor:
+                  Colors.grey.shade100,
+                  child: Container(
+                    height: size.height * .22,
+                    width: size.width,
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics:
+                      BouncingScrollPhysics(),
+                      // physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+                          child: Container(
+                            height: size.height * .22,
+                            width: size.width * .35,
+                            decoration:
+                            BoxDecoration(
+                              color: Colors
+                                  .white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+                // CommonProgressIndicator();
               }),
 
               Obx(() {
@@ -1276,7 +1423,41 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     );
                   },
                 )
-                    : const CommonProgressIndicator();
+                    :
+                Shimmer.fromColors(
+                  baseColor:
+                  Colors.grey.shade500,
+                  highlightColor:
+                  Colors.grey.shade100,
+                  child: Container(
+                    height: size.height * .22,
+                    width: size.width,
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics:
+                      BouncingScrollPhysics(),
+                      // physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+                          child: Container(
+                            height: size.height * .22,
+                            width: size.width * .35,
+                            decoration:
+                            BoxDecoration(
+                              color: Colors
+                                  .white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+
+                // const CommonProgressIndicator();
               }),
 
                Obx(() {
@@ -1422,7 +1603,41 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     );
                   },
                 )
-                    : const CommonProgressIndicator();
+                    :
+                Shimmer.fromColors(
+                  baseColor:
+                  Colors.grey.shade500,
+                  highlightColor:
+                  Colors.grey.shade100,
+                  child: Container(
+                    height: size.height * .22,
+                    width: size.width,
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics:
+                      BouncingScrollPhysics(),
+                      // physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+                          child: Container(
+                            height: size.height * .22,
+                            width: size.width * .35,
+                            decoration:
+                            BoxDecoration(
+                              color: Colors
+                                  .white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+
+                 // const CommonProgressIndicator();
               }),
 
               // Padding(
