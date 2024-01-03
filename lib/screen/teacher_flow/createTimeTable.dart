@@ -64,8 +64,10 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
-          onPressed: (){},
-          icon: Image.asset(AppAssets.moreIcon,width: 25,height: 25,),
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
 
@@ -231,6 +233,7 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                               .map((item) => DropdownMenuItem(
                                             value: item,
                                             child: Text(item),
+
                                           ))
                                               .toList(),
                                           onChanged: (value) {
@@ -238,11 +241,19 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                               selectSubject = value!;
                                             });
                                           },
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 15,
+                                          ),
                                           menuMaxHeight: size.height * 0.25,
                                           borderRadius: BorderRadius.circular(10),
                                           decoration: InputDecoration(
                                             contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                                             hintText: 'Select Subject',
+                                            hintStyle: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                            ),
                                             errorBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(50),
                                               borderSide: BorderSide(
@@ -264,7 +275,7 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                     width: 1
                                                 )
                                             ),
-                                    
+
                                             focusedBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(50),
                                                 borderSide: BorderSide(
@@ -363,9 +374,17 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                           },
                                           menuMaxHeight: size.height * 0.25,
                                           borderRadius: BorderRadius.circular(10),
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 15,
+                                          ),
                                           decoration: InputDecoration(
                                             contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                                             hintText: 'Select weekday',
+                                            hintStyle: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                            ),
                                             errorBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(50),
                                               borderSide: BorderSide(
@@ -496,6 +515,7 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                               child: CommonTextfield(
                                                 obSecure: false,
                                                 hintText: '0:0',
+                                                keyboardType: TextInputType.number,
                                                 suffixIcon: Column(
                                                   children: [
                                                     SizedBox(
@@ -556,6 +576,7 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                               child: CommonTextfield(
                                                 obSecure: false,
                                                 hintText: '0:0',
+                                                keyboardType: TextInputType.number,
                                                 suffixIcon: Column(
                                                   children: [
                                                     SizedBox(

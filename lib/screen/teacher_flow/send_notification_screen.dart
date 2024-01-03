@@ -45,8 +45,10 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
         ),
         centerTitle: true,
         leading: IconButton(
-          onPressed: (){},
-          icon: Image.asset(AppAssets.moreIcon,width: 25,height: 25,),
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
 

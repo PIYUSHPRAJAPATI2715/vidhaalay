@@ -64,7 +64,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                                   ),
                                   SizedBox(height: size.height * 0.016),
                                   const Text(
-                                    "User", // Display user's name here
+                                    "Rosie Wannh", // Display user's name here
                                     style: TextStyle(
                                       fontSize: 21,
                                       fontWeight: FontWeight.w600,

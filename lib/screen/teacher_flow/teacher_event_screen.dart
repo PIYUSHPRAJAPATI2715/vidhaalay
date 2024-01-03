@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/get_notification_controller.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/update_event_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -146,18 +147,56 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Container(
+              transformAlignment: Alignment.center,
+              width: size.width * .45,
+              padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+              decoration: BoxDecoration(
+                // color: Colors.white,
+                  borderRadius: BorderRadius.circular(50)
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Class-8',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(year.value.toString(),
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    // Text(year.value.toString(),
+                    //   style: GoogleFonts.poppins(
+                    //       fontWeight: FontWeight.w500,
+                    //       fontSize: 17,
+                    //       color: Colors.black),
+                    //   textAlign: TextAlign.center,
+                    // ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
           Container(
-              // height: 192,
               height: size.height * .239,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
-                // color: AppThemes.black,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
               ),
-              // decoration: const BoxDecoration(
-              //   color: AppThemes.primaryColor,
-              //   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
-              // ),
               child:  Padding(
                 padding: EdgeInsets.all(size.width * .010),
                 child: Column(
@@ -166,20 +205,43 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
+                        transformAlignment: Alignment.center,
+                        width: size.width * .45,
                         padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                          // color: Colors.white,
                             borderRadius: BorderRadius.circular(50)
                         ),
-                        child: Text(year.value.toString(),
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                        child: Center(
+                          child: Text(year.value.toString(),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 5),
+                    //   child: Container(
+                    //     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(50)
+                    //     ),
+                    //     child: Text(year.value.toString(),
+                    //       style: GoogleFonts.poppins(
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize: 17,
+                    //           color: Colors.white),
+                    //       textAlign: TextAlign.center,
+                    //     ),
+                    //   ),
+                    // ),
+                    /**/
                     // Container(
                     //   height: size.height*.045,
                     //   decoration: BoxDecoration(
@@ -582,8 +644,8 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    // Get.to(()=> UserNotificationDetailScreen(id: evenetDetailController.getEventModel.value.data![index].id.toString()));
-                                  },
+                                        Get.toNamed(MyRouters.celebrationScreenStu, arguments: items.id.toString());
+                                    },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18).copyWith(top: 10),
                                     color: const Color(0xffecffd2),
@@ -608,29 +670,38 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                               const SizedBox(
                                                 width: 10,
                                               ),
-                                              Expanded(
+                                              Container(
+                                                width: size.width * 0.68,
+                                                // color: Colors.amber,
                                                 child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
-                                                        Text(
-                                                          items.eventName.toString(),
-                                                          style: GoogleFonts.poppins(
-                                                              color:
-                                                              AppThemes.primaryColor,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                              FontWeight.w500),
+                                                        Container(
+                                                          width: size.width * 0.46,
+                                                          // color: Colors.grey,
+                                                          child: Text(
+                                                            items.eventName.toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                color:
+                                                                AppThemes.primaryColor,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                FontWeight.w500),
+                                                          ),
                                                         ),
-                                                        Text(
-                                                          formattedDate.toString(),
-                                                          style: GoogleFonts.poppins(
-                                                              color: Colors.grey,
-                                                              fontSize: 13,
-                                                              fontWeight: FontWeight.w400),
+                                                        Container(
+                                                          // color: Colors.green,
+                                                          child: Text(
+                                                            formattedDate.toString(),
+                                                            style: GoogleFonts.poppins(
+                                                                color: Colors.grey,
+                                                                fontSize: 13,
+                                                                fontWeight: FontWeight.w400),
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -646,6 +717,21 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                                   ],
                                                 ),
                                               ),
+                                              Expanded(
+                                                child: IconButton(
+                                                    onPressed: (){
+                                                      // Get.to(() => UpdateEventScreen(eventDetails: items.id.toString()));
+                                                      Get.to(() => UpdateEventScreen(eventId: items.id.toString()));
+                                                      // Get.toNamed(MyRouters.celebrationScreenStu, arguments: items.id.toString());
+                                                    },
+                                                    icon: const Icon(Icons.edit,size: 19,)),
+                                              ),
+                                              Expanded(
+                                                child: IconButton(onPressed: (){
+                                                    evenetDetailController.deleteEventAPI(context, items.id!);
+                                                },
+                                                    icon: const Icon(Icons.delete,color: Colors.red,size: 19,)),
+                                              )
                                             ],
                                           ),
                                         ),

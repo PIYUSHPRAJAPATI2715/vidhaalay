@@ -18,6 +18,8 @@ class StudentDetailsScreen extends StatefulWidget {
 }
 
 class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,10 +37,9 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
           onPressed: (){
             Get.back();
           },
-          icon: const Icon(Icons.arrow_back_outlined, size: 28),
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(

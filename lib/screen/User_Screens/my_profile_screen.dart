@@ -9,7 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/size.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import '../../controller/get_profile_controller.dart';
+import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../repositories/update_profile_repo.dart';
 import '../../resourses/api_constant.dart';
 import '../../resourses/app_assets.dart';

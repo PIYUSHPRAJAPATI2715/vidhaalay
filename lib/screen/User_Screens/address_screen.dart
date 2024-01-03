@@ -16,7 +16,7 @@ import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 
-import '../../controller/get_profile_controller.dart';
+import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../repositories/location_update_repo.dart';
 
 class AddressScreen extends StatefulWidget {

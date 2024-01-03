@@ -20,7 +20,7 @@ import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../controller/deshborad_controller.dart';
-import '../../controller/get_profile_controller.dart';
+import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../models/login_model.dart';
 import '../../models/update_location_model.dart';
 import '../../repositories/addTo_fav_repo.dart';
@@ -204,38 +204,89 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                             ),
                           ],
                         ),
-                        height: 37,
+                        height: size.height * 0.055,
                         child: TextField(
                           maxLines: 1,
                           controller: searchController,
                           style: const TextStyle(fontSize: 17),
                           textAlignVertical: TextAlignVertical.center,
                           textInputAction: TextInputAction.search,
-                          onSubmitted: (value) => {},
+
+                          // onSubmitted: (value) => {},
+                          onChanged: (value) {
+                            getSchoolListController.getSearchSchoolListFunction(searchController.text);
+                          },
                           decoration: InputDecoration(
                               filled: true,
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  FocusScopeNode currentFocus = FocusScope.of(context);
-                                  if (!currentFocus.hasPrimaryFocus) {
-                                    currentFocus.unfocus();
-                                  }
-                                  getSchoolListController.getSearchSchoolListFunction(searchController.text);
+                              suffixIconColor: Colors.black,
+                              suffixIcon:Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Visibility(
+                                    visible: !FocusScope.of(context).hasPrimaryFocus,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.cancel,
+                                        color: AppThemes.black,
+                                        size: 22,
+                                      ),
+                                      onPressed: () {
+                                        FocusScopeNode currentFocus = FocusScope.of(context);
+                                        if (!currentFocus.hasPrimaryFocus) {
+                                          currentFocus.unfocus();
+                                        }
+                                        searchController.clear();
+                                        getSchoolListController.getSearchSchoolListFunction(searchController.text);
+                                      },
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.search_rounded,
+                                      color: AppThemes.black,
+                                      size: 22,
+                                    ),
+                                    onPressed: () {
+                                      FocusScopeNode currentFocus = FocusScope.of(context);
+                                      if (!currentFocus.hasPrimaryFocus) {
+                                        currentFocus.unfocus();
+                                      }
+                                      getSchoolListController.getSearchSchoolListFunction(searchController.text);
 
-                                  // Get.to(const SearchScreenData());
-                                  // FocusManager.instance.primaryFocus!
-                                  //     .unfocus();
-                                  // print(homeSearchController
-                                  //     .searchController);
-                                  // Get.toNamed(
-                                  //     SearchScreenData.searchScreen);
-                                },
-                                icon: const Icon(
-                                  Icons.search_rounded,
-                                  color: AppThemes.black,
-                                  size: 19,
-                                ),
+                                      // Get.to(const SearchScreenData());
+                                      // FocusManager.instance.primaryFocus!
+                                      //     .unfocus();
+                                      // print(homeSearchController
+                                      //     .searchController);
+                                      // Get.toNamed(
+                                      //     SearchScreenData.searchScreen);
+                                    },
+                                  ),
+                                ],
                               ),
+                              // IconButton(
+                              //   onPressed: () {
+                              //     FocusScopeNode currentFocus = FocusScope.of(context);
+                              //     if (!currentFocus.hasPrimaryFocus) {
+                              //       currentFocus.unfocus();
+                              //     }
+                              //     getSchoolListController.getSearchSchoolListFunction(searchController.text);
+                              //
+                              //     // Get.to(const SearchScreenData());
+                              //     // FocusManager.instance.primaryFocus!
+                              //     //     .unfocus();
+                              //     // print(homeSearchController
+                              //     //     .searchController);
+                              //     // Get.toNamed(
+                              //     //     SearchScreenData.searchScreen);
+                              //   },
+                              //   icon: const Icon(
+                              //     Icons.search_rounded,
+                              //     color: AppThemes.black,
+                              //     size: 19,
+                              //   ),
+                              // ),
                               border: const OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:

@@ -106,7 +106,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
           backgroundColor: Colors.transparent,
           body:  SingleChildScrollView(
             child: Obx(
-              () => Column(
+                  () => Column(
                 children: [
                   Container(
                     decoration: const BoxDecoration(
@@ -186,7 +186,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                        ) : Text("data") :  Text("data"),
+                                        ) : Text(" ") :  Text(" "),
                                       ],
                                     ),
                                     const Icon(
@@ -198,18 +198,18 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                 ),
                               ),
                               Padding(
-                                padding:  EdgeInsets.symmetric(horizontal: 26.0),
-                                child:
-                                !teacherHomeController.isLoading.value ? Text(
-                                  teacherHomeController.getLatestEventModel.value.data!.message.toString(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500
-                                  ),
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                ): Text("data")
+                                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
+                                  child:
+                                  !teacherHomeController.isLoading.value ? Text(
+                                    teacherHomeController.getLatestEventModel.value.data!.message.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ): Text(" ")
                               ),
                             ],
                           ),

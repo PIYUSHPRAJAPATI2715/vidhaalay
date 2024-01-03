@@ -29,13 +29,13 @@ class GetTimetableModel {
 
 class Data {
   int? id;
+  int? schoolId;
+  int? teacherId;
   int? classId;
   int? subjectId;
   String? weekday;
-  String? from;
-  String? to;
-  int? schoolId;
-  int? teacherId;
+  String? fromTime;
+  String? toTime;
   int? status;
   String? createdAt;
   String? updatedAt;
@@ -45,13 +45,13 @@ class Data {
 
   Data(
       {this.id,
+        this.schoolId,
+        this.teacherId,
         this.classId,
         this.subjectId,
         this.weekday,
-        this.from,
-        this.to,
-        this.schoolId,
-        this.teacherId,
+        this.fromTime,
+        this.toTime,
         this.status,
         this.createdAt,
         this.updatedAt,
@@ -61,13 +61,13 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    schoolId = json['school_id'];
+    teacherId = json['teacher_id'];
     classId = json['class_id'];
     subjectId = json['subject_id'];
     weekday = json['weekday'];
-    from = json['from'];
-    to = json['to'];
-    schoolId = json['school_id'];
-    teacherId = json['teacher_id'];
+    fromTime = json['from_time'];
+    toTime = json['to_time'];
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -80,13 +80,13 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['school_id'] = this.schoolId;
+    data['teacher_id'] = this.teacherId;
     data['class_id'] = this.classId;
     data['subject_id'] = this.subjectId;
     data['weekday'] = this.weekday;
-    data['from'] = this.from;
-    data['to'] = this.to;
-    data['school_id'] = this.schoolId;
-    data['teacher_id'] = this.teacherId;
+    data['from_time'] = this.fromTime;
+    data['to_time'] = this.toTime;
     data['status'] = this.status;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
@@ -105,7 +105,7 @@ class Teacher {
   String? profileImage;
   int? schoolId;
   int? classId;
-  Null? classAssigned;
+  String? classAssigned;
   String? email;
   String? uniqueId;
   String? mobile;
@@ -113,8 +113,8 @@ class Teacher {
   String? gender;
   String? password;
   String? userType;
-  Null? deviceType;
-  Null? fcmtoken;
+  String? deviceType;
+  String? fcmtoken;
   Null? mobileOtp;
   int? status;
 

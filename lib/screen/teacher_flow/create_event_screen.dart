@@ -24,7 +24,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
 
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,12 +39,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (){
-
+            Get.back();
           },
-          icon: Image.asset(AppAssets.moreIcon,width: 25,height: 25,),
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
@@ -186,9 +184,17 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                     },
                                     menuMaxHeight: size.height * 0.25,
                                     borderRadius: BorderRadius.circular(10),
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                                       hintText: 'Select Class',
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                      ),
                                       errorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(50),
                                         borderSide: BorderSide(
@@ -354,8 +360,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                     maxLines: 3,
                                     controller: createEventController.message,
                                     textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
                                     decoration:  InputDecoration(
                                       hintText: 'Write message...',
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                      ),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8),
                                         borderSide: const BorderSide(

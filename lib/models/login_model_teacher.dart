@@ -23,6 +23,7 @@ class LoginModelTeacher {
 }
 
 class Data {
+  List<ClassArr>? classArr;
   int? id;
   String? name;
   String? profileImage;
@@ -42,7 +43,8 @@ class Data {
   String? token;
 
   Data(
-      {this.id,
+      {this.classArr,
+        this.id,
         this.name,
         this.profileImage,
         this.schoolId,
@@ -61,6 +63,12 @@ class Data {
         this.token});
 
   Data.fromJson(Map<String, dynamic> json) {
+    if (json['classArr'] != null) {
+      classArr = <ClassArr>[];
+      json['classArr'].forEach((v) {
+        classArr!.add(new ClassArr.fromJson(v));
+      });
+    }
     id = json['id'];
     name = json['name'];
     profileImage = json['profile_image'];
@@ -82,6 +90,9 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.classArr != null) {
+      data['classArr'] = this.classArr!.map((v) => v.toJson()).toList();
+    }
     data['id'] = this.id;
     data['name'] = this.name;
     data['profile_image'] = this.profileImage;
@@ -99,6 +110,25 @@ class Data {
     data['mobile_otp'] = this.mobileOtp;
     data['status'] = this.status;
     data['token'] = this.token;
+    return data;
+  }
+}
+
+class ClassArr {
+  int? id;
+  String? name;
+
+  ClassArr({this.id, this.name});
+
+  ClassArr.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     return data;
   }
 }

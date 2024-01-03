@@ -132,7 +132,8 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
             ),
           ),
           Container(
-              height: 190,
+              // height: 190,
+              height: size.height * .239,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),

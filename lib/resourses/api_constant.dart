@@ -54,6 +54,7 @@ class ApiUrls {
   //Teacher
   static const String latestEvents = "${apiBaseUrl}events/latest-event";
   static const String eventsDetails = "${apiBaseUrl}events";
+  static const String eventsListUrl = "${apiBaseUrl}events/getByDate";
   static const String createEvents = "${apiBaseUrl}events/create";
   static const String updateEvents = "${apiBaseUrl}events/update";
   static const String deleteEvents = "${apiBaseUrl}events/delete";

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/login%20screens/verify_screen_sms_mail.dart';
+import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/favourite_model_user.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/models/login_model_teacher.dart';
@@ -126,6 +127,27 @@ class SignInController extends GetxController {
           pref.setBool('isLoggedIn', true);
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('type', value.data!.userType.toString());
+          List<String> classList = value.data!.classArr!.map((item) => json.encode(item)).toList();
+          print("classList : $classList");
+
+          pref.setStringList('classArr', classList);
+
+          List<String>? classListJson = pref.getStringList('classArr');
+          print('Retrieved List from SharedPreferences: $classListJson');
+
+          List<MyClass> resultList =
+          (classListJson ?? []).map<MyClass>((jsonString) {
+            return MyClass.fromJson(json.decode(jsonString));
+          }).toList();
+          print('Retrieved List model from resultList: $resultList');
+
+
+          // List<Map<String, dynamic>> resultMapList =
+          // (classListJson ?? []).map<Map<String, dynamic>>((jsonString) {
+          //   return json.decode(jsonString);
+          // }).toList();
+          // print('Retrieved List<mAP> resultMapList: $resultMapList');
+
           Get.offAllNamed(MyRouters.drawerForTeacher);
 
         } else if (userType.value == "student") {

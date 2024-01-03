@@ -36,6 +36,9 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
   @override
   void initState() {
     super.initState();
+    classTimeController.getMyClass();
+    // classTimeController.getTimeTableData();
+
     year.value = DateFormat('yyyy').format(DateTime.now());
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
@@ -55,7 +58,6 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
             alignment: .5);
       });
     });
-    classTimeController.getTimeTableData();
  }
 
   List<GlobalKey> keysList = [];
@@ -119,6 +121,12 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+        ),
       ),
       body: Stack(
         children: [
@@ -138,7 +146,8 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
             ),
           ),
           Container(
-              height: 190,
+              // height: 200,
+              height: size.height*.250,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -283,7 +292,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
                         transformAlignment: Alignment.center,
-                        width: size.width * .45,
+                        // width: size.width * .45,
                         padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
                         decoration: BoxDecoration(
                           // color: Colors.white,
@@ -293,16 +302,6 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Class-8',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
                               Text(year.value.toString(),
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
@@ -317,6 +316,105 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                               //       color: Colors.black),
                               //   textAlign: TextAlign.center,
                               // ),
+                              classTimeController.classList.value.isEmpty ? SizedBox.shrink() : Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text('Class -',
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: Colors.black,),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Obx(
+                                        () {
+                                      return DropdownButtonHideUnderline(
+                                        child: DropdownButton(
+                                          value:  classTimeController.selectedClassId?.value,
+                                          // style: TextStyle(
+                                          //     color: Colors.green,
+                                          //     fontSize: 12,
+                                          //     fontWeight: FontWeight.w300),
+                                          icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
+                                          items: classTimeController.classList.value.toList().map((items) {
+                                            return DropdownMenuItem(
+                                              value: items.id,
+                                              child: Text(items.name,style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: classTimeController.selectedClassId?.value == items.id
+                                                    ? Colors.black
+                                                // Colors.grey.shade900 // Change the color for selected item
+                                                    : Colors.black, // Default color for unselected items
+                                              ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          onChanged: (newValue) {
+                                            // print(newValue);
+                                            classTimeController.selectedClassId!.value = newValue!;
+                                            print(classTimeController.selectedClassId?.value);
+
+                                            classTimeController.getTimeTableData(classId: classTimeController.selectedClassId.value);
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  // SizedBox(
+                                  //   height: 20,
+                                  //   width: 40,
+                                  //   child: DropdownButtonFormField(
+                                  //     focusColor: Colors.grey.shade50,
+                                  //     isExpanded: true,
+                                  //     iconEnabledColor: const Color(0xff97949A),
+                                  //     icon: const Icon(Icons.keyboard_arrow_down),
+                                  //     hint: Text(
+                                  //       classTimeController.selectedClassId.value.toString(),
+                                  //       style: const TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 12,
+                                  //           fontWeight: FontWeight.w300),
+                                  //       textAlign: TextAlign.justify,
+                                  //     ),
+                                  //     decoration: InputDecoration(
+                                  //         fillColor: Colors.grey.shade50,
+                                  //         contentPadding: const EdgeInsets.symmetric(
+                                  //             horizontal: 20, vertical: 13),
+                                  //         focusedBorder: OutlineInputBorder(
+                                  //           borderSide:
+                                  //           BorderSide(color: Colors.grey.shade300),
+                                  //           borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
+                                  //         ),
+                                  //         enabledBorder: const OutlineInputBorder(
+                                  //             borderSide:
+                                  //             BorderSide(color: Color(0xffE3E3E3)),
+                                  //             borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25))
+                                  //         )
+                                  //     ),
+                                  //     value: classTimeController.selectedClassId.value,
+                                  //     items: classTimeController.classList.value.toList().map((items) {
+                                  //       return DropdownMenuItem(
+                                  //         value: items.id,
+                                  //         child: Text(
+                                  //           items.name,
+                                  //           style: const TextStyle(
+                                  //               color: Colors.grey, fontSize: 14),
+                                  //         ),
+                                  //       );
+                                  //     }).toList(),
+                                  //     onChanged: (newValue) {
+                                  //         classTimeController.selectedClassId.value = newValue!;
+                                  //     },
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -537,6 +635,9 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
               ),
               child: Obx(() {
                 return  !classTimeController.isDataLoading.value ?
+                classTimeController.getTimetableModel.value.data!.isEmpty ?
+                    Center(child: Text('No time table available'))
+                    :
                 SingleChildScrollView(
                   // physics: BouncingScrollPhysics(),
                   child: Column(
@@ -556,9 +657,10 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
                             var value = classTimeController.getTimetableModel.value.data![index] ;
-                            DateTime dateTime = DateTime.parse(value.from!);
+                            // DateTime dateTime = DateTime.parse(value.from!);
                             // Format the DateTime object to display time in AM/PM format
-                            String formattedTime = DateFormat('h:mm a').format(dateTime);
+                            // String formattedTime = DateFormat('h:mm a').format(dateTime);
+                            String formattedTime = value.fromTime!;
 
                             print("Formatted Time: $formattedTime");
 
@@ -639,12 +741,12 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: IconButton(onPressed: (){
-                                        Get.toNamed(MyRouters.createTimeTableScreen);
-                                      },
-                                          icon: const Icon(Icons.edit,size: 19,)),
-                                    ),
+                                    // Expanded(
+                                    //   child: IconButton(onPressed: (){
+                                    //     Get.toNamed(MyRouters.createTimeTableScreen);
+                                    //   },
+                                    //       icon: const Icon(Icons.edit,size: 19,)),
+                                    // ),
                                     Expanded(
                                       child: IconButton(onPressed: (){
                                         classTimeController.deleteTimetableAPI(context,value.id!);

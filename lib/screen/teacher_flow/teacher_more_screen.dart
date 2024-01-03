@@ -15,3 +15,5 @@ class _TeacherMoreScreenState extends State<TeacherMoreScreen> {
     return Container();
   }
 }
+
+// Get.toNamed(MyRouters.myProfileTeacher);

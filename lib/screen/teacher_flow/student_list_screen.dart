@@ -45,9 +45,9 @@ class _StudentListScreenState extends State<StudentListScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (){
-
+            Get.back();
           },
-          icon: Image.asset(AppAssets.moreIcon,width: 25,height: 25,),
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
 
