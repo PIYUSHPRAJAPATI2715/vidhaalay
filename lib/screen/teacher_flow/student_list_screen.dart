@@ -179,7 +179,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                   return InkWell(
                                     onTap: () {
                                       Get.toNamed(
-                                          MyRouters.studentDetailsScreen);
+                                          MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
                                     },
                                     child: Column(
                                       children: [

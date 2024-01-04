@@ -1216,7 +1216,6 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                           (value) {
                                                         _handleTabChange();
                                                       });
-
                                                   // Get.toNamed(MyRouters
                                                   //     .favoritesScreen);
                                                 },
@@ -1228,7 +1227,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                 const Icon(
                                                   Icons.favorite_border,
                                                   size: 21,
-                                                  color:AppThemes.primaryColor,
+                                                    color: AppThemes.hightlightFavourite
                                                 )
                                             )
                                         ),

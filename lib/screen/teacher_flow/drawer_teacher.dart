@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/models/login_model.dart';
+import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
@@ -391,7 +395,9 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         SizedBox(height: size.height*.05,),
                         InkWell(
                           onTap: (){
-                            Get.offAllNamed(MyRouters.signInPage);
+                            logOutUser();
+
+                            // Get.offAllNamed(MyRouters.signInPage);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
@@ -447,6 +453,22 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
         ],
       ),
     );
+  }
+
+  logOutUser() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    LoginModel modelSiteSettings = LoginModel();
+    if (sharedPreference.getString("token") != null) {
+      modelSiteSettings =
+          LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
+    }
+    await sharedPreference.clear();
+    Get.offAllNamed(MyRouters.signInPage);
+    showToast("Logged out");
+    if (modelSiteSettings.data != null) {
+      sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+    }
+    sharedPreference.setBool("isFirstTime", false);
   }
 
   void _showAlertDialog(BuildContext context) {

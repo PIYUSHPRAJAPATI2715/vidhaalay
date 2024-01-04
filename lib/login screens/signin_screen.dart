@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 // import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -290,19 +291,50 @@ class _SignInPageState extends State<SignInPage> {
                           height: size.height * 0.030,
                         ),
 
-                        Container(
-                          height: 50,
-                          width: Get.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.grey, width: 0.5)),
-                          child: DropdownButton(
-                            value: signInController.userType.value,
+                        DropdownButtonHideUnderline(
+                          child: DropdownButtonFormField2<String>(
                             isExpanded: true,
-                            underline : Container(),
-                            icon: const Icon(Icons.keyboard_arrow_down),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                              hintText: 'Select Role',
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey!.withOpacity(0.5),
+                                      width: 1
+                                  )
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey!.withOpacity(0.5),
+                                      width: 1
+                                  )
+                              ),
+                            ),
+                            value: signInController.userType.value,
                             items: signInController.userTypeData.map((Map items) {
                               return DropdownMenuItem(
                                 value: items['key'].toString(),
@@ -321,9 +353,71 @@ class _SignInPageState extends State<SignInPage> {
                               // setState(() {
                               // });
                             },
+                            validator: (value) {
+                              print("validator :  $value");
+                              if (value == null || value.isEmpty) {
+                                return 'Please select role';
+                              } else {
+                                return null;
+                              }
+                            },
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: size.height * 0.28,
+                              width: size.width * 0.90,
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              isOverButton: false,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: Colors.white,
+                              ),
+                              offset: const Offset(0, -10),
+                              scrollbarTheme: ScrollbarThemeData(
+                                radius: const Radius.circular(40),
+                                thickness: MaterialStateProperty.all<double>(6),
+                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 45,
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                            ),
                           ),
                         ),
 
+                        // Container(
+                        //   height: 50,
+                        //   width: Get.width,
+                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(25),
+                        //       border:
+                        //           Border.all(color: Colors.grey, width: 0.5)),
+                        //   child: DropdownButton(
+                        //     isExpanded: true,
+                        //     underline : Container(),
+                        //     icon: const Icon(Icons.keyboard_arrow_down),
+                        //     value: signInController.userType.value,
+                        //     items: signInController.userTypeData.map((Map items) {
+                        //       return DropdownMenuItem(
+                        //         value: items['key'].toString(),
+                        //         child : Text(
+                        //           items['value'].toString(),
+                        //           style: const TextStyle(
+                        //             color: Colors.grey,
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }).toList(),
+                        //     onChanged: (value) {
+                        //       print(value);
+                        //       signInController.userType.value =
+                        //           value.toString();
+                        //       // setState(() {
+                        //       // });
+                        //     },
+                        //   ),
+                        // ),
+                        /* */
                         // Container(
                         //   height: 50,
                         //   width: Get.width,

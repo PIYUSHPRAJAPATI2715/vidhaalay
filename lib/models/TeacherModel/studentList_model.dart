@@ -1,4 +1,4 @@
-class StudentList {
+    class StudentList {
   List<Data>? data;
   bool? status;
   String? msg;
