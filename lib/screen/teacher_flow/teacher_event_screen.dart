@@ -192,7 +192,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
           ),
 
           Container(
-              height: size.height * .239,
+              height: size.height*.250,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -594,7 +594,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
           // ),
 
           Positioned.fill(
-            top: size.height * .260,
+            top: size.height*.250,
             child: Container(
                 height: size.height,
                 width: size.width,

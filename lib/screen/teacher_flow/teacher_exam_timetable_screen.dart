@@ -133,7 +133,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
             ),
           ),
           Container(
-              height: 190,
+              height: size.height * .250,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),

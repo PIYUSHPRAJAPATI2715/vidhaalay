@@ -17,7 +17,8 @@ class UpdateEventController extends GetxController {
   TextEditingController message = TextEditingController();
   TextEditingController eventName = TextEditingController();
 
-  RxString? selectClass;
+  String? selectClass;
+  // RxString? selectClass;
   // String selectClass = 'Select Class';
   RxList selectClassData = [
     // 'Select Class',

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -102,7 +103,7 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
             ),
           ),
           Container(
-              height: 175,
+              height: size.height*.230,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -187,68 +188,154 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
                               const SizedBox(
                                 height: 5,
                               ),
-                              DropdownButtonFormField<String>(
-                                value: updateEventController.selectClass?.value,
-                                items: updateEventController.selectClassData.toList()
-                                    .map((item) => DropdownMenuItem(
-                                  value: item.toString(),
-                                  child: Text(item),
-                                )).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    updateEventController.selectClass!.value = value!;
-                                  });
-                                },
-                                menuMaxHeight: size.height * 0.25,
-                                borderRadius: BorderRadius.circular(10),
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15,
-                                ),
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                  hintText: 'Select Class',
-                                  hintStyle: const TextStyle(
+                              DropdownButtonHideUnderline(
+                                child: DropdownButtonFormField2<String>(
+                                  isExpanded: true,
+                                  style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 15,
                                   ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                    hintText: 'Select Class',
+                                    hintStyle: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
                                     ),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.red,
-                                        width: 1
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
+                                    errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(50),
                                       borderSide: BorderSide(
-                                          color: Colors.grey!.withOpacity(0.5),
+                                          color: Colors.red,
                                           width: 1
-                                      )
-                                  ),
-
-                                  focusedBorder: OutlineInputBorder(
+                                      ),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(50),
                                       borderSide: BorderSide(
-                                          color: Colors.grey!.withOpacity(0.5),
+                                          color: Colors.red,
                                           width: 1
-                                      )
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey!.withOpacity(0.5),
+                                            width: 1
+                                        )
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.grey!.withOpacity(0.5),
+                                            width: 1
+                                        )
+                                    ),
+                                  ),
+                                  items: updateEventController.selectClassData.toList()
+                                      .map((item) => DropdownMenuItem(
+                                    value: item.toString(),
+                                    child: Text(item),
+                                  )).toList(),
+                                  value: updateEventController.selectClass,
+                                  validator: (value) {
+                                    print("validator :  $value");
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please select class';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  onChanged: (value) {
+                                    setState(() {
+                                      print(value);
+                                      updateEventController.selectClass = value;
+                                    });
+                                  },
+                                  dropdownStyleData: DropdownStyleData(
+                                    maxHeight: size.height * 0.28,
+                                    width: size.width * 0.92,
+                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                    isOverButton: false,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color: Colors.white,
+                                    ),
+                                    offset: const Offset(0, -10),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                      radius: const Radius.circular(40),
+                                      thickness: MaterialStateProperty.all<double>(6),
+                                      thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                    ),
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 45,
+                                    padding: EdgeInsets.only(left: 10, right: 10),
                                   ),
                                 ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select class';
-                                  }
-                                  return null;
-                                },
                               ),
+
+                              // DropdownButtonFormField<String>(
+                              //   value: updateEventController.selectClass?.value,
+                              //   items: updateEventController.selectClassData.toList()
+                              //       .map((item) => DropdownMenuItem(
+                              //     value: item.toString(),
+                              //     child: Text(item),
+                              //   )).toList(),
+                              //   onChanged: (value) {
+                              //     setState(() {
+                              //       updateEventController.selectClass!.value = value!;
+                              //     });
+                              //   },
+                              //   menuMaxHeight: size.height * 0.25,
+                              //   borderRadius: BorderRadius.circular(10),
+                              //   style: TextStyle(
+                              //     color: Colors.grey,
+                              //     fontSize: 15,
+                              //   ),
+                              //   decoration: InputDecoration(
+                              //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                              //     hintText: 'Select Class',
+                              //     hintStyle: const TextStyle(
+                              //       color: Colors.grey,
+                              //       fontSize: 15,
+                              //     ),
+                              //     errorBorder: OutlineInputBorder(
+                              //       borderRadius: BorderRadius.circular(50),
+                              //       borderSide: BorderSide(
+                              //           color: Colors.red,
+                              //           width: 1
+                              //       ),
+                              //     ),
+                              //     focusedErrorBorder: OutlineInputBorder(
+                              //       borderRadius: BorderRadius.circular(50),
+                              //       borderSide: BorderSide(
+                              //           color: Colors.red,
+                              //           width: 1
+                              //       ),
+                              //     ),
+                              //     enabledBorder: OutlineInputBorder(
+                              //         borderRadius: BorderRadius.circular(50),
+                              //         borderSide: BorderSide(
+                              //             color: Colors.grey!.withOpacity(0.5),
+                              //             width: 1
+                              //         )
+                              //     ),
+                              //
+                              //     focusedBorder: OutlineInputBorder(
+                              //         borderRadius: BorderRadius.circular(50),
+                              //         borderSide: BorderSide(
+                              //             color: Colors.grey!.withOpacity(0.5),
+                              //             width: 1
+                              //         )
+                              //     ),
+                              //   ),
+                              //   validator: (value) {
+                              //     if (value == null || value.isEmpty) {
+                              //       return 'Please select class';
+                              //     }
+                              //     return null;
+                              //   },
+                              // ),
 
                               // Container(
                               //   height: 50,

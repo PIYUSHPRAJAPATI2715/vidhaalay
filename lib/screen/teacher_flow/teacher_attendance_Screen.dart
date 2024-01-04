@@ -76,7 +76,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
             ),
           ),
           Container(
-              height: 180,
+              height: size.height*.230,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -127,7 +127,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
           ),
 
           Positioned.fill(
-            top: size.height*.235,
+            top : size.height*.230,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 40,horizontal: 10).copyWith(bottom: 0),
               height: size.height,

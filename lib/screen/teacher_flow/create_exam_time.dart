@@ -137,7 +137,7 @@ class _CreateExamTimeTableState extends State<CreateExamTimeTable> {
             ),
           ),
           Container(
-              height: 155,
+              height: size.height*.230,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -188,7 +188,7 @@ class _CreateExamTimeTableState extends State<CreateExamTimeTable> {
           ),
 
           Positioned.fill(
-            top: size.height*.204,
+            top: size.height*.230,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 15).copyWith(bottom: 0),
               height: size.height,

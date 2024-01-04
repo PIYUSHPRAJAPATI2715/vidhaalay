@@ -91,7 +91,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
             ),
           ),
           Container(
-              height: 175,
+              height: size.height*.230,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
@@ -34,11 +35,13 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
     'Monday', 'Tuesday', 'Wednesday',
   ];
 
-  String teacher = 'Select teacher';
+  String? teacher;
+  // String teacher = 'Select teacher';
   var teacherData = [
     'Select teacher',
     'Monika', 'Sumit', 'Ram',
   ];
+
   String selectedPeriod = 'AM';
   var selectedPeriodData = [
     'AM',
@@ -111,7 +114,9 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
             ),
           ),
           Container(
-              height: 155,
+              // height: 155,
+              height: size.height*.230,
+
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -162,7 +167,9 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
           ),
 
           Positioned.fill(
-            top: size.height*.204,
+            // top: size.height*.204,
+            top: size.height*.230,
+
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 15).copyWith(bottom: 0),
               height: size.height,
@@ -227,73 +234,162 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                         const SizedBox(
                                           height: 8,
                                         ),
-                                        DropdownButtonFormField<String>(
-                                          value: selectSubject,
-                                          items: selectSubjectData.toList()
-                                              .map((item) => DropdownMenuItem(
-                                            value: item,
-                                            child: Text(item),
 
-                                          ))
-                                              .toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectSubject = value!;
-                                            });
-                                          },
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 15,
-                                          ),
-                                          menuMaxHeight: size.height * 0.25,
-                                          borderRadius: BorderRadius.circular(10),
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                            hintText: 'Select Subject',
-                                            hintStyle: const TextStyle(
+                                        // DropdownButtonFormField<String>(
+                                        //   value: selectSubject,
+                                        //   items: selectSubjectData.toList()
+                                        //       .map((item) => DropdownMenuItem(
+                                        //     value: item,
+                                        //     child: Text(item),
+                                        //
+                                        //   ))
+                                        //       .toList(),
+                                        //   onChanged: (value) {
+                                        //     setState(() {
+                                        //       selectSubject = value!;
+                                        //     });
+                                        //   },
+                                        //   style: TextStyle(
+                                        //     color: Colors.grey,
+                                        //     fontSize: 15,
+                                        //   ),
+                                        //   menuMaxHeight: size.height * 0.25,
+                                        //   borderRadius: BorderRadius.circular(10),
+                                        //   decoration: InputDecoration(
+                                        //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                        //     hintText: 'Select Subject',
+                                        //     hintStyle: const TextStyle(
+                                        //       color: Colors.grey,
+                                        //       fontSize: 15,
+                                        //     ),
+                                        //     errorBorder: OutlineInputBorder(
+                                        //       borderRadius: BorderRadius.circular(50),
+                                        //       borderSide: BorderSide(
+                                        //           color: Colors.red,
+                                        //           width: 1
+                                        //       ),
+                                        //     ),
+                                        //     focusedErrorBorder: OutlineInputBorder(
+                                        //       borderRadius: BorderRadius.circular(50),
+                                        //       borderSide: BorderSide(
+                                        //           color: Colors.red,
+                                        //           width: 1
+                                        //       ),
+                                        //     ),
+                                        //     enabledBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.circular(50),
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.grey!.withOpacity(0.5),
+                                        //             width: 1
+                                        //         )
+                                        //     ),
+                                        //
+                                        //     focusedBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.circular(50),
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.grey!.withOpacity(0.5),
+                                        //             width: 1
+                                        //         )
+                                        //     ),
+                                        //   ),
+                                        //   validator: (value) {
+                                        //     if (value == null || value.isEmpty) {
+                                        //       return 'Please select Subject';
+                                        //     }
+                                        //     return null;
+                                        //   },
+                                        //   // validator: MultiValidator([
+                                        //   //   RequiredValidator(errorText: 'Please select an item'),
+                                        //   // ]),
+                                        // ),
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButtonFormField2<String>(
+                                            isExpanded: true,
+                                            style: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 15,
                                             ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(50),
-                                              borderSide: BorderSide(
-                                                  color: Colors.red,
-                                                  width: 1
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                              hintText: 'Select Subject',
+                                              hintStyle: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15,
                                               ),
-                                            ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(50),
-                                              borderSide: BorderSide(
-                                                  color: Colors.red,
-                                                  width: 1
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
+                                              errorBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(50),
                                                 borderSide: BorderSide(
-                                                    color: Colors.grey!.withOpacity(0.5),
+                                                    color: Colors.red,
                                                     width: 1
-                                                )
+                                                ),
+                                              ),
+                                              focusedErrorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(50),
+                                                borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey!.withOpacity(0.5),
+                                                      width: 1
+                                                  )
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey!.withOpacity(0.5),
+                                                      width: 1
+                                                  )
+                                              ),
                                             ),
+                                            value: selectSubject,
+                                            items: selectSubjectData.toList()
+                                                .map((item) => DropdownMenuItem(
+                                              value: item,
+                                              child: Text(item),
 
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.circular(50),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey!.withOpacity(0.5),
-                                                    width: 1
-                                                )
+                                            ))
+                                                .toList(),
+                                            validator: (value) {
+                                              print("validator :  $value");
+                                              if (value == null || value.isEmpty) {
+                                                return 'Please select subject';
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            onChanged: (value) {
+                                              setState(() {
+                                                print(value);
+                                                selectSubject = value;
+                                              });
+                                            },
+                                            dropdownStyleData: DropdownStyleData(
+                                              maxHeight: size.height * 0.28,
+                                              width: size.width * 0.84,
+                                              padding: EdgeInsets.symmetric(horizontal: 5),
+                                              isOverButton: false,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(14),
+                                                color: Colors.white,
+                                              ),
+                                              offset: const Offset(0, -10),
+                                              scrollbarTheme: ScrollbarThemeData(
+                                                radius: const Radius.circular(40),
+                                                thickness: MaterialStateProperty.all<double>(6),
+                                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                              ),
+                                            ),
+                                            menuItemStyleData: const MenuItemStyleData(
+                                              height: 45,
+                                              padding: EdgeInsets.only(left: 10, right: 10),
                                             ),
                                           ),
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please select Subject';
-                                            }
-                                            return null;
-                                          },
-                                          // validator: MultiValidator([
-                                          //   RequiredValidator(errorText: 'Please select an item'),
-                                          // ]),
                                         ),
+
                                         // Container(
                                         //   height: 50,
                                         //   width: Get.width,
@@ -359,124 +455,159 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                         const SizedBox(
                                           height: 8,
                                         ),
-                                        DropdownButtonFormField<String>(
-                                          value: weekday,
-                                          items: weekdayData.toList()
-                                              .map((item) => DropdownMenuItem(
-                                            value: item,
-                                            child: Text(item),
-                                          ))
-                                              .toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              weekday = value!;
-                                            });
-                                          },
-                                          menuMaxHeight: size.height * 0.25,
-                                          borderRadius: BorderRadius.circular(10),
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 15,
-                                          ),
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                            hintText: 'Select weekday',
-                                            hintStyle: const TextStyle(
+                                        // DropdownButtonFormField<String>(
+                                        //   value: weekday,
+                                        //   items: weekdayData.toList()
+                                        //       .map((item) => DropdownMenuItem(
+                                        //     value: item,
+                                        //     child: Text(item),
+                                        //   ))
+                                        //       .toList(),
+                                        //   onChanged: (value) {
+                                        //     setState(() {
+                                        //       weekday = value!;
+                                        //     });
+                                        //   },
+                                        //   menuMaxHeight: size.height * 0.25,
+                                        //   borderRadius: BorderRadius.circular(10),
+                                        //   style: TextStyle(
+                                        //     color: Colors.grey,
+                                        //     fontSize: 15,
+                                        //   ),
+                                        //   decoration: InputDecoration(
+                                        //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                        //     hintText: 'Select weekday',
+                                        //     hintStyle: const TextStyle(
+                                        //       color: Colors.grey,
+                                        //       fontSize: 15,
+                                        //     ),
+                                        //     errorBorder: OutlineInputBorder(
+                                        //       borderRadius: BorderRadius.circular(50),
+                                        //       borderSide: BorderSide(
+                                        //           color: Colors.red,
+                                        //           width: 1
+                                        //       ),
+                                        //     ),
+                                        //     focusedErrorBorder: OutlineInputBorder(
+                                        //       borderRadius: BorderRadius.circular(50),
+                                        //       borderSide: BorderSide(
+                                        //           color: Colors.red,
+                                        //           width: 1
+                                        //       ),
+                                        //     ),
+                                        //     enabledBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.circular(50),
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.grey!.withOpacity(0.5),
+                                        //             width: 1
+                                        //         )
+                                        //     ),
+                                        //
+                                        //     focusedBorder: OutlineInputBorder(
+                                        //         borderRadius: BorderRadius.circular(50),
+                                        //         borderSide: BorderSide(
+                                        //             color: Colors.grey!.withOpacity(0.5),
+                                        //             width: 1
+                                        //         )
+                                        //     ),
+                                        //   ),
+                                        //   validator: (value) {
+                                        //     if (value == null || value.isEmpty) {
+                                        //       return 'Please select weekday';
+                                        //     }
+                                        //     return null;
+                                        //   },
+                                        //   // validator: MultiValidator([
+                                        //   //   RequiredValidator(errorText: 'Please select an item'),
+                                        //   // ]),
+                                        // ),
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButtonFormField2<String>(
+                                            isExpanded: true,
+                                            style: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 15,
                                             ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(50),
-                                              borderSide: BorderSide(
-                                                  color: Colors.red,
-                                                  width: 1
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                              hintText: 'Select Weekday',
+                                              hintStyle: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15,
                                               ),
-                                            ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(50),
-                                              borderSide: BorderSide(
-                                                  color: Colors.red,
-                                                  width: 1
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
+                                              errorBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(50),
                                                 borderSide: BorderSide(
-                                                    color: Colors.grey!.withOpacity(0.5),
+                                                    color: Colors.red,
                                                     width: 1
-                                                )
-                                            ),
-                                    
-                                            focusedBorder: OutlineInputBorder(
+                                                ),
+                                              ),
+                                              focusedErrorBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(50),
                                                 borderSide: BorderSide(
-                                                    color: Colors.grey!.withOpacity(0.5),
+                                                    color: Colors.red,
                                                     width: 1
-                                                )
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey!.withOpacity(0.5),
+                                                      width: 1
+                                                  )
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey!.withOpacity(0.5),
+                                                      width: 1
+                                                  )
+                                              ),
+                                            ),
+                                            value: weekday,
+                                            items: weekdayData.toList()
+                                                .map((item) => DropdownMenuItem(
+                                              value: item,
+                                              child: Text(item),
+                                            ))
+                                                .toList(),
+                                            validator: (value) {
+                                              print("validator :  $value");
+                                              if (value == null || value.isEmpty) {
+                                                return 'Please select weekday';
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            onChanged: (value) {
+                                              setState(() {
+                                                print(value);
+                                                weekday = value;
+                                              });
+                                            },
+                                            dropdownStyleData: DropdownStyleData(
+                                              maxHeight: size.height * 0.28,
+                                              width: size.width * 0.84,
+                                              padding: EdgeInsets.symmetric(horizontal: 5),
+                                              isOverButton: false,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(14),
+                                                color: Colors.white,
+                                              ),
+                                              offset: const Offset(0, -10),
+                                              scrollbarTheme: ScrollbarThemeData(
+                                                radius: const Radius.circular(40),
+                                                thickness: MaterialStateProperty.all<double>(6),
+                                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                              ),
+                                            ),
+                                            menuItemStyleData: const MenuItemStyleData(
+                                              height: 45,
+                                              padding: EdgeInsets.only(left: 10, right: 10),
                                             ),
                                           ),
-                                          validator: (value) {
-                                            if (value == null || value.isEmpty) {
-                                              return 'Please select weekday';
-                                            }
-                                            return null;
-                                          },
-                                          // validator: MultiValidator([
-                                          //   RequiredValidator(errorText: 'Please select an item'),
-                                          // ]),
                                         ),
-                                    
-                                        // Container(
-                                        //   height: 50,
-                                        //   width: Get.width,
-                                        //   decoration: BoxDecoration(
-                                        //     borderRadius: BorderRadius.circular(25),
-                                        //   ),
-                                        //   child: DropdownButtonFormField(
-                                        //     focusColor: Colors.grey.shade50,
-                                        //     isExpanded: true,
-                                        //     iconEnabledColor: const Color(0xff97949A),
-                                        //     icon: const Icon(Icons.keyboard_arrow_down),
-                                        //     hint: Text(
-                                        //       weekday,
-                                        //       style: const TextStyle(
-                                        //           color: Color(0xff463B57),
-                                        //           fontSize: 16,
-                                        //           fontWeight: FontWeight.w300),
-                                        //       textAlign: TextAlign.justify,
-                                        //     ),
-                                        //     decoration: InputDecoration(
-                                        //         fillColor: Colors.grey.shade50,
-                                        //         contentPadding: const EdgeInsets.symmetric(
-                                        //             horizontal: 20, vertical: 10),
-                                        //         focusedBorder: OutlineInputBorder(
-                                        //           borderSide:
-                                        //           BorderSide(color: Colors.grey.shade300),
-                                        //           borderRadius: BorderRadius.circular(25.0),
-                                        //         ),
-                                        //         enabledBorder: const OutlineInputBorder(
-                                        //             borderSide:
-                                        //             BorderSide(color: Color(0xffE3E3E3)),
-                                        //             borderRadius: BorderRadius.all(
-                                        //                 Radius.circular(25.0)))),
-                                        //     value: weekday,
-                                        //     items: weekdayData.map((String items) {
-                                        //       return DropdownMenuItem(
-                                        //         value: items,
-                                        //         child: Text(
-                                        //           items,
-                                        //           style: const TextStyle(
-                                        //               color: Colors.grey, fontSize: 14),
-                                        //         ),
-                                        //       );
-                                        //     }).toList(),
-                                        //     onChanged: (String? newValue) {
-                                        //       setState(() {
-                                        //         weekday = newValue!;
-                                        //       });
-                                        //     },
-                                        //   ),
-                                        // ),
+
                                         const SizedBox(
                                           height: 18,
                                         ),
@@ -647,39 +778,100 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                         const SizedBox(
                                           height: 8,
                                         ),
-                                        Container(
-                                          height: 50,
-                                          width: Get.width,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(25),
-                                          ),
-                                          child: DropdownButtonFormField(
-                                            focusColor: Colors.grey.shade50,
+                                        // Container(
+                                        //   height: 50,
+                                        //   width: Get.width,
+                                        //   decoration: BoxDecoration(
+                                        //     borderRadius: BorderRadius.circular(25),
+                                        //   ),
+                                        //   child: DropdownButtonFormField(
+                                        //     focusColor: Colors.grey.shade50,
+                                        //     isExpanded: true,
+                                        //     iconEnabledColor: const Color(0xff97949A),
+                                        //     icon: const Icon(Icons.keyboard_arrow_down),
+                                        //     hint: Text(
+                                        //       teacher,
+                                        //       style: const TextStyle(
+                                        //           color: Color(0xff463B57),
+                                        //           fontSize: 16,
+                                        //           fontWeight: FontWeight.w300),
+                                        //       textAlign: TextAlign.justify,
+                                        //     ),
+                                        //     decoration: InputDecoration(
+                                        //         fillColor: Colors.grey.shade50,
+                                        //         contentPadding: const EdgeInsets.symmetric(
+                                        //             horizontal: 20, vertical: 10),
+                                        //         focusedBorder: OutlineInputBorder(
+                                        //           borderSide:
+                                        //           BorderSide(color: Colors.grey.shade300),
+                                        //           borderRadius: BorderRadius.circular(25.0),
+                                        //         ),
+                                        //         enabledBorder: const OutlineInputBorder(
+                                        //             borderSide:
+                                        //             BorderSide(color: Color(0xffE3E3E3)),
+                                        //             borderRadius: BorderRadius.all(
+                                        //                 Radius.circular(25.0)))),
+                                        //     value: teacher,
+                                        //     items: teacherData.map((String items) {
+                                        //       return DropdownMenuItem(
+                                        //         value: items,
+                                        //         child: Text(
+                                        //           items,
+                                        //           style: const TextStyle(
+                                        //               color: Colors.grey, fontSize: 14),
+                                        //         ),
+                                        //       );
+                                        //     }).toList(),
+                                        //     onChanged: (String? newValue) {
+                                        //       setState(() {
+                                        //         teacher = newValue!;
+                                        //       });
+                                        //     },
+                                        //   ),
+                                        // ),
+                                        DropdownButtonHideUnderline(
+                                          child: DropdownButtonFormField2<String>(
                                             isExpanded: true,
-                                            iconEnabledColor: const Color(0xff97949A),
-                                            icon: const Icon(Icons.keyboard_arrow_down),
-                                            hint: Text(
-                                              teacher,
-                                              style: const TextStyle(
-                                                  color: Color(0xff463B57),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w300),
-                                              textAlign: TextAlign.justify,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
                                             ),
                                             decoration: InputDecoration(
-                                                fillColor: Colors.grey.shade50,
-                                                contentPadding: const EdgeInsets.symmetric(
-                                                    horizontal: 20, vertical: 10),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderSide:
-                                                  BorderSide(color: Colors.grey.shade300),
-                                                  borderRadius: BorderRadius.circular(25.0),
+                                              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                              hintText: 'Select Teacher',
+                                              hintStyle: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15,
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(50),
+                                                borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1
                                                 ),
-                                                enabledBorder: const OutlineInputBorder(
-                                                    borderSide:
-                                                    BorderSide(color: Color(0xffE3E3E3)),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(25.0)))),
+                                              ),
+                                              focusedErrorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(50),
+                                                borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey!.withOpacity(0.5),
+                                                      width: 1
+                                                  )
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(50),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.grey!.withOpacity(0.5),
+                                                      width: 1
+                                                  )
+                                              ),
+                                            ),
                                             value: teacher,
                                             items: teacherData.map((String items) {
                                               return DropdownMenuItem(
@@ -691,13 +883,43 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                 ),
                                               );
                                             }).toList(),
-                                            onChanged: (String? newValue) {
+                                            validator: (value) {
+                                              print("validator :  $value");
+                                              if (value == null || value.isEmpty) {
+                                                return 'Please select teacher';
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            onChanged: (value) {
                                               setState(() {
-                                                teacher = newValue!;
+                                                print(value);
+                                                teacher = value;
                                               });
                                             },
+                                            dropdownStyleData: DropdownStyleData(
+                                              maxHeight: size.height * 0.28,
+                                              width: size.width * 0.84,
+                                              padding: EdgeInsets.symmetric(horizontal: 5),
+                                              isOverButton: false,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(14),
+                                                color: Colors.white,
+                                              ),
+                                              offset: const Offset(0, -10),
+                                              scrollbarTheme: ScrollbarThemeData(
+                                                radius: const Radius.circular(40),
+                                                thickness: MaterialStateProperty.all<double>(6),
+                                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                              ),
+                                            ),
+                                            menuItemStyleData: const MenuItemStyleData(
+                                              height: 45,
+                                              padding: EdgeInsets.only(left: 10, right: 10),
+                                            ),
                                           ),
                                         ),
+
                                         const SizedBox(
                                           height: 18,
                                         ),
