@@ -27,6 +27,7 @@ class AppThemes {
   static const Color lightGreyColor = Color(0xFFf8f8f8);
 
   static const Color hightlightFavourite = Colors.deepOrange;
+  static const Color red = Colors.red;
 
 
 
