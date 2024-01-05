@@ -26,14 +26,13 @@ class CreateEventController extends GetxController {
     'ram',
   ].obs;
 
-  String? selectClass;
   // String selectClass = 'Select Class';
   // RxList selectClassData = [
   //   // 'Select Class',
   //   '7th', '8th', '9th', '10th',
   //   '11th', '12th',
   // ].obs;
-  
+  String? selectClass;
   RxList<MyClass> selectClassData = <MyClass>[].obs;
   // RxInt selectClass = 0.obs;
 

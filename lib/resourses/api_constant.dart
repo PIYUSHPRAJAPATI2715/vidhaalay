@@ -67,6 +67,7 @@ class ApiUrls {
   static const String studentDetails = "${apiBaseUrl}student/view";
   static const String teacherList = "${apiBaseUrl}teacher";
   static const String subjectList = "${apiBaseUrl}subject";
+  static const String sendNotificationUrl = "${apiBaseUrl}notification/send-notification";
 
 }
 

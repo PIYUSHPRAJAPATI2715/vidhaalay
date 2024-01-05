@@ -32,7 +32,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (){},
-          icon: Image.asset(AppAssets.moreIcon,width: 25,height: 25,),
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
 

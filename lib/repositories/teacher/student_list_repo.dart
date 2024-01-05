@@ -7,8 +7,8 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 
 Future<StudentList> getStudetnListRepo({required String classId}) async {
 
-  http.Response response = await http.get(Uri.parse(ApiUrls.studentList+"/4"), headers: await getAuthHeader());
-  // http.Response response = await http.get(Uri.parse(ApiUrls.studentList+"$classId"), headers: await getAuthHeader());
+  // http.Response response = await http.get(Uri.parse(ApiUrls.studentList+"/4"), headers: await getAuthHeader());
+  http.Response response = await http.get(Uri.parse(ApiUrls.studentList+"/$classId"), headers: await getAuthHeader());
   print(response.statusCode);
 
   if (response.statusCode == 200) {

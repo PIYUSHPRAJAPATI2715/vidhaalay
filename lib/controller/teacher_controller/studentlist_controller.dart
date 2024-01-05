@@ -2,7 +2,9 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/student_details_model.dart';
+import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/student_list_repo.dart';
 import '../../models/TeacherModel/studentList_model.dart';
 import 'package:http/http.dart' as http;
@@ -15,10 +17,25 @@ class StudentListController extends GetxController{
   RxBool isDetailsLoading = false.obs;
   Rx<StudentDetails> getStudentDetailsModel = StudentDetails().obs;
 
+  RxList<MyClass> classList = <MyClass>[].obs;
+  RxInt selectedClassId = 0.obs;
 
-  Future getStudentListData() async {
+  void getMyClass() {
+    getMyClassListRepo().then((values) async {
+      // print("value : $values");
+      if(values != null) {
+        selectedClassId.value = values[0].id;
+        classList.clear();
+        classList.addAll(values);
+
+        getStudentListData(classId: selectedClassId.value.toString());
+      }
+    });
+  }
+
+  Future getStudentListData({required String classId}) async {
     isLoading.value = true;
-    await getStudetnListRepo(classId: '4').then((value) {
+    await getStudetnListRepo(classId: classId).then((value) {
       getStudentListModel.value = value;
       isLoading.value = false;
     });

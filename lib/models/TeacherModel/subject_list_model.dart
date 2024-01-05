@@ -30,24 +30,18 @@ class SubjectList {
 class Data {
   int? id;
   String? name;
-  List<int>? classId;
-  int? status;
 
-  Data({this.id, this.name, this.classId, this.status});
+  Data({this.id, this.name});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    classId = json['class_id'].cast<int>();
-    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['class_id'] = this.classId;
-    data['status'] = this.status;
     return data;
   }
 }
