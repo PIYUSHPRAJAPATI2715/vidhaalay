@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/models/TeacherModel/event_details_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/event_list_model.dart';
+import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/repositories/get_notification_repo.dart';
+import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:vidhaalay_app/resourses/helper.dart';
 
 class EvenetDetailController extends GetxController {
-  RxBool isDataLoading = false.obs;
+  RxBool isDataLoading = true.obs;
   RxBool isDetailsLoading = false.obs;
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
   Rx<GetEventModel> getEventModel = GetEventModel().obs;
@@ -27,19 +29,35 @@ class EvenetDetailController extends GetxController {
   //     // }
   //   });
   // }
+  RxList<MyClass> classList = <MyClass>[].obs;
+  RxInt selectedClassId = 0.obs;
+  RxString selectedDate = "".obs;
 
 
-  Future<void> getEventData(String dateFormat) async {
+  void getMyClass() {
+    getMyClassListRepo().then((values) async {
+      if(values != null) {
+        selectedClassId.value = values[0].id;
+        classList.clear();
+        classList.addAll(values);
+        getEventData(classId: selectedClassId.value,dateFormat : selectedDate.value);
+      }
+    });
+  }
+
+  Future<void> getEventData({required String dateFormat,required int classId}) async {
     try {
+      print("eNTER");
 
       isDataLoading.value = true;
 
-      // Map body = {
-      //   "date": dateFormat
-      // };
-      Map body =  {
-        "date": "2023-03-04"
+      Map body = {
+        "date": dateFormat,
+        "class_id": classId
       };
+      // Map body =  {
+      //   "date": "2023-03-04"
+      // };
 
     final response = await http.post(
         Uri.parse(ApiUrls.eventsListUrl),
@@ -55,7 +73,7 @@ class EvenetDetailController extends GetxController {
         isDataLoading.value = false;
 
       } else {
-        isDataLoading.value = false;
+        // isDataLoading.value = false;
 
         throw Exception(response.body);
       }
@@ -106,7 +124,7 @@ class EvenetDetailController extends GetxController {
         if(responseData['status']) {
           // Get.back();
           Helpers.hideLoader(loader);
-          getEventData("2023-03-04");
+          getEventData(classId: selectedClassId.value,dateFormat : selectedDate.value);
         } else {
           Helpers.hideLoader(loader);
         }

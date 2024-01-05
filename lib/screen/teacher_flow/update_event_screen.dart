@@ -35,6 +35,7 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
 
   @override
   void initState() {
+    updateEventController.getMyClass();
     updateEventController.getEventDetailsData(id: widget.eventId);
     super.initState();
   }
@@ -43,7 +44,6 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-
       backgroundColor: Colors.white,
 
       appBar: AppBar(
@@ -189,7 +189,7 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
                                 height: 5,
                               ),
                               DropdownButtonHideUnderline(
-                                child: DropdownButtonFormField2<String>(
+                                child: DropdownButtonFormField2(
                                   isExpanded: true,
                                   style: TextStyle(
                                     color: Colors.grey,
@@ -233,8 +233,8 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
                                   ),
                                   items: updateEventController.selectClassData.toList()
                                       .map((item) => DropdownMenuItem(
-                                    value: item.toString(),
-                                    child: Text(item),
+                                    value: item.id.toString(),
+                                    child: Text(item.name),
                                   )).toList(),
                                   value: updateEventController.selectClass,
                                   validator: (value) {

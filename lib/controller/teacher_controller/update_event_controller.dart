@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/event_details_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/event_list_model.dart';
+import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:http/http.dart' as http;
@@ -17,15 +20,6 @@ class UpdateEventController extends GetxController {
   TextEditingController message = TextEditingController();
   TextEditingController eventName = TextEditingController();
 
-  String? selectClass;
-  // RxString? selectClass;
-  // String selectClass = 'Select Class';
-  RxList selectClassData = [
-    // 'Select Class',
-    '7th', '8th', '9th', '10th',
-    '11th', '12th',
-  ].obs;
-
   RxString selectStudent = 'Select Student'.obs;
   RxList selectStudentData = [
     'Select Student',
@@ -33,6 +27,11 @@ class UpdateEventController extends GetxController {
     'ram',
     'ram',
   ].obs;
+
+  // String selectClass = 'Select Class';
+  String? selectClass;
+  RxList<MyClass> selectClassData = <MyClass>[].obs;
+  // RxInt selectClass = 0.obs;
 
   void selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -66,6 +65,17 @@ class UpdateEventController extends GetxController {
     }
   }
 
+  void getMyClass() {
+    getMyClassListRepo().then((values) async {
+      if(values != null) {
+        selectClass = values[0].id.toString();
+        selectClassData.clear();
+        selectClassData.addAll(values);
+      }
+    });
+  }
+
+
   Future<void> getEventDetailsData({required String id}) async {
     try {
       isDetailsLoading.value =  true;
@@ -84,7 +94,7 @@ class UpdateEventController extends GetxController {
         eventName.text = getEventDetailsModel.value.data!.eventName!;
         dobController.text = getEventDetailsModel.value.data!.date!;
         message.text = getEventDetailsModel.value.data!.message!;
-
+        selectClass = getEventDetailsModel.value.data!.classId!.toString();
 
         isDetailsLoading.value =  false;
       } else {
@@ -98,18 +108,19 @@ class UpdateEventController extends GetxController {
 
   Future<void> updateEventAPI(BuildContext context,String id ,String name , String Class,String date,String message ) async {
     try {
-      // OverlayEntry loader = Helpers.overlayLoader(context);
-      // Overlay.of(context).insert(loader);
+      OverlayEntry loader = Helpers.overlayLoader(context);
+      Overlay.of(context).insert(loader);
 
       // isDataLoading.value = true;
       Map body = {
         "id": id,
         "event_name":name,
-        "event_class_id": Class,
+        "event_class_id": int.parse(selectClass!),
         "message":message,
         "date":date
       };
       // selectClass,
+      print(body);
 
       final response = await http.post(
         Uri.parse(ApiUrls.updateEvents),
@@ -123,10 +134,12 @@ class UpdateEventController extends GetxController {
 
         if(responseData['status']) {
           Get.back();
-
-          // Helpers.hideLoader(loader);
+          Helpers.hideLoader(loader);
+          final evenetDetailController = Get.put(EvenetDetailController());
+          evenetDetailController.selectedClassId.value = int.parse(selectClass!);
+          evenetDetailController.getEventData(classId: int.parse(selectClass!),dateFormat : date);
         } else {
-          // Helpers.hideLoader(loader);
+          Helpers.hideLoader(loader);
         }
         showToast(responseData['msg'].toString());
       } else {

@@ -48,8 +48,10 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
 
     String date = year.value+"-"+ month.value +"-"+ day.value;
     log(date);
+    evenetDetailController.selectedDate.value = date;
 
-    evenetDetailController.getEventData(date);
+    evenetDetailController.getMyClass();
+    // evenetDetailController.getEventData(classId: date,);
 
     getYear();
     now = DateTime.now();
@@ -202,23 +204,150 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 5),
+                    //   child: Container(
+                    //     transformAlignment: Alignment.center,
+                    //     width: size.width * .45,
+                    //     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                    //     decoration: BoxDecoration(
+                    //       // color: Colors.white,
+                    //         borderRadius: BorderRadius.circular(50)
+                    //     ),
+                    //     child: Center(
+                    //       child: Text(year.value.toString(),
+                    //         style: GoogleFonts.poppins(
+                    //             fontWeight: FontWeight.w500,
+                    //             fontSize: 17,
+                    //             color: Colors.white),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+
+                    /* */
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
                         transformAlignment: Alignment.center,
-                        width: size.width * .45,
+                        // width: size.width * .45,
                         padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
                         decoration: BoxDecoration(
                           // color: Colors.white,
                             borderRadius: BorderRadius.circular(50)
                         ),
                         child: Center(
-                          child: Text(year.value.toString(),
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17,
-                                color: Colors.white),
-                            textAlign: TextAlign.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(year.value.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                              evenetDetailController.classList.value.isEmpty ? SizedBox.shrink() : Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text('Class -',
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: Colors.black,),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Obx(
+                                        () {
+                                      return DropdownButtonHideUnderline(
+                                        child: DropdownButton(
+                                          value:  evenetDetailController.selectedClassId?.value,
+                                          // style: TextStyle(
+                                          //     color: Colors.green,
+                                          //     fontSize: 12,
+                                          //     fontWeight: FontWeight.w300),
+                                          icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
+                                          items: evenetDetailController.classList.value.toList().map((items) {
+                                            return DropdownMenuItem(
+                                              value: items.id,
+                                              child: Text(items.name,style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: evenetDetailController.selectedClassId?.value == items.id
+                                                    ? Colors.black
+                                                // Colors.grey.shade900 // Change the color for selected item
+                                                    : Colors.black, // Default color for unselected items
+                                              ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          onChanged: (newValue) {
+                                            // print(newValue);
+                                            evenetDetailController.selectedClassId!.value = newValue!;
+                                            print(evenetDetailController.selectedClassId?.value);
+
+                                            evenetDetailController.getEventData(dateFormat : evenetDetailController.selectedDate.value, classId : evenetDetailController.selectedClassId.value);
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  // SizedBox(
+                                  //   height: 20,
+                                  //   width: 40,
+                                  //   child: DropdownButtonFormField(
+                                  //     focusColor: Colors.grey.shade50,
+                                  //     isExpanded: true,
+                                  //     iconEnabledColor: const Color(0xff97949A),
+                                  //     icon: const Icon(Icons.keyboard_arrow_down),
+                                  //     hint: Text(
+                                  //       classTimeController.selectedClassId.value.toString(),
+                                  //       style: const TextStyle(
+                                  //           color: Colors.white,
+                                  //           fontSize: 12,
+                                  //           fontWeight: FontWeight.w300),
+                                  //       textAlign: TextAlign.justify,
+                                  //     ),
+                                  //     decoration: InputDecoration(
+                                  //         fillColor: Colors.grey.shade50,
+                                  //         contentPadding: const EdgeInsets.symmetric(
+                                  //             horizontal: 20, vertical: 13),
+                                  //         focusedBorder: OutlineInputBorder(
+                                  //           borderSide:
+                                  //           BorderSide(color: Colors.grey.shade300),
+                                  //           borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
+                                  //         ),
+                                  //         enabledBorder: const OutlineInputBorder(
+                                  //             borderSide:
+                                  //             BorderSide(color: Color(0xffE3E3E3)),
+                                  //             borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25))
+                                  //         )
+                                  //     ),
+                                  //     value: classTimeController.selectedClassId.value,
+                                  //     items: classTimeController.classList.value.toList().map((items) {
+                                  //       return DropdownMenuItem(
+                                  //         value: items.id,
+                                  //         child: Text(
+                                  //           items.name,
+                                  //           style: const TextStyle(
+                                  //               color: Colors.grey, fontSize: 14),
+                                  //         ),
+                                  //       );
+                                  //     }).toList(),
+                                  //     onChanged: (newValue) {
+                                  //         classTimeController.selectedClassId.value = newValue!;
+                                  //     },
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -377,6 +506,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                 onTap: () {
                                   setState(() {
                                     selectedIndex = index;
+                                    print("selectedIndex : $selectedIndex");
                                     day.value = formattedDate.length != 2
                                         ? "0$formattedDate"
                                         : formattedDate;
@@ -391,9 +521,9 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                         "${year.value}-${month.value}-${day.value}"));
 
                                     String date = year.value+"-"+ month.value +"-"+ day.value;
-                                    log(date);
+                                    evenetDetailController.selectedDate.value = date;
 
-                                    evenetDetailController.getEventData(date);
+                                    evenetDetailController.getEventData(dateFormat: evenetDetailController.selectedDate.value,classId: evenetDetailController.selectedClassId.value);
                                   });
                                 },
                                 child: Padding(
@@ -629,7 +759,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                           height: size.height * .4,
                           // color: Colors.red,
                           child: Center(
-                            child: Text("No notification found for this date",),
+                            child: Text("No event available"),
                           ),
                         )
                             : ListView.builder(

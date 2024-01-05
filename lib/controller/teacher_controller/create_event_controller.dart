@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:vidhaalay_app/models/TeacherModel/create_event_model.dart';
+import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
@@ -16,14 +18,6 @@ class CreateEventController extends GetxController {
   TextEditingController message = TextEditingController();
   TextEditingController eventName = TextEditingController();
 
-  String? selectClass;
-  // String selectClass = 'Select Class';
-  RxList selectClassData = [
-    // 'Select Class',
-    '7th', '8th', '9th', '10th',
-    '11th', '12th',
-  ].obs;
-
   RxString selectStudent = 'Select Student'.obs;
   RxList selectStudentData = [
     'Select Student',
@@ -31,6 +25,18 @@ class CreateEventController extends GetxController {
     'ram',
     'ram',
   ].obs;
+
+  String? selectClass;
+  // String selectClass = 'Select Class';
+  // RxList selectClassData = [
+  //   // 'Select Class',
+  //   '7th', '8th', '9th', '10th',
+  //   '11th', '12th',
+  // ].obs;
+  
+  RxList<MyClass> selectClassData = <MyClass>[].obs;
+  // RxInt selectClass = 0.obs;
+
 
   void selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -64,15 +70,27 @@ class CreateEventController extends GetxController {
     }
   }
 
+  void getMyClass() {
+    getMyClassListRepo().then((values) async {
+      if(values != null) {
+        selectClass = values[0].id.toString();
+        selectClassData.clear();
+        selectClassData.addAll(values);
+      }
+    });
+  }
+
+
   Future<void> createEventAPI(BuildContext context) async {
     try {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
 
       // isDataLoading.value = true;
+
       Map body = {
           "event_name": eventName.text,
-          "event_class_id": 2,
+          "event_class_id": int.parse(selectClass!),
           "message": message.text,
           "date": dobController.text
       };

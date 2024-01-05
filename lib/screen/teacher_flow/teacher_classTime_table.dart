@@ -555,6 +555,8 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                 onTap: () {
                                   setState(() {
                                     selectedIndex = index;
+                                    print("selectedIndex : $selectedIndex");
+
                                     day.value = formattedDate.length != 2
                                         ? "0$formattedDate"
                                         : formattedDate;

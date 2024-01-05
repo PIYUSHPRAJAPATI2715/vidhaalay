@@ -54,6 +54,12 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(

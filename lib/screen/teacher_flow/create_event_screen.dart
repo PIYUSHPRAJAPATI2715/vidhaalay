@@ -39,6 +39,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
 
   @override
+  void initState() {
+    createEventController.getMyClass();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -186,7 +192,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                   ),
 
                                   DropdownButtonHideUnderline(
-                                      child: DropdownButtonFormField2<String>(
+                                      child: DropdownButtonFormField2(
                                         isExpanded: true,
                                         style: TextStyle(
                                           color: Colors.grey,
@@ -230,8 +236,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                         ),
                                         items: createEventController.selectClassData.toList()
                                             .map((item) => DropdownMenuItem(
-                                          value: item.toString(),
-                                          child: Text(item),
+                                          value: item.id.toString(),
+                                          child: Text(item.name),
                                         )).toList(),
                                         value: createEventController.selectClass,
                                         validator: (value) {
@@ -244,8 +250,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                         },
                                         onChanged: (value) {
                                           setState(() {
-                                            print(value);
+                                            // print(value);
                                             createEventController.selectClass = value;
+                                            print("value : ${createEventController.selectClass}");
                                           });
                                         },
                                         dropdownStyleData: DropdownStyleData(
