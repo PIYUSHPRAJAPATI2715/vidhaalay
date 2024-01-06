@@ -60,8 +60,9 @@ class ApiUrls {
   static const String deleteEvents = "${apiBaseUrl}events/delete";
 
   static const String getTimetable = "${apiBaseUrl}timetable";
+  static const String addTimetable = "${apiBaseUrl}timetable/create";
 
-  static const String adAttendance = "${apiBaseUrl}attendance/add";
+  static const String addAttendance = "${apiBaseUrl}attendance/add";
 
   static const String studentList = "${apiBaseUrl}student";
   static const String studentDetails = "${apiBaseUrl}student/view";

@@ -288,8 +288,8 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                           // print(value);
                                           sendNotificationController
                                               .selectClass = value;
-                                          print(
-                                              "value : ${sendNotificationController.selectClass}");
+                                          sendNotificationController.getStudentListData(classId: sendNotificationController.selectClass!);
+                                          print("value0 : ${sendNotificationController.selectClass}");
                                         });
                                       },
                                       dropdownStyleData: DropdownStyleData(
@@ -557,6 +557,7 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                         fontSize: 15,
                                       ),
                                       decoration: InputDecoration(
+                                        alignLabelWithHint: true,
                                         contentPadding: EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 15),
                                         hintText: 'Select Class',
@@ -612,8 +613,8 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                       onChanged: (value) {
                                         sendNotificationController.selectClass =
                                             value;
-                                        print(
-                                            "value : ${sendNotificationController.selectClass}");
+                                        sendNotificationController.getStudentListData(classId: sendNotificationController.selectClass!);
+                                        print("value0 : ${sendNotificationController.selectClass}");
                                       },
                                       dropdownStyleData: DropdownStyleData(
                                         maxHeight: size.height * 0.28,
@@ -678,7 +679,8 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                                     fontSize: 15,
                                                   ),
                                                   decoration: InputDecoration(
-                                                    contentPadding:
+                                                    alignLabelWithHint: true,
+                                                    contentPadding: const
                                                         EdgeInsets.symmetric(
                                                             vertical: 5,
                                                             horizontal: 15),
@@ -741,10 +743,9 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                                   value:
                                                       sendNotificationController
                                                           .selectStudent,
+
                                                   validator: (value) {
-                                                    print(
-                                                        "validator :  $value");
-                                                    if (value == null ||
+                                                   if (value == null ||
                                                         value.isEmpty) {
                                                       return 'Please select student';
                                                     } else {
@@ -755,14 +756,11 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                                     sendNotificationController
                                                             .selectStudent =
                                                         value;
-                                                    print(
-                                                        sendNotificationController
+                                                    print(sendNotificationController
                                                             .selectStudent);
                                                   },
-                                                  dropdownStyleData:
-                                                      DropdownStyleData(
-                                                    maxHeight:
-                                                        size.height * 0.28,
+                                                  dropdownStyleData: DropdownStyleData(
+                                                    maxHeight: size.height * 0.28,
                                                     width: size.width * 0.92,
                                                     padding:
                                                         EdgeInsets.symmetric(

@@ -322,27 +322,9 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                                     activeColor: AppThemes.primaryColor,
                                                     onChanged: (present){
                                                       setState(() {
-                                                        // List<Map<String, dynamic>> listMap = studentAttandanceController.addAttandanceModel.map((model) => model.toJson()).toList();
-                                                        // print("Value0 : ${listMap}");
-                                                        // print("stu_id : ${value.id}");
-                                                        //
-                                                        // bool isStudentId4Present = listMap.any((map) => map['student_id'] == value.id);
-                                                        // print("isStudentId4Present : $isStudentId4Present");
-                                                        //
-                                                        // // listMap.forEach((element) {
-                                                        // //   if(element['student_id'] == ) {
-                                                        // //
-                                                        // //   } else {
-                                                        // //
-                                                        // //   }
-                                                        // // });
-
                                                         studentAttandanceController.isPresent.value[index] = present!;
-                                                        studentAttandanceController.addAttandanceModel.add(AddAttandanceModel(classId: 0,studentId: 0,present: true));
-
-
-                                                        print("Value : ${studentAttandanceController.addAttandanceModel.value}");
-
+                                                        print("present : ${studentAttandanceController.isPresent.value[index]}");
+                                                        studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
                                                       });
                                                     },
                                                   ),
@@ -353,14 +335,11 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                                     value: false,
                                                     groupValue: studentAttandanceController.isPresent.value[index],
                                                     activeColor: AppThemes.red,
-                                                    onChanged: (value){
+                                                    onChanged: (absent){
                                                       setState(() {
-                                                        studentAttandanceController.isPresent.value[index] = value!;
-                                                        studentAttandanceController.addAttandanceModel.add(AddAttandanceModel(classId: 0,studentId: 0,present: false));
-                                                        print("Value : ${studentAttandanceController.addAttandanceModel.value}");
-                                                        List<Map<String, dynamic>> listMap = studentAttandanceController.addAttandanceModel.map((model) => model.toJson()).toList();
-                                                        print("Value0 : ${listMap}");
-
+                                                        studentAttandanceController.isPresent.value[index] = absent!;
+                                                        print("absent : ${studentAttandanceController.isPresent.value[index]}");
+                                                        studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
                                                       });
                                                     },
                                                   ),
@@ -393,6 +372,43 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
               )
           ),
         ],
+      ),
+      bottomNavigationBar: Obx(
+        () => studentAttandanceController
+            .getStudentListModel.value.data !=
+            null
+            ? studentAttandanceController.getStudentListModel.value.data!.isEmpty ? SizedBox.shrink()
+            : SizedBox(
+          width: size.width,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: size.width,
+                height: 40,
+                color: AppThemes.primaryColor,
+                child: InkWell(
+                  onTap: () {
+                    studentAttandanceController.addAttandanceAPI(context);
+                  },
+                  child:  const Center(
+                    child:  Text(
+                      'SUBMIT',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ) : SizedBox.shrink(),
       ),
     );
   }

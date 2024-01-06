@@ -25,32 +25,34 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
   final createTimeTableController = Get.put(CreateTimeTableController());
   final formKey = GlobalKey<FormState>();
 
-  String? selectSubject;
-  // String selectSubject = 'Select Subject';
-  var selectSubjectData = [
-    // 'Select Subject',
-    'Science', 'Sst', 'English', 'Hindi',
-    'Math', 'Computer',
-  ];
-
-
-  String? teacher;
-  // String teacher = 'Select teacher';
-  var teacherData = [
-    'Select teacher',
-    'Monika', 'Sumit', 'Ram',
-  ];
-
+  // String? selectSubject;
+  // // String selectSubject = 'Select Subject';
+  // var selectSubjectData = [
+  //   // 'Select Subject',
+  //   'Science', 'Sst', 'English', 'Hindi',
+  //   'Math', 'Computer',
+  // ];
+  //
+  //
+  // String? teacher;
+  // // String teacher = 'Select teacher';
+  // var teacherData = [
+  //   'Select teacher',
+  //   'Monika', 'Sumit', 'Ram',
+  // ];
   String selectedPeriod = 'AM';
   var selectedPeriodData = [
     'AM',
     'PM',
   ];
+
   String selectedPeriod1 = 'AM';
   var selectedPeriod1Data = [
     'AM',
     'PM',
   ];
+
+
 
   @override
   void initState() {
@@ -403,8 +405,8 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                       },
                                                       onChanged: (value) {
                                                         // setState(() {
-                                                        selectSubject = value;
-                                                        print(selectSubject);
+                                                        createTimeTableController.selectedSubject = value;
+                                                        print(createTimeTableController.selectedSubject);
                                                         // });
                                                       },
                                                       dropdownStyleData: DropdownStyleData(
@@ -653,9 +655,10 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                   height: 18,
                                                 ),
                                                 Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: const[
-                                                    Expanded(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: size.width * 0.39,
                                                       child: Text(
                                                         'From',
                                                         style: TextStyle(
@@ -666,7 +669,8 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                       ),
                                                     ),
 
-                                                    Expanded(
+                                                    SizedBox(
+                                                      width: size.width * 0.4,
                                                       child: Text(
                                                         'To',
                                                         style: TextStyle(
@@ -682,129 +686,183 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                   height: 8,
                                                 ),
                                                 Row(
-                                                  children: <Widget>[
-                                                    Expanded(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: size.width * 0.4,
                                                       child: CommonTextfield(
+                                                        hintText: '00:00:00',
                                                         obSecure: false,
-                                                        hintText: '0:0',
+                                                        readOnly: true,
                                                         keyboardType: TextInputType.number,
-                                                        suffixIcon: Column(
-                                                          children: [
-                                                            SizedBox(
-                                                              height: 50,
-                                                              width: 90,
-                                                              child: DropdownButtonFormField(
-                                                                focusColor: Colors.grey.shade50,
-                                                                isExpanded: true,
-                                                                iconEnabledColor: const Color(0xff97949A),
-                                                                icon: const Icon(Icons.keyboard_arrow_down),
-                                                                hint: Text(
-                                                                  selectedPeriod,
-                                                                  style: const TextStyle(
-                                                                      color: Color(0xff463B57),
-                                                                      fontSize: 16,
-                                                                      fontWeight: FontWeight.w300),
-                                                                  textAlign: TextAlign.justify,
-                                                                ),
-                                                                decoration: InputDecoration(
-                                                                    fillColor: Colors.grey.shade50,
-                                                                    contentPadding: const EdgeInsets.symmetric(
-                                                                        horizontal: 20, vertical: 13),
-                                                                    focusedBorder: OutlineInputBorder(
-                                                                      borderSide:
-                                                                      BorderSide(color: Colors.grey.shade300),
-                                                                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
-                                                                    ),
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                        borderSide:
-                                                                        BorderSide(color: Color(0xffE3E3E3)),
-                                                                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)))),
-                                                                value: selectedPeriod,
-                                                                items: selectedPeriodData.map((String items) {
-                                                                  return DropdownMenuItem(
-                                                                    value: items,
-                                                                    child: Text(
-                                                                      items,
-                                                                      style: const TextStyle(
-                                                                          color: Colors.grey, fontSize: 14),
-                                                                    ),
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (String? newValue) {
-                                                                  setState(() {
-                                                                    selectedPeriod = newValue!;
-                                                                  });
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                        controller: createTimeTableController.fromTime,
+                                                        validator: (value){
+                                                          if(value!.isEmpty) {
+                                                            return "please pick a time";
+                                                          } else {
+                                                            return null;
+                                                          }
+                                                        },
+                                                        onTap: () {
+                                                          selectTime(isFromTime: true);
+                                                        },
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 8,
-                                                    ),
-                                                    Expanded(
+                                                    // const SizedBox(
+                                                    //   width: 8,
+                                                    // ),
+                                                    SizedBox(
+                                                      width: size.width * 0.4,
                                                       child: CommonTextfield(
+                                                        hintText: '00:00:00',
                                                         obSecure: false,
-                                                        hintText: '0:0',
+                                                        readOnly: true,
                                                         keyboardType: TextInputType.number,
-                                                        suffixIcon: Column(
-                                                          children: [
-                                                            SizedBox(
-                                                              height: 50,
-                                                              width: 90,
-                                                              child: DropdownButtonFormField(
-                                                                focusColor: Colors.grey.shade50,
-                                                                isExpanded: true,
-                                                                iconEnabledColor: const Color(0xff97949A),
-                                                                icon: const Icon(Icons.keyboard_arrow_down),
-                                                                hint: Text(
-                                                                  selectedPeriod1,
-                                                                  style: const TextStyle(
-                                                                      color: Color(0xff463B57),
-                                                                      fontSize: 16,
-                                                                      fontWeight: FontWeight.w300),
-                                                                  textAlign: TextAlign.justify,
-                                                                ),
-                                                                decoration: InputDecoration(
-                                                                    fillColor: Colors.grey.shade50,
-                                                                    contentPadding: const EdgeInsets.symmetric(
-                                                                        horizontal: 20, vertical: 13),
-                                                                    focusedBorder: OutlineInputBorder(
-                                                                      borderSide:
-                                                                      BorderSide(color: Colors.grey.shade300),
-                                                                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
-                                                                    ),
-                                                                    enabledBorder: const OutlineInputBorder(
-                                                                        borderSide:
-                                                                        BorderSide(color: Color(0xffE3E3E3)),
-                                                                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)))),
-                                                                value: selectedPeriod1,
-                                                                items: selectedPeriod1Data.map((String items) {
-                                                                  return DropdownMenuItem(
-                                                                    value: items,
-                                                                    child: Text(
-                                                                      items,
-                                                                      style: const TextStyle(
-                                                                          color: Colors.grey, fontSize: 14),
-                                                                    ),
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (String? newValue) {
-                                                                  setState(() {
-                                                                    selectedPeriod1 = newValue!;
-                                                                  });
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                        controller: createTimeTableController.toTime,
+                                                        validator: (value){
+                                                          if(value!.isEmpty){
+                                                            return "please pick a time";
+                                                          } else{
+                                                            return null;
+                                                          }
+                                                        },
+                                                        onTap: () {
+                                                          selectTime(isFromTime: false);
+                                                        },
                                                       ),
                                                     ),
-
                                                   ],
                                                 ),
+                                                /* Previous hours time desi*/
+                                                // Row(
+                                                //   children: <Widget>[
+                                                //     Expanded(
+                                                //       child: CommonTextfield(
+                                                //         controller: createTimeTableController.fromTime,
+                                                //         obSecure: false,
+                                                //         readOnly: true,
+                                                //         hintText: '0:0',
+                                                //         keyboardType: TextInputType.number,
+                                                //         onTap: () {
+                                                //           selectTime();
+                                                //         },
+                                                //         suffixIcon: Column(
+                                                //           children: [
+                                                //             SizedBox(
+                                                //               height: 50,
+                                                //               width: 90,
+                                                //               child: DropdownButtonFormField(
+                                                //                 focusColor: Colors.grey.shade50,
+                                                //                 isExpanded: true,
+                                                //                 iconEnabledColor: const Color(0xff97949A),
+                                                //                 icon: const Icon(Icons.keyboard_arrow_down),
+                                                //                 hint: Text(
+                                                //                   selectedPeriod,
+                                                //                   style: const TextStyle(
+                                                //                       color: Color(0xff463B57),
+                                                //                       fontSize: 16,
+                                                //                       fontWeight: FontWeight.w300),
+                                                //                   textAlign: TextAlign.justify,
+                                                //                 ),
+                                                //                 decoration: InputDecoration(
+                                                //                     fillColor: Colors.grey.shade50,
+                                                //                     contentPadding: const EdgeInsets.symmetric(
+                                                //                         horizontal: 20, vertical: 13),
+                                                //                     focusedBorder: OutlineInputBorder(
+                                                //                       borderSide:
+                                                //                       BorderSide(color: Colors.grey.shade300),
+                                                //                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
+                                                //                     ),
+                                                //                     enabledBorder: const OutlineInputBorder(
+                                                //                         borderSide:
+                                                //                         BorderSide(color: Color(0xffE3E3E3)),
+                                                //                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)))),
+                                                //                 value: selectedPeriod,
+                                                //                 items: selectedPeriodData.map((String items) {
+                                                //                   return DropdownMenuItem(
+                                                //                     value: items,
+                                                //                     child: Text(
+                                                //                       items,
+                                                //                       style: const TextStyle(
+                                                //                           color: Colors.grey, fontSize: 14),
+                                                //                     ),
+                                                //                   );
+                                                //                 }).toList(),
+                                                //                 onChanged: (String? newValue) {
+                                                //                   setState(() {
+                                                //                     selectedPeriod = newValue!;
+                                                //                   });
+                                                //                 },
+                                                //               ),
+                                                //             ),
+                                                //           ],
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //     const SizedBox(
+                                                //       width: 8,
+                                                //     ),
+                                                //     Expanded(
+                                                //       child: CommonTextfield(
+                                                //         obSecure: false,
+                                                //         hintText: '0:0',
+                                                //         keyboardType: TextInputType.number,
+                                                //         suffixIcon: Column(
+                                                //           children: [
+                                                //             SizedBox(
+                                                //               height: 50,
+                                                //               width: 90,
+                                                //               child: DropdownButtonFormField(
+                                                //                 focusColor: Colors.grey.shade50,
+                                                //                 isExpanded: true,
+                                                //                 iconEnabledColor: const Color(0xff97949A),
+                                                //                 icon: const Icon(Icons.keyboard_arrow_down),
+                                                //                 hint: Text(
+                                                //                   selectedPeriod1,
+                                                //                   style: const TextStyle(
+                                                //                       color: Color(0xff463B57),
+                                                //                       fontSize: 16,
+                                                //                       fontWeight: FontWeight.w300),
+                                                //                   textAlign: TextAlign.justify,
+                                                //                 ),
+                                                //                 decoration: InputDecoration(
+                                                //                     fillColor: Colors.grey.shade50,
+                                                //                     contentPadding: const EdgeInsets.symmetric(
+                                                //                         horizontal: 20, vertical: 13),
+                                                //                     focusedBorder: OutlineInputBorder(
+                                                //                       borderSide:
+                                                //                       BorderSide(color: Colors.grey.shade300),
+                                                //                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
+                                                //                     ),
+                                                //                     enabledBorder: const OutlineInputBorder(
+                                                //                         borderSide:
+                                                //                         BorderSide(color: Color(0xffE3E3E3)),
+                                                //                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)))),
+                                                //                 value: selectedPeriod1,
+                                                //                 items: selectedPeriod1Data.map((String items) {
+                                                //                   return DropdownMenuItem(
+                                                //                     value: items,
+                                                //                     child: Text(
+                                                //                       items,
+                                                //                       style: const TextStyle(
+                                                //                           color: Colors.grey, fontSize: 14),
+                                                //                     ),
+                                                //                   );
+                                                //                 }).toList(),
+                                                //                 onChanged: (String? newValue) {
+                                                //                   setState(() {
+                                                //                     selectedPeriod1 = newValue!;
+                                                //                   });
+                                                //                 },
+                                                //               ),
+                                                //             ),
+                                                //           ],
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //
+                                                //   ],
+                                                // ),
                                                 const SizedBox(
                                                   height: 18,
                                                 ),
@@ -931,8 +989,8 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                                         }
                                                       },
                                                       onChanged: (value) {
-                                                        teacher = value;
-                                                        print(teacher);
+                                                        createTimeTableController.selectedTeacher = value;
+                                                        print(createTimeTableController.selectedTeacher);
                                                       },
                                                       dropdownStyleData: DropdownStyleData(
                                                         maxHeight: size.height * 0.28,
@@ -973,30 +1031,30 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
                                 },
                               ),
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(AppAssets.addMore,height: 24,),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Text(
-                                  'Add More',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    color: AppThemes.primaryColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
+                            // const SizedBox(
+                            //   height: 15,
+                            // ),
+                            // Row(
+                            //   crossAxisAlignment: CrossAxisAlignment.center,
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     Image.asset(AppAssets.addMore,height: 24,),
+                            //     const SizedBox(
+                            //       width: 8,
+                            //     ),
+                            //     const Text(
+                            //       'Add More',
+                            //       style: TextStyle(
+                            //         fontWeight: FontWeight.w500,
+                            //         fontSize: 15,
+                            //         color: AppThemes.primaryColor,
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // const SizedBox(
+                            //   height: 25,
+                            // ),
                           ],
                         )
                     ),
@@ -1019,6 +1077,7 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
               child: InkWell(
                 onTap: (){
                   if(formKey.currentState!.validate()) {
+                    createTimeTableController.createtimetableAPI(context: context);
                     // Get.toNamed(MyRouters.teacherClassTimeScreen);
                   }
                 },
@@ -1040,4 +1099,52 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
       ),
     );
   }
+
+  void selectTime({required bool isFromTime}) async {
+
+    var timee = TimeOfDay.now();
+    // final timee = DateTime.now();
+
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: timee,
+      // builder: (BuildContext context, Widget? child) {
+      //   return Theme(
+      //     data: ThemeData.light().copyWith(
+      //       backgroundColor: Colors.pink, // Set the background color
+      //       cardColor: Colors.white,
+      //       // colorScheme: Colors.white,
+      //       canvasColor: Colors.white,
+      //       highlightColor: Colors.blue
+      //     ),
+      //     child: child!,
+      //   );
+      // },
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            alwaysUse24HourFormat: false, // This will hide AM/PM
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (newTime != null) {
+      int selectedHour = newTime.hour; // Selected hour (0-23)
+      int selectedMinute = newTime.minute;
+      String formattedHour = selectedHour.toString().padLeft(2, '0');
+      String formattedMinute = selectedMinute.toString().padLeft(2, '0');
+      String selectedTime = '$formattedHour:$formattedMinute:00';
+
+      String period = newTime.period == DayPeriod.am ? 'AM' : 'PM';
+      print('Selected time: $selectedTime');
+
+      if(isFromTime) {
+        createTimeTableController.fromTime.text = selectedTime;
+      } else {
+        createTimeTableController.toTime.text = selectedTime;
+      }
+    }
+  }
+
 }

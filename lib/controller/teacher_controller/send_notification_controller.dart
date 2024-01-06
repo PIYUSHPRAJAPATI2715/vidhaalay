@@ -52,8 +52,9 @@ class SendNotificationController extends GetxController {
   }
 
   Future getStudentListData({required String classId}) async {
+    print("classId : $classId");
     isStudentLoading.value = true;
-    await getStudetnListRepo(classId: '4').then((value) {
+    await getStudetnListRepo(classId: classId).then((value) {
       getStudentListModel.value = value;
       isStudentLoading.value = false;
     });
