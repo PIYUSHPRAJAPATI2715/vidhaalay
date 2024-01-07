@@ -97,6 +97,12 @@ class CreateTimeTableController extends GetxController {
         print("Event responseData  : ${responseData}");
 
         if(responseData['status']) {
+          selectedSubject = null;
+          selectedTeacher = null;
+          selectedWeekday = null;
+          fromTime.clear();
+          toTime.clear();
+
           Helpers.hideLoader(loader);
         } else {
           Helpers.hideLoader(loader);

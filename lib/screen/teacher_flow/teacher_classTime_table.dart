@@ -645,12 +645,26 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('today'.toUpperCase(),
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600
-                        ),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('today'.toUpperCase(),
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600
+                            ),),
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed(MyRouters.createTimeTableScreen);
+                            },
+                            child: Icon(
+                              Icons.add,
+                              size: 22,
+                            ),
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: size.height,
                         child: ListView.builder(
