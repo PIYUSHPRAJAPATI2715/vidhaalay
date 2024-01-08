@@ -654,17 +654,36 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                 fontSize: 19,
                                 fontWeight: FontWeight.w600
                             ),),
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               Get.toNamed(MyRouters.createTimeTableScreen);
                             },
-                            child: Icon(
-                              Icons.add,
-                              size: 22,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                              decoration: BoxDecoration(
+                                  color:                   AppThemes.primaryColor,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Row(
+                                children: [
+                                  Text('add'.toUpperCase(),
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600
+                                    ),),
+                                  Icon(
+                                    Icons.add,
+                                    size: 22,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
+
                       SizedBox(
                         height: size.height,
                         child: ListView.builder(

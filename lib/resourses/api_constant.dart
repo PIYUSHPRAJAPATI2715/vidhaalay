@@ -63,6 +63,7 @@ class ApiUrls {
   static const String addTimetable = "${apiBaseUrl}timetable/create";
 
   static const String examType = "${apiBaseUrl}examType";
+  static const String getExamTimetable = "${apiBaseUrl}exam";
 
   static const String getAttendance = "${apiBaseUrl}attendance";
   static const String addAttendance = "${apiBaseUrl}attendance/add";
