@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/create_exam_timetable.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/exam_timetable_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
 
@@ -40,7 +42,6 @@ import '../screen/student_screen/my_profile_student.dart';
 import '../screen/student_screen/syllabus_Screen.dart';
 import '../screen/teacher_flow/create_class_timeTable.dart';
 import '../screen/teacher_flow/create_event_screen.dart';
-import '../screen/teacher_flow/create_exam_timetable.dart';
 import '../screen/teacher_flow/drawer_teacher.dart';
 import '../screen/teacher_flow/exam_result_Screen_teacher.dart';
 import '../screen/teacher_flow/my_profile_teacher_screen.dart';
@@ -48,7 +49,6 @@ import '../screen/teacher_flow/send_notification_screen.dart';
 import '../screen/teacher_flow/student_details_screen.dart';
 import '../screen/teacher_flow/teacher_attendance_Screen.dart';
 import '../screen/teacher_flow/teacher_classTime_table.dart';
-import '../screen/teacher_flow/exam_timetable_screen.dart';
 
 
 
