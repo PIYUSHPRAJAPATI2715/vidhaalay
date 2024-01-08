@@ -55,6 +55,37 @@ class StudentAttandanceController extends GetxController {
     });
   }
 
+  Future getAttandanceListData({required String classId}) async {
+    isLoading.value = true;
+
+    http.Response response = await http.get(Uri.parse(ApiUrls.getAttendance+"/$classId"), headers: await getAuthHeader());
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      return StudentList.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception(response.body);
+    }
+
+    // await getStudetnListRepo(classId: classId).then((value) {
+    //   getStudentListModel.value = value;
+    //
+    //   // List list = List.generate(
+    //   //     getStudentListModel.value.data!.length, (_) => false);
+    //   // isPresent.addAll(list);
+    //   // print("list : ${list}");
+    //   addAttandanceModel.clear();
+    //   isPresent.value =  List.generate(
+    //       getStudentListModel.value.data!.length, (_) => null);
+    //
+    //   print("isPresent : ${isPresent.value}");
+    //
+    //   isLoading.value = false;
+    // });
+  }
+
   manageAddAttandance({required int studentId, required bool isPresent,}) {
     List<Map<String, dynamic>> listMap = addAttandanceModel.map((model) => model.toJson()).toList();
     // print("Value0 : ${listMap}");
