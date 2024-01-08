@@ -1,9 +1,14 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/models/login_model.dart';
+import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 
 import '../../controller/bottom_controller.dart';
 import '../../routers/my_routers.dart';
@@ -63,7 +68,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                                   ),
                                   SizedBox(height: size.height * 0.016),
                                   const Text(
-                                    "User", // Display user's name here
+                                    "Rosie Wannh", // Display user's name here
                                     style: TextStyle(
                                       fontSize: 21,
                                       fontWeight: FontWeight.w600,
@@ -120,6 +125,40 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         ListTile(
                           onTap: (){
                             Get.toNamed(MyRouters.createTimeTableScreen);
+                          },
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: bottomController.currentIndexTeacher.value == 0
+                              ? const Text(
+                            'Create Class Timetable',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          )
+                              : const Text(
+                            'Create Class Timetable',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+
+                          ),
+                          leading: Image.asset(
+                            AppAssets.attendanceIcon,
+                            height: 20,
+                            width: 24,
+                            color: bottomController.currentIndexTeacher.value ==
+                                0 ? AppThemes.white : AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: () {
+                            Get.toNamed(MyRouters.teacherClassTimeScreen);
                           },
                           visualDensity:
                           const VisualDensity(
@@ -255,6 +294,40 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
+                            //styudent list
+                            Get.to(()=>StudentListScreen());
+                          },
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: bottomController.currentIndexTeacher.value == 0
+                              ? Text(
+                            'Student List',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          )
+                              : Text(
+                            'Student List',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+
+                          ),
+                          leading: Icon(
+                            // "assets/icons/home.png",
+                            Icons.person,
+                            color: bottomController.currentIndexTeacher.value ==
+                                0 ? AppThemes.white : AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: (){
                             Get.toNamed(MyRouters.sendNotificationScreen);
                           },
                           visualDensity:
@@ -322,7 +395,9 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         SizedBox(height: size.height*.05,),
                         InkWell(
                           onTap: (){
-                            Get.offAllNamed(MyRouters.signInPage);
+                            logOutUser();
+
+                            // Get.offAllNamed(MyRouters.signInPage);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
@@ -378,6 +453,22 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
         ],
       ),
     );
+  }
+
+  logOutUser() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    LoginModel modelSiteSettings = LoginModel();
+    if (sharedPreference.getString("token") != null) {
+      modelSiteSettings =
+          LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
+    }
+    await sharedPreference.clear();
+    Get.offAllNamed(MyRouters.signInPage);
+    showToast("Logged out");
+    if (modelSiteSettings.data != null) {
+      sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+    }
+    sharedPreference.setBool("isFirstTime", false);
   }
 
   void _showAlertDialog(BuildContext context) {

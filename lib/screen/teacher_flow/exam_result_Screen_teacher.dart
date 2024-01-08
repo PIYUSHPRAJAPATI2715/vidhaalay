@@ -32,7 +32,12 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
           ),
         ),
         centerTitle: true,
-
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+        ),
       ),
       body: Stack(
         children: [
@@ -52,7 +57,7 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
             ),
           ),
           Container(
-              height: 175,
+              height: size.height*.230,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),

@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay_app/screen/User_Screens/drawer_user.dart';
 
 import '../../controller/bottom_controller.dart';
 import '../../widgets/appTheme.dart';
@@ -26,8 +28,10 @@ class _BottomNavbarTeacherState extends State<BottomNavbarTeacher> {
     return Scaffold(
       backgroundColor: AppThemes.primaryColor,
       key: controller.scaffoldKeyTeacher,
-      // drawer: const DrawerForUser(),
+
       endDrawer:  const DrawerForTeacher(),
+      // drawer: DrawerForTeacher(),
+
       body: WillPopScope(
         onWillPop: ( ) async => false,
         child: Obx(() {

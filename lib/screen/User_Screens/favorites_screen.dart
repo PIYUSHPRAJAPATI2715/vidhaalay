@@ -139,6 +139,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                             //   ),
                             // ),
                           ],
+                          dividerColor: Colors.transparent,
                           padding: EdgeInsets.zero,
                           unselectedLabelColor: const Color(0xFF909090),
                           labelColor: AppThemes.white,
@@ -276,10 +277,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                         // Get.toNamed(MyRouter
                                                         //     .favoritesScreen);
                                                       },
-                                                      child: Icon(
+                                                      child:   isFavourite ? const Icon(
                                                         Icons.favorite,
-                                                        size: 18,
-                                                        color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                                        size: 21,
+                                                        color:AppThemes.primaryColor,
+                                                      ) :
+                                                      const Icon(
+                                                        Icons.favorite_border,
+                                                        size: 21,
+                                                        color:AppThemes.primaryColor,
                                                       )
                                                   )
                                               ),
@@ -450,10 +456,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                     _handleTabChange();
                                                   });
                                             },
-                                            child: Icon(
+                                            child:  isFavourite ? const Icon(
                                               Icons.favorite,
-                                              size: 18,
-                                              color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                              size: 21,
+                                              color:AppThemes.primaryColor,
+                                            ) :
+                                            const Icon(
+                                              Icons.favorite_border,
+                                              size: 21,
+                                              color:AppThemes.primaryColor,
                                             )
                                         )
                                     ),
@@ -625,10 +636,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                                     _handleTabChange();
                                                   });
                                             },
-                                            child: Icon(
+                                            child:   isFavourite ? const Icon(
                                               Icons.favorite,
-                                              size: 18,
-                                              color: isFavourite ? AppThemes.hightlightFavourite : AppThemes.black,
+                                              size: 21,
+                                              color:AppThemes.primaryColor,
+                                            ) :
+                                            const Icon(
+                                              Icons.favorite_border,
+                                              size: 21,
+                                              color:AppThemes.primaryColor,
                                             )
                                         )
                                     ),

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay_app/screen/User_Screens/notification_detail_user_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 
@@ -25,24 +26,46 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
   RxString year = "".obs;
   RxString monthName = "".obs;
   RxString clinicId = "".obs;
+  int selectedMonthIndex = 0;
   int selectedIndex = 0;
 
   var now = DateTime.now();
   var totalDays;
   var listOfDates;
   var todayDay;
+  var FullDate;
 
   final notificationController = Get.put(GetNotificationController());
 
   @override
   void initState() {
     super.initState();
-    notificationController.getNotificationData();
+    // _listScrollController.addListener(_scrollListener);
+
     year.value = DateFormat('yyyy').format(DateTime.now());
     month.value = DateFormat('MM').format(DateTime.now());
+
+    print("month");
+    print(month.value);
+    selectedMonthIndex = int.parse(month.value);
+    print(selectedMonthIndex);
+
     monthName.value = DateFormat('MMMM').format(DateTime.now());
+    print("monthName.value : ${monthName.value}");
+    // notificationController.getNotificationData(monthName.value);
+
     day.value = DateFormat('dd').format(DateTime.now());
-    getYear();
+
+    log(day.value);
+    log(month.value);
+    log(year.value);
+
+    String date = year.value + "-" + month.value + "-" + day.value;
+    log(date);
+
+    notificationController.getNotificationData(date);
+
+    // getYear();
     now = DateTime.now();
     totalDays = daysInMonth(now);
     listOfDates = List<int>.generate(totalDays, (i) => i + 1);
@@ -62,6 +85,8 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
   List<GlobalKey> keysList = [];
 
   List<DateTime> weekDates = [];
+  // List<DateTime> years = [];
+
   getWeekDates(DateTime currentDate) {
     weekDates.clear();
     for (int i = 1 - int.parse(todayDay);
@@ -90,14 +115,20 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
     "November",
     "December"
   ];
-  List<int> years = [];
 
-  List<int> getYear() {
-    for (int i = 2023; i <= 2050; i++) {
-      years.add(i);
-    }
-    return years;
-  }
+  // List<int> years = [
+  //   2023,
+  //   2024,
+  // ];
+
+  // List<int> years = [];
+
+  // List<int> getYear() {
+  //   for (int i = 2023; i <= 2050; i++) {
+  //     years.add(i);
+  //   }
+  //   return years;
+  // }
 
   int daysInMonth(DateTime date) {
     var firstDayThisMonth = DateTime(date.year, date.month, date.day);
@@ -116,15 +147,27 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
           centerTitle: true,
           automaticallyImplyLeading: true,
           backgroundColor: AppThemes.white,
+          leading: IconButton(
+            icon: Image.asset(
+              AppAssets.arrowBack,
+              width: 19,
+              color: AppThemes.textBrown,
+            ),
+            onPressed: () {
+              Get.toNamed(MyRouters.bottomNavigationUserScreen);
+              // Get.back();
+            },
+          ),
           title: Text(
-            "Event Calender",
+            "Notification Calender",
+            // "Event Calender",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 color: AppThemes.black,
                 fontSize: 19,
                 fontWeight: FontWeight.w600),
           ),
-        ),  
+        ),
         body: SafeArea(
           child: Stack(
             children: [
@@ -144,19 +187,92 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                 ),
               ),
               Container(
-                  height: size.height*.260,
+                  height: size.height * .260,
                   decoration: const BoxDecoration(
                     color: AppThemes.primaryColor,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(70)),
                   ),
-                  child:  Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(size.width * .010),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Text(
+                              year.value.toString(),
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        // Container(
+                        //   height: size.height*.045,
+                        //   decoration: BoxDecoration(
+                        //     // color: Colors.amberAccent,
+                        //       borderRadius: BorderRadius.circular(10)),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //
+                        //       // Expanded(
+                        //       //   child: ListView.builder(
+                        //       //     scrollDirection: Axis.horizontal,
+                        //       //     shrinkWrap: true,
+                        //       //     itemCount: years.length,
+                        //       //     itemBuilder:
+                        //       //         (BuildContext context, int index) {
+                        //       //       return InkWell(
+                        //       //         onTap: () {
+                        //       //           selectedMonthIndex = index;
+                        //       //           month.value = "${index + 1}".length != 2
+                        //       //               ? "0${index + 1}"
+                        //       //               : "${index + 1}";
+                        //       //           monthName.value = DateFormat('MMMM')
+                        //       //               .format(DateTime.parse(
+                        //       //               "${year.value}-${month.value}-${day.value}"));
+                        //       //           now = DateTime.parse(
+                        //       //               "${year.value}-${month.value}-${day.value}");
+                        //       //           totalDays = daysInMonth(now);
+                        //       //           listOfDates = List<int>.generate(
+                        //       //               totalDays, (i) => i + 1);
+                        //       //           todayDay = DateFormat('dd').format(now);
+                        //       //           getWeekDates(now);
+                        //       //           log(DateFormat('EEEE').format(now));
+                        //       //           // Get.back();
+                        //       //         },
+                        //       //         child: Padding(
+                        //       //           padding: const EdgeInsets.symmetric(
+                        //       //               horizontal: 10,vertical: 5),
+                        //       //           child: Text(year.value.toString(),
+                        //       //               style: GoogleFonts.poppins(
+                        //       //                   fontWeight: FontWeight.w500,
+                        //       //                   fontSize: 17,
+                        //       //                   color: index == selectedMonthIndex
+                        //       //                       ? Colors.white
+                        //       //                       : Colors.black)
+                        //       //           ),
+                        //       //         ),
+                        //       //       );
+                        //       //     },
+                        //       //   ),
+                        //       // ),
+                        //     ],
+                        //   ),
+                        // ),
+
                         Container(
-                          height: size.height*.070,
+                          height: size.height * .070,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10)),
                           child: Row(
@@ -171,13 +287,13 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                       (BuildContext context, int index) {
                                     return InkWell(
                                       onTap: () {
-                                        selectedIndex = index;
+                                        selectedMonthIndex = index;
                                         month.value = "${index + 1}".length != 2
                                             ? "0${index + 1}"
                                             : "${index + 1}";
                                         monthName.value = DateFormat('MMMM')
                                             .format(DateTime.parse(
-                                            "${year.value}-${month.value}-${day.value}"));
+                                                "${year.value}-${month.value}-${day.value}"));
                                         now = DateTime.parse(
                                             "${year.value}-${month.value}-${day.value}");
                                         totalDays = daysInMonth(now);
@@ -190,14 +306,15 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,vertical: 10),
+                                            horizontal: 10, vertical: 10),
                                         child: Text(months[index].toString(),
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 17,
-                                                color: index == selectedIndex
-                                                    ? Colors.white
-                                                    : Colors.black)),
+                                                color:
+                                                    index == selectedMonthIndex
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                       ),
                                     );
                                   },
@@ -207,22 +324,22 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                           ),
                         ),
                         SizedBox(
-                          height: size.height*.110,
+                          height: size.height * .110,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             physics: BouncingScrollPhysics(),
                             child: Row(
                               children:
-                              List.generate(weekDates.length, (index) {
+                                  List.generate(weekDates.length, (index) {
                                 DateTime date = weekDates[index];
                                 String formattedDate =
-                                DateFormat('d').format(date);
+                                    DateFormat('d').format(date);
                                 String formattedDate1 =
-                                DateFormat('MM').format(date);
+                                    DateFormat('MM').format(date);
                                 String formattedDate2 =
-                                DateFormat('yyyy').format(date);
+                                    DateFormat('yyyy').format(date);
                                 String weekDay =
-                                DateFormat('EEEE').format(date);
+                                    DateFormat('EEEE').format(date);
                                 return Padding(
                                   key: keysList[index],
                                   padding: EdgeInsets.only(right: 0, left: 0),
@@ -235,10 +352,23 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                             : formattedDate;
                                         // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
                                         // year.value = formattedDate2;
+                                        log(day.value);
                                         log(month.value);
+                                        log(year.value);
+
                                         monthName.value = DateFormat('MMMM')
                                             .format(DateTime.parse(
-                                            "${year.value}-${month.value}-${day.value}"));
+                                                "${year.value}-${month.value}-${day.value}"));
+
+                                        String date = year.value +
+                                            "-" +
+                                            month.value +
+                                            "-" +
+                                            day.value;
+                                        log(date);
+
+                                        notificationController
+                                            .getNotificationData(date);
                                       });
                                     },
                                     child: Padding(
@@ -249,7 +379,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                 ? Colors.white
                                                 : Colors.transparent,
                                             borderRadius:
-                                            BorderRadius.circular(20)),
+                                                BorderRadius.circular(20)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(12.0),
                                           child: Column(
@@ -260,9 +390,9 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
                                                     color:
-                                                    index == selectedIndex
-                                                        ? Colors.black
-                                                        : Colors.white),
+                                                        index == selectedIndex
+                                                            ? Colors.black
+                                                            : Colors.white),
                                               ),
                                               Text(
                                                 formattedDate,
@@ -270,9 +400,9 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
                                                     color:
-                                                    index == selectedIndex
-                                                        ? Colors.black
-                                                        : Colors.white),
+                                                        index == selectedIndex
+                                                            ? Colors.black
+                                                            : Colors.white),
                                               ),
                                             ],
                                           ),
@@ -287,132 +417,199 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                         ),
                       ],
                     ),
-                  )
-              ),
-
+                  )),
               Positioned.fill(
                 top: size.height * .260,
                 child: Container(
-                  height: size.height,
-                  width: size.width,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(50)),
-                  ),
-                  child: Obx(() {
-                    return notificationController.isDataLoading.value == true ?
-                    SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
-                            child: Text(
-                              "today".toUpperCase(),
-                              style: GoogleFonts.poppins(
-                                  color: AppThemes.black,
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ListView.builder(
-                            itemCount: notificationController.getNotificationModel.value.data!.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              var items = notificationController.getNotificationModel.value.data![index];
-                              DateTime dateTime = DateTime.parse(items.createdAt.toString());
-                              String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
-                              return Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18).copyWith(top: 10),
-                                    color: const Color(0xffecffd2),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 2.0),
-                                                child: Image.asset(
-                                                  AppAssets.greenInfo,
-                                                  height: 14,
-                                                  width: 14,
+                    height: size.height,
+                    width: size.width,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.only(topRight: Radius.circular(50)),
+                    ),
+                    child: Obx(() {
+                      return notificationController.isNoData.value == true
+                          ? Center(
+                              child: Text(
+                                "No Longer Notification Available",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 15),
+                              ),
+                            )
+                          : notificationController.isDataLoading.value == true
+                              ? SingleChildScrollView(
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 25, horizontal: 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18.0, vertical: 10),
+                                        child: Text(
+                                          "today".toUpperCase(),
+                                          style: GoogleFonts.poppins(
+                                              color: AppThemes.black,
+                                              fontSize: 21,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      notificationController
+                                              .getNotificationModel
+                                              .value
+                                              .data!
+                                              .isEmpty
+                                          ? Container(
+                                              height: size.height * .5,
+                                              // color: Colors.red,
+                                              child: Center(
+                                                child: Text(
+                                                  "No notification found for this date",
                                                 ),
                                               ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                            )
+                                          : ListView.builder(
+                                              itemCount: notificationController
+                                                  .getNotificationModel
+                                                  .value
+                                                  .data!
+                                                  .length,
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemBuilder: (context, index) {
+                                                var items =
+                                                    notificationController
+                                                        .getNotificationModel
+                                                        .value
+                                                        .data![index];
+                                                DateTime dateTime =
+                                                    DateTime.parse(items
+                                                        .createdAt
+                                                        .toString());
+                                                String formattedDate =
+                                                    DateFormat('yyyy-MM-dd')
+                                                        .format(dateTime);
+                                                return Column(
                                                   children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          items.title.toString(),
-                                                          style: GoogleFonts.poppins(
-                                                              color:
-                                                              AppThemes.primaryColor,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                              FontWeight.w500),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Get.to(() => UserNotificationDetailScreen(
+                                                            id: notificationController
+                                                                .getNotificationModel
+                                                                .value
+                                                                .data![index]
+                                                                .id
+                                                                .toString()));
+                                                      },
+                                                      child: Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        15,
+                                                                    horizontal:
+                                                                        18)
+                                                                .copyWith(
+                                                                    top: 10),
+                                                        color: const Color(
+                                                            0xffecffd2),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Row(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        top:
+                                                                            2.0),
+                                                                    child: Image
+                                                                        .asset(
+                                                                      AppAssets
+                                                                          .greenInfo,
+                                                                      height:
+                                                                          14,
+                                                                      width: 14,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 10,
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              items.title.toString(),
+                                                                              style: GoogleFonts.poppins(color: AppThemes.primaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                                                            ),
+                                                                            Text(
+                                                                              formattedDate.toString(),
+                                                                              style: GoogleFonts.poppins(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w400),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        Text(
+                                                                          items
+                                                                              .message
+                                                                              .toString(),
+                                                                          style: GoogleFonts.poppins(
+                                                                              color: Colors.grey,
+                                                                              fontSize: 10,
+                                                                              fontWeight: FontWeight.w500),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Text(
-                                                          formattedDate.toString(),
-                                                          style: GoogleFonts.poppins(
-                                                              color: Colors.grey,
-                                                              fontSize: 13,
-                                                              fontWeight: FontWeight.w400),
-                                                        ),
-                                                      ],
+                                                      ),
                                                     ),
-
-                                                    Text(
-                                                      items.message.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                          color: Colors.grey,
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                          FontWeight.w500),
+                                                    const SizedBox(
+                                                      height: 10,
                                                     ),
                                                   ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-
-
-                                      ],
-                                    ),
+                                                );
+                                              },
+                                            )
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              );
-                            },
-                          )
-                        ],
-                      ),
-                    ): const CommonProgressIndicator();
-                  })
-                ),
+                                )
+                              : const CommonProgressIndicator();
+                    })),
               ),
             ],
           ),

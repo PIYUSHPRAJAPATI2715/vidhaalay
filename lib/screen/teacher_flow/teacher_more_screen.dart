@@ -9,8 +9,11 @@ class TeacherMoreScreen extends StatefulWidget {
 }
 
 class _TeacherMoreScreenState extends State<TeacherMoreScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Container();
   }
 }
+
+// Get.toNamed(MyRouters.myProfileTeacher);

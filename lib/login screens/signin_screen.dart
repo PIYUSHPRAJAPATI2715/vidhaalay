@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 // import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -23,7 +25,6 @@ import '../repositories/social_login_repo.dart';
 import '../resourses/api_constant.dart';
 import '../widgets/common_textfield.dart';
 
-
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -32,9 +33,9 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-
-  final signInController  = Get.put(SignInController());
+  final signInController = Get.put(SignInController());
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   // String userType = 'user';
   // var userTypeitems = [
   //   'Institute Finding',
@@ -42,13 +43,11 @@ class _SignInPageState extends State<SignInPage> {
   //   'Student Login',
   // ];
 
-
   // RxBool isPasswordShow = true.obs;
   // RxBool checkboxColor = false.obs;
   // bool showValidation = false;
 
   // String _displayedValue = '';
-
 
   // String getDeviceType() {
   //   if (Platform.isAndroid) {
@@ -64,7 +63,6 @@ class _SignInPageState extends State<SignInPage> {
   // void getDevice(){
   //   print('type is ${getDeviceType().toString()}');
   // }
-
 
   @override
   void initState() {
@@ -126,14 +124,19 @@ class _SignInPageState extends State<SignInPage> {
                 height: 220,
                 decoration: const BoxDecoration(
                   color: AppThemes.signupBg,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
+                  borderRadius:
+                      BorderRadius.only(bottomLeft: Radius.circular(70)),
                 ),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(60)),
-                  child: Image.asset(AppAssets.signIn,fit: BoxFit.fitWidth,width: double.maxFinite,),
+                  borderRadius:
+                      const BorderRadius.only(bottomLeft: Radius.circular(60)),
+                  child: Image.asset(
+                    AppAssets.signIn,
+                    fit: BoxFit.fitWidth,
+                    width: double.maxFinite,
+                  ),
                 ),
               ),
-
               Positioned.fill(
                 top: 220,
                 child: Container(
@@ -142,11 +145,12 @@ class _SignInPageState extends State<SignInPage> {
                   width: size.width,
                   decoration: const BoxDecoration(
                     color: AppThemes.white,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(60)),
                   ),
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-                    child:  Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -155,7 +159,8 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         const Text(
                           "Welcome Back!",
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w800),
                         ),
                         const Text(
                           "Hello please login to continue",
@@ -174,13 +179,15 @@ class _SignInPageState extends State<SignInPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   signInWithGoogle();
                                 },
                                 child: Expanded(
                                     child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-                                      decoration:BoxDecoration(
+                                  height: size.height * .049,
+                                  width: size.width * .41,
+                                  // padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(50),
                                     boxShadow: [
@@ -191,69 +198,78 @@ class _SignInPageState extends State<SignInPage> {
                                         offset: const Offset(0, 2),
                                       ),
                                     ],
-                          ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Image.asset('assets/images/google_logo.png',height: 25,),
-                                          const SizedBox(
-                                            width: 5,
+                                  ),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/google_logo.png',
+                                          height: 25,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        const Text(
+                                          "Google",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppThemes.black,
                                           ),
-                                          const Text(
-                                            "Google",
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppThemes.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )),
                               ),
                               SizedBox(
-                                width: size.width*.060,
+                                width: size.width * .060,
                               ),
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   // signInWithGoogle();
                                   signInFaceBook();
                                 },
                                 child: Expanded(
                                     child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
-                                      decoration:BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(50),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 1,
-                                            blurRadius: 2,
-                                            offset: const Offset(0, 2),
-                                          ),
-                                        ],
+                                  height: size.height * .049,
+                                  width: size.width * .41,
+                                  // padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        offset: const Offset(0, 2),
                                       ),
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Image.asset('assets/images/facbook_image.png',height: 25,),
-                                          const SizedBox(
-                                            width: 6,
-                                          ),
-                                          const Text(
-                                            "Facebook",
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppThemes.black,
-                                            ),
-                                          ),
-                                        ],
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/facbook_image.png',
+                                        height: 25,
                                       ),
-                                    )
-                                ),
+                                      const SizedBox(
+                                        width: 6,
+                                      ),
+                                      const Text(
+                                        "Facebook",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppThemes.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )),
                               ),
                             ],
                           ),
@@ -262,7 +278,7 @@ class _SignInPageState extends State<SignInPage> {
                           height: size.height * 0.020,
                         ),
                         const Center(
-                          child:  Text(
+                          child: Text(
                             "or login with",
                             style: TextStyle(
                               fontSize: 15,
@@ -275,39 +291,133 @@ class _SignInPageState extends State<SignInPage> {
                           height: size.height * 0.030,
                         ),
 
-                        Container(
-                          height: 50,
-                          width: Get.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(
-                                  color: Colors.grey,
-                                  width: 0.5
-                              )
-                          ),
-                          child: DropdownButton(
-                            value: signInController.userType.value,
+                        DropdownButtonHideUnderline(
+                          child: DropdownButtonFormField2<String>(
                             isExpanded: true,
-                            underline: Container(),
-                            icon: const Icon(Icons.keyboard_arrow_down),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                              hintText: 'Select Role',
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey!.withOpacity(0.5),
+                                      width: 1
+                                  )
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey!.withOpacity(0.5),
+                                      width: 1
+                                  )
+                              ),
+                            ),
+                            value: signInController.userType.value,
                             items: signInController.userTypeData.map((Map items) {
                               return DropdownMenuItem(
                                 value: items['key'].toString(),
-                                child: Text(items['value'].toString(),style: const TextStyle(
-                                  color: Colors.grey,
-                                ),),
+                                child : Text(
+                                  items['value'].toString(),
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               );
                             }).toList(),
                             onChanged: (value) {
                               print(value);
-                              signInController.userType.value = value.toString();
+                              signInController.userType.value =
+                                  value.toString();
                               // setState(() {
                               // });
                             },
+                            validator: (value) {
+                              print("validator :  $value");
+                              if (value == null || value.isEmpty) {
+                                return 'Please select role';
+                              } else {
+                                return null;
+                              }
+                            },
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: size.height * 0.28,
+                              width: size.width * 0.90,
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              isOverButton: false,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: Colors.white,
+                              ),
+                              offset: const Offset(0, -10),
+                              scrollbarTheme: ScrollbarThemeData(
+                                radius: const Radius.circular(40),
+                                thickness: MaterialStateProperty.all<double>(6),
+                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 45,
+                              padding: EdgeInsets.only(left: 10, right: 10),
+                            ),
                           ),
                         ),
 
+                        // Container(
+                        //   height: 50,
+                        //   width: Get.width,
+                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(25),
+                        //       border:
+                        //           Border.all(color: Colors.grey, width: 0.5)),
+                        //   child: DropdownButton(
+                        //     isExpanded: true,
+                        //     underline : Container(),
+                        //     icon: const Icon(Icons.keyboard_arrow_down),
+                        //     value: signInController.userType.value,
+                        //     items: signInController.userTypeData.map((Map items) {
+                        //       return DropdownMenuItem(
+                        //         value: items['key'].toString(),
+                        //         child : Text(
+                        //           items['value'].toString(),
+                        //           style: const TextStyle(
+                        //             color: Colors.grey,
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }).toList(),
+                        //     onChanged: (value) {
+                        //       print(value);
+                        //       signInController.userType.value =
+                        //           value.toString();
+                        //       // setState(() {
+                        //       // });
+                        //     },
+                        //   ),
+                        // ),
+                        /* */
                         // Container(
                         //   height: 50,
                         //   width: Get.width,
@@ -414,7 +524,7 @@ class _SignInPageState extends State<SignInPage> {
                             color: AppThemes.black,
                           ),
                         ),
-                       const SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         CommonTextfield(
@@ -431,11 +541,10 @@ class _SignInPageState extends State<SignInPage> {
                           hintText: 'Enter Email or Phone or Unique ID',
                           obSecure: false,
                           controller: signInController.emailController,
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return "Email or Phone or Unique ID is required";
-                            }
-                            else{
+                            } else {
                               return null;
                             }
                           },
@@ -455,39 +564,41 @@ class _SignInPageState extends State<SignInPage> {
                           height: size.height * 0.010,
                         ),
                         CommonTextfield(
-                        controller: signInController.passwordController,
-                        obSecure: signInController.isPasswordVisibile.value,
-                        hintText: "Password",
+                            controller: signInController.passwordController,
+                            obSecure: signInController.isPasswordVisibile.value,
+                            hintText: "Password",
                             validator: MultiValidator([
-                              RequiredValidator(errorText: 'Password is required'),
+                              RequiredValidator(
+                                  errorText: 'Password is required'),
                               MinLengthValidator(8,
                                   errorText:
-                                  'Password must be at least 8 digits long'),
+                                      'Password must be at least 8 digits long'),
                               PatternValidator(
                                   r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
                                   errorText:
-                                  'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                                      'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
                             ]),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            signInController.isPasswordVisibile.value = !signInController.isPasswordVisibile.value;
-                          },
-                          child: Icon(
-                              signInController.isPasswordVisibile.value
-                                  ? CupertinoIcons.eye_slash_fill
-                                  : CupertinoIcons.eye,
-                              size: 20,
-                              color: Colors.grey),
-                        )),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                signInController.isPasswordVisibile.value =
+                                    !signInController.isPasswordVisibile.value;
+                              },
+                              child: Icon(
+                                  signInController.isPasswordVisibile.value
+                                      ? CupertinoIcons.eye_slash_fill
+                                      : CupertinoIcons.eye,
+                                  size: 20,
+                                  color: Colors.grey),
+                            )),
                         SizedBox(
                           height: size.height * 0.016,
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Get.toNamed(MyRouters.forgotPasswordScreen);
                           },
                           child: const Center(
-                            child:  Text(
+                            child: Text(
                               "Forgot Password?",
                               style: TextStyle(
                                 fontSize: 13,
@@ -501,7 +612,7 @@ class _SignInPageState extends State<SignInPage> {
                           height: 100 * 0.2,
                         ),
                         ElevatedButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             // String? token = await FirebaseMessaging.instance.getToken();
                             signInController.login(context);
                           },
@@ -529,7 +640,7 @@ class _SignInPageState extends State<SignInPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                             Text(
+                            Text(
                               "Don't have an account?",
                               style: GoogleFonts.poppins(
                                 fontSize: 13,
@@ -538,10 +649,10 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ),
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Get.toNamed(MyRouters.signupScreen);
                               },
-                              child:  Text(
+                              child: Text(
                                 " create account".toUpperCase(),
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
@@ -566,6 +677,7 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
+
   // signInWithGoogle() async {
   //   await GoogleSignIn().signOut();
   //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((e){
@@ -598,7 +710,8 @@ class _SignInPageState extends State<SignInPage> {
   signInWithGoogle() async {
     await GoogleSignIn().signOut();
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
@@ -608,12 +721,20 @@ class _SignInPageState extends State<SignInPage> {
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
     log(value.credential!.accessToken!);
 
-    socialLogin(photo: googleUser.photoUrl.toString(),context: context, email: googleUser.email.toString(), name: googleUser.displayName.toString(),deviceType: signInController.deviceType.toString(),soGoogle: '1').then((value) async {
+    socialLogin(
+            photo: googleUser.photoUrl.toString(),
+            context: context,
+            email: googleUser.email.toString(),
+            name: googleUser.displayName.toString(),
+            deviceType: signInController.deviceType.toString(),
+            soGoogle: '1')
+        .then((value) async {
       if (value.status == true) {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
         pref.setString('cookie', value.data!.token.toString());
         showToast(value.msg.toString());
+        pref.setBool('isLoggedIn', true);
         Get.offAllNamed(MyRouters.drawerForUser);
       } else {
         showToast(value.msg.toString());
@@ -621,27 +742,37 @@ class _SignInPageState extends State<SignInPage> {
     });
   }
 
-signInFaceBook() async {
-  final LoginResult loginResult = await FacebookAuth.instance
-      .login(permissions: ["public_profile", "email"], loginBehavior: LoginBehavior.webOnly);
-  print("qqqqqqqqqqqq");
-  final OAuthCredential oAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-  final value = await FirebaseAuth.instance.signInWithCredential(oAuthCredential).then((value1) async {
-    socialFacebook(context: context, email: value1.user!.email.toString(), name:  value1.user!.displayName.toString(),deviceType: signInController.deviceType.toString()).then((value) async {
-      if (value.status == true) {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.setString('user_info', jsonEncode(value));
-        pref.setString('cookie', value.data!.token.toString());
-        showToast(value.msg.toString());
-        Get.offAllNamed(MyRouters.drawerForUser);
-      } else {
-        showToast(value.msg.toString());
-      }
+  signInFaceBook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login(
+        permissions: ["public_profile", "email"],
+        loginBehavior: LoginBehavior.webOnly);
+    print("qqqqqqqqqqqq");
+    final OAuthCredential oAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    final value = await FirebaseAuth.instance
+        .signInWithCredential(oAuthCredential)
+        .then((value1) async {
+      socialFacebook(
+              context: context,
+              email: value1.user!.email.toString(),
+              name: value1.user!.displayName.toString(),
+              deviceType: signInController.deviceType.toString())
+          .then((value) async {
+        if (value.status == true) {
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString('user_info', jsonEncode(value));
+          pref.setString('cookie', value.data!.token.toString());
+          showToast(value.msg.toString());
+          pref.setBool('isLoggedIn', true);
+          Get.offAllNamed(MyRouters.drawerForUser);
+        } else {
+          showToast(value.msg.toString());
+        }
+      });
+    }).catchError((FirebaseAuthException? e) {
+      showToast(e.toString());
+      throw Exception(e!.message);
     });
-  }).catchError((FirebaseAuthException? e) {
-    showToast(e.toString());
-    throw Exception(e!.message);
-  });
-  log("Firebase response.... ${value.toString()}");
-}
+    log("Firebase response.... ${value.toString()}");
+  }
 }

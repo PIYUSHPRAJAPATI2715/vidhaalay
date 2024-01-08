@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
 
 import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
@@ -44,7 +46,6 @@ import '../screen/teacher_flow/exam_result_Screen_teacher.dart';
 import '../screen/teacher_flow/my_profile_teacher_screen.dart';
 import '../screen/teacher_flow/send_notification_screen.dart';
 import '../screen/teacher_flow/student_details_screen.dart';
-import '../screen/teacher_flow/student_list_screen.dart';
 import '../screen/teacher_flow/teacher_attendance_Screen.dart';
 import '../screen/teacher_flow/teacher_classTime_table.dart';
 import '../screen/teacher_flow/teacher_exam_timetable_screen.dart';
@@ -95,6 +96,7 @@ class MyRouters{
   static var studentListScreen = "/studentListScreen";
   static var studentDetailsScreen = "/studentDetailsScreen";
   static var createEventScreen = "/createEventScreen";
+  static var teacherEventsScreen = "/teacherEventsScreen";
   static var examResultScreenTeacher = "/examResultScreenTeacher";
   static var teacherExamTimeTableScreen = "/teacherExamTimeTableScreen";
   static var teacherClassTimeScreen = "/teacherClassTimeScreen";
@@ -103,6 +105,7 @@ class MyRouters{
   static var createExamTimeTable = "/createExamTimeTable";
   static var otpSmsScreen = "/otpSmsScreen";
   static var forgotOtpSmsScreen = "/forgotOtpSmsScreen";
+  static var studenListScreen = "/forgotOtpSmsScreen";
 
 
   static var route = [
@@ -155,6 +158,8 @@ class MyRouters{
     GetPage(name: '/studentListScreen', page: () =>  const StudentListScreen()),
     GetPage(name: '/studentDetailsScreen', page: () =>  const StudentDetailsScreen()),
     GetPage(name: '/createEventScreen', page: () =>  const CreateEventScreen()),
+    GetPage(name: '/teacherEventsScreen', page: () =>  const TeacherEventsScreen()),
+    GetPage(name: '/teacherEventsScreen', page: () =>  const TeacherEventsScreen()),
     GetPage(name: '/examResultScreenTeacher', page: () =>  const ExamResultScreenTeacher()),
     GetPage(name: '/teacherExamTimeTableScreen', page: () =>  const TeacherExamTimeTableScreen()),
     GetPage(name: '/teacherClassTimeScreen', page: () =>  const TeacherClassTimeScreen()),

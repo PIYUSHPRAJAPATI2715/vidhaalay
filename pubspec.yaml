@@ -64,8 +64,10 @@ dependencies:
 #  flutter_login_facebook: ^1.9.0
   flutter_facebook_auth: ^6.0.3
   carousel_slider: ^4.2.1
-
-#  carousel_slider:
+  image_picker: ^1.0.5
+  google_places_flutter: ^2.0.6
+  shimmer: ^3.0.0
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:

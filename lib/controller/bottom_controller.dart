@@ -25,7 +25,7 @@ class BottomController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<ScaffoldState> scaffoldKeyUser = GlobalKey<ScaffoldState>();
   final GlobalKey<ScaffoldState> scaffoldKeyTeacher = GlobalKey<ScaffoldState>();
-
+  double value = 0;
   var screens = [
     const StudentHomeScreen(),
     const AttendanceScreen(),
@@ -33,6 +33,7 @@ class BottomController extends GetxController {
     const EventsScreen(),
     const MoreScreen(),
   ];
+
   var teacherScreens = [
     const TeacherHomeScreen(),
     const TeacherAttendanceScreen(),
@@ -40,21 +41,20 @@ class BottomController extends GetxController {
     const TeacherEventsScreen(),
     const TeacherMoreScreen(),
   ];
-
   RxInt currentIndex = 0.obs;
   RxInt currentIndexTeacher = 0.obs;
 
   // user screens
-  RxInt currentIndexUser = 0.obs;
+  RxInt currentIndexUser = 1.obs;
 
   var screensUser = [
+    // const DrawerForUser(),
+    const UserMoreScreen(),
     const UserHomeScreen(),
     const VideoScreen(),
-    const MyLecturesScreen(),
-    const NotificationScreenUser(),
+    // const MyLecturesScreen(),
+    // const NotificationScreenUser(),
     // const DrawerForUser(),
-     const UserMoreScreen(),
-
   ];
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
