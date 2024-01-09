@@ -16,6 +16,8 @@ class ClassTimeController extends GetxController{
   RxList<MyClass> classList = <MyClass>[].obs;
   // RxInt? selectedClassId;
   RxInt selectedClassId = 0.obs;
+  String? selectedDate;
+
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {
@@ -27,19 +29,20 @@ class ClassTimeController extends GetxController{
 
         classList.clear();
         classList.addAll(values);
-        getTimeTableData(classId: selectedClassId.value);
+        getTimeTableData();
 
         print("classlist : ${classList?.value}");
       }
     });
   }
 
-  Future<void> getTimeTableData({required int classId}) async {
+  Future<void> getTimeTableData() async {
     try {
       isDataLoading.value = true;
 
       Map body = {
-        "class_id": classId
+        "class_id": selectedClassId!.value,
+        "date": selectedDate
       };
 
       // Map body = {
@@ -85,7 +88,7 @@ class ClassTimeController extends GetxController{
         if(responseData['status']) {
           // Get.back();
           Helpers.hideLoader(loader);
-          getTimeTableData(classId: selectedClassId.value);
+          getTimeTableData();
         } else {
           Helpers.hideLoader(loader);
         }

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vidhaalay_app/controller/teacher_controller/class_time_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/teacher_list_model.dart';
@@ -98,13 +99,18 @@ class CreateTimeTableController extends GetxController {
         print("Event responseData  : ${responseData}");
 
         if(responseData['status']) {
+          Helpers.hideLoader(loader);
+
+          final classTimeController = Get.put(ClassTimeController());
+          classTimeController.selectedClassId.value = selectedClassId.value!;
+
           selectedSubject = null;
           selectedTeacher = null;
           selectedWeekday = null;
           fromTime.clear();
           toTime.clear();
+          Get.back();
 
-          Helpers.hideLoader(loader);
         } else {
           Helpers.hideLoader(loader);
         }

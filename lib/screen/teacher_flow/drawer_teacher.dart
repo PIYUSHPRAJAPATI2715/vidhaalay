@@ -92,6 +92,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           onTap: (){
                             Get.toNamed(MyRouters.teacherAttendanceScreen);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -100,14 +101,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Attendance',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
                             'Attendance',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -123,43 +124,10 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         ),
                         const SizedBox(height: 10,),
                         ListTile(
-                          onTap: (){
-                            Get.toNamed(MyRouters.createTimeTableScreen);
-                          },
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Create Class Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
-                            'Create Class Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.attendanceIcon,
-                            height: 20,
-                            width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
                           onTap: () {
                             Get.toNamed(MyRouters.teacherClassTimeScreen);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -168,14 +136,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Class Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
                             'Class Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -194,22 +162,23 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           onTap: (){
                             Get.toNamed(MyRouters.teacherExamTimeTableScreen);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
                           title: bottomController.currentIndexTeacher.value == 0
                               ? const Text(
-                            'Exam Timetable 000',
+                            'Exam Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
-                            'Exam Timetable 000',
+                            'Exam Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -228,6 +197,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           onTap: (){
                             Get.toNamed(MyRouters.examResultScreenTeacher);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -236,14 +206,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Exam Result',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
                             'Exam Result',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -262,6 +232,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           onTap: (){
                             Get.toNamed(MyRouters.createEventScreen);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -270,14 +241,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Create Event',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
                             'Create Event',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -297,6 +268,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             //styudent list
                             Get.to(()=>StudentListScreen());
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -305,14 +277,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Student List',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : Text(
                             'Student List',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -330,6 +302,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           onTap: (){
                             Get.toNamed(MyRouters.sendNotificationScreen);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -338,14 +311,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Send Notification',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
                             'Send Notification',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),
@@ -364,6 +337,7 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                           onTap: (){
                             Get.toNamed(MyRouters.settingScreenUser);
                           },
+                          contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
@@ -372,14 +346,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             'Settings',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           )
                               : const Text(
                             'Settings',
                             style: TextStyle(
                                 color: AppThemes.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
 
                           ),

@@ -582,9 +582,9 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                   ),),
                                               ],
                                             ),
-                                            const SizedBox(
-                                              width: 15,
-                                              height: 40,
+                                            SizedBox(
+                                              width: 10,
+                                              height: size.height * .07,
                                               child:  VerticalDivider(
                                                 thickness: 1,
                                                 color: AppThemes.black,
@@ -592,12 +592,13 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                             ),
                                             Container(
                                               // color: Colors.green,
-                                              width: size.width * .47,
+                                              // width: size.width * .47,
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  Text(value.subject!.name!,
+                                                  Text(
+                                                    value.subject!.name!,
 
                                                     // 'Social Science',
                                                     style: GoogleFonts.poppins(
@@ -620,7 +621,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                      Padding(
                                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                                        child: const SizedBox(
-                                                          height: 15,
+                                                          height: 20,
                                                           child: VerticalDivider(
                                                             width: 1,
                                                             color: Colors.grey,
@@ -650,7 +651,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: size.width * .125,
+                                                            width: size.width * .19,
                                                             // color: Colors.amber,
                                                             child: Text(
                                                               value.teacher!.name!,
