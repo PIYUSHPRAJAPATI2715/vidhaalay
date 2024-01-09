@@ -24,6 +24,10 @@ class ExamTimeTableController extends GetxController {
   RxInt selectedExamType = 0.obs;
   // String? selectedExamType;
 
+  String? selectedDate;
+
+
+
   void getMyClass() {
     getMyClassListRepo().then((values) async {
       // print("value : $values");
@@ -34,7 +38,7 @@ class ExamTimeTableController extends GetxController {
 
         classList.clear();
         classList.addAll(values);
-        getTimeTableData(classId: selectedClassId.value);
+        getExamTimeTableData();
 
         print("classlist : ${classList?.value}");
       }
@@ -46,7 +50,7 @@ class ExamTimeTableController extends GetxController {
     await getExamTypeListRepo().then((values) {
       print("exam type value : $values");
 
-      selectedClassId.value = values.data![0].id!;
+      selectedExamType.value = values.data![0].id!;
       print("selectedClassId : ${selectedClassId?.value}");
 
       getExamTypeModel.value = values;
@@ -54,15 +58,18 @@ class ExamTimeTableController extends GetxController {
     });
   }
 
-  Future<void> getTimeTableData({required int classId}) async {
+  Future<void> getExamTimeTableData() async {
     try {
       isDataLoading.value = true;
 
       Map body = {
-        "class_id": 5,
-        "exam_type_id": 4,
-        "date": "2024-01-08"
+        "class_id": selectedClassId.value,
+        "exam_type_id": selectedExamType.value,
+        "date": selectedDate
       };
+
+      print("body : $body");
+
 
       // Map body = {
       //   "class_id": 13
@@ -94,13 +101,15 @@ class ExamTimeTableController extends GetxController {
     }
   }
 
-  Future<void> deleteTimetableAPI(BuildContext context,int id) async {
+
+
+  Future<void> deleteExamTimetableAPI(BuildContext context,int id) async {
     try {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
 
       final response = await http.delete(
-        Uri.parse(ApiUrls.getTimetable+"/${id.toString()}"),
+        Uri.parse(ApiUrls.getExamTimetable+"/${id.toString()}"),
         headers: await getAuthHeader(),);
       print("call back");
 
@@ -111,7 +120,7 @@ class ExamTimeTableController extends GetxController {
         if(responseData['status']) {
           // Get.back();
           Helpers.hideLoader(loader);
-          getTimeTableData(classId: selectedClassId.value);
+          getExamTimeTableData();
         } else {
           Helpers.hideLoader(loader);
         }

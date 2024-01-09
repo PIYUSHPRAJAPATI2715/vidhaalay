@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/exam_timetable_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay_app/models/TeacherModel/exam_timetable_details_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/exam_type_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
@@ -18,7 +19,10 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:http/http.dart' as http;
 
-class CreateExamTimeTableController extends GetxController {
+class UpdateExamTimeTableController extends GetxController {
+  Rx<ExamTimetableDetails> getDetailsModel = ExamTimetableDetails().obs;
+  RxBool isDetailsLoading = false.obs;
+
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
 
@@ -68,7 +72,7 @@ class CreateExamTimeTableController extends GetxController {
     // isSubjectLoading = true.obs;
 
     await getSubjectListRepo(classId: "4").then((value) {
-    // await getSubjectListRepo(classId: classId).then((value) {
+      // await getSubjectListRepo(classId: classId).then((value) {
       print("subject value : $value");
       getSubjectListModel.value = value;
       // isSubjectLoading = false.obs;
@@ -104,7 +108,7 @@ class CreateExamTimeTableController extends GetxController {
     });
   }
 
-  Future<void> createExamTimetableAPI({required BuildContext context}) async {
+  Future<void> updateExamTimeTableAPI({required BuildContext context,required String id}) async {
     try {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
@@ -115,36 +119,36 @@ class CreateExamTimeTableController extends GetxController {
       String to = dobController.text +" "+ toTime.text;
 
       var body = {
-        "exam_type_id": int.parse(selectedExamType!),
         "class_id": selectedClassId.value,
+        "exam_type_id": int.parse(selectedExamType!),
         "seat_class_id": int.parse(selectedClassForSeating!),
         "subject_id": int.parse(selectedSubject!),
         "teacher_id": int.parse(selectedTeacher!),
-        // "from": "2023-03-12 04:30:08",
-        // "to": "2023-03-12 05:30:08",
+        // "from":"2024-01-08 04:30:00",
+        // "to":"2024-01-08 05:30:00"
         "from": from,
         "to": to
       };
       print("body : $body");
 
-      final response = await http.post(
-        Uri.parse(ApiUrls.addExamTimetable),
+      final response = await http.put(
+        // Uri.parse(ApiUrls.apiBaseUrl + "exam/24"),
+        Uri.parse(ApiUrls.getExamTimetable+"/$id"),
         body: jsonEncode(body),
         headers: await getAuthHeader(),);
 
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
-        print("Exam create responseData  : ${responseData}");
+        print("Exam update responseData  : ${responseData}");
 
         if(responseData['status']) {
 
           Helpers.hideLoader(loader);
 
+          // Get.back();
           Get.back();
+
           final examTimeTableController = Get.put(ExamTimeTableController());
-          examTimeTableController.selectedExamType.value = int.parse(selectedExamType!);
-          examTimeTableController.selectedClassId.value = selectedClassId.value;
-          examTimeTableController.selectedDate = dobController.text;
           examTimeTableController.getExamTimeTableData();
 
           selectedSubject = null;
@@ -163,6 +167,49 @@ class CreateExamTimeTableController extends GetxController {
       }
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  Future<void> getTimeTableDetailsData({required String id}) async {
+    try {
+      isDetailsLoading.value =  true;
+
+      final response = await http.get(
+          Uri.parse(ApiUrls.getExamTimetable+"/$id"),
+          headers: await getAuthHeader(),);
+
+    print("Time table Repository...${response.body}");
+
+    if (response.statusCode == 200) {
+    var responseData = jsonDecode(response.body);
+    print("time table responseData  : ${responseData}");
+
+    getDetailsModel.value = ExamTimetableDetails.fromJson(responseData);
+
+    DateTime timestampUtc = DateTime.parse(getDetailsModel.value.data!.from!);
+    String formattedDate = "${timestampUtc.year}-${(timestampUtc.month)}-${(timestampUtc.day)}";
+    String formattedTime = "${timestampUtc.hour}:${(timestampUtc.minute)}:00";
+    fromTime.text = formattedTime;
+    dobController.text = formattedDate;
+
+    DateTime timestampUtc1 = DateTime.parse(getDetailsModel.value.data!.to!);
+    String formattedTime1 = "${timestampUtc1.hour}:${(timestampUtc1.minute)}:00";
+    toTime.text = formattedTime1;
+
+    selectedClassId.value = getDetailsModel.value.data!.classId!;
+    selectedExamType = getDetailsModel.value.data!.examTypeId!.toString();
+    selectedSubject = getDetailsModel.value.data!.subjectId!.toString();
+    selectedTeacher = getDetailsModel.value.data!.teacherId!.toString();
+    selectedClassForSeating = getDetailsModel.value.data!.seatClassId!.toString();
+   
+
+    isDetailsLoading.value =  false;
+    } else {
+    isDetailsLoading.value =  false;
+    throw Exception(response.body);
+    }
+    } catch (e) {
+    throw Exception(e.toString());
     }
   }
 

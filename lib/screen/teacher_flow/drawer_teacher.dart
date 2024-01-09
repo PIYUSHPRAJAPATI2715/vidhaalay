@@ -192,40 +192,6 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.createExamTimeTable);
-                          },
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Exam Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
-                            'Exam Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.examTimeTableImg,
-                            height: 20,
-                            width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
                             Get.toNamed(MyRouters.teacherExamTimeTableScreen);
                           },
                           visualDensity:
