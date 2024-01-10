@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
+import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/create_exam_timetable.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/exam_timetable_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
@@ -89,6 +91,9 @@ class MyRouters{
   // user
   static var addressScreen = "/addressScreen";
 
+  // student
+  static var drawerForStudent = "/drawerForStudent";
+  static var bottomNavigationStudentScreen = "/bottomNavigationStudentScreen";
 
   //teacher
   static var drawerForTeacher = "/drawerForTeacher";
@@ -130,6 +135,8 @@ class MyRouters{
 
     //student screens
     GetPage(name: '/bottomNavigationScreen', page: () =>  const BottomNavigationScreen()),
+    GetPage(name: '/bottomNavigationStudentScreen', page: () =>  const BottomNavigationStudentScreen()),
+    GetPage(name: '/drawerForStudent', page: () =>  const DrawerForStudent()),
     GetPage(name: '/myProfileScreenStu', page: () =>  const MyProfileScreenStu()),
 
     //user screens

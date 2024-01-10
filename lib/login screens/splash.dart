@@ -39,9 +39,9 @@ class _SplashState extends State<Splash> {
         if(userType == "student") {
           // Get.offAllNamed(MyRouters.drawerForTeacher);
         } else if(userType == "user") {
-          Get.offAll(()=>BottomNavigationUserScreen());
+          // Get.offAll(()=>BottomNavigationUserScreen());
           // Get.offAllNamed(MyRouters.bottomNavigationScreen);
-          // Get.offAllNamed(MyRouters.drawerForUser);
+          Get.offAllNamed(MyRouters.drawerForUser);
         } else if(userType == "teacher") {
           Get.offAllNamed(MyRouters.drawerForTeacher);
         } else {

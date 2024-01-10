@@ -14,8 +14,11 @@ import 'package:vidhaalay_app/models/login_model_teacher.dart';
 import 'package:vidhaalay_app/models/school_list_model.dart';
 import 'package:vidhaalay_app/repositories/login_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
+import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
 
 class SignInController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -151,6 +154,46 @@ class SignInController extends GetxController {
           Get.offAllNamed(MyRouters.drawerForTeacher);
 
         } else if (userType.value == "student") {
+          print("Enter000");
+
+          final value = LoginModel.fromJson(jsonDecode(response.body));
+          print("value0 : $value");
+
+          Get.offAllNamed(MyRouters.drawerForStudent);
+
+          // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
+
+          // bool isEmailVerify = value.data!.emailVerified!;
+          // bool isMobileVerify = value.data!.mobileVerified!;
+          // String userRole = value.data!.userType.toString();
+          // print("isEmailVerify : $isEmailVerify");
+          // print("isMobileVerify : $isMobileVerify");
+          //
+          // pref.setString('cookie', value.data!.token.toString());
+          // pref.setString('type', value.data!.userType.toString());
+          // pref.setBool('emailVerify', isEmailVerify);
+          // pref.setBool('mobileVerify', isMobileVerify);
+          //
+          // if (!isEmailVerify || !isMobileVerify) {
+          //   print("E0");
+          //   // Get.to(() => VerifyOtpLogin());
+          //   Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: [
+          //     value.data!.email.toString(),
+          //     value.data!.mobile.toString(),
+          //     isMobileVerify,
+          //     isEmailVerify
+          //   ]);
+          //
+          //   // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
+          // } else {
+          //   print("E1");
+          //
+          //   pref.setBool('isLoggedIn', true);
+          //   // Get.offAll(() => DrawerForStudent());
+          //   // Get.offAll(() => BottomNavigationStudentScreen());
+          //   Get.offAllNamed(MyRouters.drawerForStudent);
+          //   // Get.offAll(() => BottomNavigationScreen());
+          // }
 
         } else {
 

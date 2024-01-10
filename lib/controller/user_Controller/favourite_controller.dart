@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:vidhaalay_app/controller/deshborad_controller.dart';
 import 'package:vidhaalay_app/models/favourite_model_user.dart';
 import 'package:vidhaalay_app/models/school_list_model.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
@@ -59,6 +60,9 @@ class FavouriteController extends GetxController {
       print(response.body);
 
       Map<String, dynamic> responseData = json.decode(response.body);
+
+      final getSchoolListController  = Get.put(GetSchoolListController());
+      getSchoolListController.getSchoolListFunction();
 
       showToast(responseData['msg'].toString());
       // isFavouriteListLoading.value = true;

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/models/TeacherModel/add_attandance_model.dart';
+import 'package:vidhaalay_app/models/TeacherModel/get_attandance_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/studentList_model.dart';
 import 'package:vidhaalay_app/repositories/my_class_repo.dart';
@@ -16,8 +17,11 @@ class StudentAttandanceController extends GetxController {
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
 
-  RxBool isLoading = false.obs;
-  Rx<StudentList> getStudentListModel = StudentList().obs;
+  // RxBool isLoading = false.obs;
+  // Rx<StudentList> getStudentListModel = StudentList().obs;
+
+  RxBool isAttandanceDataLoading = true.obs;
+  Rx<GetAttandanceListData> getAttandanceListData = GetAttandanceListData().obs;
 
   RxList isPresent = [].obs;
   RxList<AddAttandanceModel> addAttandanceModel = <AddAttandanceModel>[].obs;
@@ -31,59 +35,55 @@ class StudentAttandanceController extends GetxController {
         classList.addAll(values);
 
 
-        getStudentListData(classId: selectedClassId.value.toString());
+        // getStudentListData(classId: selectedClassId.value.toString());
+        getAttandanceListDataAPI(classId: selectedClassId.value.toString());
+
       }
     });
   }
 
-  Future getStudentListData({required String classId}) async {
-    isLoading.value = true;
-    await getStudetnListRepo(classId: classId).then((value) {
-      getStudentListModel.value = value;
+  // Future getStudentListData({required String classId}) async {
+  //   isLoading.value = true;
+  //   await getStudetnListRepo(classId: classId).then((value) {
+  //     getStudentListModel.value = value;
+  //
+  //     // List list = List.generate(
+  //     //     getStudentListModel.value.data!.length, (_) => false);
+  //     // isPresent.addAll(list);
+  //     // print("list : ${list}");
+  //     addAttandanceModel.clear();
+  //     isPresent.value =  List.generate(
+  //         getStudentListModel.value.data!.length, (_) => null);
+  //
+  //     print("isPresent : ${isPresent.value}");
+  //
+  //     isLoading.value = false;
+  //   });
+  // }
 
-      // List list = List.generate(
-      //     getStudentListModel.value.data!.length, (_) => false);
-      // isPresent.addAll(list);
-      // print("list : ${list}");
-      addAttandanceModel.clear();
-      isPresent.value =  List.generate(
-          getStudentListModel.value.data!.length, (_) => null);
+  Future getAttandanceListDataAPI({required String classId}) async {
+    isAttandanceDataLoading.value = true;
 
-      print("isPresent : ${isPresent.value}");
+    var body = {
+      "class_id": int.parse(classId),
+      "date":"2024-01-07"
+    };
 
-      isLoading.value = false;
-    });
-  }
-
-  Future getAttandanceListData({required String classId}) async {
-    isLoading.value = true;
-
-    http.Response response = await http.get(Uri.parse(ApiUrls.getAttendance+"/$classId"), headers: await getAuthHeader());
+    http.Response response = await http.post(
+        Uri.parse(ApiUrls.getAttendance),
+        body: jsonEncode(body),
+        headers: await getAuthHeader());
     print(response.statusCode);
 
     if (response.statusCode == 200) {
-      print(response.body);
+      print("Att responseData  : ${response.body}");
+      getAttandanceListData.value = GetAttandanceListData.fromJson(jsonDecode(response.body));
+      isAttandanceDataLoading.value = false;
 
-      return StudentList.fromJson(jsonDecode(response.body));
     } else {
+      // isAttandanceDataLoading.value = false;
       throw Exception(response.body);
     }
-
-    // await getStudetnListRepo(classId: classId).then((value) {
-    //   getStudentListModel.value = value;
-    //
-    //   // List list = List.generate(
-    //   //     getStudentListModel.value.data!.length, (_) => false);
-    //   // isPresent.addAll(list);
-    //   // print("list : ${list}");
-    //   addAttandanceModel.clear();
-    //   isPresent.value =  List.generate(
-    //       getStudentListModel.value.data!.length, (_) => null);
-    //
-    //   print("isPresent : ${isPresent.value}");
-    //
-    //   isLoading.value = false;
-    // });
   }
 
   manageAddAttandance({required int studentId, required bool isPresent,}) {
@@ -111,7 +111,10 @@ class StudentAttandanceController extends GetxController {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
 
-      List<Map<String, dynamic>> listMap = addAttandanceModel.map((model) => model.toJson()).toList();
+    List<Map<String, dynamic>> listMap = getAttandanceListData.value.data!.map((model) => model.toJson()).toList();
+      print("listMap : $listMap");
+
+      // List<Map<String, dynamic>> listMap = addAttandanceModel.map((model) => model.toJson()).toList();
 
       // Map body = {
       //   "event_name": eventName.text,
@@ -124,6 +127,7 @@ class StudentAttandanceController extends GetxController {
         Uri.parse(ApiUrls.addAttendance),
         body: jsonEncode(listMap),
         headers: await getAuthHeader(),);
+
       print("call back");
 
       if (response.statusCode == 200) {
@@ -131,7 +135,7 @@ class StudentAttandanceController extends GetxController {
         print("Event responseData  : ${responseData}");
 
         if(responseData['status']) {
-          Get.back();
+          // Get.back();
           Helpers.hideLoader(loader);
         } else {
           Helpers.hideLoader(loader);

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -217,141 +218,146 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                   scrollDirection: Axis.vertical,
                                   itemCount: studentListController.getStudentListModel.value.data?.length,
                                   itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Get.toNamed(
-                                            MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius
-                                                    .circular(10),
-                                                boxShadow: const[
-                                                  BoxShadow(
-                                                    color: Colors.grey,
-                                                    // Shadow color
-                                                    blurRadius: 1,
-                                                    // Spread radius
-                                                    spreadRadius: 0,
-                                                    // How much the shadow spreads
-                                                    offset: Offset(0,
-                                                        1), // Offset in (x, y) direction
-                                                  ),
-                                                ]
-                                            ),
-                                            child: Row(
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius
+                                                .circular(10),
+                                            boxShadow: const[
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                // Shadow color
+                                                blurRadius: 1,
+                                                // Spread radius
+                                                spreadRadius: 0,
+                                                // How much the shadow spreads
+                                                offset: Offset(0,
+                                                    1), // Offset in (x, y) direction
+                                              ),
+                                            ]
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .center,
+                                          children: [
+                                            Row(
                                               mainAxisAlignment: MainAxisAlignment
-                                                  .spaceBetween,
+                                                  .start,
                                               crossAxisAlignment: CrossAxisAlignment
                                                   .center,
                                               children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .start,
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .center,
-                                                  children: [
-                                                    ClipOval(
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: studentListController.getStudentListModel.value.data![index].profileImage.toString(),
-                                                        fit: BoxFit.cover,
-                                                        height: 30, width: 30,
-                                                        errorWidget: (__, _, ___) =>
-                                                            CircleAvatar(
-                                                              child: Image.asset(
-                                                                AppAssets.studentImg,
-                                                                fit: BoxFit.cover,
-                                                                height: 30, width: 30,
-                                                              ),
-                                                            ),
-                                                        placeholder: (__, _) =>
-                                                        const Center(
-                                                            child:
-                                                            CircularProgressIndicator()),
-                                                      ),
-                                                      // Image.asset(
-                                                      //   AppAssets.studentImg,
-                                                      //   height: 30, width: 30,
-                                                      // ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 12,
-                                                    ),
-                                                    Text(
-                                                      studentListController.getStudentListModel.value.data![index].name.toString(),
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight
-                                                            .w500,
-                                                        fontSize: 15,
-                                                        color: AppThemes.black,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                ClipOval(
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: studentListController.getStudentListModel.value.data![index].profileImage.toString(),
+                                                    fit: BoxFit.cover,
+                                                    height: 30, width: 30,
+                                                    errorWidget: (__, _, ___) =>
+                                                        CircleAvatar(
+                                                          child: Image.asset(
+                                                            AppAssets.studentImg,
+                                                            fit: BoxFit.cover,
+                                                            height: 30, width: 30,
+                                                          ),
+                                                        ),
+                                                    placeholder: (__, _) =>
+                                                    const Center(
+                                                        child:
+                                                        CircularProgressIndicator()),
+                                                  ),
+                                                  // Image.asset(
+                                                  //   AppAssets.studentImg,
+                                                  //   height: 30, width: 30,
+                                                  // ),
                                                 ),
-                                                InkWell(
-                                                    onTap: () {},
-                                                    child: const Icon(
-                                                      Icons.keyboard_arrow_right,
-                                                      color: Colors.grey,))
+                                                const SizedBox(
+                                                  width: 12,
+                                                ),
+                                                Text(
+                                                  studentListController.getStudentListModel.value.data![index].name.toString(),
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight
+                                                        .w500,
+                                                    fontSize: 15,
+                                                    color: AppThemes.black,
+                                                  ),
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 30,
-                                          )
-                                        ],
+                                            Container(
+                                              // color: Colors.amber,
+                                              height: 25,
+                                              width: 30,
+                                              child: PopupMenuButton<int>(
+                                                padding: EdgeInsets.zero,
+                                                surfaceTintColor: Colors.white,
+                                                onSelected: (value) {
+                                                  if (value == 1) {
+                                                    Get.toNamed(
+                                                        MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
+                                                  } else if (value == 2) {
+                                                    Get.toNamed(MyRouters.examResultScreenTeacher);
+                                                  }
+                                                },
+                                                itemBuilder: (BuildContext context) {
+                                                  return [
+                                                    PopupMenuItem<int>(
+                                                        value: 1,
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(Icons.info_outlined,color: AppThemes.black,size: 20),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text("Details",style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w500,
+                                                              fontSize: 15,
+                                                              color: AppThemes.black,
+                                                            ),),
+                                                          ],
+                                                        )
+                                                    ),
+                                                    PopupMenuItem<int>(
+                                                        value: 2,
+                                                        child: Row(
+                                                          children: [
+                                                            ImageIcon(AssetImage(AppAssets.examResultImg),size: 20),
+                                                            // Icon(Icons.delete,color: AppThemes.black,size: 20),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text("Exam Result",style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w500,
+                                                              fontSize: 15,
+                                                              color: AppThemes.black,
+                                                            ),),
+                                                          ],
+                                                        )
+                                                    ),
+                                                  ];
+                                                },
+                                                icon: Icon(Icons.more_vert),
+                                              ),
+                                            ),
+
+                                            // InkWell(
+                                            //     onTap: () {
+                                            //
+                                            //     },
+                                            //     child: const Icon(
+                                            //       Icons.keyboard_arrow_right,
+                                            //       color: Colors.grey,))
+                                          ],
+                                        ),
                                       ),
                                     );
                                   })
-
-                                  //   Padding(
-                                  //   padding: EdgeInsets.only(top: 8),
-                                  //   child: Card(
-                                  //     elevation: 2.0,
-                                  //     color: Colors.white,
-                                  //     child: ListTile(
-                                  //       leading: CircleAvatar(
-                                  //         // radius: 25,
-                                  //         child: CachedNetworkImage(
-                                  //           imageUrl: studentListController.getStudentListModel.value.data![index].profileImage.toString(),
-                                  //           fit: BoxFit.cover,
-                                  //           width: size.width,
-                                  //           height: size.height * .16,
-                                  //           errorWidget: (__, _, ___) =>
-                                  //               CircleAvatar(
-                                  //                 child: Image.asset(
-                                  //                   AppAssets.collageImg,
-                                  //                   fit: BoxFit.cover,
-                                  //                   width: size.width,
-                                  //                   height: size.height * .16,
-                                  //                 ),
-                                  //               ),
-                                  //           placeholder: (__, _) =>
-                                  //           const Center(
-                                  //               child:
-                                  //               CircularProgressIndicator()),
-                                  //         ),
-                                  //       ),
-                                  //       title: Text(studentListController.getStudentListModel.value.data![index].name.toString(),style: GoogleFonts.poppins(
-                                  //         fontSize: 18,
-                                  //         fontWeight: FontWeight.w500,
-                                  //         color: Colors.grey,
-                                  //       ),),
-                                  //       trailing: InkWell(
-                                  //           onTap: (){
-                                  //
-                                  //           },
-                                  //           child: Icon(Icons.arrow_forward_ios_rounded,color: Colors.grey,)),
-                                  //
-                                  //     ),
-                                  //   ),
-                                  // );
-                                // },)
-
                             ],
                           ),
                         ),

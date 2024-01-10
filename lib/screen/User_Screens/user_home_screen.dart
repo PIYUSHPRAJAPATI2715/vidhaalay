@@ -120,6 +120,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     var theme = Theme.of(context);
     return Scaffold(
       backgroundColor: AppThemes.white,
+      // endDrawer:  const DrawerForUser(),
+
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title:  Row(

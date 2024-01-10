@@ -345,6 +345,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(
                       height: 100 * 0.2,
                     ),
+
                     ElevatedButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate() &&  showValidation == true) {

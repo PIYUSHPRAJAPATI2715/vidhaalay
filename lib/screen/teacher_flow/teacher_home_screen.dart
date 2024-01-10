@@ -52,7 +52,12 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                 padding:  EdgeInsets.symmetric(horizontal: size.width*.035).copyWith(left: 0),
                 child: Row(
                   children: [
-                    Image.asset(AppAssets.notification,width: 17,),
+                    InkWell(
+                        onTap: () {
+                          Get.toNamed(MyRouters.notificationScreenUser);
+                        },
+                        child: Image.asset(AppAssets.notification,width: 17,)
+                    ),
                     SizedBox(
                       width: size.width*.065,
                     ),

@@ -46,6 +46,8 @@ class GetSchoolListController extends GetxController {
   Future getSchoolDetailsFunction(String id) async {
     isSchoolDetailsLoading.value = false;
     await getSchoolDetailsRepo(id).then((value) {
+      print("api Call00");
+
       isSchoolDetailsLoading.value = true;
       schoolDetailsModel.value = value;
     });
@@ -53,7 +55,7 @@ class GetSchoolListController extends GetxController {
 
   Future getTopLectureListRepo() async {
     isTopSchoolListLoading.value = true;
-    print("api Call00");
+    // print("api Call00");
 
     // "/${roleType.value}"
     // "/S"

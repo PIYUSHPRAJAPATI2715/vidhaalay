@@ -176,7 +176,8 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                     .selectedClassId!.value = newValue!;
                                 print(studentAttandanceController
                                     .selectedClassId?.value);
-                                studentAttandanceController.getStudentListData(classId: studentAttandanceController.selectedClassId.value.toString());
+                                // studentAttandanceController.getStudentListData(classId: studentAttandanceController.selectedClassId.value.toString());
+                                studentAttandanceController.getAttandanceListDataAPI(classId: studentAttandanceController.selectedClassId.value.toString());
                               },
                             ),
                           )
@@ -197,10 +198,13 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(60)),
                   ),
-                  child: Obx(() => studentAttandanceController
-                      .getStudentListModel.value.data !=
+                  child: Obx(() => studentAttandanceController.isAttandanceDataLoading.value ?
+                  Center(child: CommonProgressIndicator())
+                      :
+                  studentAttandanceController
+                      .getAttandanceListData.value.data !=
                       null
-                      ? studentAttandanceController.getStudentListModel.value.data!.isEmpty ?
+                      ? studentAttandanceController.getAttandanceListData.value.data!.isEmpty ?
                   Center(
                     child: Text(
                       "No Student List Available",
@@ -262,11 +266,11 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                             height: size.height,
                             child: ListView.builder(
                               shrinkWrap: true,
-                              itemCount: studentAttandanceController.getStudentListModel.value.data!.length,
+                              itemCount: studentAttandanceController.getAttandanceListData.value.data!.length,
                               physics:
                               const AlwaysScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                var value  = studentAttandanceController.getStudentListModel.value.data![index];
+                                var value  = studentAttandanceController.getAttandanceListData.value.data![index];
                                 // RxBool isPresent = false.obs;
 
                                 return Padding(
@@ -296,7 +300,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                                   width: size.width * 0.45,
                                                   // color: Colors.blue,
                                                   child: Text(
-                                                    value.name!,
+                                                    value.studentName!,
                                                     // 'Marry Jones Marry Jones Marry Jones Marry Jones Marry Jones',
                                                     textAlign: TextAlign.left,
                                                     style: GoogleFonts.poppins(
@@ -311,21 +315,23 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                               ],
                                             ),
                                           ),
-                                          Obx(
-                                            () => Container(
+                                          Container(
                                               // color: Colors.amber,
                                               child: Row(
                                                 children: [
                                                   Radio(
                                                     value: true,
-                                                    groupValue: studentAttandanceController.isPresent.value[index],
+                                                    groupValue: value.present!,
                                                     activeColor: AppThemes.primaryColor,
-                                                    onChanged: (present){
+                                                    onChanged: (value){
                                                       setState(() {
-                                                        studentAttandanceController.isPresent.value[index] = present!;
-                                                        print("present : ${studentAttandanceController.isPresent.value[index]}");
-                                                        studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
+                                                        studentAttandanceController.getAttandanceListData.value.data![index].present = value;
                                                       });
+                                                      // setState(() {
+                                                      //   studentAttandanceController.isPresent.value[index] = present!;
+                                                      //   print("present : ${studentAttandanceController.isPresent.value[index]}");
+                                                      //   studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
+                                                      // });
                                                     },
                                                   ),
                                                   SizedBox(
@@ -333,14 +339,17 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                                   ),
                                                   Radio(
                                                     value: false,
-                                                    groupValue: studentAttandanceController.isPresent.value[index],
+                                                    groupValue: value.present!,
                                                     activeColor: AppThemes.red,
-                                                    onChanged: (absent){
+                                                    onChanged: (value) {
                                                       setState(() {
-                                                        studentAttandanceController.isPresent.value[index] = absent!;
-                                                        print("absent : ${studentAttandanceController.isPresent.value[index]}");
-                                                        studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
+                                                        studentAttandanceController.getAttandanceListData.value.data![index].present = value;
                                                       });
+                                                      // setState(() {
+                                                      //   studentAttandanceController.isPresent.value[index] = absent!;
+                                                      //   print("absent : ${studentAttandanceController.isPresent.value[index]}");
+                                                      //   studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
+                                                      // });
                                                     },
                                                   ),
                                                   SizedBox(
@@ -349,7 +358,6 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                                                 ],
                                               ),
                                             ),
-                                          ),
                                         ],
                                       ),
                                       const SizedBox(
@@ -371,13 +379,202 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                   )
               )
           ),
+
+          /* before */
+          // Positioned.fill(
+          //     top: size.height * .230,
+          //     child: Container(
+          //         padding:
+          //         const EdgeInsets.symmetric(vertical: 40, horizontal: 10)
+          //             .copyWith(bottom: 0),
+          //         height: size.height,
+          //         width: size.width,
+          //         decoration: const BoxDecoration(
+          //           color: AppThemes.white,
+          //           borderRadius:
+          //           BorderRadius.only(topRight: Radius.circular(60)),
+          //         ),
+          //         child: Obx(() => studentAttandanceController
+          //             .getStudentListModel.value.data !=
+          //             null
+          //             ? studentAttandanceController.getStudentListModel.value.data!.isEmpty ?
+          //         Center(
+          //           child: Text(
+          //             "No Student List Available",
+          //             style: TextStyle(
+          //                 color: Colors.black, fontSize: 15),
+          //           ),
+          //         ) : SingleChildScrollView(
+          //             physics: const AlwaysScrollableScrollPhysics(),
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 Padding(
+          //                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          //                   child: Row(
+          //                     mainAxisAlignment:
+          //                     MainAxisAlignment.spaceBetween,
+          //                     children: [
+          //                       Text(
+          //                         'Students',
+          //                         textAlign: TextAlign.center,
+          //                         style: GoogleFonts.poppins(
+          //                           fontSize: 15,
+          //                           fontWeight: FontWeight.w600,
+          //                           color: AppThemes.blueColor,
+          //                         ),
+          //                       ),
+          //                       Row(
+          //                         children: [
+          //                           Text(
+          //                             'Present',
+          //                             textAlign: TextAlign.center,
+          //                             style: GoogleFonts.poppins(
+          //                               fontSize: 15,
+          //                               fontWeight: FontWeight.w600,
+          //                               color: AppThemes.blueColor,
+          //                             ),
+          //                           ),
+          //                           const SizedBox(
+          //                             width: 15,
+          //                           ),
+          //                           Text(
+          //                             'Absent',
+          //                             textAlign: TextAlign.center,
+          //                             style: GoogleFonts.poppins(
+          //                               fontSize: 15,
+          //                               fontWeight: FontWeight.w600,
+          //                               color: AppThemes.blueColor,
+          //                             ),
+          //                           ),
+          //                         ],
+          //                       ),
+          //                     ],
+          //                   ),
+          //                 ),
+          //                 const SizedBox(
+          //                   height: 30,
+          //                 ),
+          //                 SizedBox(
+          //                   height: size.height,
+          //                   child: ListView.builder(
+          //                     shrinkWrap: true,
+          //                     itemCount: studentAttandanceController.getStudentListModel.value.data!.length,
+          //                     physics:
+          //                     const AlwaysScrollableScrollPhysics(),
+          //                     itemBuilder: (context, index) {
+          //                       var value  = studentAttandanceController.getStudentListModel.value.data![index];
+          //                       // RxBool isPresent = false.obs;
+          //
+          //                       return Padding(
+          //                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          //                         child: Column(
+          //                           children: [
+          //                             Row(
+          //                               mainAxisAlignment:
+          //                               MainAxisAlignment.spaceBetween,
+          //                               children: [
+          //                                 Container(
+          //                                   width: size.width * 0.57,
+          //                                   // color: Colors.green,
+          //                                   child: Row(
+          //                                     children: [
+          //                                       ClipOval(
+          //                                         child: Image.asset(
+          //                                           AppAssets.studentImg,
+          //                                           height: 30,
+          //                                           width: 30,
+          //                                         ),
+          //                                       ),
+          //                                       const SizedBox(
+          //                                         width: 10,
+          //                                       ),
+          //                                       Container(
+          //                                         width: size.width * 0.45,
+          //                                         // color: Colors.blue,
+          //                                         child: Text(
+          //                                           value.name!,
+          //                                           // 'Marry Jones Marry Jones Marry Jones Marry Jones Marry Jones',
+          //                                           textAlign: TextAlign.left,
+          //                                           style: GoogleFonts.poppins(
+          //                                             fontSize: 15,
+          //                                             fontWeight: FontWeight.w600,
+          //                                             color: AppThemes.blueColor,
+          //                                           ),
+          //                                           maxLines: 2,
+          //                                           overflow: TextOverflow.ellipsis,
+          //                                         ),
+          //                                       ),
+          //                                     ],
+          //                                   ),
+          //                                 ),
+          //                                 Obx(
+          //                                   () => Container(
+          //                                     // color: Colors.amber,
+          //                                     child: Row(
+          //                                       children: [
+          //                                         Radio(
+          //                                           value: true,
+          //                                           groupValue: studentAttandanceController.isPresent.value[index],
+          //                                           activeColor: AppThemes.primaryColor,
+          //                                           onChanged: (present){
+          //                                             setState(() {
+          //                                               studentAttandanceController.isPresent.value[index] = present!;
+          //                                               print("present : ${studentAttandanceController.isPresent.value[index]}");
+          //                                               studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
+          //                                             });
+          //                                           },
+          //                                         ),
+          //                                         SizedBox(
+          //                                           width: 15,
+          //                                         ),
+          //                                         Radio(
+          //                                           value: false,
+          //                                           groupValue: studentAttandanceController.isPresent.value[index],
+          //                                           activeColor: AppThemes.red,
+          //                                           onChanged: (absent){
+          //                                             setState(() {
+          //                                               studentAttandanceController.isPresent.value[index] = absent!;
+          //                                               print("absent : ${studentAttandanceController.isPresent.value[index]}");
+          //                                               studentAttandanceController.manageAddAttandance(studentId: value.id!, isPresent: studentAttandanceController.isPresent.value[index]);
+          //                                             });
+          //                                           },
+          //                                         ),
+          //                                         SizedBox(
+          //                                           width: 5,
+          //                                         ),
+          //                                       ],
+          //                                     ),
+          //                                   ),
+          //                                 ),
+          //                               ],
+          //                             ),
+          //                             const SizedBox(
+          //                               height: 30,
+          //                             )
+          //                           ],
+          //                         ),
+          //                       );
+          //                     },
+          //                   ),
+          //                 )
+          //               ],
+          //             ))
+          //             : Container(
+          //             height: size.height * .44,
+          //             width: size.width,
+          //             child: Center(child: CommonProgressIndicator())
+          //         )
+          //         )
+          //     )
+          // ),
         ],
       ),
       bottomNavigationBar: Obx(
-        () => studentAttandanceController
-            .getStudentListModel.value.data !=
+            () => studentAttandanceController
+            .getAttandanceListData.value.data !=
             null
-            ? studentAttandanceController.getStudentListModel.value.data!.isEmpty ? SizedBox.shrink()
+            ? studentAttandanceController.getAttandanceListData.value.data!.isEmpty ? SizedBox.shrink()
             : SizedBox(
           width: size.width,
           child: Row(
@@ -410,6 +607,43 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
           ),
         ) : SizedBox.shrink(),
       ),
+      // bottomNavigationBar: Obx(
+      //   () => studentAttandanceController
+      //       .getStudentListModel.value.data !=
+      //       null
+      //       ? studentAttandanceController.getStudentListModel.value.data!.isEmpty ? SizedBox.shrink()
+      //       : SizedBox(
+      //     width: size.width,
+      //     child: Row(
+      //       mainAxisSize: MainAxisSize.max,
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Container(
+      //           width: size.width,
+      //           height: 40,
+      //           color: AppThemes.primaryColor,
+      //           child: InkWell(
+      //             onTap: () {
+      //               studentAttandanceController.addAttandanceAPI(context);
+      //             },
+      //             child:  const Center(
+      //               child:  Text(
+      //                 'SUBMIT',
+      //                 textAlign: TextAlign.center,
+      //                 style: TextStyle(
+      //                   fontWeight: FontWeight.w500,
+      //                   fontSize: 18,
+      //                   color: Colors.white,
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+      //         )
+      //       ],
+      //     ),
+      //   ) : SizedBox.shrink(),
+      // ),
     );
   }
 }
