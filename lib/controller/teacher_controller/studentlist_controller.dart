@@ -14,8 +14,8 @@ import '../../resourses/api_constant.dart';
 class StudentListController extends GetxController{
   RxBool isLoading = false.obs;
   Rx<StudentList> getStudentListModel = StudentList().obs;
-  RxBool isDetailsLoading = false.obs;
-  Rx<StudentDetails> getStudentDetailsModel = StudentDetails().obs;
+    RxBool isDetailsLoading = false.obs;
+    Rx<StudentDetails> getStudentDetailsModel = StudentDetails().obs;
 
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
@@ -46,7 +46,7 @@ class StudentListController extends GetxController{
 
     http.Response response = await http.get(Uri.parse(ApiUrls.studentDetails+"/$stuId"), headers: await getAuthHeader());
     print(response.statusCode);
-    print(response.body);
+    print("stud det : ${response.body}");
 
     if (response.statusCode == 200) {
       getStudentDetailsModel.value = StudentDetails.fromJson(jsonDecode(response.body));

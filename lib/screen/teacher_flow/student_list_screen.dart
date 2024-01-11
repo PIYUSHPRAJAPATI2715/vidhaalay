@@ -300,7 +300,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                                     Get.toNamed(
                                                         MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
                                                   } else if (value == 2) {
-                                                    Get.toNamed(MyRouters.examResultScreenTeacher);
+                                                    Get.toNamed(MyRouters.examResultScreenTeacher,arguments: studentListController.getStudentListModel.value.data![index].id);
                                                   }
                                                 },
                                                 itemBuilder: (BuildContext context) {
