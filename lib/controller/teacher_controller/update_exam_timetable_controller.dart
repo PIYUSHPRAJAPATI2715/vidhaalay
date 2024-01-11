@@ -146,10 +146,24 @@ class UpdateExamTimeTableController extends GetxController {
           Helpers.hideLoader(loader);
 
           // Get.back();
-          Get.back();
 
           final examTimeTableController = Get.put(ExamTimeTableController());
+
+          List<String> dateParts = dobController.text.split('-');
+
+          examTimeTableController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          examTimeTableController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+
+          print("sel Date Index: ${examTimeTableController.selectedIndex.value}");
+          print("sel Month Index: ${examTimeTableController.selectedMonthIndex.value}");
+
+          examTimeTableController.selectedDate = dobController.text;
+
+          examTimeTableController.selectedExamType.value = int.parse(selectedExamType!);
+          examTimeTableController.selectedClassId.value = selectedClassId.value;
           examTimeTableController.getExamTimeTableData();
+
+          Get.back();
 
           selectedSubject = null;
           selectedTeacher = null;

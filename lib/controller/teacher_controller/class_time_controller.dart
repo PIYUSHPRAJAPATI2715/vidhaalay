@@ -16,7 +16,10 @@ class ClassTimeController extends GetxController{
   RxList<MyClass> classList = <MyClass>[].obs;
   // RxInt? selectedClassId;
   RxInt selectedClassId = 0.obs;
+
   String? selectedDate;
+  RxInt selectedIndex = 0.obs;
+  RxInt selectedMonthIndex = 0.obs;
 
 
   void getMyClass() {

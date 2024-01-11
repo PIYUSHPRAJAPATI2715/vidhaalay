@@ -26,6 +26,8 @@ class ExamTimeTableController extends GetxController {
 
   String? selectedDate;
 
+  RxInt selectedIndex = 0.obs;
+  RxInt selectedMonthIndex = 0.obs;
 
 
   void getMyClass() {

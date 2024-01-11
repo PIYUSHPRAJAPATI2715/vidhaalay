@@ -133,11 +133,21 @@ class UpdateEventController extends GetxController {
         print("Event responseData  : ${responseData}");
 
         if(responseData['status']) {
-          Get.back();
           Helpers.hideLoader(loader);
           final evenetDetailController = Get.put(EvenetDetailController());
+
+          List<String> dateParts = dobController.text.split('-');
+
+          evenetDetailController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          evenetDetailController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+
+          print("sel Date Index: ${evenetDetailController.selectedIndex.value}");
+          print("sel Month Index: ${evenetDetailController.selectedMonthIndex.value}");
+
           evenetDetailController.selectedClassId.value = int.parse(selectClass!);
           evenetDetailController.getEventData(classId: int.parse(selectClass!),dateFormat : date);
+          Get.back();
+
         } else {
           Helpers.hideLoader(loader);
         }

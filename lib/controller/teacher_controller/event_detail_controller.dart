@@ -31,8 +31,10 @@ class EvenetDetailController extends GetxController {
   // }
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
-  RxString selectedDate = "".obs;
 
+  RxString selectedDate = "".obs;
+  RxInt selectedIndex = 0.obs;
+  RxInt selectedMonthIndex = 0.obs;
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {

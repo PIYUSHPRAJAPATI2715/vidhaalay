@@ -26,9 +26,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
   RxString year = "".obs;
   RxString monthName = "".obs;
   RxString clinicId = "".obs;
-  int selectedIndex = 0;
-  int selectedMonthIndex = 0;
-
+  
   var now = DateTime.now();
   var totalDays;
   var listOfDates;
@@ -44,18 +42,25 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
+
+    String date = year.value+"-"+ month.value +"-"+ day.value;
+    log("date : $date");
+    classTimeController.selectedDate = date;
+    classTimeController.selectedMonthIndex.value = int.parse(month.value) - 1;
+    print("sel Month: ${classTimeController.selectedMonthIndex.value}");
+
     getYear();
     now = DateTime.now();
     totalDays = daysInMonth(now);
     listOfDates = List<int>.generate(totalDays, (i) => i + 1);
     todayDay = DateFormat('dd').format(now);
-    selectedIndex = int.parse(todayDay.toString()) - 1;
+    classTimeController.selectedIndex.value = int.parse(todayDay.toString()) - 1;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getWeekDates(now);
       if (!mounted) return;
       setState(() {});
       Future.delayed(const Duration(seconds: 1)).then((value) {
-        Scrollable.ensureVisible(keysList[selectedIndex].currentContext!,
+        Scrollable.ensureVisible(keysList[classTimeController.selectedIndex.value].currentContext!,
             alignment: .5);
       });
     });
@@ -222,7 +227,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                           ],
                         ),
                       ),
-                      
+
                       Container(
                         height: size.height*.050,
                         decoration: BoxDecoration(
@@ -240,7 +245,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                     (BuildContext context, int index) {
                                   return InkWell(
                                     onTap: () {
-                                      selectedMonthIndex = index;
+                                      classTimeController.selectedMonthIndex.value = index;
                                       month.value = "${index + 1}".length != 2
                                           ? "0${index + 1}"
                                           : "${index + 1}";
@@ -269,7 +274,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 17,
-                                                color: index == selectedMonthIndex
+                                                color: index == classTimeController.selectedMonthIndex.value
                                                     ? Colors.white
                                                     : Colors.black
                                             )
@@ -306,8 +311,8 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                 child: GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      selectedIndex = index;
-                                      print("selectedIndex : $selectedIndex");
+                                      classTimeController.selectedIndex.value = index;
+                                      print("classTimeController.selectedIndex.value : $classTimeController.selectedIndex.value");
 
                                       day.value = formattedDate.length != 2
                                           ? "0$formattedDate"
@@ -333,7 +338,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: index == selectedIndex
+                                          color: index == classTimeController.selectedIndex.value
                                               ? Colors.white
                                               : Colors.transparent,
                                           borderRadius:
@@ -348,7 +353,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,
                                                   color:
-                                                  index == selectedIndex
+                                                  index == classTimeController.selectedIndex.value
                                                       ? Colors.black
                                                       : Colors.white),
                                             ),
@@ -358,7 +363,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,
                                                   color:
-                                                  index == selectedIndex
+                                                  index == classTimeController.selectedIndex.value
                                                       ? Colors.black
                                                       : Colors.white),
                                             ),

@@ -203,6 +203,17 @@ class UpdateClassTimeTableController extends GetxController {
           // Get.back();
 
           final classTimeController = Get.put(ClassTimeController());
+
+          // List<String> dateParts = dobController.text.split('-');
+          //
+          // classTimeController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          // classTimeController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          //
+          // print("sel Date Index: ${classTimeController.selectedIndex.value}");
+          // print("sel Month Index: ${classTimeController.selectedMonthIndex.value}");
+          //
+          // classTimeController.selectedDate = dobController.text;
+
           classTimeController.selectedClassId.value = selectedClassId.value;
           classTimeController.getTimeTableData();
 

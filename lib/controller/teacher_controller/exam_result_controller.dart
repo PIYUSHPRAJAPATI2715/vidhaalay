@@ -21,7 +21,7 @@ class ExamResultController extends GetxController {
   RxBool isDataLoading = false.obs;
   Rx<ExamResultModel> getExamResultModel = ExamResultModel().obs;
 
-  RxList<MyClass> classList = <MyClass>[].obs;
+  // RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
 
   RxBool isExamTypeLoading = false.obs;
@@ -35,22 +35,22 @@ class ExamResultController extends GetxController {
 
 
 
-  void getMyClass() {
-    getMyClassListRepo().then((values) async {
-      // print("value : $values");
-      if(values != null) {
-        // print(" selectedClassId : ${values[0].id}");
-        selectedClassId.value = values[0].id;
-        print("selectedClassId : ${selectedClassId?.value}");
-
-        classList.clear();
-        classList.addAll(values);
-        // getExamTimeTableData();
-
-        print("classlist : ${classList?.value}");
-      }
-    });
-  }
+  // void getMyClass() {
+  //   getMyClassListRepo().then((values) async {
+  //     // print("value : $values");
+  //     if(values != null) {
+  //       // print(" selectedClassId : ${values[0].id}");
+  //       selectedClassId.value = values[0].id;
+  //       print("selectedClassId : ${selectedClassId?.value}");
+  //
+  //       classList.clear();
+  //       classList.addAll(values);
+  //       // getExamTimeTableData();
+  //
+  //       print("classlist : ${classList?.value}");
+  //     }
+  //   });
+  // }
 
   Future getStudetnDetails({required int stuId}) async {
     print(" stuId : $stuId");
