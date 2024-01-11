@@ -1,5 +1,8 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/teacher_controller/create_event_controller.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 import '../../routers/my_routers.dart';
@@ -17,51 +20,28 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
+  final createEventController = Get.put(CreateEventController());
+  final formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
-  TextEditingController dobController = TextEditingController();
-  String selectClass = 'Select Class';
-  var selectClassData = [
-    'Select Class',
-    '7th', '8th', '9th', '10th',
-    '11th', '12th',
-  ];
-  String selectStudent = 'Select Student';
-  var selectStudentData = [
-    'Select Student',
-    'ram',
-    'ram',
-    'ram',
-  ];
-  void selectDate() async {
-    final DateTime? pickedDate = await showDatePicker(
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: const ColorScheme.light(
-                primary: Color(0xFF7ED957),
-                // header background color
-                onPrimary: Colors.white,
-                // header text color
-                onSurface: Color(0xFF7ED957), // body text color
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF7ED957), // button text color
-                ),
-              ),
-            ),
-            child: child!,
-          );
-        },
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1990),
-        lastDate: DateTime(2025));
+  // final List<String> items = [
+  //   'Item1',
+  //   'Item2',
+  //   'Item3',
+  //   'Item4',
+  //   'Item5',
+  //   'Item6',
+  //   'Item7',
+  //   'Item8',
+  // ];
+  // String? selectedValue;
 
-    if (pickedDate != null) {
-      DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-      dobController.text = dateFormat.format(pickedDate);
-    }
+
+
+  @override
+  void initState() {
+    createEventController.getMyClass();
+    super.initState();
   }
 
   @override
@@ -79,12 +59,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: (){
-
+            Get.back();
           },
-          icon: Image.asset(AppAssets.moreIcon,width: 25,height: 25,),
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
         ),
         actions: [
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
@@ -125,7 +104,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ),
           ),
           Container(
-              height: 175,
+              height: size.height*.230,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -156,181 +135,402 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               )
           ),
 
-          Positioned.fill(
+          Obx(() => Positioned.fill(
             top: size.height*.230,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 5).copyWith(bottom: 0,right: 3),
-              height: size.height,
-              width: size.width,
-              decoration: const BoxDecoration(
-                color: AppThemes.white,
-                borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
-              ),
-              child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Class',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: 50,
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: DropdownButtonFormField(
-                                  focusColor: Colors.grey.shade50,
-                                  isExpanded: true,
-                                  iconEnabledColor: const Color(0xff97949A),
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  hint: Text(
-                                    selectClass,
-                                    style: const TextStyle(
-                                        color: Color(0xff463B57),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300),
-                                    textAlign: TextAlign.justify,
-                                  ),
-                                  decoration: InputDecoration(
-                                      fillColor: Colors.grey.shade50,
-                                      contentPadding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(color: Colors.grey.shade300),
-                                        borderRadius: BorderRadius.circular(25.0),
-                                      ),
-                                      enabledBorder: const OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xffE3E3E3)),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(25.0)))),
-                                  value: selectClass,
-                                  items: selectClassData.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(
-                                        items,
-                                        style: const TextStyle(
-                                            color: Colors.grey, fontSize: 14),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      selectClass = newValue!;
-                                    });
-                                  },
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              Text('Date',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                height: 50,
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: CommonTextfield(
-                                  hintText: 'Enter days here',
-                                  obSecure: false,
-                                  readOnly: true,
-                                  keyboardType: TextInputType.number,
-                                  controller: dobController,
-                                  onTap: () {
-                                    selectDate();
-                                  },
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        selectDate();
-                                      },
-                                      icon: const Icon(Icons.calendar_month,size: 20,color: Colors.grey,)),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              Text('Message',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              TextFormField(
-                                maxLines: 5,
-                                textAlign: TextAlign.start,
-                                decoration:  InputDecoration(
-                                  hintText: 'Write message...',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey,
-                                        width: 0.5
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 5).copyWith(bottom: 0,right: 3),
+                height: size.height,
+                width: size.width,
+                decoration: const BoxDecoration(
+                  color: AppThemes.white,
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
+                ),
+                child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Name',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey,
                                     ),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                                    borderRadius: BorderRadius.circular(25),
+                                  const SizedBox(
+                                    height: 5,
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-                                    borderRadius: BorderRadius.circular(25),
+                                  CommonTextfield(
+                                    hintText: 'Enter event name',
+                                    obSecure: false,
+                                    controller: createEventController.eventName,
+                                    validator: MultiValidator([
+                                      RequiredValidator(errorText: 'Please enter event name')
+                                    ]),
                                   ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 35,
-                              ),
-                              Container(
-                                width: size.width,
-                                decoration: const BoxDecoration(
-                                    color: AppThemes.primaryColor,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(25),
-                                    )),
-                                child: const CustomOutlineButton(
-                                  title: 'Send',
-                                  backgroundColor: AppThemes.primaryColor,
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  Text('Class',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
 
-                                ),
+                                  DropdownButtonHideUnderline(
+                                      child: DropdownButtonFormField2(
+                                        isExpanded: true,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                        ),
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                          hintText: 'Select Class',
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 15,
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(50),
+                                            borderSide: BorderSide(
+                                                color: Colors.red,
+                                                width: 1
+                                            ),
+                                          ),
+                                          focusedErrorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(50),
+                                            borderSide: BorderSide(
+                                                color: Colors.red,
+                                                width: 1
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(50),
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey!.withOpacity(0.5),
+                                                  width: 1
+                                              )
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(50),
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey!.withOpacity(0.5),
+                                                  width: 1
+                                              )
+                                          ),
+                                        ),
+                                        items: createEventController.selectClassData.toList()
+                                            .map((item) => DropdownMenuItem(
+                                          value: item.id.toString(),
+                                          child: Text(item.name),
+                                        )).toList(),
+                                        value: createEventController.selectClass,
+                                        validator: (value) {
+                                          print("validator :  $value");
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please select class';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        onChanged: (value) {
+                                          setState(() {
+                                            // print(value);
+                                            createEventController.selectClass = value;
+                                            print("value : ${createEventController.selectClass}");
+                                          });
+                                        },
+                                        dropdownStyleData: DropdownStyleData(
+                                          maxHeight: size.height * 0.28,
+                                          width: size.width * 0.92,
+                                          padding: EdgeInsets.symmetric(horizontal: 5),
+                                          isOverButton: false,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(14),
+                                            color: Colors.white,
+                                          ),
+                                          offset: const Offset(0, -10),
+                                          scrollbarTheme: ScrollbarThemeData(
+                                            radius: const Radius.circular(40),
+                                            thickness: MaterialStateProperty.all<double>(6),
+                                            thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                          ),
+                                        ),
+                                        menuItemStyleData: const MenuItemStyleData(
+                                          height: 45,
+                                          padding: EdgeInsets.only(left: 10, right: 10),
+                                        ),
+                                      ),
+                                    ),
+                                  // DropdownButtonFormField<String>(
+                                  //   value: createEventController.selectClass?.value,
+                                  //   items: createEventController.selectClassData.toList()
+                                  //       .map((item) => DropdownMenuItem(
+                                  //     value: item.toString(),
+                                  //     child: Text(item),
+                                  //   )).toList(),
+                                  //   onChanged: (value) {
+                                  //     setState(() {
+                                  //       createEventController.selectClass!.value = value!;
+                                  //     });
+                                  //   },
+                                  //   menuMaxHeight: size.height * 0.25,
+                                  //   borderRadius: BorderRadius.circular(10),
+                                  //   style: TextStyle(
+                                  //     color: Colors.grey,
+                                  //     fontSize: 15,
+                                  //   ),
+                                  //   decoration: InputDecoration(
+                                  //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                  //     hintText: 'Select Class',
+                                  //     hintStyle: const TextStyle(
+                                  //       color: Colors.grey,
+                                  //       fontSize: 15,
+                                  //     ),
+                                  //     errorBorder: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.circular(50),
+                                  //       borderSide: BorderSide(
+                                  //           color: Colors.red,
+                                  //           width: 1
+                                  //       ),
+                                  //     ),
+                                  //     focusedErrorBorder: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.circular(50),
+                                  //       borderSide: BorderSide(
+                                  //           color: Colors.red,
+                                  //           width: 1
+                                  //       ),
+                                  //     ),
+                                  //     enabledBorder: OutlineInputBorder(
+                                  //         borderRadius: BorderRadius.circular(50),
+                                  //         borderSide: BorderSide(
+                                  //             color: Colors.grey!.withOpacity(0.5),
+                                  //             width: 1
+                                  //         )
+                                  //     ),
+                                  //
+                                  //     focusedBorder: OutlineInputBorder(
+                                  //         borderRadius: BorderRadius.circular(50),
+                                  //         borderSide: BorderSide(
+                                  //             color: Colors.grey!.withOpacity(0.5),
+                                  //             width: 1
+                                  //         )
+                                  //     ),
+                                  //   ),
+                                  //   validator: (value) {
+                                  //     if (value == null || value.isEmpty) {
+                                  //       return 'Please select class';
+                                  //     }
+                                  //     return null;
+                                  //   },
+                                  // ),
+
+                                  // Container(
+                                  //   height: 50,
+                                  //   width: Get.width,
+                                  //   decoration: BoxDecoration(
+                                  //     borderRadius: BorderRadius.circular(25),
+                                  //   ),
+                                  //   child: DropdownButtonFormField(
+                                  //     focusColor: Colors.grey.shade50,
+                                  //     isExpanded: true,
+                                  //     iconEnabledColor: const Color(0xff97949A),
+                                  //     icon: const Icon(Icons.keyboard_arrow_down),
+                                  //     hint: Text(
+                                  //       selectClass,
+                                  //       style: const TextStyle(
+                                  //           color: Color(0xff463B57),
+                                  //           fontSize: 16,
+                                  //           fontWeight: FontWeight.w300),
+                                  //       textAlign: TextAlign.justify,
+                                  //     ),
+                                  //     decoration: InputDecoration(
+                                  //         fillColor: Colors.grey.shade50,
+                                  //         contentPadding: const EdgeInsets.symmetric(
+                                  //             horizontal: 20, vertical: 10),
+                                  //         focusedBorder: OutlineInputBorder(
+                                  //           borderSide:
+                                  //           BorderSide(color: Colors.grey.shade300),
+                                  //           borderRadius: BorderRadius.circular(25.0),
+                                  //         ),
+                                  //         enabledBorder: const OutlineInputBorder(
+                                  //             borderSide:
+                                  //             BorderSide(color: Color(0xffE3E3E3)),
+                                  //             borderRadius: BorderRadius.all(
+                                  //                 Radius.circular(25.0)))),
+                                  //     value: selectClass,
+                                  //     items: selectClassData.map((String items) {
+                                  //       return DropdownMenuItem(
+                                  //         value: items,
+                                  //         child: Text(
+                                  //           items,
+                                  //           style: const TextStyle(
+                                  //               color: Colors.grey, fontSize: 14),
+                                  //         ),
+                                  //       );
+                                  //     }).toList(),
+                                  //     onChanged: (String? newValue) {
+                                  //       setState(() {
+                                  //         selectClass = newValue!;
+                                  //       });
+                                  //     },
+                                  //   ),
+                                  // ),
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  Text('Date',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  CommonTextfield(
+                                    hintText: 'Enter days here',
+                                    obSecure: false,
+                                    readOnly: true,
+                                    keyboardType: TextInputType.number,
+                                    controller: createEventController.dobController,
+                                    onTap: () {
+                                      createEventController.selectDate(context);
+                                    },
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          createEventController.selectDate(context);
+                                        },
+                                        icon: Icon(Icons.calendar_month,color: Colors.grey)
+                                    ),
+                                    validator: MultiValidator([
+                                      RequiredValidator(errorText: 'Please select date of birth'),
+                                    ]),
+                                  ),
+                                  // Container(
+                                  //   height: 50,
+                                  //   width: Get.width,
+                                  //   decoration: BoxDecoration(
+                                  //     borderRadius: BorderRadius.circular(25),
+                                  //   ),
+                                  //   child: CommonTextfield(
+                                  //     hintText: 'Enter days here',
+                                  //     obSecure: false,
+                                  //     readOnly: true,
+                                  //     keyboardType: TextInputType.number,
+                                  //     controller: dobController,
+                                  //     onTap: () {
+                                  //       selectDate();
+                                  //     },
+                                  //     suffixIcon: IconButton(
+                                  //         onPressed: () {
+                                  //           selectDate();
+                                  //         },
+                                  //         icon: const Icon(Icons.calendar_month,size: 20,color: Colors.grey,)),
+                                  //     validator: MultiValidator([
+                                  //       RequiredValidator(errorText: 'Please select date'),
+                                  //     ]),
+                                  //   ),
+                                  // ),
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  Text('Message',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  TextFormField(
+                                    maxLines: 3,
+                                    controller: createEventController.message,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                    decoration:  InputDecoration(
+                                      hintText: 'Write message...',
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        borderSide: const BorderSide(
+                                            color: Colors.grey,
+                                            width: 0.5
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ),
+                                    validator: MultiValidator([
+                                      RequiredValidator(errorText: 'Message is required'),
+                                    ]),
+                                  ),
+                                  const SizedBox(
+                                    height: 35,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if(formKey.currentState!.validate()) {
+                                        print(createEventController.selectClass);
+                                        createEventController.createEventAPI(context,);
+                                      }
+                                      // if(_formKey.currentState!.validate()) {
+                                      //   print(createEventController.selectClass);
+                                      //   // createEventController.createEventAPI(context,);
+                                      // }
+                                    },
+                                    child: Container(
+                                      width: size.width,
+                                      decoration: const BoxDecoration(
+                                          color: AppThemes.primaryColor,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(25),
+                                          )),
+                                      child: const CustomOutlineButton(
+                                        title: 'Send',
+                                        backgroundColor: AppThemes.primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                    ],
-                  )
+                            ),
+                        ],
+                      ),
+                    )
+                ),
               ),
             ),
           ),

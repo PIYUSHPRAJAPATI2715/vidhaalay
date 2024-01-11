@@ -21,6 +21,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
   RxString monthName = "".obs;
   RxString clinicId = "".obs;
   int selectedIndex = 0;
+  int selectedMonthIndex = 0;
 
   var now = DateTime.now();
   var totalDays;
@@ -131,7 +132,8 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
             ),
           ),
           Container(
-              height: 190,
+              // height: 190,
+              height: size.height * .239,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
@@ -141,10 +143,239 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 10),
+                    // const SizedBox(height: 10),
+                    // Container(
+                    //   height: 60,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10)),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Expanded(
+                    //         child: ListView.builder(
+                    //           scrollDirection: Axis.horizontal,
+                    //           shrinkWrap: true,
+                    //           itemCount: months.length,
+                    //           itemBuilder:
+                    //               (BuildContext context, int index) {
+                    //             return InkWell(
+                    //               onTap: () {
+                    //                 selectedIndex = index;
+                    //                 month.value = "${index + 1}".length != 2
+                    //                     ? "0${index + 1}"
+                    //                     : "${index + 1}";
+                    //                 monthName.value = DateFormat('MMMM')
+                    //                     .format(DateTime.parse(
+                    //                     "${year.value}-${month.value}-${day.value}"));
+                    //                 now = DateTime.parse(
+                    //                     "${year.value}-${month.value}-${day.value}");
+                    //                 totalDays = daysInMonth(now);
+                    //                 listOfDates = List<int>.generate(
+                    //                     totalDays, (i) => i + 1);
+                    //                 todayDay = DateFormat('dd').format(now);
+                    //                 getWeekDates(now);
+                    //                 log(DateFormat('EEEE').format(now));
+                    //                 // Get.back();
+                    //               },
+                    //               child: Padding(
+                    //                 padding: const EdgeInsets.symmetric(
+                    //                     horizontal: 10,vertical: 10),
+                    //                 child: Text(months[index].toString(),
+                    //                     style: GoogleFonts.poppins(
+                    //                         fontWeight: FontWeight.w500,
+                    //                         fontSize: 17,
+                    //                         color: index == selectedIndex
+                    //                             ? Colors.white
+                    //                             : Colors.black)),
+                    //               ),
+                    //             );
+                    //           },
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 80,
+                    //   child: SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     physics: BouncingScrollPhysics(),
+                    //     child: Row(
+                    //       children:
+                    //       List.generate(weekDates.length, (index) {
+                    //         DateTime date = weekDates[index];
+                    //         String formattedDate =
+                    //         DateFormat('d').format(date);
+                    //         String formattedDate1 =
+                    //         DateFormat('MM').format(date);
+                    //         String formattedDate2 =
+                    //         DateFormat('yyyy').format(date);
+                    //         String weekDay =
+                    //         DateFormat('EEEE').format(date);
+                    //         return Padding(
+                    //           key: keysList[index],
+                    //           padding: EdgeInsets.only(right: 0, left: 0),
+                    //           child: GestureDetector(
+                    //             onTap: () {
+                    //               setState(() {
+                    //                 selectedIndex = index;
+                    //                 day.value = formattedDate.length != 2
+                    //                     ? "0$formattedDate"
+                    //                     : formattedDate;
+                    //                 // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
+                    //                 // year.value = formattedDate2;
+                    //                 log(month.value);
+                    //                 monthName.value = DateFormat('MMMM')
+                    //                     .format(DateTime.parse(
+                    //                     "${year.value}-${month.value}-${day.value}"));
+                    //               });
+                    //             },
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.all(8.0),
+                    //               child: Container(
+                    //                 decoration: BoxDecoration(
+                    //                     color: index == selectedIndex
+                    //                         ? Colors.white
+                    //                         : Colors.transparent,
+                    //                     borderRadius:
+                    //                     BorderRadius.circular(20)),
+                    //                 child: Padding(
+                    //                   padding: const EdgeInsets.all(12.0),
+                    //                   child: Column(
+                    //                     children: [
+                    //                       Text(
+                    //                         weekDay[0].toString(),
+                    //                         style: TextStyle(
+                    //                             fontSize: 16,
+                    //                             fontWeight: FontWeight.w600,
+                    //                             color:
+                    //                             index == selectedIndex
+                    //                                 ? Colors.black
+                    //                                 : Colors.white),
+                    //                       ),
+                    //                       Text(
+                    //                         formattedDate,
+                    //                         style: TextStyle(
+                    //                             fontSize: 16,
+                    //                             fontWeight: FontWeight.w600,
+                    //                             color:
+                    //                             index == selectedIndex
+                    //                                 ? Colors.black
+                    //                                 : Colors.white),
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         );
+                    //       }),
+                    //     ),
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Container(
+                        transformAlignment: Alignment.center,
+                        width: size.width * .45,
+                        padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                        decoration: BoxDecoration(
+                            // color: Colors.white,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Class-8',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(year.value.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                              // Text(year.value.toString(),
+                              //   style: GoogleFonts.poppins(
+                              //       fontWeight: FontWeight.w500,
+                              //       fontSize: 17,
+                              //       color: Colors.black),
+                              //   textAlign: TextAlign.center,
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Container(
+                    //   height: size.height*.045,
+                    //   decoration: BoxDecoration(
+                    //     // color: Colors.amberAccent,
+                    //       borderRadius: BorderRadius.circular(10)),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //
+                    //       // Expanded(
+                    //       //   child: ListView.builder(
+                    //       //     scrollDirection: Axis.horizontal,
+                    //       //     shrinkWrap: true,
+                    //       //     itemCount: years.length,
+                    //       //     itemBuilder:
+                    //       //         (BuildContext context, int index) {
+                    //       //       return InkWell(
+                    //       //         onTap: () {
+                    //       //           selectedMonthIndex = index;
+                    //       //           month.value = "${index + 1}".length != 2
+                    //       //               ? "0${index + 1}"
+                    //       //               : "${index + 1}";
+                    //       //           monthName.value = DateFormat('MMMM')
+                    //       //               .format(DateTime.parse(
+                    //       //               "${year.value}-${month.value}-${day.value}"));
+                    //       //           now = DateTime.parse(
+                    //       //               "${year.value}-${month.value}-${day.value}");
+                    //       //           totalDays = daysInMonth(now);
+                    //       //           listOfDates = List<int>.generate(
+                    //       //               totalDays, (i) => i + 1);
+                    //       //           todayDay = DateFormat('dd').format(now);
+                    //       //           getWeekDates(now);
+                    //       //           log(DateFormat('EEEE').format(now));
+                    //       //           // Get.back();
+                    //       //         },
+                    //       //         child: Padding(
+                    //       //           padding: const EdgeInsets.symmetric(
+                    //       //               horizontal: 10,vertical: 5),
+                    //       //           child: Text(year.value.toString(),
+                    //       //               style: GoogleFonts.poppins(
+                    //       //                   fontWeight: FontWeight.w500,
+                    //       //                   fontSize: 17,
+                    //       //                   color: index == selectedMonthIndex
+                    //       //                       ? Colors.white
+                    //       //                       : Colors.black)
+                    //       //           ),
+                    //       //         ),
+                    //       //       );
+                    //       //     },
+                    //       //   ),
+                    //       // ),
+                    //     ],
+                    //   ),
+                    // ),
+
                     Container(
-                      height: 60,
+                      height: size.height*.050,
                       decoration: BoxDecoration(
+                        // color: Colors.amber,
                           borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +389,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                   (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () {
-                                    selectedIndex = index;
+                                    selectedMonthIndex = index;
                                     month.value = "${index + 1}".length != 2
                                         ? "0${index + 1}"
                                         : "${index + 1}";
@@ -177,14 +408,18 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,vertical: 10),
-                                    child: Text(months[index].toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: index == selectedIndex
-                                                ? Colors.white
-                                                : Colors.black)),
+                                        horizontal: 10),
+                                    child: Center(
+                                      child: Text(months[index].toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color: index == selectedMonthIndex
+                                                  ? Colors.white
+                                                  : Colors.black
+                                          )
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
@@ -194,7 +429,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 80,
+                      height: size.height*.110,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
@@ -222,10 +457,18 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                         : formattedDate;
                                     // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
                                     // year.value = formattedDate2;
+                                    log(day.value);
                                     log(month.value);
+                                    log(year.value);
+
                                     monthName.value = DateFormat('MMMM')
                                         .format(DateTime.parse(
                                         "${year.value}-${month.value}-${day.value}"));
+
+                                    String date = year.value+"-"+ month.value +"-"+ day.value;
+                                    log(date);
+
+                                    // evenetDetailController.getEventData(date);
                                   });
                                 },
                                 child: Padding(

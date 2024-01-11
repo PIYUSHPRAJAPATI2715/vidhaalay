@@ -1,5 +1,11 @@
 import 'package:get/get.dart';
 import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
+import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/create_exam_timetable.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/exam_timetable_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
 
 import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
@@ -36,18 +42,15 @@ import '../screen/student_screen/exam_result_screen.dart';
 import '../screen/student_screen/exam_timetable_screen.dart';
 import '../screen/student_screen/my_profile_student.dart';
 import '../screen/student_screen/syllabus_Screen.dart';
-import '../screen/teacher_flow/createTimeTable.dart';
+import '../screen/teacher_flow/create_class_timeTable.dart';
 import '../screen/teacher_flow/create_event_screen.dart';
-import '../screen/teacher_flow/create_exam_time.dart';
 import '../screen/teacher_flow/drawer_teacher.dart';
 import '../screen/teacher_flow/exam_result_Screen_teacher.dart';
 import '../screen/teacher_flow/my_profile_teacher_screen.dart';
 import '../screen/teacher_flow/send_notification_screen.dart';
 import '../screen/teacher_flow/student_details_screen.dart';
-import '../screen/teacher_flow/student_list_screen.dart';
 import '../screen/teacher_flow/teacher_attendance_Screen.dart';
 import '../screen/teacher_flow/teacher_classTime_table.dart';
-import '../screen/teacher_flow/teacher_exam_timetable_screen.dart';
 
 
 
@@ -88,6 +91,9 @@ class MyRouters{
   // user
   static var addressScreen = "/addressScreen";
 
+  // student
+  static var drawerForStudent = "/drawerForStudent";
+  static var bottomNavigationStudentScreen = "/bottomNavigationStudentScreen";
 
   //teacher
   static var drawerForTeacher = "/drawerForTeacher";
@@ -95,6 +101,7 @@ class MyRouters{
   static var studentListScreen = "/studentListScreen";
   static var studentDetailsScreen = "/studentDetailsScreen";
   static var createEventScreen = "/createEventScreen";
+  static var teacherEventsScreen = "/teacherEventsScreen";
   static var examResultScreenTeacher = "/examResultScreenTeacher";
   static var teacherExamTimeTableScreen = "/teacherExamTimeTableScreen";
   static var teacherClassTimeScreen = "/teacherClassTimeScreen";
@@ -103,6 +110,7 @@ class MyRouters{
   static var createExamTimeTable = "/createExamTimeTable";
   static var otpSmsScreen = "/otpSmsScreen";
   static var forgotOtpSmsScreen = "/forgotOtpSmsScreen";
+  static var studenListScreen = "/forgotOtpSmsScreen";
 
 
   static var route = [
@@ -127,6 +135,8 @@ class MyRouters{
 
     //student screens
     GetPage(name: '/bottomNavigationScreen', page: () =>  const BottomNavigationScreen()),
+    GetPage(name: '/bottomNavigationStudentScreen', page: () =>  const BottomNavigationStudentScreen()),
+    GetPage(name: '/drawerForStudent', page: () =>  const DrawerForStudent()),
     GetPage(name: '/myProfileScreenStu', page: () =>  const MyProfileScreenStu()),
 
     //user screens
@@ -155,6 +165,8 @@ class MyRouters{
     GetPage(name: '/studentListScreen', page: () =>  const StudentListScreen()),
     GetPage(name: '/studentDetailsScreen', page: () =>  const StudentDetailsScreen()),
     GetPage(name: '/createEventScreen', page: () =>  const CreateEventScreen()),
+    GetPage(name: '/teacherEventsScreen', page: () =>  const TeacherEventsScreen()),
+    GetPage(name: '/teacherEventsScreen', page: () =>  const TeacherEventsScreen()),
     GetPage(name: '/examResultScreenTeacher', page: () =>  const ExamResultScreenTeacher()),
     GetPage(name: '/teacherExamTimeTableScreen', page: () =>  const TeacherExamTimeTableScreen()),
     GetPage(name: '/teacherClassTimeScreen', page: () =>  const TeacherClassTimeScreen()),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/resourses/size.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import '../../controller/get_profile_controller.dart';
+import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../repositories/update_profile_repo.dart';
 import '../../resourses/api_constant.dart';
 import '../../resourses/app_assets.dart';
@@ -39,8 +41,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Obx(
-            () => Container(
+      body: Container(
           height: size.height,
           width: size.width,
           // color: Colors.deepOrange,
@@ -136,28 +137,28 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                             LengthLimitingTextInputFormatter(10),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text('Unique Id',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: AppThemes.textGray
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        CommonTextfield(
-                          obSecure: false,
-                          readOnly: true,
-                          onTap: () {
-                            // showToast("you can not change your unique Id");
-                          },
-                          controller: getProfileController.uniqueIdController,
-                          hintText: getProfileController.getProfileModel.value.data!.uniqueId.toString(),
-                        ),
+                        // const SizedBox(
+                        //   height: 20,
+                        // ),
+                        // Text('Unique Id',
+                        //   style: GoogleFonts.poppins(
+                        //       fontWeight: FontWeight.w500,
+                        //       fontSize: 14,
+                        //       color: AppThemes.textGray
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   height: 5,
+                        // ),
+                        // CommonTextfield(
+                        //   obSecure: false,
+                        //   readOnly: true,
+                        //   onTap: () {
+                        //     // showToast("you can not change your unique Id");
+                        //   },
+                        //   controller: getProfileController.uniqueIdController,
+                        //   hintText: getProfileController.getProfileModel.value.data!.uniqueId.toString(),
+                        // ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -232,26 +233,39 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: size.height * 0.16),
-                child: Column(
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.asset(AppAssets.studentImg),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: GestureDetector(
-                        onTap: (){
-
-                        },
+                    Obx(
+                      () => Padding(
+                        padding: EdgeInsets.only(bottom: 15),
                         child: Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: const BoxDecoration(
-                              color: AppThemes.primaryColor,
-                              shape: BoxShape.circle
+                          height: size.height * .16,
+                          width: size.width * .35,
+                          decoration: BoxDecoration(
+                            // color: Colors.green,
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Image.asset(AppAssets.camera,height: 15,),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: getProfileController.imagePath.value != "" ? Image.file(File(getProfileController.imagePath.value,),fit: BoxFit.fill)
+                                            : Image.asset(AppAssets.studentImg,fit: BoxFit.fill),
+                          ),
                         ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getProfileController.selectOption(context);
+                        // getProfileController.pickGalleryImage();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: const BoxDecoration(
+                            color: AppThemes.primaryColor,
+                            shape: BoxShape.circle
+                        ),
+                        child: Image.asset(AppAssets.camera,height: 15,),
                       ),
                     ),
                   ],
@@ -260,8 +274,9 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
             ],
           ),
-        ),
-      ),
+        )
     );
   }
+
+
 }
