@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/class_time_controller.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/update_class_timeTable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -145,488 +146,241 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
               ),
             ),
           ),
-          Container(
-              // height: 200,
-              height: size.height*.250,
-              decoration: const BoxDecoration(
-                color: AppThemes.primaryColor,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
-              ),
-              child:  Padding(
-                padding: EdgeInsets.all(size.width * .010),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // const SizedBox(height: 10),
-                    // Container(
-                    //   height: 60,
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10)),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Expanded(
-                    //         child: ListView.builder(
-                    //           scrollDirection: Axis.horizontal,
-                    //           shrinkWrap: true,
-                    //           itemCount: months.length,
-                    //           itemBuilder:
-                    //               (BuildContext context, int index) {
-                    //             return InkWell(
-                    //               onTap: () {
-                    //                 selectedIndex = index;
-                    //                 month.value = "${index + 1}".length != 2
-                    //                     ? "0${index + 1}"
-                    //                     : "${index + 1}";
-                    //                 monthName.value = DateFormat('MMMM')
-                    //                     .format(DateTime.parse(
-                    //                     "${year.value}-${month.value}-${day.value}"));
-                    //                 now = DateTime.parse(
-                    //                     "${year.value}-${month.value}-${day.value}");
-                    //                 totalDays = daysInMonth(now);
-                    //                 listOfDates = List<int>.generate(
-                    //                     totalDays, (i) => i + 1);
-                    //                 todayDay = DateFormat('dd').format(now);
-                    //                 getWeekDates(now);
-                    //                 log(DateFormat('EEEE').format(now));
-                    //                 // Get.back();
-                    //               },
-                    //               child: Padding(
-                    //                 padding: const EdgeInsets.symmetric(
-                    //                     horizontal: 10,vertical: 10),
-                    //                 child: Text(months[index].toString(),
-                    //                     style: GoogleFonts.poppins(
-                    //                         fontWeight: FontWeight.w500,
-                    //                         fontSize: 17,
-                    //                         color: index == selectedIndex
-                    //                             ? Colors.white
-                    //                             : Colors.black)),
-                    //               ),
-                    //             );
-                    //           },
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 80,
-                    //   child: SingleChildScrollView(
-                    //     scrollDirection: Axis.horizontal,
-                    //     physics: BouncingScrollPhysics(),
-                    //     child: Row(
-                    //       children:
-                    //       List.generate(weekDates.length, (index) {
-                    //         DateTime date = weekDates[index];
-                    //         String formattedDate =
-                    //         DateFormat('d').format(date);
-                    //         String formattedDate1 =
-                    //         DateFormat('MM').format(date);
-                    //         String formattedDate2 =
-                    //         DateFormat('yyyy').format(date);
-                    //         String weekDay =
-                    //         DateFormat('EEEE').format(date);
-                    //         return Padding(
-                    //           key: keysList[index],
-                    //           padding: EdgeInsets.only(right: 0, left: 0),
-                    //           child: GestureDetector(
-                    //             onTap: () {
-                    //               setState(() {
-                    //                 selectedIndex = index;
-                    //                 day.value = formattedDate.length != 2
-                    //                     ? "0$formattedDate"
-                    //                     : formattedDate;
-                    //                 // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
-                    //                 // year.value = formattedDate2;
-                    //                 log(month.value);
-                    //                 monthName.value = DateFormat('MMMM')
-                    //                     .format(DateTime.parse(
-                    //                     "${year.value}-${month.value}-${day.value}"));
-                    //               });
-                    //             },
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(8.0),
-                    //               child: Container(
-                    //                 decoration: BoxDecoration(
-                    //                     color: index == selectedIndex
-                    //                         ? Colors.white
-                    //                         : Colors.transparent,
-                    //                     borderRadius:
-                    //                     BorderRadius.circular(20)),
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.all(12.0),
-                    //                   child: Column(
-                    //                     children: [
-                    //                       Text(
-                    //                         weekDay[0].toString(),
-                    //                         style: TextStyle(
-                    //                             fontSize: 16,
-                    //                             fontWeight: FontWeight.w600,
-                    //                             color:
-                    //                             index == selectedIndex
-                    //                                 ? Colors.black
-                    //                                 : Colors.white),
-                    //                       ),
-                    //                       Text(
-                    //                         formattedDate,
-                    //                         style: TextStyle(
-                    //                             fontSize: 16,
-                    //                             fontWeight: FontWeight.w600,
-                    //                             color:
-                    //                             index == selectedIndex
-                    //                                 ? Colors.black
-                    //                                 : Colors.white),
-                    //                       ),
-                    //                     ],
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         );
-                    //       }),
-                    //     ),
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Container(
-                        transformAlignment: Alignment.center,
+          Obx(
+            () => Container(
+                // height: 200,
+                height: size.height*.280,
+                decoration: const BoxDecoration(
+                  color: AppThemes.primaryColor,
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
+                ),
+                child:  Padding(
+                  padding: EdgeInsets.all(size.width * .010),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(year.value.toString(),
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        // transformAlignment: Alignment.center,
                         // width: size.width * .45,
-                        padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                           // color: Colors.white,
                             borderRadius: BorderRadius.circular(50)
                         ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(year.value.toString(),
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                              // Text(year.value.toString(),
-                              //   style: GoogleFonts.poppins(
-                              //       fontWeight: FontWeight.w500,
-                              //       fontSize: 17,
-                              //       color: Colors.black),
-                              //   textAlign: TextAlign.center,
-                              // ),
-                              classTimeController.classList.value.isEmpty ? SizedBox.shrink() : Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text('Class -',
-                                    style: GoogleFonts.poppins(
+                        child: classTimeController.classList.value.isEmpty ? SizedBox.shrink() : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text('Class -',
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Colors.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                value:  classTimeController.selectedClassId?.value,
+                                icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
+                                dropdownColor: Colors.white70,
+                                items: classTimeController.classList.value.toList().map((items) {
+                                  return DropdownMenuItem(
+                                    value: items.id,
+                                    child: Text(items.name,style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
-                                      color: Colors.black,),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Obx(
-                                        () {
-                                      return DropdownButtonHideUnderline(
-                                        child: DropdownButton(
-                                          value:  classTimeController.selectedClassId?.value,
-                                          // style: TextStyle(
-                                          //     color: Colors.green,
-                                          //     fontSize: 12,
-                                          //     fontWeight: FontWeight.w300),
-                                          icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
-                                          items: classTimeController.classList.value.toList().map((items) {
-                                            return DropdownMenuItem(
-                                              value: items.id,
-                                              child: Text(items.name,style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                                color: classTimeController.selectedClassId?.value == items.id
-                                                    ? Colors.black
-                                                // Colors.grey.shade900 // Change the color for selected item
-                                                    : Colors.black, // Default color for unselected items
-                                              ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (newValue) {
-                                            // print(newValue);
-                                            classTimeController.selectedClassId!.value = newValue!;
-                                            print(classTimeController.selectedClassId?.value);
-
-                                            classTimeController.getTimeTableData(classId: classTimeController.selectedClassId.value);
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  // SizedBox(
-                                  //   height: 20,
-                                  //   width: 40,
-                                  //   child: DropdownButtonFormField(
-                                  //     focusColor: Colors.grey.shade50,
-                                  //     isExpanded: true,
-                                  //     iconEnabledColor: const Color(0xff97949A),
-                                  //     icon: const Icon(Icons.keyboard_arrow_down),
-                                  //     hint: Text(
-                                  //       classTimeController.selectedClassId.value.toString(),
-                                  //       style: const TextStyle(
-                                  //           color: Colors.white,
-                                  //           fontSize: 12,
-                                  //           fontWeight: FontWeight.w300),
-                                  //       textAlign: TextAlign.justify,
-                                  //     ),
-                                  //     decoration: InputDecoration(
-                                  //         fillColor: Colors.grey.shade50,
-                                  //         contentPadding: const EdgeInsets.symmetric(
-                                  //             horizontal: 20, vertical: 13),
-                                  //         focusedBorder: OutlineInputBorder(
-                                  //           borderSide:
-                                  //           BorderSide(color: Colors.grey.shade300),
-                                  //           borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
-                                  //         ),
-                                  //         enabledBorder: const OutlineInputBorder(
-                                  //             borderSide:
-                                  //             BorderSide(color: Color(0xffE3E3E3)),
-                                  //             borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25))
-                                  //         )
-                                  //     ),
-                                  //     value: classTimeController.selectedClassId.value,
-                                  //     items: classTimeController.classList.value.toList().map((items) {
-                                  //       return DropdownMenuItem(
-                                  //         value: items.id,
-                                  //         child: Text(
-                                  //           items.name,
-                                  //           style: const TextStyle(
-                                  //               color: Colors.grey, fontSize: 14),
-                                  //         ),
-                                  //       );
-                                  //     }).toList(),
-                                  //     onChanged: (newValue) {
-                                  //         classTimeController.selectedClassId.value = newValue!;
-                                  //     },
-                                  //   ),
-                                  // ),
-                                ],
+                                      color: classTimeController.selectedClassId?.value == items.id
+                                          ? Colors.white
+                                      // Colors.grey.shade900 // Change the color for selected item
+                                          : Colors.black, // Default color for unselected items
+                                    ),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  classTimeController.selectedClassId!.value = newValue!;
+                                  print(classTimeController.selectedClassId?.value);
+                                  classTimeController.getTimeTableData();
+                                },
                               ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    // Container(
-                    //   height: size.height*.045,
-                    //   decoration: BoxDecoration(
-                    //     // color: Colors.amberAccent,
-                    //       borderRadius: BorderRadius.circular(10)),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //
-                    //       // Expanded(
-                    //       //   child: ListView.builder(
-                    //       //     scrollDirection: Axis.horizontal,
-                    //       //     shrinkWrap: true,
-                    //       //     itemCount: years.length,
-                    //       //     itemBuilder:
-                    //       //         (BuildContext context, int index) {
-                    //       //       return InkWell(
-                    //       //         onTap: () {
-                    //       //           selectedMonthIndex = index;
-                    //       //           month.value = "${index + 1}".length != 2
-                    //       //               ? "0${index + 1}"
-                    //       //               : "${index + 1}";
-                    //       //           monthName.value = DateFormat('MMMM')
-                    //       //               .format(DateTime.parse(
-                    //       //               "${year.value}-${month.value}-${day.value}"));
-                    //       //           now = DateTime.parse(
-                    //       //               "${year.value}-${month.value}-${day.value}");
-                    //       //           totalDays = daysInMonth(now);
-                    //       //           listOfDates = List<int>.generate(
-                    //       //               totalDays, (i) => i + 1);
-                    //       //           todayDay = DateFormat('dd').format(now);
-                    //       //           getWeekDates(now);
-                    //       //           log(DateFormat('EEEE').format(now));
-                    //       //           // Get.back();
-                    //       //         },
-                    //       //         child: Padding(
-                    //       //           padding: const EdgeInsets.symmetric(
-                    //       //               horizontal: 10,vertical: 5),
-                    //       //           child: Text(year.value.toString(),
-                    //       //               style: GoogleFonts.poppins(
-                    //       //                   fontWeight: FontWeight.w500,
-                    //       //                   fontSize: 17,
-                    //       //                   color: index == selectedMonthIndex
-                    //       //                       ? Colors.white
-                    //       //                       : Colors.black)
-                    //       //           ),
-                    //       //         ),
-                    //       //       );
-                    //       //     },
-                    //       //   ),
-                    //       // ),
-                    //     ],
-                    //   ),
-                    // ),
+                      
+                      Container(
+                        height: size.height*.050,
+                        decoration: BoxDecoration(
+                          // color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: months.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      selectedMonthIndex = index;
+                                      month.value = "${index + 1}".length != 2
+                                          ? "0${index + 1}"
+                                          : "${index + 1}";
+                                      monthName.value = DateFormat('MMMM')
+                                          .format(DateTime.parse(
+                                          "${year.value}-${month.value}-${day.value}"));
+                                      now = DateTime.parse(
+                                          "${year.value}-${month.value}-${day.value}");
+                                      totalDays = daysInMonth(now);
+                                      listOfDates = List<int>.generate(
+                                          totalDays, (i) => i + 1);
+                                      todayDay = DateFormat('dd').format(now);
+                                      getWeekDates(now);
+                                      log(DateFormat('EEEE').format(now));
 
-                    Container(
-                      height: size.height*.050,
-                      decoration: BoxDecoration(
-                        // color: Colors.amber,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemCount: months.length,
-                              itemBuilder:
-                                  (BuildContext context, int index) {
-                                return InkWell(
-                                  onTap: () {
-                                    selectedMonthIndex = index;
-                                    month.value = "${index + 1}".length != 2
-                                        ? "0${index + 1}"
-                                        : "${index + 1}";
-                                    monthName.value = DateFormat('MMMM')
-                                        .format(DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}"));
-                                    now = DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}");
-                                    totalDays = daysInMonth(now);
-                                    listOfDates = List<int>.generate(
-                                        totalDays, (i) => i + 1);
-                                    todayDay = DateFormat('dd').format(now);
-                                    getWeekDates(now);
-                                    log(DateFormat('EEEE').format(now));
-                                    // Get.back();
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Center(
-                                      child: Text(months[index].toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                              color: index == selectedMonthIndex
-                                                  ? Colors.white
-                                                  : Colors.black
-                                          )
+                                      String date = year.value+"-"+ month.value +"-"+ day.value;
+                                      log("date : $date");
+                                      classTimeController.selectedDate = date;
+                                      classTimeController.getTimeTableData();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Center(
+                                        child: Text(months[index].toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: index == selectedMonthIndex
+                                                    ? Colors.white
+                                                    : Colors.black
+                                            )
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: size.height*.110,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
-                        child: Row(
-                          children:
-                          List.generate(weekDates.length, (index) {
-                            DateTime date = weekDates[index];
-                            String formattedDate =
-                            DateFormat('d').format(date);
-                            String formattedDate1 =
-                            DateFormat('MM').format(date);
-                            String formattedDate2 =
-                            DateFormat('yyyy').format(date);
-                            String weekDay =
-                            DateFormat('EEEE').format(date);
-                            return Padding(
-                              key: keysList[index],
-                              padding: EdgeInsets.only(right: 0, left: 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedIndex = index;
-                                    print("selectedIndex : $selectedIndex");
-
-                                    day.value = formattedDate.length != 2
-                                        ? "0$formattedDate"
-                                        : formattedDate;
-                                    // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
-                                    // year.value = formattedDate2;
-                                    log(day.value);
-                                    log(month.value);
-                                    log(year.value);
-
-                                    monthName.value = DateFormat('MMMM')
-                                        .format(DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}"));
-
-                                    String date = year.value+"-"+ month.value +"-"+ day.value;
-                                    log(date);
-
-                                    // evenetDetailController.getEventData(date);
-                                  });
+                                  );
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: index == selectedIndex
-                                            ? Colors.white
-                                            : Colors.transparent,
-                                        borderRadius:
-                                        BorderRadius.circular(20)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            weekDay[0].toString(),
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedIndex
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
-                                          Text(
-                                            formattedDate,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedIndex
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
-                                        ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height*.110,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Row(
+                            children:
+                            List.generate(weekDates.length, (index) {
+                              DateTime date = weekDates[index];
+                              String formattedDate =
+                              DateFormat('d').format(date);
+                              String formattedDate1 =
+                              DateFormat('MM').format(date);
+                              String formattedDate2 =
+                              DateFormat('yyyy').format(date);
+                              String weekDay =
+                              DateFormat('EEEE').format(date);
+                              return Padding(
+                                key: keysList[index],
+                                padding: EdgeInsets.only(right: 0, left: 0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = index;
+                                      print("selectedIndex : $selectedIndex");
+
+                                      day.value = formattedDate.length != 2
+                                          ? "0$formattedDate"
+                                          : formattedDate;
+                                      // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
+                                      // year.value = formattedDate2;
+                                      log(day.value);
+                                      log(month.value);
+                                      log(year.value);
+
+                                      monthName.value = DateFormat('MMMM')
+                                          .format(DateTime.parse(
+                                          "${year.value}-${month.value}-${day.value}"));
+
+                                      String date = year.value+"-"+ month.value +"-"+ day.value;
+                                      log(date);
+                                      classTimeController.selectedDate = date;
+
+                                      classTimeController.getTimeTableData();
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: index == selectedIndex
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              weekDay[0].toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == selectedIndex
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                            Text(
+                                              formattedDate,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == selectedIndex
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
+                              );
+                            }),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
+                    ],
+                  ),
+                )
+            ),
           ),
 
           Positioned.fill(
-            top: size.height*.250,
+            top: size.height*.280,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
               height: size.height,
@@ -637,9 +391,6 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
               ),
               child: Obx(() {
                 return  !classTimeController.isDataLoading.value ?
-                classTimeController.getTimetableModel.value.data!.isEmpty ?
-                    Center(child: Text('No time table available'))
-                    :
                 SingleChildScrollView(
                   // physics: BouncingScrollPhysics(),
                   child: Column(
@@ -654,18 +405,43 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                 fontSize: 19,
                                 fontWeight: FontWeight.w600
                             ),),
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               Get.toNamed(MyRouters.createTimeTableScreen);
                             },
-                            child: Icon(
-                              Icons.add,
-                              size: 22,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                              decoration: BoxDecoration(
+                                  color:                   AppThemes.primaryColor,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Row(
+                                children: [
+                                  Text('add'.toUpperCase(),
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600
+                                    ),),
+                                  Icon(
+                                    Icons.add,
+                                    size: 22,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
+
+                      classTimeController.getTimetableModel.value.data!.isEmpty ?
                       SizedBox(
+                          height: size.height * 0.5,
+                          child: Center(child: Text('No time table available')
+                          )
+                      )
+                          : SizedBox(
                         height: size.height,
                         child: ListView.builder(
                           shrinkWrap: true,
@@ -676,6 +452,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                             // DateTime dateTime = DateTime.parse(value.from!);
                             // Format the DateTime object to display time in AM/PM format
                             // String formattedTime = DateFormat('h:mm a').format(dateTime);
+
                             String formattedTime = value.fromTime!;
 
                             print("Formatted Time: $formattedTime");
@@ -691,14 +468,26 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                   children: [
                                     Expanded(
                                       flex: 2,
-                                      child: Text(
-                                        // '08 AM',
-                                        formattedTime,
-                                        style: GoogleFonts.poppins(
-                                            color: AppThemes.black,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600
-                                        ),),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            // '08 AM',
+                                            value.fromTime!.toString(),
+                                            style: GoogleFonts.poppins(
+                                                color: AppThemes.black,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600
+                                            ),),
+                                          Text(
+                                            // '08 AM',
+                                            value.toTime!.toString(),
+                                            style: GoogleFonts.poppins(
+                                                color: AppThemes.black,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600
+                                            ),),
+                                        ],
+                                      ),
                                     ),
                                     Expanded(
                                       flex: 6,
@@ -714,7 +503,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              value.subjectId.toString(),
+                                              value.subject!.name.toString(),
                                               // 'Social Science',
                                               style: GoogleFonts.poppins(
                                                   color: AppThemes.blueColor,
@@ -743,6 +532,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                   ),
                                                 ),
                                                 Text(
+                                                  // "Test test test test test test test",
                                                   value.teacher!.name.toString(),
                                                   // 'Rosie David',
                                                   style:  GoogleFonts.poppins(
@@ -750,6 +540,8 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                       fontSize: 12.0,
                                                       fontWeight: FontWeight.w500
                                                   ),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -757,12 +549,12 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                         ),
                                       ),
                                     ),
-                                    // Expanded(
-                                    //   child: IconButton(onPressed: (){
-                                    //     Get.toNamed(MyRouters.createTimeTableScreen);
-                                    //   },
-                                    //       icon: const Icon(Icons.edit,size: 19,)),
-                                    // ),
+                                    Expanded(
+                                      child: IconButton(onPressed: () {
+                                        Get.to(() => UpdateClassTimeTableScreen(id: value.id.toString(),));
+                                      },
+                                          icon: const Icon(Icons.edit,size: 19,)),
+                                    ),
                                     Expanded(
                                       child: IconButton(onPressed: (){
                                         classTimeController.deleteTimetableAPI(context,value.id!);

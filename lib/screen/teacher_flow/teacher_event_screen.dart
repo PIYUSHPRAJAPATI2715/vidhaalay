@@ -118,6 +118,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
     log("Week days$firstDayNextMonth");
     return firstDayNextMonth.difference(firstDayThisMonth).inDays;
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

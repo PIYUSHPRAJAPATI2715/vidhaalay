@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
@@ -275,6 +276,12 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
                                       child: CommonTextFieldResult(
                                         hintText: '0',
                                         obSecure: false,
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [
+                                          // FilteringTextInputFormatter.allow(RegExp(r'^\d{0,3}$')),
+                                          LengthLimitingTextInputFormatter(3),
+                                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                        ],
                                       ),
                                     ),
                                   ],

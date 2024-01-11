@@ -1,30 +1,31 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
+import 'package:vidhaalay_app/screen/User_Screens/bottom_nav_user.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/bottom_navbar_teacher.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
-
 import '../../controller/bottom_controller.dart';
+import '../../resourses/api_constant.dart';
+import '../../resourses/app_assets.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
-import 'bottom_navbar_teacher.dart';
 
-class DrawerForTeacher extends StatefulWidget {
-  const DrawerForTeacher({Key? key}) : super(key: key);
+
+class DrawerForStudent extends StatefulWidget {
+  const DrawerForStudent({super.key});
 
   @override
-  State<DrawerForTeacher> createState() => _DrawerForTeacherState();
+  State<DrawerForStudent> createState() => _DrawerForStudentState();
 }
 
-class _DrawerForTeacherState extends State<DrawerForTeacher> {
+class _DrawerForStudentState extends State<DrawerForStudent> {
   final bottomController = Get.put(BottomController());
   double value = 0;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -208,12 +209,14 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                                 color: AppThemes.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500),
-                          ) : const Text(
+                          )
+                              : const Text(
                             'Exam Result',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500),
+
                           ),
                           leading: Image.asset(
                             AppAssets.examResultImg,
