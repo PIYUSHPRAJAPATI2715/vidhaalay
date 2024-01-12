@@ -51,6 +51,7 @@ class ClassTimeController extends GetxController{
       // Map body = {
       //   "class_id": 13
       // };
+      print("body : $body");
 
       final response = await http.post(
         Uri.parse(ApiUrls.getTimetable),

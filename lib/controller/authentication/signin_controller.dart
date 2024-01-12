@@ -157,9 +157,16 @@ class SignInController extends GetxController {
           print("Enter000");
 
           final value = LoginModel.fromJson(jsonDecode(response.body));
-          print("value0 : $value");
+          print("student value0 : $value");
+
+          pref.setBool('isLoggedIn', true);
+          pref.setString('type', "student");
+          pref.setString('cookie', value.data!.token.toString());
+          print("student token : ${value.data!.token.toString()}");
 
           Get.offAllNamed(MyRouters.drawerForStudent);
+          // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
+
 
           // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
 

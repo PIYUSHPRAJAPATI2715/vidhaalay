@@ -25,6 +25,8 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("Teacher home enter");
+
     teacherHomeController.getLatestEventData();
   }
 

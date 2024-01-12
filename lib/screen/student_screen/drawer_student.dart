@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/controller/student_controller/bottom_navigation_controller.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/screen/User_Screens/bottom_nav_user.dart';
+import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/bottom_navbar_teacher.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 import '../../controller/bottom_controller.dart';
@@ -23,7 +25,7 @@ class DrawerForStudent extends StatefulWidget {
 }
 
 class _DrawerForStudentState extends State<DrawerForStudent> {
-  final bottomController = Get.put(BottomController());
+  final bottomController = Get.put(StudentBottomController());
   double value = 0;
 
   @override
@@ -89,36 +91,77 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.teacherAttendanceScreen);
+                            // Get.toNamed(MyRouters.teacherAttendanceScreen);
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
+                          title: const Text(
+                            'Video Lecture',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          leading: Image.asset(
+                            AppAssets.videoIcon,
+                            height: 20,
+                            width: 24,
+                            color: AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: (){
+                            // Get.toNamed(MyRouters.teacherAttendanceScreen);
+                          },
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: const Text(
+                            'Syllabus',
+                            style: TextStyle(
+                                color: AppThemes.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          leading: Image.asset(
+                            AppAssets.syllabusImg,
+                            height: 20,
+                            width: 24,
+                            color: AppThemes.white,
+                            // width: 23,
+                            // height: 23,
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        ListTile(
+                          onTap: (){
+                            // Get.toNamed(MyRouters.teacherAttendanceScreen);
+                          },
+                          contentPadding: EdgeInsets.zero,
+                          visualDensity:
+                          const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          title: const Text(
                             'Attendance',
                             style: TextStyle(
                                 color: AppThemes.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
-                            'Attendance',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
                           ),
                           leading: Image.asset(
                             AppAssets.personIcon,
                             height: 20,
                             width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
+                            color: AppThemes.white,
                             // width: 23,
                             // height: 23,
                           ),
@@ -126,21 +169,13 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: () {
-                            Get.toNamed(MyRouters.teacherClassTimeScreen);
+                            // Get.toNamed(MyRouters.teacherClassTimeScreen);
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Class Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
+                          title: const Text(
                             'Class Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
@@ -152,8 +187,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                             AppAssets.attendanceIcon,
                             height: 20,
                             width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
+                            color: AppThemes.white,
                             // width: 23,
                             // height: 23,
                           ),
@@ -161,21 +195,13 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.teacherExamTimeTableScreen);
+                            // Get.toNamed(MyRouters.teacherExamTimeTableScreen);
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Exam Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
+                          title: const Text(
                             'Exam Timetable',
                             style: TextStyle(
                                 color: AppThemes.white,
@@ -187,8 +213,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                             AppAssets.examTimeTableImg,
                             height: 20,
                             width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
+                            color: AppThemes.white,
                             // width: 23,
                             // height: 23,
                           ),
@@ -196,21 +221,13 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            Get.toNamed(MyRouters.examResultScreenTeacher);
+                            // Get.toNamed(MyRouters.examResultScreenTeacher);
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Exam Result',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
+                          title: const Text(
                             'Exam Result',
                             style: TextStyle(
                                 color: AppThemes.white,
@@ -222,113 +239,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                             AppAssets.examResultImg,
                             height: 20,
                             width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.toNamed(MyRouters.createEventScreen);
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Create Event',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
-                            'Create Event',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.eventsIcon,
-                            height: 20,
-                            width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            //styudent list
-                            Get.to(()=>StudentListScreen());
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? Text(
-                            'Student List',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : Text(
-                            'Student List',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Icon(
-                            // "assets/icons/home.png",
-                            Icons.person,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.toNamed(MyRouters.sendNotificationScreen);
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Send Notification',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
-                            'Send Notification',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.notification,
-                            height: 20,
-                            width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
+                            color: AppThemes.white,
                             // width: 23,
                             // height: 23,
                           ),
@@ -342,15 +253,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                           visualDensity:
                           const VisualDensity(
                               horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Settings',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          )
-                              : const Text(
+                          title: const Text(
                             'Settings',
                             style: TextStyle(
                                 color: AppThemes.white,
@@ -361,8 +264,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                           leading: Icon(
                             // "assets/icons/home.png",
                             Icons.settings_outlined,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
+                            color:  AppThemes.white,
                             // width: 23,
                             // height: 23,
                           ),
@@ -407,7 +309,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                     ..setEntry(3, 2, 0.001)..setEntry(0, 3, -200 * val)
                     ..rotateY((pi / 6) * val),
                   child: const Scaffold(
-                    body:  BottomNavbarTeacher(),
+                    body: BottomNavigationStudentScreen(),
                   ),
                 ));
               }),
