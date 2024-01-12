@@ -23,7 +23,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () async {
+    Timer(const Duration(seconds: 10), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       bool? isFirstTime = pref.getBool("isFirstTime");
       bool? isLoggedIn = pref.getBool("isLoggedIn");

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/student_controller/assignment_list_controller_student.dart';
 import 'package:vidhaalay_app/controller/student_controller/event_list_controller_student.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -30,7 +32,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
   var listOfDates;
   var todayDay;
 
-  final evenetListStudentController = Get.put(EvenetListStudentController());
+  final assignmentListStudentController = Get.put(AssignmentListStudentController());
 
   @override
   void initState() {
@@ -39,6 +41,9 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
+
+    assignmentListStudentController.getAssignmentData();
+
     getYear();
     now = DateTime.now();
     totalDays = daysInMonth(now);
@@ -202,9 +207,9 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                           month.value +
                                           "-" +
                                           day.value;
-                                      evenetListStudentController.selDate.value = date;
-                                      evenetListStudentController
-                                          .getEventData();
+                                      assignmentListStudentController.selDate.value = date;
+                                      assignmentListStudentController
+                                          .getAssignmentData();
                                       // Get.back();
                                     },
                                     child: Padding(
@@ -269,9 +274,9 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                           "-" +
                                           day.value;
                                       log(date);
-                                      evenetListStudentController.selDate.value = date;
-                                      evenetListStudentController
-                                          .getEventData();
+                                      assignmentListStudentController.selDate.value = date;
+                                      assignmentListStudentController
+                                          .getAssignmentData();
                                     });
                                   },
                                   child: Padding(
@@ -333,7 +338,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                 ),
                 child: Obx(
                   () {
-                    return evenetListStudentController.isDataLoading.value
+                    return assignmentListStudentController.isDataLoading.value
                         ? const CommonProgressIndicator()
                         : SingleChildScrollView(
                       physics: NeverScrollableScrollPhysics(),
@@ -346,8 +351,8 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                 fontSize: 19,
                                 fontWeight: FontWeight.w600
                             ),),
-                          evenetListStudentController
-                              .getEventModel
+                          assignmentListStudentController
+                              .getAssignmentModel
                               .value
                               .data!
                               .isEmpty
@@ -364,16 +369,16 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                             height: size.height,
                             child: ListView.builder(
                               shrinkWrap: true,
-                              itemCount: evenetListStudentController
-                                  .getEventModel
+                              itemCount: assignmentListStudentController
+                                  .getAssignmentModel
                                   .value
                                   .data!
                                   .length,
-                              physics: const BouncingScrollPhysics(),
+                              physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 var items =
-                                evenetListStudentController
-                                    .getEventModel
+                                assignmentListStudentController
+                                    .getAssignmentModel
                                     .value
                                     .data![index];
 
@@ -381,7 +386,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(MyRouters.celebrationScreenStu, arguments: items.id.toString());
+                                      Get.to(() => AssignmentDetailScreen(), arguments: items.id.toString());
                                     },
                                     child: Container(
                                       child: Column(
@@ -393,7 +398,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                items.eventName!,
+                                                items.assignmentName!,
                                                 // 'Social Science',
                                                 style: GoogleFonts.poppins(
                                                     color: AppThemes.blueColor,
@@ -436,13 +441,15 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            items.message!,
+                                            items.detail!,
                                             // 'It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
                                             style: TextStyle(
                                                 color: AppThemes.blueColor,
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w300
                                             ),
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ],
                                       ),

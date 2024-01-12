@@ -322,58 +322,6 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                       ),
                                     ),
                                   ),
-
-                                  // Container(
-                                  //   height: 50,
-                                  //   width: Get.width,
-                                  //   decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(25),
-                                  //   ),
-                                  //   child: DropdownButtonFormField(
-                                  //     focusColor: Colors.grey.shade50,
-                                  //     isExpanded: true,
-                                  //     iconEnabledColor: const Color(0xff97949A),
-                                  //     icon: const Icon(Icons.keyboard_arrow_down),
-                                  //     hint: Text(
-                                  //       selectClass,
-                                  //       style: const TextStyle(
-                                  //           color: Color(0xff463B57),
-                                  //           fontSize: 16,
-                                  //           fontWeight: FontWeight.w300),
-                                  //       textAlign: TextAlign.justify,
-                                  //     ),
-                                  //     decoration: InputDecoration(
-                                  //         fillColor: Colors.grey.shade50,
-                                  //         contentPadding: const EdgeInsets.symmetric(
-                                  //             horizontal: 20, vertical: 10),
-                                  //         focusedBorder: OutlineInputBorder(
-                                  //           borderSide:
-                                  //           BorderSide(color: Colors.grey.shade300),
-                                  //           borderRadius: BorderRadius.circular(25.0),
-                                  //         ),
-                                  //         enabledBorder: const OutlineInputBorder(
-                                  //             borderSide:
-                                  //             BorderSide(color: Color(0xffE3E3E3)),
-                                  //             borderRadius: BorderRadius.all(
-                                  //                 Radius.circular(25.0)))),
-                                  //     value: selectClass,
-                                  //     items: selectClassData.map((String items) {
-                                  //       return DropdownMenuItem(
-                                  //         value: items,
-                                  //         child: Text(
-                                  //           items,
-                                  //           style: const TextStyle(
-                                  //               color: Colors.grey, fontSize: 14),
-                                  //         ),
-                                  //       );
-                                  //     }).toList(),
-                                  //     onChanged: (String? newValue) {
-                                  //       setState(() {
-                                  //         selectClass = newValue!;
-                                  //       });
-                                  //     },
-                                  //   ),
-                                  // ),
                                   const SizedBox(
                                     height: 25,
                                   ),
@@ -498,57 +446,6 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  // Container(
-                                  //   height: 50,
-                                  //   width: Get.width,
-                                  //   decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(25),
-                                  //   ),
-                                  //   child: DropdownButtonFormField(
-                                  //     focusColor: Colors.grey.shade50,
-                                  //     isExpanded: true,
-                                  //     iconEnabledColor: const Color(0xff97949A),
-                                  //     icon: const Icon(Icons.keyboard_arrow_down),
-                                  //     hint: Text(
-                                  //       selectClass,
-                                  //       style: const TextStyle(
-                                  //           color: Color(0xff463B57),
-                                  //           fontSize: 16,
-                                  //           fontWeight: FontWeight.w300),
-                                  //       textAlign: TextAlign.justify,
-                                  //     ),
-                                  //     decoration: InputDecoration(
-                                  //         fillColor: Colors.grey.shade50,
-                                  //         contentPadding: const EdgeInsets.symmetric(
-                                  //             horizontal: 20, vertical: 10),
-                                  //         focusedBorder: OutlineInputBorder(
-                                  //           borderSide:
-                                  //           BorderSide(color: Colors.grey.shade300),
-                                  //           borderRadius: BorderRadius.circular(25.0),
-                                  //         ),
-                                  //         enabledBorder: const OutlineInputBorder(
-                                  //             borderSide:
-                                  //             BorderSide(color: Color(0xffE3E3E3)),
-                                  //             borderRadius: BorderRadius.all(
-                                  //                 Radius.circular(25.0)))),
-                                  //     value: selectClass,
-                                  //     items: selectClassData.map((String items) {
-                                  //       return DropdownMenuItem(
-                                  //         value: items,
-                                  //         child: Text(
-                                  //           items,
-                                  //           style: const TextStyle(
-                                  //               color: Colors.grey, fontSize: 14),
-                                  //         ),
-                                  //       );
-                                  //     }).toList(),
-                                  //     onChanged: (String? newValue) {
-                                  //       setState(() {
-                                  //         selectClass = newValue!;
-                                  //       });
-                                  //     },
-                                  //   ),
-                                  // ),
                                   DropdownButtonHideUnderline(
                                     child: DropdownButtonFormField2(
                                       isExpanded: true,
@@ -670,7 +567,13 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              DropdownButtonHideUnderline(
+                                              sendNotificationController
+                                                  .getStudentListModel
+                                                  .value
+                                                  .data!.isEmpty ?
+                                                  CommonTextfield(obSecure: false, readOnly:  true,
+                                                      hintText: "No students in this class")
+                                                  : DropdownButtonHideUnderline(
                                                 child: DropdownButtonFormField2<
                                                     String>(
                                                   isExpanded: true,
@@ -799,57 +702,6 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                           ),
                                   ),
 
-                                  // Container(
-                                  //   height: 50,
-                                  //   width: Get.width,
-                                  //   decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(25),
-                                  //   ),
-                                  //   child: DropdownButtonFormField(
-                                  //     focusColor: Colors.grey.shade50,
-                                  //     isExpanded: true,
-                                  //     iconEnabledColor: const Color(0xff97949A),
-                                  //     icon: const Icon(Icons.keyboard_arrow_down),
-                                  //     hint: Text(
-                                  //       selectStudent,
-                                  //       style: const TextStyle(
-                                  //           color: Color(0xff463B57),
-                                  //           fontSize: 16,
-                                  //           fontWeight: FontWeight.w300),
-                                  //       textAlign: TextAlign.justify,
-                                  //     ),
-                                  //     decoration: InputDecoration(
-                                  //         fillColor: Colors.grey.shade50,
-                                  //         contentPadding: const EdgeInsets.symmetric(
-                                  //             horizontal: 20, vertical: 10),
-                                  //         focusedBorder: OutlineInputBorder(
-                                  //           borderSide:
-                                  //           BorderSide(color: Colors.grey.shade300),
-                                  //           borderRadius: BorderRadius.circular(25.0),
-                                  //         ),
-                                  //         enabledBorder: const OutlineInputBorder(
-                                  //             borderSide:
-                                  //             BorderSide(color: Color(0xffE3E3E3)),
-                                  //             borderRadius: BorderRadius.all(
-                                  //                 Radius.circular(25.0)))),
-                                  //     value: selectStudent,
-                                  //     items: selectStudentData.map((String items) {
-                                  //       return DropdownMenuItem(
-                                  //         value: items,
-                                  //         child: Text(
-                                  //           items,
-                                  //           style: const TextStyle(
-                                  //               color: Colors.grey, fontSize: 14),
-                                  //         ),
-                                  //       );
-                                  //     }).toList(),
-                                  //     onChanged: (String? newValue) {
-                                  //       setState(() {
-                                  //         selectStudent = newValue!;
-                                  //       });
-                                  //     },
-                                  //   ),
-                                  // ),
                                   const SizedBox(
                                     height: 25,
                                   ),
