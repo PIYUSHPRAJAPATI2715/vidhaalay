@@ -155,69 +155,72 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                               SizedBox(
                                 height: size.height*.010,
                               ),
+                              !teacherHomeController.isLoading.value ? teacherHomeController.getLatestEventModel.value.data != null ?
                               GestureDetector(
                                 onTap: () {
                                   print("Tap");
                                   Get.toNamed(MyRouters.celebrationScreenStu, arguments: teacherHomeController.getLatestEventModel.value.data?.id.toString());
-                                  // Get.toNamed(MyRouters.teacherEventsScreen);
-                                  // Get.to(() => TeacherEventsScreen());
                                 },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+
                                   children: [
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 4.0),
-                                          child: SvgPicture.asset(AppAssets.infoImg),
-                                        ),
-                                        SizedBox(
-                                          width : size.width*.035,
-                                        ),
-                                        !teacherHomeController.isLoading.value ?
-                                        teacherHomeController.getLatestEventModel.value.data?.eventName.toString() != null ?
-                                        Container(
-                                          width: size.width*.74,
-                                          // color: Colors.amber,
-                                          child: Text(
-                                            // "Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test",
-                                            teacherHomeController.getLatestEventModel.value.data!.eventName.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 4.0),
+                                              child: SvgPicture.asset(AppAssets.infoImg),
                                             ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ) : Text(" ") :  Text(" "),
+                                            SizedBox(
+                                              width : size.width*.035,
+                                            ),
+                                            Container(
+                                              width: size.width*.74,
+                                              // color: Colors.amber,
+                                              child: Text(
+                                                // "Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test",
+                                                teacherHomeController.getLatestEventModel.value.data!.eventName.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        const Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 16,
+                                          color: AppThemes.white,
+                                        ),
                                       ],
                                     ),
-                                    const Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 16,
-                                      color: AppThemes.white,
+                                    Padding(
+                                        padding:  EdgeInsets.symmetric(horizontal: 26.0),
+                                        child:
+                                        Text(
+                                          teacherHomeController.getLatestEventModel.value.data!.message.toString(),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500
+                                          ),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        )
                                     ),
                                   ],
                                 ),
-                              ),
-                              Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
-                                  child:
-                                  !teacherHomeController.isLoading.value ? Text(
-                                    teacherHomeController.getLatestEventModel.value.data!.message.toString(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500
-                                    ),
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                  ): Text(" ")
-                              ),
+                              ) : Text("No event available") : SizedBox()
                             ],
                           ),
                         ),

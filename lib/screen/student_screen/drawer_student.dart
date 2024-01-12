@@ -7,7 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/student_controller/bottom_navigation_controller.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/screen/User_Screens/bottom_nav_user.dart';
+import 'package:vidhaalay_app/screen/User_Screens/videos_screen.dart';
+import 'package:vidhaalay_app/screen/student_screen/attendance_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
+import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/bottom_navbar_teacher.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 import '../../controller/bottom_controller.dart';
@@ -94,7 +97,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            // Get.toNamed(MyRouters.teacherAttendanceScreen);
+                            // Get.to(() => VideoScreen());
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:
@@ -119,7 +122,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            // Get.toNamed(MyRouters.teacherAttendanceScreen);
+                            Get.to(() => SyllabusScreen());
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:
@@ -144,7 +147,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
-                            // Get.toNamed(MyRouters.teacherAttendanceScreen);
+                            Get.to(() => AttendanceScreen());
                           },
                           contentPadding: EdgeInsets.zero,
                           visualDensity:

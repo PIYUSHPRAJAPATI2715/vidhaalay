@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/student_controller/event_list_controller_student.dart';
+import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -20,11 +23,14 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
   RxString monthName = "".obs;
   RxString clinicId = "".obs;
   int selectedIndex = 0;
+  int selectedMonthIndex = 0;
 
   var now = DateTime.now();
   var totalDays;
   var listOfDates;
   var todayDay;
+
+  final evenetListStudentController = Get.put(EvenetListStudentController());
 
   @override
   void initState() {
@@ -130,152 +136,191 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
               ),
             ),
             Container(
-              height: size.height*.260,
-              decoration: const BoxDecoration(
-                color: AppThemes.primaryColor,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
-              ),
-              child:  Padding(
-                padding: EdgeInsets.all(size.width * .010),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 10),
-                    Container(
-                      height: size.height*.070,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemCount: months.length,
-                              itemBuilder:
-                                  (BuildContext context, int index) {
-                                return InkWell(
+                height: size.height * .260,
+                decoration: const BoxDecoration(
+                  color: AppThemes.primaryColor,
+                  borderRadius:
+                  BorderRadius.only(bottomLeft: Radius.circular(70)),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(size.width * .010),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)),
+                          child: Text(
+                            year.value.toString(),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Colors.black),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: size.height * .070,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: months.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      selectedMonthIndex = index;
+                                      month.value = "${index + 1}".length != 2
+                                          ? "0${index + 1}"
+                                          : "${index + 1}";
+                                      monthName.value = DateFormat('MMMM')
+                                          .format(DateTime.parse(
+                                          "${year.value}-${month.value}-${day.value}"));
+                                      now = DateTime.parse(
+                                          "${year.value}-${month.value}-${day.value}");
+                                      totalDays = daysInMonth(now);
+                                      listOfDates = List<int>.generate(
+                                          totalDays, (i) => i + 1);
+                                      todayDay = DateFormat('dd').format(now);
+                                      getWeekDates(now);
+                                      log(DateFormat('EEEE').format(now));
+
+                                      String date = year.value +
+                                          "-" +
+                                          month.value +
+                                          "-" +
+                                          day.value;
+                                      evenetListStudentController.selDate.value = date;
+                                      evenetListStudentController
+                                          .getEventData();
+                                      // Get.back();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      child: Text(months[index].toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color:
+                                              index == selectedMonthIndex
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * .110,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Row(
+                            children:
+                            List.generate(weekDates.length, (index) {
+                              DateTime date = weekDates[index];
+                              String formattedDate =
+                              DateFormat('d').format(date);
+                              String formattedDate1 =
+                              DateFormat('MM').format(date);
+                              String formattedDate2 =
+                              DateFormat('yyyy').format(date);
+                              String weekDay =
+                              DateFormat('EEEE').format(date);
+                              return Padding(
+                                key: keysList[index],
+                                padding: EdgeInsets.only(right: 0, left: 0),
+                                child: GestureDetector(
                                   onTap: () {
-                                    selectedIndex = index;
-                                    month.value = "${index + 1}".length != 2
-                                        ? "0${index + 1}"
-                                        : "${index + 1}";
-                                    monthName.value = DateFormat('MMMM')
-                                        .format(DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}"));
-                                    now = DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}");
-                                    totalDays = daysInMonth(now);
-                                    listOfDates = List<int>.generate(
-                                        totalDays, (i) => i + 1);
-                                    todayDay = DateFormat('dd').format(now);
-                                    getWeekDates(now);
-                                    log(DateFormat('EEEE').format(now));
-                                    // Get.back();
+                                    setState(() {
+                                      selectedIndex = index;
+                                      day.value = formattedDate.length != 2
+                                          ? "0$formattedDate"
+                                          : formattedDate;
+                                      // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
+                                      // year.value = formattedDate2;
+                                      log(day.value);
+                                      log(month.value);
+                                      log(year.value);
+
+                                      monthName.value = DateFormat('MMMM')
+                                          .format(DateTime.parse(
+                                          "${year.value}-${month.value}-${day.value}"));
+
+                                      String date = year.value +
+                                          "-" +
+                                          month.value +
+                                          "-" +
+                                          day.value;
+                                      log(date);
+                                      evenetListStudentController.selDate.value = date;
+                                      evenetListStudentController
+                                          .getEventData();
+                                    });
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,vertical: 10),
-                                    child: Text(months[index].toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: index == selectedIndex
-                                                ? Colors.white
-                                                : Colors.black)),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: size.height*.110,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
-                        child: Row(
-                          children:
-                          List.generate(weekDates.length, (index) {
-                            DateTime date = weekDates[index];
-                            String formattedDate =
-                            DateFormat('d').format(date);
-                            String formattedDate1 =
-                            DateFormat('MM').format(date);
-                            String formattedDate2 =
-                            DateFormat('yyyy').format(date);
-                            String weekDay =
-                            DateFormat('EEEE').format(date);
-                            return Padding(
-                              key: keysList[index],
-                              padding: EdgeInsets.only(right: 0, left: 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedIndex = index;
-                                    day.value = formattedDate.length != 2
-                                        ? "0$formattedDate"
-                                        : formattedDate;
-                                    // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
-                                    // year.value = formattedDate2;
-                                    log(month.value);
-                                    monthName.value = DateFormat('MMMM')
-                                        .format(DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}"));
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: index == selectedIndex
-                                            ? Colors.white
-                                            : Colors.transparent,
-                                        borderRadius:
-                                        BorderRadius.circular(20)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            weekDay[0].toString(),
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedIndex
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
-                                          Text(
-                                            formattedDate,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedIndex
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
-                                        ],
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: index == selectedIndex
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              weekDay[0].toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == selectedIndex
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                            Text(
+                                              formattedDate,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == selectedIndex
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
+                              );
+                            }),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ),
-
+                    ],
+                  ),
+                )),
             Positioned.fill(
               top: size.height*.260,
               child: Container(
@@ -286,90 +331,131 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                   color: AppThemes.white,
                   borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
                 ),
-                child: SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('today'.toUpperCase(),
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600
-                        ),),
-                      SizedBox(
-                        height: size.height,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 22,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Social Science',
-                                      style: GoogleFonts.poppins(
-                                          color: AppThemes.blueColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600
-                                      ),),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
+                child: Obx(
+                  () {
+                    return evenetListStudentController.isDataLoading.value
+                        ? const CommonProgressIndicator()
+                        : SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('today'.toUpperCase(),
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600
+                            ),),
+                          evenetListStudentController
+                              .getEventModel
+                              .value
+                              .data!
+                              .isEmpty
+                              ?  Container(
+                            height: size.height * .5,
+                            // color: Colors.red,
+                            child: Center(
+                              child: Text(
+                                "No Assignment Available",
+                              ),
+                            ),
+                          )
+                              : SizedBox(
+                            height: size.height,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: evenetListStudentController
+                                  .getEventModel
+                                  .value
+                                  .data!
+                                  .length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var items =
+                                evenetListStudentController
+                                    .getEventModel
+                                    .value
+                                    .data![index];
 
-                                        ClipOval(
-                                          child: Image.asset(
-                                            AppAssets.studentImg,
-                                            width: 13,
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(MyRouters.celebrationScreenStu, arguments: items.id.toString());
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                items.eventName!,
+                                                // 'Social Science',
+                                                style: GoogleFonts.poppins(
+                                                    color: AppThemes.blueColor,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600
+                                                ),),
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+
+                                                  ClipOval(
+                                                    child: Image.asset(
+                                                      AppAssets.studentImg,
+                                                      width: 13,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'By :',
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.grey,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w500
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'Rosie David',
+                                                    style:  GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w500
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+
+                                            ],
                                           ),
-                                        ),
-                                        Text(
-                                          'By :',
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.grey,
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500
+                                          const SizedBox(
+                                            height: 5,
                                           ),
-                                        ),
-                                        Text(
-                                          'Rosie David',
-                                          style:  GoogleFonts.poppins(
-                                              color: Colors.black,
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500
+                                          Text(
+                                            items.message!,
+                                            // 'It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
+                                            style: TextStyle(
+                                                color: AppThemes.blueColor,
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w300
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text('It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
-                                  style: TextStyle(
-                                      color: AppThemes.blueColor,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.w300
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
             ),

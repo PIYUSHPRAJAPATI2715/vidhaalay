@@ -145,7 +145,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('latest event0'.toUpperCase(),
+                              Text('latest event'.toUpperCase(),
                                 style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 19,
@@ -155,6 +155,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                               SizedBox(
                                 height: size.height*.010,
                               ),
+                              !studentHomeController.isLoading.value ? studentHomeController.getLatestEventModel.value.data != null ?
                               GestureDetector(
                                 onTap: () {
                                   print("Tap");
@@ -162,62 +163,66 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                   // Get.toNamed(MyRouters.teacherEventsScreen);
                                   // Get.to(() => TeacherEventsScreen());
                                 },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+
                                   children: [
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 4.0),
-                                          child: SvgPicture.asset(AppAssets.infoImg),
-                                        ),
-                                        SizedBox(
-                                          width : size.width*.035,
-                                        ),
-                                        !studentHomeController.isLoading.value ?
-                                        studentHomeController.getLatestEventModel.value.data?.eventName.toString() != null ?
-                                        Container(
-                                          width: size.width*.74,
-                                          // color: Colors.amber,
-                                          child: Text(
-                                            // "Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test",
-                                            studentHomeController.getLatestEventModel.value.data!.eventName.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 4.0),
+                                              child: SvgPicture.asset(AppAssets.infoImg),
                                             ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ) : Text(" ") :  Text(" "),
+                                            SizedBox(
+                                              width : size.width*.035,
+                                            ),
+                                            Container(
+                                              width: size.width*.74,
+                                              // color: Colors.amber,
+                                              child: Text(
+                                                // "Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test Test test test test test",
+                                                studentHomeController.getLatestEventModel.value.data!.eventName.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        const Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 16,
+                                          color: AppThemes.white,
+                                        ),
                                       ],
                                     ),
-                                    const Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 16,
-                                      color: AppThemes.white,
+                                    Padding(
+                                        padding:  EdgeInsets.symmetric(horizontal: 26.0),
+                                        child:
+                                        Text(
+                                          studentHomeController.getLatestEventModel.value.data!.message.toString(),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500
+                                          ),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        )
                                     ),
                                   ],
                                 ),
-                              ),
-                              Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 26.0),
-                                  child:
-                                  !studentHomeController.isLoading.value ? Text(
-                                    studentHomeController.getLatestEventModel.value.data!.message.toString(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500
-                                    ),
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                  ): Text(" ")
-                              ),
+                              ) : Text("No event available") : SizedBox()
                             ],
                           ),
                         ),

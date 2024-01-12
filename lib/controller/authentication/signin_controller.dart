@@ -12,6 +12,7 @@ import 'package:vidhaalay_app/models/favourite_model_user.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/models/login_model_teacher.dart';
 import 'package:vidhaalay_app/models/school_list_model.dart';
+import 'package:vidhaalay_app/models/studentModel/login_student_model.dart';
 import 'package:vidhaalay_app/repositories/login_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
@@ -156,12 +157,13 @@ class SignInController extends GetxController {
         } else if (userType.value == "student") {
           print("Enter000");
 
-          final value = LoginModel.fromJson(jsonDecode(response.body));
+          final value = LoginStudentModel.fromJson(jsonDecode(response.body));
           print("student value0 : $value");
 
           pref.setBool('isLoggedIn', true);
           pref.setString('type', "student");
           pref.setString('cookie', value.data!.token.toString());
+          pref.setString('classId', value.data!.classId.toString());
           print("student token : ${value.data!.token.toString()}");
 
           Get.offAllNamed(MyRouters.drawerForStudent);

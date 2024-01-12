@@ -17,18 +17,7 @@ class EvenetDetailController extends GetxController {
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
   Rx<GetEventModel> getEventModel = GetEventModel().obs;
 
-  // Future getNotificationData(String dateFormat) async {
-  //   isDataLoading.value = false;
-  //   await notificationRepo(dateFormat).then((value) {
-  //     isDataLoading.value = true;
-  //     getNotificationModel.value = value;
-  //     // if(getNotificationModel.value.data!.isEmpty) {
-  //     //   // showToast("No data found");
-  //     // } else {
-  //     //
-  //     // }
-  //   });
-  // }
+
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
 

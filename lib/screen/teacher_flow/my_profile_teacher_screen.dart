@@ -25,6 +25,12 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
   final getTeacherProfileController = Get.put(GetTeacherProfileController());
 
   @override
+  void initState() {
+    getTeacherProfileController.getProfileData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(

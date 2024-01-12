@@ -8,6 +8,8 @@ import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 Future<List<MyClass>?> getMyClassListRepo() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
+
+
   List<String>? classListJson = pref.getStringList('classArr');
 
   if(classListJson != null) {
@@ -20,6 +22,20 @@ Future<List<MyClass>?> getMyClassListRepo() async {
 
     return resultList;
 
+  } else {
+    return null;
+  }
+}
+
+
+Future<int?> getStudentClassIdRepo() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String? classID = await pref.getString('classId');
+  print("classID : ${classID}");
+
+  if(classID != null) {
+    int id = int.parse(classID);
+    return id;
   } else {
     return null;
   }
