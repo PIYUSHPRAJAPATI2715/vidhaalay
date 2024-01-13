@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -152,49 +153,49 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Container(
-              transformAlignment: Alignment.center,
-              width: size.width * .45,
-              padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-              decoration: BoxDecoration(
-                // color: Colors.white,
-                  borderRadius: BorderRadius.circular(50)
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Class-8',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(year.value.toString(),
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    // Text(year.value.toString(),
-                    //   style: GoogleFonts.poppins(
-                    //       fontWeight: FontWeight.w500,
-                    //       fontSize: 17,
-                    //       color: Colors.black),
-                    //   textAlign: TextAlign.center,
-                    // ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 5),
+          //   child: Container(
+          //     transformAlignment: Alignment.center,
+          //     width: size.width * .45,
+          //     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+          //     decoration: BoxDecoration(
+          //       // color: Colors.white,
+          //         borderRadius: BorderRadius.circular(50)
+          //     ),
+          //     child: Center(
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           Text('Class-8',
+          //             style: GoogleFonts.poppins(
+          //                 fontWeight: FontWeight.w500,
+          //                 fontSize: 17,
+          //                 color: Colors.white),
+          //             textAlign: TextAlign.center,
+          //           ),
+          //           const SizedBox(
+          //             width: 5,
+          //           ),
+          //           Text(year.value.toString(),
+          //             style: GoogleFonts.poppins(
+          //                 fontWeight: FontWeight.w500,
+          //                 fontSize: 17,
+          //                 color: Colors.white),
+          //             textAlign: TextAlign.center,
+          //           ),
+          //           // Text(year.value.toString(),
+          //           //   style: GoogleFonts.poppins(
+          //           //       fontWeight: FontWeight.w500,
+          //           //       fontSize: 17,
+          //           //       color: Colors.black),
+          //           //   textAlign: TextAlign.center,
+          //           // ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           Container(
               height: size.height*.250,
@@ -207,29 +208,6 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 5),
-                    //   child: Container(
-                    //     transformAlignment: Alignment.center,
-                    //     width: size.width * .45,
-                    //     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                    //     decoration: BoxDecoration(
-                    //       // color: Colors.white,
-                    //         borderRadius: BorderRadius.circular(50)
-                    //     ),
-                    //     child: Center(
-                    //       child: Text(year.value.toString(),
-                    //         style: GoogleFonts.poppins(
-                    //             fontWeight: FontWeight.w500,
-                    //             fontSize: 17,
-                    //             color: Colors.white),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-
-                    /* */
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
@@ -269,13 +247,29 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                   Obx(
                                         () {
                                       return DropdownButtonHideUnderline(
-                                        child: DropdownButton(
+                                        child: DropdownButton2(
                                           value:  evenetDetailController.selectedClassId?.value,
-                                          // style: TextStyle(
-                                          //     color: Colors.green,
-                                          //     fontSize: 12,
-                                          //     fontWeight: FontWeight.w300),
-                                          icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
+                                          // icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
+                                          dropdownStyleData: DropdownStyleData(
+                                            maxHeight: size.height * 0.28,
+                                            width: size.width * 0.3,
+                                            padding: EdgeInsets.symmetric(horizontal: 5),
+                                            isOverButton: false,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(14),
+                                              color: Colors.white70,
+                                            ),
+                                            offset: const Offset(-10, 0),
+                                            scrollbarTheme: ScrollbarThemeData(
+                                              radius: const Radius.circular(40),
+                                              thickness: MaterialStateProperty.all<double>(6),
+                                              thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                            ),
+                                          ),
+                                          menuItemStyleData: const MenuItemStyleData(
+                                            height: 45,
+                                            padding: EdgeInsets.only(left: 10, right: 10),
+                                          ),
                                           items: evenetDetailController.classList.value.toList().map((items) {
                                             return DropdownMenuItem(
                                               value: items.id,
@@ -284,7 +278,6 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                 fontSize: 17,
                                                 color: evenetDetailController.selectedClassId?.value == items.id
                                                     ? Colors.black
-                                                // Colors.grey.shade900 // Change the color for selected item
                                                     : Colors.black, // Default color for unselected items
                                               ),
                                               ),

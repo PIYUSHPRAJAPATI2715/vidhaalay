@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:vidhaalay_app/models/TeacherModel/add_attandance_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/get_attandance_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
@@ -42,31 +43,16 @@ class StudentAttandanceController extends GetxController {
     });
   }
 
-  // Future getStudentListData({required String classId}) async {
-  //   isLoading.value = true;
-  //   await getStudetnListRepo(classId: classId).then((value) {
-  //     getStudentListModel.value = value;
-  //
-  //     // List list = List.generate(
-  //     //     getStudentListModel.value.data!.length, (_) => false);
-  //     // isPresent.addAll(list);
-  //     // print("list : ${list}");
-  //     addAttandanceModel.clear();
-  //     isPresent.value =  List.generate(
-  //         getStudentListModel.value.data!.length, (_) => null);
-  //
-  //     print("isPresent : ${isPresent.value}");
-  //
-  //     isLoading.value = false;
-  //   });
-  // }
-
   Future getAttandanceListDataAPI({required String classId}) async {
     isAttandanceDataLoading.value = true;
 
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+    print("Formatted Date: $formattedDate");
+
     var body = {
       "class_id": int.parse(classId),
-      "date":"2024-01-07"
+      "date": formattedDate
     };
 
     http.Response response = await http.post(

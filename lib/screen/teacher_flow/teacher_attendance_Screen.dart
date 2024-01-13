@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/student_attandance_controller.dart';
@@ -138,16 +139,32 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                             width: 5,
                           ),
                           DropdownButtonHideUnderline(
-                            child: DropdownButton(
+                            child: DropdownButton2(
                               value: studentAttandanceController
                                   .selectedClassId?.value,
-                              // style: TextStyle(
-                              //     color: Colors.green,
-                              //     fontSize: 12,
-                              //     fontWeight: FontWeight.w300),
-                              icon: Icon(Icons.keyboard_arrow_down,
-                                  color: Colors.white),
-                              dropdownColor: Colors.white70,
+                              // icon: Icon(Icons.keyboard_arrow_down,
+                              //     color: Colors.white),
+                              // dropdownColor: Colors.white70,
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: size.height * 0.28,
+                                width: size.width * 0.3,
+                                padding: EdgeInsets.symmetric(horizontal: 5),
+                                isOverButton: false,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: Colors.white70,
+                                ),
+                                offset: const Offset(-10, 0),
+                                scrollbarTheme: ScrollbarThemeData(
+                                  radius: const Radius.circular(40),
+                                  thickness: MaterialStateProperty.all<double>(6),
+                                  thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 45,
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                              ),
                               items: studentAttandanceController
                                   .classList.value
                                   .toList()

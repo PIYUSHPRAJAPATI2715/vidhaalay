@@ -10,6 +10,7 @@ import 'package:vidhaalay_app/screen/User_Screens/bottom_nav_user.dart';
 import 'package:vidhaalay_app/screen/User_Screens/videos_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/attendance_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
+import 'package:vidhaalay_app/screen/student_screen/class_timetable_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/bottom_navbar_teacher.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
@@ -172,6 +173,8 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: () {
+                            Get.to(() => ClassTimeTableScreen());
+
                             // Get.toNamed(MyRouters.teacherClassTimeScreen);
                           },
                           contentPadding: EdgeInsets.zero,

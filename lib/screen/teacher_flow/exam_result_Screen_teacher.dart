@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/exam_result_controller.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/studentlist_controller.dart';
+import 'package:vidhaalay_app/models/TeacherModel/add_exam_model.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
@@ -368,6 +369,10 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
 
                               var value = examResultController.getExamResultModel.value.data![index];
 
+                              // if(value.marks != null) {
+                              //   examResultController.marksController.text = value.marks!.toString();
+                              // }
+
                               return Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
@@ -427,7 +432,8 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
                                                   .start,
                                               children: [
                                                 Text(
-                                                  'Social Science',
+                                              value.subjectName!.toString(),
+                                                  // 'Social Science',
                                                   style: GoogleFonts.poppins(
                                                       color: AppThemes
                                                           .blueColor,
@@ -458,11 +464,30 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
                                         flex: 2,
                                         child:
                                         CommonTextFieldResult(
+                                          // controller: examResultController.marksController,
                                           hintText: '0',
                                           obSecure: false,
                                           keyboardType:
                                           TextInputType
                                               .number,
+                                          onChanged: (enter) {
+
+                                            final modelValue = AddExamModel(
+                                              id: value.id,
+                                              examId: value.examId,
+                                                classId: value.classId,
+                                              subjectName: value.subjectName,
+                                              studentId: value.studentId,
+                                              examTypeId: value.examTypeId,
+                                              from: value.from,
+                                              marks: int.parse(value.marks!),
+                                              totalMarks: value.totalMarks,
+                                              passingMarks: value.passingMarks,
+                                            );
+
+                                            examResultController.manageAddResult(value: modelValue,resultId: value.id!, marks: enter);
+                                            // examResultController.getExamResultModel.value.data![index].marks = int.parse(value.toString());
+                                          },
                                           inputFormatters: [
                                             // FilteringTextInputFormatter.allow(RegExp(r'^\d{0,3}$')),
                                             LengthLimitingTextInputFormatter(
@@ -494,7 +519,7 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
                             title: 'Send',
                             backgroundColor: AppThemes.primaryColor,
                             onPressed: () {
-                              // examResultController.createExamResultAPI(context);
+                              examResultController.createExamResultAPI(context);
                             },
                           ),
                         ),

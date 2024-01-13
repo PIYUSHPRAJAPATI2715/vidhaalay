@@ -180,7 +180,6 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                                 color: AppThemes.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500),
-
                           ),
                           leading: Image.asset(
                             AppAssets.examTimeTableImg,
@@ -192,39 +191,39 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                             // height: 23,
                           ),
                         ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.toNamed(MyRouters.examResultScreenTeacher);
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: bottomController.currentIndexTeacher.value == 0
-                              ? const Text(
-                            'Exam Result',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ) : const Text(
-                            'Exam Result',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          leading: Image.asset(
-                            AppAssets.examResultImg,
-                            height: 20,
-                            width: 24,
-                            color: bottomController.currentIndexTeacher.value ==
-                                0 ? AppThemes.white : AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
+                        // const SizedBox(height: 10,),
+                        // ListTile(
+                        //   onTap: (){
+                        //     Get.toNamed(MyRouters.examResultScreenTeacher);
+                        //   },
+                        //   contentPadding: EdgeInsets.zero,
+                        //   visualDensity:
+                        //   const VisualDensity(
+                        //       horizontal: -4, vertical: -4),
+                        //   title: bottomController.currentIndexTeacher.value == 0
+                        //       ? const Text(
+                        //     'Exam Result',
+                        //     style: TextStyle(
+                        //         color: AppThemes.white,
+                        //         fontSize: 16,
+                        //         fontWeight: FontWeight.w500),
+                        //   ) : const Text(
+                        //     'Exam Result',
+                        //     style: TextStyle(
+                        //         color: AppThemes.white,
+                        //         fontSize: 16,
+                        //         fontWeight: FontWeight.w500),
+                        //   ),
+                        //   leading: Image.asset(
+                        //     AppAssets.examResultImg,
+                        //     height: 20,
+                        //     width: 24,
+                        //     color: bottomController.currentIndexTeacher.value ==
+                        //         0 ? AppThemes.white : AppThemes.white,
+                        //     // width: 23,
+                        //     // height: 23,
+                        //   ),
+                        // ),
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){

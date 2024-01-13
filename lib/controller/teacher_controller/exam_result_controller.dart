@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vidhaalay_app/models/TeacherModel/add_exam_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/exam_result_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/exam_timetable_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/exam_type_list_model.dart';
@@ -33,7 +34,78 @@ class ExamResultController extends GetxController {
   String? selectedDate;
   RxInt stuId = 0.obs;
 
+  RxList<AddExamModel> addExamModelList = <AddExamModel>[].obs;
 
+
+
+  manageAddResult({required AddExamModel value, required var resultId, required String marks,}) {
+
+    print("marks : ${marks}");
+    print("marks : ${value}");
+
+
+    List<Map<String, dynamic>> listMap = addExamModelList.map((model) => model.toJson()).toList();
+    print("Value0 : ${listMap}");
+
+    bool isIdPresent = listMap.any((map) => map['id'] == resultId);
+    print("isIdPresent : $isIdPresent");
+
+    if(isIdPresent) {
+      int indexOfStudentId = listMap.indexWhere((map) => map['id'] == resultId);
+      print("indexOfStudentId : $indexOfStudentId");
+      value.marks = int.parse(marks);
+      addExamModelList[indexOfStudentId] = value;
+    } else {
+      value.marks = int.parse(marks);
+      addExamModelList.add(value);
+    }
+
+    listMap.clear();
+    listMap = addExamModelList.map((model) => model.toJson()).toList();
+    print("Value0 : ${listMap}");
+  }
+
+  Future<void> createExamResultAPI(BuildContext context) async {
+    try {
+      OverlayEntry loader = Helpers.overlayLoader(context);
+      Overlay.of(context).insert(loader);
+
+      // isDataLoading.value = true;
+      List<Map<String, dynamic>> listMap = getExamResultModel.value.data!.map((model) => model.toJson()).toList();
+      print("listMap : $listMap");
+
+      Map body = {
+        "data" : listMap
+      };
+
+      final response = await http.post(
+        Uri.parse(ApiUrls.addExamResult),
+        // body: jsonEncode(listMap),
+        body: jsonEncode(body),
+        headers: await getAuthHeader(),);
+      print("call back");
+
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
+        print("ADD Exam result responseData  : ${responseData}");
+
+        if(responseData['status']) {
+          // Get.back();
+          Helpers.hideLoader(loader);
+        } else {
+          Helpers.hideLoader(loader);
+        }
+        showToast(responseData['msg'].toString());
+      } else {
+
+        throw Exception(response.body);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  // final marksController = TextEditingController();
 
   // void getMyClass() {
   //   getMyClassListRepo().then((values) async {
@@ -129,51 +201,5 @@ class ExamResultController extends GetxController {
     }
   }
 
-  Future<void> createExamResultAPI(BuildContext context) async {
-    try {
-      OverlayEntry loader = Helpers.overlayLoader(context);
-      Overlay.of(context).insert(loader);
-
-      // isDataLoading.value = true;
-
-      Map body = {
-        "id": 0,
-        "exam_id": 0,
-        "class_id": 4,
-        "student_id": 4,
-        "exam_type_id": 4,
-        "marks": "32",
-        "totalMarks": 100,
-        "passingMarks": 36
-      };
-      // selectClass,
-
-      final response = await http.post(
-        Uri.parse(ApiUrls.addExamResult),
-        body: jsonEncode(body),
-        headers: await getAuthHeader(),);
-      print("call back");
-
-      if (response.statusCode == 200) {
-        var responseData = jsonDecode(response.body);
-        print("ADD Exam result responseData  : ${responseData}");
-
-        // createEventModel.value = CreateEvent.fromJson(responseData);
-        //
-        // if(createEventModel.value.status!) {
-        //   Get.back();
-        //   Helpers.hideLoader(loader);
-        // } else {
-        //   Helpers.hideLoader(loader);
-        // }
-        // showToast(createEventModel.value.msg.toString());
-      } else {
-
-        throw Exception(response.body);
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
 
 }

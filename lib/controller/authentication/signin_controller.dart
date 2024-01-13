@@ -164,6 +164,8 @@ class SignInController extends GetxController {
           pref.setString('type', "student");
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('classId', value.data!.classId.toString());
+          pref.setString('studentId', value.data!.id.toString());
+          print("student id : ${value.data!.id.toString()}");
           print("student token : ${value.data!.token.toString()}");
 
           Get.offAllNamed(MyRouters.drawerForStudent);

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/exam_timetable_controller.dart';
@@ -204,10 +205,30 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                 width: 5,
                               ),
                               DropdownButtonHideUnderline(
-                                    child: DropdownButton(
+                                    child: DropdownButton2(
                                       value:  examTimeTableController.selectedExamType?.value,
-                                      icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
-                                      dropdownColor: Colors.white70,
+                                      // icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
+                                      dropdownStyleData: DropdownStyleData(
+                                        maxHeight: size.height * 0.28,
+                                        width: size.width * 0.55,
+                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                        isOverButton: false,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(14),
+                                          color: Colors.white70,
+                                        ),
+                                        offset: const Offset(-10, 0),
+                                        scrollbarTheme: ScrollbarThemeData(
+                                          radius: const Radius.circular(40),
+                                          thickness: MaterialStateProperty.all<double>(6),
+                                          thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                        ),
+                                      ),
+                                      menuItemStyleData: const MenuItemStyleData(
+                                        height: 45,
+                                        padding: EdgeInsets.only(left: 10, right: 10),
+                                      ),
+                                      // dropdownColor: Colors.white70,
                                       items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
                                         return DropdownMenuItem(
                                           value: items.id,
@@ -259,10 +280,28 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                 width: 5,
                               ),
                               DropdownButtonHideUnderline(
-                                    child: DropdownButton(
+                                    child: DropdownButton2(
                                       value:  examTimeTableController.selectedClassId?.value,
-                                      icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
-                                      dropdownColor: Colors.white70,
+                                      dropdownStyleData: DropdownStyleData(
+                                        maxHeight: size.height * 0.28,
+                                        width: size.width * 0.3,
+                                        padding: EdgeInsets.symmetric(horizontal: 5),
+                                        isOverButton: false,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(14),
+                                          color: Colors.white70,
+                                        ),
+                                        offset: const Offset(-10, 0),
+                                        scrollbarTheme: ScrollbarThemeData(
+                                          radius: const Radius.circular(40),
+                                          thickness: MaterialStateProperty.all<double>(6),
+                                          thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                        ),
+                                      ),
+                                      menuItemStyleData: const MenuItemStyleData(
+                                        height: 45,
+                                        padding: EdgeInsets.only(left: 10, right: 10),
+                                      ),
                                       items: examTimeTableController.classList.value.toList().map((items) {
                                         return DropdownMenuItem(
                                           value: items.id,
