@@ -122,34 +122,4 @@ class CreateEventController extends GetxController {
       throw Exception(e.toString());
     }
   }
-
-  Future<void> deleteEventAPI(BuildContext context) async {
-    try {
-      OverlayEntry loader = Helpers.overlayLoader(context);
-      Overlay.of(context).insert(loader);
-
-      final response = await http.delete(
-        Uri.parse(ApiUrls.deleteEvents),
-        headers: await getAuthHeader(),);
-        print("call back");
-
-      if (response.statusCode == 200) {
-        var responseData = jsonDecode(response.body);
-        print("Event responseData  : ${responseData}");
-
-        if(responseData['status']) {
-          Get.back();
-          Helpers.hideLoader(loader);
-        } else {
-          Helpers.hideLoader(loader);
-        }
-        showToast(responseData['msg'].toString());
-      } else {
-
-        throw Exception(response.body);
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
 }

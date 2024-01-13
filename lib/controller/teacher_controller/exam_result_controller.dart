@@ -46,6 +46,7 @@ class ExamResultController extends GetxController {
 
     List<Map<String, dynamic>> listMap = addExamModelList.map((model) => model.toJson()).toList();
     print("Value0 : ${listMap}");
+    print("Value length : ${listMap.length}");
 
     bool isIdPresent = listMap.any((map) => map['id'] == resultId);
     print("isIdPresent : $isIdPresent");
@@ -55,6 +56,7 @@ class ExamResultController extends GetxController {
       print("indexOfStudentId : $indexOfStudentId");
       value.marks = int.parse(marks);
       addExamModelList[indexOfStudentId] = value;
+
     } else {
       value.marks = int.parse(marks);
       addExamModelList.add(value);
@@ -63,6 +65,7 @@ class ExamResultController extends GetxController {
     listMap.clear();
     listMap = addExamModelList.map((model) => model.toJson()).toList();
     print("Value0 : ${listMap}");
+    print("Value length : ${listMap.length}");
   }
 
   Future<void> createExamResultAPI(BuildContext context) async {
@@ -71,16 +74,52 @@ class ExamResultController extends GetxController {
       Overlay.of(context).insert(loader);
 
       // isDataLoading.value = true;
-      List<Map<String, dynamic>> listMap = getExamResultModel.value.data!.map((model) => model.toJson()).toList();
+      List<Map<String, dynamic>> listMap = addExamModelList.value!.map((model) => model.toJson()).toList();
       print("listMap : $listMap");
+      print("Value length : ${listMap.length}");
 
       Map body = {
         "data" : listMap
       };
 
+      // Map body = {
+      //   "data" : [
+      //     {
+      //       "id": 0,
+      //       "exam_id": 32,
+      //       "class_id": 4,
+      //       "subject_name": "Maths",
+      //       "student_id": 4,
+      //       "exam_type_id": 4,
+      //       "from": "8th, Jan",
+      //       "marks": 87,
+      //       "totalMarks": 100,
+      //       "passingMarks": 36
+      //     }
+      //   ]
+      // };
+
+      // Map body = {
+      //   "data" : [
+      //     {
+      //       "id": 0,
+      //       "exam_id": 32,
+      //       "class_id": 4,
+      //       "subject_name": "Maths",
+      //       "student_id": 4,
+      //       "exam_type_id": 4,
+      //       "from": "8th, Jan",
+      //       "marks": 35,
+      //       "totalMarks": 100,
+      //       "passingMarks": 36
+      //     }
+      //   ]
+      // };
+
+      print("body : $body");
+
       final response = await http.post(
         Uri.parse(ApiUrls.addExamResult),
-        // body: jsonEncode(listMap),
         body: jsonEncode(body),
         headers: await getAuthHeader(),);
       print("call back");
@@ -91,6 +130,9 @@ class ExamResultController extends GetxController {
 
         if(responseData['status']) {
           // Get.back();
+          listMap.clear();
+          addExamModelList.clear();
+
           Helpers.hideLoader(loader);
         } else {
           Helpers.hideLoader(loader);

@@ -13,7 +13,7 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
 class ExamTimeTableController extends GetxController {
-  RxBool isDataLoading = false.obs;
+  RxBool isDataLoading = true.obs;
   Rx<GetExamTimetableModel0> getExamTimetableModel = GetExamTimetableModel0().obs;
 
   RxList<MyClass> classList = <MyClass>[].obs;

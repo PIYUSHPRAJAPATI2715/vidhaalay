@@ -762,12 +762,43 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
-                            child: Text(
-                              "today".toUpperCase(),
-                              style: GoogleFonts.poppins(
-                                  color: AppThemes.black,
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w600),
+                            child:Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('today'.toUpperCase(),
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w600
+                                  ),),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(MyRouters.createEventScreen);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color:                   AppThemes.primaryColor,
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text('add'.toUpperCase(),
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600
+                                          ),),
+                                        Icon(
+                                          Icons.add,
+                                          size: 22,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           const SizedBox(

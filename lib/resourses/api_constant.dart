@@ -79,6 +79,10 @@ class ApiUrls {
   static const String subjectList = "${apiBaseUrl}subject";
   static const String sendNotificationUrl = "${apiBaseUrl}notification/send-notification";
 
+  static const String createAssignment = "${apiBaseUrl}assignment/create";
+  static const String updateAssignment = "${apiBaseUrl}assignment/update";
+  static const String deleteAssignment = "${apiBaseUrl}assignment/delete";
+
   //Student
   static const String assignmentListUrl = "${apiBaseUrl}assignment";
   static const String getStudentAttendance = "${apiBaseUrl}attendance/student";
