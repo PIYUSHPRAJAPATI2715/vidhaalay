@@ -24,12 +24,11 @@ class AssignmentListTeacherController extends GetxController {
   RxBool isDetailsLoading = false.obs;
   Rx<AssignmentDetails> getAssignmentDetailsModel = AssignmentDetails().obs;
   Rx<GetAssignmentModel> getAssignmentModel = GetAssignmentModel().obs;
-  // RxString selDate = ''.obs;
+  RxString selDate = ''.obs;
 
   RxString selectedDate = "".obs;
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
-
 
 
   void getMyClass() {

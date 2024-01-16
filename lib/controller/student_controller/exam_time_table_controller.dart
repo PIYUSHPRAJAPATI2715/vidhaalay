@@ -50,7 +50,6 @@ class StudentExamTimeTableController extends GetxController {
       int classId = int.parse(await pref.getString('classId')!);
       print("classID : $classId");
 
-
       Map body = {
         "class_id": classId,
         "exam_type_id": selectedExamType.value,

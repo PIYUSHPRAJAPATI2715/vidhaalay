@@ -6,14 +6,17 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
+import 'package:vidhaalay_app/models/studentModel/assignment_detail_model.dart';
 import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
 
-class CreateAssignmentController extends GetxController {
+class UpdateAssignmentController extends GetxController {
   // Rx<CreateAssignment> createAssignmentModel = CreateAssignment().obs;
+  RxBool isDetailsLoading = false.obs;
+  Rx<AssignmentDetails> getAssignmentDetailsModel = AssignmentDetails().obs;
 
   TextEditingController dobController = TextEditingController();
   TextEditingController message = TextEditingController();
@@ -60,7 +63,39 @@ class CreateAssignmentController extends GetxController {
     });
   }
 
-  Future<void> createAssignmentAPI(BuildContext context) async {
+
+  Future<void> getAssignmentDetailsData({required String id}) async {
+    try {
+      isDetailsLoading.value =  true;
+
+      final response = await http.get(
+        Uri.parse(ApiUrls.assignmentListUrl+"/$id"),
+        headers: await getAuthHeader(),);
+
+      print("ass Repository...${response.body}");
+
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
+        print("assi details responseData  : ${responseData}");
+
+        getAssignmentDetailsModel.value = AssignmentDetails.fromJson(responseData);
+        message.text = getAssignmentDetailsModel.value.data!.detail!;
+        assignmentName.text = getAssignmentDetailsModel.value.data!.assignmentName!;
+        dobController.text = getAssignmentDetailsModel.value.data!.dueDate!;
+        selectClass = getAssignmentDetailsModel.value.data!.classId!.toString();
+        // selectedSubject = getAssignmentDetailsModel.value.data!.s!.toString();
+
+        isDetailsLoading.value =  false;
+      } else {
+        isDetailsLoading.value =  false;
+        throw Exception(response.body);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> updateAssignmentAPI({required BuildContext context,required String id}) async {
     try {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
@@ -73,8 +108,8 @@ class CreateAssignmentController extends GetxController {
         "duedate": dobController.text
       };
 
-      final response = await http.post(
-        Uri.parse(ApiUrls.createAssignment),
+      final response = await http.put(
+        Uri.parse(ApiUrls.createAssignment+"/$id"),
         body: jsonEncode(body),
         headers: await getAuthHeader(),);
       print("call back");

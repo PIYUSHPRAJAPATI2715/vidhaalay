@@ -141,7 +141,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
               ),
             ),
             Container(
-                height: size.height * .270,
+                height: size.height * .260,
                 decoration: const BoxDecoration(
                   color: AppThemes.primaryColor,
                   borderRadius:
@@ -327,7 +327,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                   ),
                 )),
             Positioned.fill(
-              top: size.height*.270,
+              top: size.height*.260,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
                 height: size.height,

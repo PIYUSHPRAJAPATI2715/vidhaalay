@@ -81,7 +81,7 @@ class ApiUrls {
 
   static const String createAssignment = "${apiBaseUrl}assignment/create";
   static const String updateAssignment = "${apiBaseUrl}assignment/update";
-  static const String deleteAssignment = "${apiBaseUrl}assignment/delete";
+  static const String deleteAssignment = "${apiBaseUrl}assignment";
 
   //Student
   static const String assignmentListUrl = "${apiBaseUrl}assignment";

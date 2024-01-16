@@ -38,8 +38,6 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
   // ];
   // String? selectedValue;
 
-
-
   @override
   void initState() {
     createAssignmentController.getMyClass();

@@ -9,6 +9,7 @@ import 'package:vidhaalay_app/controller/teacher_controller/get_assignment_list_
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/create_assignment_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/update_assignment_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_event_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../widgets/appTheme.dart';
@@ -629,7 +630,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                         ),
                                         Expanded(
                                           child: IconButton(onPressed: () {
-                                            // Get.to(() => UpdateClassTimeTableScreen(id: value.id.toString(),));
+                                            Get.to(() => UpdateAssignmentScreen(id: items.id.toString(),));
                                           },
                                               icon: const Icon(Icons.edit,size: 19,)),
                                         ),
