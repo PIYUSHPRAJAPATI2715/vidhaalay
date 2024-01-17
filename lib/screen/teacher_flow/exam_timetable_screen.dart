@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/exam_timetable_controller.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_exam_timetable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_dropdown.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -204,53 +205,80 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                               const SizedBox(
                                 width: 5,
                               ),
-                              DropdownButtonHideUnderline(
-                                    child: DropdownButton2(
-                                      value:  examTimeTableController.selectedExamType?.value,
-                                      // icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
-                                      dropdownStyleData: DropdownStyleData(
-                                        maxHeight: size.height * 0.28,
-                                        width: size.width * 0.55,
-                                        padding: EdgeInsets.symmetric(horizontal: 5),
-                                        isOverButton: false,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
-                                          color: Colors.white70,
-                                        ),
-                                        offset: const Offset(-10, 0),
-                                        scrollbarTheme: ScrollbarThemeData(
-                                          radius: const Radius.circular(40),
-                                          thickness: MaterialStateProperty.all<double>(6),
-                                          thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                        ),
-                                      ),
-                                      menuItemStyleData: const MenuItemStyleData(
-                                        height: 45,
-                                        padding: EdgeInsets.only(left: 10, right: 10),
-                                      ),
-                                      // dropdownColor: Colors.white70,
-                                      items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
-                                        return DropdownMenuItem(
-                                          value: items.id,
-                                          child: Text(items.name!,style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: examTimeTableController.selectedExamType?.value == items.id
-                                                ? Colors.white
-                                            // Colors.grey.shade900 // Change the color for selected item
-                                                : Colors.black, // Default color for unselected items
-                                          ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newValue) {
-                                        examTimeTableController.selectedExamType!.value = newValue!;
-                                        print(examTimeTableController.selectedExamType?.value);
 
-                                        examTimeTableController.getExamTimeTableData();
-                                      },
+                              CommonDropDownButton(
+                                value:  examTimeTableController.selectedExamType?.value,
+                                items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
+                                  return DropdownMenuItem(
+                                    value: items.id,
+                                    child: Text(items.name!,style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: examTimeTableController.selectedExamType?.value == items.id
+                                          ? Colors.white
+                                      // Colors.grey.shade900 // Change the color for selected item
+                                          : Colors.black, // Default color for unselected items
                                     ),
-                                  )
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  examTimeTableController.selectedExamType!.value = newValue!;
+                                  print(examTimeTableController.selectedExamType?.value);
+
+                                  examTimeTableController.getExamTimeTableData();
+                                },
+                                width: size.width * 0.55,
+                                backgroundColor: Colors.white70,
+                              ),
+
+                              // DropdownButtonHideUnderline(
+                              //       child: DropdownButton2(
+                              //         value:  examTimeTableController.selectedExamType?.value,
+                              //         // icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
+                              //         dropdownStyleData: DropdownStyleData(
+                              //           maxHeight: size.height * 0.28,
+                              //           width: size.width * 0.55,
+                              //           padding: EdgeInsets.symmetric(horizontal: 5),
+                              //           isOverButton: false,
+                              //           decoration: BoxDecoration(
+                              //             borderRadius: BorderRadius.circular(14),
+                              //             color: Colors.white70,
+                              //           ),
+                              //           offset: const Offset(-10, 0),
+                              //           scrollbarTheme: ScrollbarThemeData(
+                              //             radius: const Radius.circular(40),
+                              //             thickness: MaterialStateProperty.all<double>(6),
+                              //             thumbVisibility: MaterialStateProperty.all<bool>(true),
+                              //           ),
+                              //         ),
+                              //         menuItemStyleData: const MenuItemStyleData(
+                              //           height: 45,
+                              //           padding: EdgeInsets.only(left: 10, right: 10),
+                              //         ),
+                              //         // dropdownColor: Colors.white70,
+                              //         items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
+                              //           return DropdownMenuItem(
+                              //             value: items.id,
+                              //             child: Text(items.name!,style: TextStyle(
+                              //               fontWeight: FontWeight.w500,
+                              //               fontSize: 17,
+                              //               color: examTimeTableController.selectedExamType?.value == items.id
+                              //                   ? Colors.white
+                              //               // Colors.grey.shade900 // Change the color for selected item
+                              //                   : Colors.black, // Default color for unselected items
+                              //             ),
+                              //             ),
+                              //           );
+                              //         }).toList(),
+                              //         onChanged: (newValue) {
+                              //           examTimeTableController.selectedExamType!.value = newValue!;
+                              //           print(examTimeTableController.selectedExamType?.value);
+                              //
+                              //           examTimeTableController.getExamTimeTableData();
+                              //         },
+                              //       ),
+                              //     )
                             ],
                           ),
                         ),
@@ -279,50 +307,76 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                               const SizedBox(
                                 width: 5,
                               ),
-                              DropdownButtonHideUnderline(
-                                    child: DropdownButton2(
-                                      value:  examTimeTableController.selectedClassId?.value,
-                                      dropdownStyleData: DropdownStyleData(
-                                        maxHeight: size.height * 0.28,
-                                        width: size.width * 0.3,
-                                        padding: EdgeInsets.symmetric(horizontal: 5),
-                                        isOverButton: false,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
-                                          color: Colors.white70,
-                                        ),
-                                        offset: const Offset(-10, 0),
-                                        scrollbarTheme: ScrollbarThemeData(
-                                          radius: const Radius.circular(40),
-                                          thickness: MaterialStateProperty.all<double>(6),
-                                          thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                        ),
-                                      ),
-                                      menuItemStyleData: const MenuItemStyleData(
-                                        height: 45,
-                                        padding: EdgeInsets.only(left: 10, right: 10),
-                                      ),
-                                      items: examTimeTableController.classList.value.toList().map((items) {
-                                        return DropdownMenuItem(
-                                          value: items.id,
-                                          child: Text(items.name,style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: examTimeTableController.selectedClassId?.value == items.id
-                                                ? Colors.white
-                                            // Colors.grey.shade900 // Change the color for selected item
-                                                : Colors.black, // Default color for unselected items
-                                          ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newValue) {
-                                        examTimeTableController.selectedClassId!.value = newValue!;
-                                        print(examTimeTableController.selectedClassId?.value);
-                                        examTimeTableController.getExamTimeTableData();
-                                      },
+
+                              CommonDropDownButton(
+                                value:  examTimeTableController.selectedClassId?.value,
+                                items: examTimeTableController.classList.value.toList().map((items) {
+                                  return DropdownMenuItem(
+                                    value: items.id,
+                                    child: Text(items.name,style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: examTimeTableController.selectedClassId?.value == items.id
+                                          ? Colors.white
+                                      // Colors.grey.shade900 // Change the color for selected item
+                                          : Colors.black, // Default color for unselected items
                                     ),
-                                  )
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (newValue) {
+                                  examTimeTableController.selectedClassId!.value = newValue!;
+                                  print(examTimeTableController.selectedClassId?.value);
+                                  examTimeTableController.getExamTimeTableData();
+                                },
+                                width: size.width * 0.3,
+                              ),
+
+                              // DropdownButtonHideUnderline(
+                              //       child: DropdownButton2(
+                              //         value:  examTimeTableController.selectedClassId?.value,
+                              //         items: examTimeTableController.classList.value.toList().map((items) {
+                              //           return DropdownMenuItem(
+                              //             value: items.id,
+                              //             child: Text(items.name,style: TextStyle(
+                              //               fontWeight: FontWeight.w500,
+                              //               fontSize: 17,
+                              //               color: examTimeTableController.selectedClassId?.value == items.id
+                              //                   ? Colors.white
+                              //               // Colors.grey.shade900 // Change the color for selected item
+                              //                   : Colors.black, // Default color for unselected items
+                              //             ),
+                              //             ),
+                              //           );
+                              //         }).toList(),
+                              //         onChanged: (newValue) {
+                              //           examTimeTableController.selectedClassId!.value = newValue!;
+                              //           print(examTimeTableController.selectedClassId?.value);
+                              //           examTimeTableController.getExamTimeTableData();
+                              //         },
+                              //         dropdownStyleData: DropdownStyleData(
+                              //           maxHeight: size.height * 0.28,
+                              //           width: size.width * 0.3,
+                              //           padding: EdgeInsets.symmetric(horizontal: 5),
+                              //           isOverButton: false,
+                              //           decoration: BoxDecoration(
+                              //             borderRadius: BorderRadius.circular(14),
+                              //             color: Colors.white70,
+                              //           ),
+                              //           offset: const Offset(-10, 0),
+                              //           scrollbarTheme: ScrollbarThemeData(
+                              //             radius: const Radius.circular(40),
+                              //             thickness: MaterialStateProperty.all<double>(6),
+                              //             thumbVisibility: MaterialStateProperty.all<bool>(true),
+                              //           ),
+                              //         ),
+                              //         menuItemStyleData: const MenuItemStyleData(
+                              //           height: 45,
+                              //           padding: EdgeInsets.only(left: 10, right: 10),
+                              //         ),
+                              //
+                              //       ),
+                              //     )
                             ],
                           ),
                         ),

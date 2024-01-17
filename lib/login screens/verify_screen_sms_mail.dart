@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../models/login_model.dart';
@@ -284,7 +285,8 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
 
                              if (isEmailVerify0 == true && isMobileVerify0 == true) {
                               pref.setBool('isLoggedIn', true);
-                              Get.offAllNamed(MyRouters.drawerForUser);
+                              // Get.offAllNamed(MyRouters.drawerForUser);
+                              Get.offAll(() => BottomBarScreen(userType: 0,));
                             } else if (selectedContainerValue == 'Email') {
                               if (isEmailVerify0 == true) {
                                 isEmailVerify.value = true;

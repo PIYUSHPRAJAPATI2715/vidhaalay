@@ -217,6 +217,9 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                           // onSubmitted: (value) => {},
                           onChanged: (value) {
                             getSchoolListController.getSearchSchoolListFunction(searchController.text);
+                            setState(() {
+
+                            });
                           },
                           decoration: InputDecoration(
                               filled: true,
@@ -226,7 +229,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Visibility(
-                                    visible: !FocusScope.of(context).hasPrimaryFocus,
+                                    visible: searchController.text.isNotEmpty,
+                              // !FocusScope.of(context).hasPrimaryFocus,
                                     child: IconButton(
                                       icon: Icon(
                                         Icons.cancel,
@@ -234,10 +238,12 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         size: 22,
                                       ),
                                       onPressed: () {
-                                        FocusScopeNode currentFocus = FocusScope.of(context);
-                                        if (!currentFocus.hasPrimaryFocus) {
-                                          currentFocus.unfocus();
-                                        }
+                                        // FocusScopeNode currentFocus = FocusScope.of(context);
+                                        // if (!currentFocus.hasPrimaryFocus) {
+                                        //   currentFocus.unfocus();
+                                        // }
+                                        // FocusScope.of(context).unfocus();
+
                                         searchController.clear();
                                         getSchoolListController.getSearchSchoolListFunction(searchController.text);
                                       },

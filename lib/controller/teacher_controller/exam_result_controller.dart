@@ -147,25 +147,6 @@ class ExamResultController extends GetxController {
     }
   }
 
-  // final marksController = TextEditingController();
-
-  // void getMyClass() {
-  //   getMyClassListRepo().then((values) async {
-  //     // print("value : $values");
-  //     if(values != null) {
-  //       // print(" selectedClassId : ${values[0].id}");
-  //       selectedClassId.value = values[0].id;
-  //       print("selectedClassId : ${selectedClassId?.value}");
-  //
-  //       classList.clear();
-  //       classList.addAll(values);
-  //       // getExamTimeTableData();
-  //
-  //       print("classlist : ${classList?.value}");
-  //     }
-  //   });
-  // }
-
   Future getStudetnDetails({required int stuId}) async {
     print(" stuId : $stuId");
     isDetailsLoading.value = true;

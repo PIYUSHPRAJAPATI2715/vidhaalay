@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 import '../../widgets/appTheme.dart';
 import '../controller/common.dart';
 import '../models/login_model.dart';
@@ -165,7 +166,8 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                                   offset: const Offset(0, 2),
                                 ),
                               ],
-                            )),
+                            )
+                        ),
                         validator: (v) {
                           if (v!.isEmpty) {
                             return "OTP code Required";
@@ -207,7 +209,8 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
 
                               if (isEmailVerify == true && isMobileVerify == true) {
                                 pref.setBool('isLoggedIn', true);
-                                Get.offAllNamed(MyRouters.drawerForUser);
+                                // Get.offAllNamed(MyRouters.drawerForUser);
+                                Get.offAll(() => BottomBarScreen(userType: 0,));
                               } else {
                                 // Get.offAllNamed(MyRouters.drawerForUser);
                                 Get.back();

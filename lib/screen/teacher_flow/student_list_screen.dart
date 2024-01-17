@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/studentlist_controller.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
+import 'package:vidhaalay_app/widgets/common_dropdown.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
@@ -135,51 +136,78 @@ class _StudentListScreenState extends State<StudentListScreen> {
                           const SizedBox(
                             width: 5,
                           ),
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton2(
-                              value:  studentListController.selectedClassId?.value,
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: size.height * 0.28,
-                                width: size.width * 0.3,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                isOverButton: false,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white70,
-                                ),
-                                offset: const Offset(-10, 0),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness: MaterialStateProperty.all<double>(6),
-                                  thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 45,
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                              ),
-                              items: studentListController.classList.value.toList().map((items) {
-                                return DropdownMenuItem(
-                                  value: items.id,
-                                  child: Text(items.name,style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    color: studentListController.selectedClassId?.value == items.id
-                                        ? Colors.white
-                                    // Colors.grey.shade900 // Change the color for selected item
-                                        : Colors.black, // Default color for unselected items
-                                  ),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (newValue) {
-                                studentListController.selectedClassId!.value = newValue!;
-                                print(studentListController.selectedClassId?.value);
 
-                                studentListController.getStudentListData(classId: studentListController.selectedClassId.value.toString());
-                              },
-                            ),
-                          )
+
+                          CommonDropDownButton(
+                            value:  studentListController.selectedClassId?.value,
+                            items: studentListController.classList.value.toList().map((items) {
+                              return DropdownMenuItem(
+                                value: items.id,
+                                child: Text(items.name,style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  color: studentListController.selectedClassId?.value == items.id
+                                      ? Colors.white
+                                  // Colors.grey.shade900 // Change the color for selected item
+                                      : Colors.black, // Default color for unselected items
+                                ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              studentListController.selectedClassId!.value = newValue!;
+                              print(studentListController.selectedClassId?.value);
+
+                              studentListController.getStudentListData(classId: studentListController.selectedClassId.value.toString());
+                            },
+                            width: size.width * 0.3,
+                          ),
+
+                          // DropdownButtonHideUnderline(
+                          //   child: DropdownButton2(
+                          //     value:  studentListController.selectedClassId?.value,
+                          //     dropdownStyleData: DropdownStyleData(
+                          //       maxHeight: size.height * 0.28,
+                          //       width: size.width * 0.3,
+                          //       padding: EdgeInsets.symmetric(horizontal: 5),
+                          //       isOverButton: false,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(14),
+                          //         color: Colors.white70,
+                          //       ),
+                          //       offset: const Offset(-10, 0),
+                          //       scrollbarTheme: ScrollbarThemeData(
+                          //         radius: const Radius.circular(40),
+                          //         thickness: MaterialStateProperty.all<double>(6),
+                          //         thumbVisibility: MaterialStateProperty.all<bool>(true),
+                          //       ),
+                          //     ),
+                          //     menuItemStyleData: const MenuItemStyleData(
+                          //       height: 45,
+                          //       padding: EdgeInsets.only(left: 10, right: 10),
+                          //     ),
+                          //     items: studentListController.classList.value.toList().map((items) {
+                          //       return DropdownMenuItem(
+                          //         value: items.id,
+                          //         child: Text(items.name,style: TextStyle(
+                          //           fontWeight: FontWeight.w500,
+                          //           fontSize: 17,
+                          //           color: studentListController.selectedClassId?.value == items.id
+                          //               ? Colors.white
+                          //           // Colors.grey.shade900 // Change the color for selected item
+                          //               : Colors.black, // Default color for unselected items
+                          //         ),
+                          //         ),
+                          //       );
+                          //     }).toList(),
+                          //     onChanged: (newValue) {
+                          //       studentListController.selectedClassId!.value = newValue!;
+                          //       print(studentListController.selectedClassId?.value);
+                          //
+                          //       studentListController.getStudentListData(classId: studentListController.selectedClassId.value.toString());
+                          //     },
+                          //   ),
+                          // )
                         ]
                     ),
                   )

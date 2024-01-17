@@ -12,6 +12,7 @@ import 'package:vidhaalay_app/screen/teacher_flow/create_assignment_screen.dart'
 import 'package:vidhaalay_app/screen/teacher_flow/update_assignment_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_event_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_dropdown.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -250,56 +251,85 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                     width: 5,
                                   ),
                                   Obx(
-                                        () {
-                                      return DropdownButtonHideUnderline(
-                                        child: DropdownButton2(
-                                          value:  getAssignmentController.selectedClassId?.value,
-                                          // icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
-                                          dropdownStyleData: DropdownStyleData(
-                                            maxHeight: size.height * 0.28,
-                                            width: size.width * 0.3,
-                                            padding: EdgeInsets.symmetric(horizontal: 5),
-                                            isOverButton: false,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(14),
-                                              color: Colors.white70,
-                                            ),
-                                            offset: const Offset(-10, 0),
-                                            scrollbarTheme: ScrollbarThemeData(
-                                              radius: const Radius.circular(40),
-                                              thickness: MaterialStateProperty.all<double>(6),
-                                              thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                            ),
+                                    () => CommonDropDownButton(
+                                      value:  getAssignmentController.selectedClassId?.value,
+                                      items: getAssignmentController.classList.value.toList().map((items) {
+                                        return DropdownMenuItem(
+                                          value: items.id,
+                                          child: Text(items.name,style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 17,
+                                            color: getAssignmentController.selectedClassId?.value == items.id
+                                                ? Colors.black
+                                                : Colors.black, // Default color for unselected items
                                           ),
-                                          menuItemStyleData: const MenuItemStyleData(
-                                            height: 45,
-                                            padding: EdgeInsets.only(left: 10, right: 10),
                                           ),
-                                          items: getAssignmentController.classList.value.toList().map((items) {
-                                            return DropdownMenuItem(
-                                              value: items.id,
-                                              child: Text(items.name,style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                                color: getAssignmentController.selectedClassId?.value == items.id
-                                                    ? Colors.black
-                                                    : Colors.black, // Default color for unselected items
-                                              ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (newValue) {
-                                            // print(newValue);
-                                            getAssignmentController.selectedClassId!.value = newValue!;
-                                            print(getAssignmentController.selectedClassId?.value);
-                                            getAssignmentController.getAssignmentData();
+                                        );
+                                      }).toList(),
+                                      onChanged: (newValue) {
+                                        // print(newValue);
+                                        getAssignmentController.selectedClassId!.value = newValue!;
+                                        print(getAssignmentController.selectedClassId?.value);
+                                        getAssignmentController.getAssignmentData();
 
-                                            // getAssignmentController.getEventData(dateFormat : getAssignmentController.selectedDate.value, classId : getAssignmentController.selectedClassId.value);
-                                          },
-                                        ),
-                                      );
-                                    },
+                                        // getAssignmentController.getEventData(dateFormat : getAssignmentController.selectedDate.value, classId : getAssignmentController.selectedClassId.value);
+                                      },
+                                      width: size.width * 0.3,
+                                    ),
                                   ),
+                                  // Obx(
+                                  //       () {
+                                  //     return
+                                  //
+                                  //       DropdownButtonHideUnderline(
+                                  //       child: DropdownButton2(
+                                  //         value:  getAssignmentController.selectedClassId?.value,
+                                  //         // icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
+                                  //         dropdownStyleData: DropdownStyleData(
+                                  //           maxHeight: size.height * 0.28,
+                                  //           width: size.width * 0.3,
+                                  //           padding: EdgeInsets.symmetric(horizontal: 5),
+                                  //           isOverButton: false,
+                                  //           decoration: BoxDecoration(
+                                  //             borderRadius: BorderRadius.circular(14),
+                                  //             color: Colors.white70,
+                                  //           ),
+                                  //           offset: const Offset(-10, 0),
+                                  //           scrollbarTheme: ScrollbarThemeData(
+                                  //             radius: const Radius.circular(40),
+                                  //             thickness: MaterialStateProperty.all<double>(6),
+                                  //             thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                  //           ),
+                                  //         ),
+                                  //         menuItemStyleData: const MenuItemStyleData(
+                                  //           height: 45,
+                                  //           padding: EdgeInsets.only(left: 10, right: 10),
+                                  //         ),
+                                  //         items: getAssignmentController.classList.value.toList().map((items) {
+                                  //           return DropdownMenuItem(
+                                  //             value: items.id,
+                                  //             child: Text(items.name,style: TextStyle(
+                                  //               fontWeight: FontWeight.w500,
+                                  //               fontSize: 17,
+                                  //               color: getAssignmentController.selectedClassId?.value == items.id
+                                  //                   ? Colors.black
+                                  //                   : Colors.black, // Default color for unselected items
+                                  //             ),
+                                  //             ),
+                                  //           );
+                                  //         }).toList(),
+                                  //         onChanged: (newValue) {
+                                  //           // print(newValue);
+                                  //           getAssignmentController.selectedClassId!.value = newValue!;
+                                  //           print(getAssignmentController.selectedClassId?.value);
+                                  //           getAssignmentController.getAssignmentData();
+                                  //
+                                  //           // getAssignmentController.getEventData(dateFormat : getAssignmentController.selectedDate.value, classId : getAssignmentController.selectedClassId.value);
+                                  //         },
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  // ),
                                 ],
                               ),
                             ],

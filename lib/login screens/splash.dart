@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/PractiseScreen/bottom_practice.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
 import '../../routers/my_routers.dart';
 import '../models/get_profile_model.dart';
@@ -23,12 +25,13 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 10), () async {
+    Timer(const Duration(seconds: 1), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       bool? isFirstTime = pref.getBool("isFirstTime");
       bool? isLoggedIn = pref.getBool("isLoggedIn");
       // String? cookie = pref.getString("cookie");
 
+      // Get.offAll(() => BottomPractise());
 
       if (isFirstTime == null) {
         print("Enter0");
@@ -41,20 +44,30 @@ class _SplashState extends State<Splash> {
         print("userType : $userType");
 
         if(userType == "student") {
-           // Get.offAllNamed(MyRouters.drawerForStudent);
-           Get.offAll(() => DrawerForStudent());
-           // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
-
+          Get.offAll(() => BottomBarScreen(userType: 2,));
         } else if(userType == "user") {
-          // Get.offAll(()=>BottomNavigationUserScreen());
-          // Get.offAllNamed(MyRouters.bottomNavigationScreen);
-          Get.offAllNamed(MyRouters.drawerForUser);
+          Get.offAll(() => BottomBarScreen(userType: 0,));
         } else if(userType == "teacher") {
-          Get.offAllNamed(MyRouters.drawerForTeacher);
+          Get.offAll(() => BottomBarScreen(userType: 1,));
         } else {
-          // Get.offAllNamed(MyRouters.drawerForUser);
           Get.offAllNamed(MyRouters.signInPage);
         }
+
+        // if(userType == "student") {
+        //    // Get.offAllNamed(MyRouters.drawerForStudent);
+        //    Get.offAll(() => DrawerForStudent());
+        //    // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
+        //
+        // } else if(userType == "user") {
+        //   // Get.offAll(()=>BottomNavigationUserScreen());
+        //   // Get.offAllNamed(MyRouters.bottomNavigationScreen);
+        //   Get.offAllNamed(MyRouters.drawerForUser);
+        // } else if(userType == "teacher") {
+        //   Get.offAllNamed(MyRouters.drawerForTeacher);
+        // } else {
+        //   // Get.offAllNamed(MyRouters.drawerForUser);
+        //   Get.offAllNamed(MyRouters.signInPage);
+        // }
       }
       }
     );

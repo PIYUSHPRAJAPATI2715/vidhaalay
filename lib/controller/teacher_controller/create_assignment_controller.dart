@@ -67,11 +67,15 @@ class CreateAssignmentController extends GetxController {
 
       Map body = {
         "assignment_name": assignmentName.text,
-        "assignment_class_id": int.parse(selectClass!),
         "subject_id": int.parse(selectedSubject!),
-        "details": message.text,
-        "duedate": dobController.text
+        "class_id" : int.parse(selectedSubject!),
+        "detail": message.text,
+        // "date": "${dobController.text}T23:55:06.957Z",
+        "tagline": "${dobController.text}T23:55:06.957Z"
+        // dobController.text,
+        // "tagline": dobController.text
       };
+      print("body $body");
 
       final response = await http.post(
         Uri.parse(ApiUrls.createAssignment),

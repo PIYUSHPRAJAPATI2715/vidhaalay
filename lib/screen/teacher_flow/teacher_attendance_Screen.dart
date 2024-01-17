@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/student_attandance_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/add_attandance_model.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_dropdown.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -138,66 +139,104 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                           const SizedBox(
                             width: 5,
                           ),
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton2(
-                              value: studentAttandanceController
-                                  .selectedClassId?.value,
-                              // icon: Icon(Icons.keyboard_arrow_down,
-                              //     color: Colors.white),
-                              // dropdownColor: Colors.white70,
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: size.height * 0.28,
-                                width: size.width * 0.3,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                isOverButton: false,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white70,
-                                ),
-                                offset: const Offset(-10, 0),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness: MaterialStateProperty.all<double>(6),
-                                  thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 45,
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                              ),
-                              items: studentAttandanceController
-                                  .classList.value
-                                  .toList()
-                                  .map((items) {
-                                return DropdownMenuItem(
-                                  value: items.id,
-                                  child: Text(
-                                    items.name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 17,
-                                      color: studentAttandanceController
-                                          .selectedClassId
-                                          ?.value ==
-                                          items.id
-                                          ? Colors.white
-                                      // Colors.grey.shade900 // Change the color for selected item
-                                          : Colors
-                                          .black, // Default color for unselected items
-                                    ),
+
+                          CommonDropDownButton(
+                            value: studentAttandanceController
+                                .selectedClassId?.value,
+                            items: studentAttandanceController
+                                .classList.value
+                                .toList()
+                                .map((items) {
+                              return DropdownMenuItem(
+                                value: items.id,
+                                child: Text(
+                                  items.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: studentAttandanceController
+                                        .selectedClassId
+                                        ?.value ==
+                                        items.id
+                                        ? Colors.white
+                                    // Colors.grey.shade900 // Change the color for selected item
+                                        : Colors
+                                        .black, // Default color for unselected items
                                   ),
-                                );
-                              }).toList(),
-                              onChanged: (newValue) {
-                                studentAttandanceController
-                                    .selectedClassId!.value = newValue!;
-                                print(studentAttandanceController
-                                    .selectedClassId?.value);
-                                // studentAttandanceController.getStudentListData(classId: studentAttandanceController.selectedClassId.value.toString());
-                                studentAttandanceController.getAttandanceListDataAPI(classId: studentAttandanceController.selectedClassId.value.toString());
-                              },
-                            ),
-                          )
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              studentAttandanceController
+                                  .selectedClassId!.value = newValue!;
+                              print(studentAttandanceController
+                                  .selectedClassId?.value);
+                              // studentAttandanceController.getStudentListData(classId: studentAttandanceController.selectedClassId.value.toString());
+                              studentAttandanceController.getAttandanceListDataAPI(classId: studentAttandanceController.selectedClassId.value.toString());
+                            },
+                            width: size.width * 0.3,
+                          ),
+
+                          // DropdownButtonHideUnderline(
+                          //   child: DropdownButton2(
+                          //     value: studentAttandanceController
+                          //         .selectedClassId?.value,
+                          //     // icon: Icon(Icons.keyboard_arrow_down,
+                          //     //     color: Colors.white),
+                          //     // dropdownColor: Colors.white70,
+                          //     dropdownStyleData: DropdownStyleData(
+                          //       maxHeight: size.height * 0.28,
+                          //       width: size.width * 0.3,
+                          //       padding: EdgeInsets.symmetric(horizontal: 5),
+                          //       isOverButton: false,
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(14),
+                          //         color: Colors.white70,
+                          //       ),
+                          //       offset: const Offset(-10, 0),
+                          //       scrollbarTheme: ScrollbarThemeData(
+                          //         radius: const Radius.circular(40),
+                          //         thickness: MaterialStateProperty.all<double>(6),
+                          //         thumbVisibility: MaterialStateProperty.all<bool>(true),
+                          //       ),
+                          //     ),
+                          //     menuItemStyleData: const MenuItemStyleData(
+                          //       height: 45,
+                          //       padding: EdgeInsets.only(left: 10, right: 10),
+                          //     ),
+                          //     items: studentAttandanceController
+                          //         .classList.value
+                          //         .toList()
+                          //         .map((items) {
+                          //       return DropdownMenuItem(
+                          //         value: items.id,
+                          //         child: Text(
+                          //           items.name,
+                          //           style: TextStyle(
+                          //             fontWeight: FontWeight.w500,
+                          //             fontSize: 17,
+                          //             color: studentAttandanceController
+                          //                 .selectedClassId
+                          //                 ?.value ==
+                          //                 items.id
+                          //                 ? Colors.white
+                          //             // Colors.grey.shade900 // Change the color for selected item
+                          //                 : Colors
+                          //                 .black, // Default color for unselected items
+                          //           ),
+                          //         ),
+                          //       );
+                          //     }).toList(),
+                          //     onChanged: (newValue) {
+                          //       studentAttandanceController
+                          //           .selectedClassId!.value = newValue!;
+                          //       print(studentAttandanceController
+                          //           .selectedClassId?.value);
+                          //       // studentAttandanceController.getStudentListData(classId: studentAttandanceController.selectedClassId.value.toString());
+                          //       studentAttandanceController.getAttandanceListDataAPI(classId: studentAttandanceController.selectedClassId.value.toString());
+                          //     },
+                          //   ),
+                          // )
                         ]),
                   )
                 ],
@@ -211,6 +250,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                   height: size.height,
                   width: size.width,
                   decoration: const BoxDecoration(
+                    // color: AppThemes.primaryColor,
                     color: AppThemes.white,
                     borderRadius:
                     BorderRadius.only(topRight: Radius.circular(60)),

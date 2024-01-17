@@ -8,16 +8,19 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:vidhaalay_app/controller/deshborad_controller.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
 import 'package:vidhaalay_app/widgets/common_textfield.dart';
 
 import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../repositories/location_update_repo.dart';
+// import 'package:location/location.dart';
 
 class AddressScreen extends StatefulWidget {
   final bool isAddressUpdateRequire;
@@ -57,26 +60,64 @@ class _AddressScreenState extends State<AddressScreen> {
     print("isAddressUpdateRequire : $isAddressUpdateRequire");
   }
 
+  // Future<void> _getLocation() async {
+  //   Location location = Location();
+  //   bool _serviceEnabled;
+  //   PermissionStatus _permissionGranted;
+  //   LocationData _locationData;
+  //
+  //   _serviceEnabled = await location.serviceEnabled();
+  //   if (!_serviceEnabled) {
+  //     _serviceEnabled = await location.requestService();
+  //     if (!_serviceEnabled) {
+  //       return;
+  //     }
+  //   }
+  //
+  //   _permissionGranted = await location.hasPermission();
+  //   if (_permissionGranted == PermissionStatus.denied) {
+  //     _permissionGranted = await location.requestPermission();
+  //     if (_permissionGranted != PermissionStatus.granted) {
+  //       return;
+  //     }
+  //   }
+  //
+  //   _locationData = await location.getLocation();
+  //   print('Latitude: ${_locationData.latitude}');
+  //   print('Longitude: ${_locationData.longitude}');
+  // }
+
   getCurrentLocation() async {
     try {
+
+      // bool _serviceEnabled = await Geolocator.serviceEnabled();
+
+
       LocationPermission permission = await Geolocator.requestPermission();
 
       if (permission == LocationPermission.denied) {
         print("LiveLocation Addd");
         return null;
       } else {
-        OverlayEntry loader = Helpers.overlayLoader(context);
-        Overlay.of(context)!.insert(loader);
 
-        await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high,
-            forceAndroidLocationManager: true
-        ).then((Position position) {
-          Helpers.hideLoader(loader);
+        bool isLocationServiceEnabled = await Geolocator.isLocationServiceEnabled();
 
-          getAddressFromLatLng(position.latitude,position.longitude);
-           print(position);
-        });
+        if(isLocationServiceEnabled) {
+          OverlayEntry loader = Helpers.overlayLoader(context);
+          Overlay.of(context)!.insert(loader);
+
+          await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.high,
+              forceAndroidLocationManager: true
+          ).then((Position position) {
+            Helpers.hideLoader(loader);
+
+            getAddressFromLatLng(position.latitude,position.longitude);
+            print(position);
+          });
+        } else {
+          showToast("Please on your device location and retry for update your location");
+        }
       }
       // return position;
     } catch (e) {
@@ -108,8 +149,8 @@ class _AddressScreenState extends State<AddressScreen> {
           getSchoolListController.getSchoolListFunction();
           getSchoolListController.getTopLectureListRepo();
           // Get.back();
-          Get.offAllNamed(MyRouters.drawerForUser);
-
+          // Get.offAllNamed(MyRouters.drawerForUser);
+          Get.offAll(() => BottomBarScreen(userType: 0,));
           showToast(value.msg.toString().toString());
         } else {
           showToast(value.msg.toString().toString());
@@ -295,7 +336,8 @@ class _AddressScreenState extends State<AddressScreen> {
                           getSchoolListController.getSchoolListFunction();
                           getSchoolListController.getTopLectureListRepo();
                           // Get.back();
-                          Get.offAllNamed(MyRouters.drawerForUser);
+                          // Get.offAllNamed(MyRouters.drawerForUser);
+                          Get.offAll(() => BottomBarScreen(userType: 0,));
 
                           showToast(value.msg.toString().toString());
                         } else {

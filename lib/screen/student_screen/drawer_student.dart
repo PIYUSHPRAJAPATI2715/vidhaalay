@@ -37,305 +37,262 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppThemes.primaryColor,
-                    AppThemes.primaryColor,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                )),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: SafeArea(
-                child: Container(
-                  width: 200,
-                  padding: const EdgeInsets.all(8.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Theme(
-                          data: ThemeData(
-                              dividerColor: Colors.transparent
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.65, //<-- SEE HERE
+      // padding: const EdgeInsets.all(8.0),
+      child: Drawer(
+        backgroundColor:  AppThemes.primaryColor,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Column(
+              children: [
+                Theme(
+                  data: ThemeData(
+                      dividerColor: Colors.transparent
+                  ),
+                  child: SizedBox(
+                    height: size.height * 0.33,
+                    child: DrawerHeader(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(
+                            radius: 60,
+                            backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
                           ),
-                          child: SizedBox(
-                            height: size.height * 0.33,
-                            child: DrawerHeader(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const CircleAvatar(
-                                    radius: 60,
-                                    backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
-                                  ),
-                                  SizedBox(height: size.height * 0.016),
-                                  const Text(
-                                    "Rosie Wannh", // Display user's name here
-                                    style: TextStyle(
-                                      fontSize: 21,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppThemes.white,
-                                    ),
-                                  ),
-                                  const Text(
-                                    "CLASS-12th", // Display user's name here
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppThemes.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                          SizedBox(height: size.height * 0.016),
+                          const Text(
+                            "Rosie Wannh", // Display user's name here
+                            style: TextStyle(
+                              fontSize: 21,
+                              fontWeight: FontWeight.w600,
+                              color: AppThemes.white,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            // Get.to(() => VideoScreen());
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Video Lecture',
+                          const Text(
+                            "CLASS-12th", // Display user's name here
                             style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          leading: Image.asset(
-                            AppAssets.videoIcon,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.to(() => SyllabusScreen());
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Syllabus',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          leading: Image.asset(
-                            AppAssets.syllabusImg,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.to(() => AttendanceScreen());
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Attendance',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          leading: Image.asset(
-                            AppAssets.personIcon,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: () {
-                            Get.to(() => ClassTimeTableScreen());
-
-                            // Get.toNamed(MyRouters.teacherClassTimeScreen);
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Class Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.attendanceIcon,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.to(() => ExamTimeTableScreen());
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Exam Timetable',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.examTimeTableImg,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.to(() => ExamResultScreen());
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Exam Result',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.examResultImg,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-                            Get.toNamed(MyRouters.settingScreenUser);
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Settings',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Icon(
-                            // "assets/icons/home.png",
-                            Icons.settings_outlined,
-                            color:  AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
-                        SizedBox(height: size.height*.05,),
-                        InkWell(
-                          onTap: (){
-                            logOutUser();
-
-                            // Get.offAllNamed(MyRouters.signInPage);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                    color: Colors.white,
-                                    width: 2
-                                )
-                            ),
-                            child: const Text(
-                              'LOGOUT',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: AppThemes.white,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                )),
-          ),
-          TweenAnimationBuilder(
-              tween: Tween<double>(begin: 0, end: value),
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInCirc,
-              builder: (_, double val, __) {
-                return (Transform(
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)..setEntry(0, 3, -200 * val)
-                    ..rotateY((pi / 6) * val),
-                  child: const Scaffold(
-                    body: BottomNavigationStudentScreen(),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: (){
+                    // Get.to(() => VideoScreen());
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Video Lecture',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
                   ),
-                ));
-              }),
-          GestureDetector(
-            onHorizontalDragUpdate: (e) {
-              if (e.delta.dx > 0) {
-                setState(() {
-                  value = 1;
-                });
-              }
-              else {
-                setState(() {
-                  value = 0;
-                });
-              }
-            },
-          )
-        ],
+                  leading: Image.asset(
+                    AppAssets.videoIcon,
+                    height: 20,
+                    width: 24,
+                    color: AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: (){
+                    Get.to(() => SyllabusScreen());
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Syllabus',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  leading: Image.asset(
+                    AppAssets.syllabusImg,
+                    height: 20,
+                    width: 24,
+                    color: AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: (){
+                    Get.to(() => AttendanceScreen());
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Attendance',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  leading: Image.asset(
+                    AppAssets.personIcon,
+                    height: 20,
+                    width: 24,
+                    color: AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: () {
+                    Get.to(() => ClassTimeTableScreen());
+
+                    // Get.toNamed(MyRouters.teacherClassTimeScreen);
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Class Timetable',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+
+                  ),
+                  leading: Image.asset(
+                    AppAssets.attendanceIcon,
+                    height: 20,
+                    width: 24,
+                    color: AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: (){
+                    Get.to(() => ExamTimeTableScreen());
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Exam Timetable',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+
+                  ),
+                  leading: Image.asset(
+                    AppAssets.examTimeTableImg,
+                    height: 20,
+                    width: 24,
+                    color: AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: (){
+                    Get.to(() => ExamResultScreen());
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Exam Result',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+
+                  ),
+                  leading: Image.asset(
+                    AppAssets.examResultImg,
+                    height: 20,
+                    width: 24,
+                    color: AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                ListTile(
+                  onTap: (){
+                    Get.toNamed(MyRouters.settingScreenUser);
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  visualDensity:
+                  const VisualDensity(
+                      horizontal: -4, vertical: -4),
+                  title: const Text(
+                    'Settings',
+                    style: TextStyle(
+                        color: AppThemes.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+
+                  ),
+                  leading: Icon(
+                    // "assets/icons/home.png",
+                    Icons.settings_outlined,
+                    color:  AppThemes.white,
+                    // width: 23,
+                    // height: 23,
+                  ),
+                ),
+                SizedBox(height: size.height*.05,),
+                InkWell(
+                  onTap: (){
+                    logOutUser();
+
+                    // Get.offAllNamed(MyRouters.signInPage);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                            color: Colors.white,
+                            width: 2
+                        )
+                    ),
+                    child: const Text(
+                      'LOGOUT',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

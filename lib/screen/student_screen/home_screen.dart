@@ -54,8 +54,14 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                 padding:  EdgeInsets.symmetric(horizontal: size.width*.035).copyWith(left: 0),
                 child: Row(
                   children: [
+                    // IconButton(
+                    //     onPressed: () {
+                    //
+                    //     }, icon: ImageIcon(AssetImage(AppAssets.notification),size: 20,color: Colors.grey,)
+                    // ),
                     InkWell(
                         onTap: () {
+
                           Get.toNamed(MyRouters.notificationScreenUser);
                         },
                         child: Image.asset(AppAssets.notification,width: 17,)
@@ -350,9 +356,13 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                     height: 0.2,
                     thickness: 1,
                   ),
+
                   Container(
+                    height: size.height * 0.445,
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(colors: [
+                      // color: Colors.pink
+
+                    gradient: LinearGradient(colors: [
                           AppThemes.primaryColor,
                           AppThemes.primaryColor,
                           Colors.white,
@@ -450,6 +460,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 18),
                           width: double.maxFinite,
+                          height: size.height * 0.26,
+
                           decoration: const BoxDecoration(
                               color:  AppThemes.primaryColor,
                               borderRadius: BorderRadius.only(

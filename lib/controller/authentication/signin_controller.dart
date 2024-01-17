@@ -18,6 +18,7 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
 import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
 
@@ -122,7 +123,8 @@ class SignInController extends GetxController {
             // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
           } else {
             pref.setBool('isLoggedIn', true);
-            Get.offAllNamed(MyRouters.drawerForUser);
+            // Get.offAllNamed(MyRouters.drawerForUser);
+            Get.offAll(() => BottomBarScreen(userType: 0,));
           }
         } else if (userType.value == "teacher") {
           final value = LoginModelTeacher.fromJson(jsonDecode(response.body));
@@ -152,7 +154,8 @@ class SignInController extends GetxController {
           // }).toList();
           // print('Retrieved List<mAP> resultMapList: $resultMapList');
 
-          Get.offAllNamed(MyRouters.drawerForTeacher);
+          // Get.offAllNamed(MyRouters.drawerForTeacher);
+          Get.offAll(() => BottomBarScreen(userType: 1,));
 
         } else if (userType.value == "student") {
           print("Enter000");
@@ -168,7 +171,10 @@ class SignInController extends GetxController {
           print("student id : ${value.data!.id.toString()}");
           print("student token : ${value.data!.token.toString()}");
 
-          Get.offAllNamed(MyRouters.drawerForStudent);
+          // Get.offAllNamed(MyRouters.drawerForStudent);
+          Get.offAll(() => BottomBarScreen(userType: 2,));
+
+
           // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
 
 

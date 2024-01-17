@@ -303,6 +303,16 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                         getWeekDates(now);
                                         log(DateFormat('EEEE').format(now));
                                         // Get.back();
+
+                                        String date = year.value +
+                                            "-" +
+                                            month.value +
+                                            "-" +
+                                            day.value;
+                                        log(date);
+
+                                        notificationController
+                                            .getNotificationData(date);
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(

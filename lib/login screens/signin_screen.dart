@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 import '../../widgets/appTheme.dart';
 import '../controller/common.dart';
 import '../repositories/login_repo.dart';
@@ -735,7 +736,8 @@ class _SignInPageState extends State<SignInPage> {
         pref.setString('cookie', value.data!.token.toString());
         showToast(value.msg.toString());
         pref.setBool('isLoggedIn', true);
-        Get.offAllNamed(MyRouters.drawerForUser);
+        // Get.offAllNamed(MyRouters.drawerForUser);
+        Get.offAll(() => BottomBarScreen(userType: 0,));
       } else {
         showToast(value.msg.toString());
       }
@@ -764,7 +766,8 @@ class _SignInPageState extends State<SignInPage> {
           pref.setString('cookie', value.data!.token.toString());
           showToast(value.msg.toString());
           pref.setBool('isLoggedIn', true);
-          Get.offAllNamed(MyRouters.drawerForUser);
+          // Get.offAllNamed(MyRouters.drawerForUser);
+          Get.offAll(() => BottomBarScreen(userType: 0,));
         } else {
           showToast(value.msg.toString());
         }

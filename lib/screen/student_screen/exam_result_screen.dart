@@ -1,11 +1,14 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vidhaalay_app/controller/student_controller/exam_result_student_controller.dart';
+import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_dropdown.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
-
 
 class ExamResultScreen extends StatefulWidget {
   const ExamResultScreen({Key? key}) : super(key: key);
@@ -15,6 +18,8 @@ class ExamResultScreen extends StatefulWidget {
 }
 
 class _ExamResultScreenState extends State<ExamResultScreen> {
+  final examResultController = Get.put(ExamResultStudentController());
+
   RxString day = "".obs;
   RxString month = "".obs;
   RxString year = "".obs;
@@ -31,6 +36,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
   @override
   void initState() {
     super.initState();
+    examResultController.getExamTypeData();
     year.value = DateFormat('yyyy').format(DateTime.now());
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
@@ -55,6 +61,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
   List<GlobalKey> keysList = [];
 
   List<DateTime> weekDates = [];
+
   getWeekDates(DateTime currentDate) {
     weekDates.clear();
     for (int i = 1 - int.parse(todayDay);
@@ -100,12 +107,14 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
     log("Week days$firstDayNextMonth");
     return firstDayNextMonth.difference(firstDayThisMonth).inDays;
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Result',
+        title: Text(
+          'Result',
           style: GoogleFonts.poppins(
             fontSize: 19,
             fontWeight: FontWeight.w600,
@@ -131,161 +140,6 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
               ),
             ),
           ),
-          // Container(
-          //     height: 190,
-          //     decoration: const BoxDecoration(
-          //       color: AppThemes.primaryColor,
-          //       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
-          //     ),
-          //     child:  Padding(
-          //       padding: EdgeInsets.all(size.width * .010),
-          //       child: Column(
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         children: [
-          //           const SizedBox(height: 10),
-          //           Container(
-          //             height: 55,
-          //             decoration: BoxDecoration(
-          //                 borderRadius: BorderRadius.circular(10)),
-          //             child: Row(
-          //               mainAxisAlignment: MainAxisAlignment.center,
-          //               children: [
-          //                 Expanded(
-          //                   child: ListView.builder(
-          //                     scrollDirection: Axis.horizontal,
-          //                     shrinkWrap: true,
-          //                     itemCount: months.length,
-          //                     itemBuilder:
-          //                         (BuildContext context, int index) {
-          //                       return InkWell(
-          //                         onTap: () {
-          //                           selectedIndex = index;
-          //                           month.value = "${index + 1}".length != 2
-          //                               ? "0${index + 1}"
-          //                               : "${index + 1}";
-          //                           monthName.value = DateFormat('MMMM')
-          //                               .format(DateTime.parse(
-          //                               "${year.value}-${month.value}-${day.value}"));
-          //                           now = DateTime.parse(
-          //                               "${year.value}-${month.value}-${day.value}");
-          //                           totalDays = daysInMonth(now);
-          //                           listOfDates = List<int>.generate(
-          //                               totalDays, (i) => i + 1);
-          //                           todayDay = DateFormat('dd').format(now);
-          //                           getWeekDates(now);
-          //                           log(DateFormat('EEEE').format(now));
-          //                           // Get.back();
-          //                         },
-          //                         child: Padding(
-          //                           padding: const EdgeInsets.symmetric(
-          //                               horizontal: 10,vertical: 10),
-          //                           child: Text(months[index].toString(),
-          //                               style: GoogleFonts.poppins(
-          //                                   fontWeight: FontWeight.w500,
-          //                                   fontSize: 17,
-          //                                   color: index == selectedIndex
-          //                                       ? Colors.white
-          //                                       : Colors.black)),
-          //                         ),
-          //                       );
-          //                     },
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //           SizedBox(
-          //             height: 80,
-          //             child: SingleChildScrollView(
-          //               scrollDirection: Axis.horizontal,
-          //               physics: BouncingScrollPhysics(),
-          //               child: Row(
-          //                 children:
-          //                 List.generate(weekDates.length, (index) {
-          //                   DateTime date = weekDates[index];
-          //                   String formattedDate =
-          //                   DateFormat('d').format(date);
-          //                   String formattedDate1 =
-          //                   DateFormat('MM').format(date);
-          //                   String formattedDate2 =
-          //                   DateFormat('yyyy').format(date);
-          //                   String weekDay =
-          //                   DateFormat('EEEE').format(date);
-          //                   return Padding(
-          //                     key: keysList[index],
-          //                     padding: EdgeInsets.only(right: 0, left: 0),
-          //                     child: GestureDetector(
-          //                       onTap: () {
-          //                         setState(() {
-          //                           selectedIndex = index;
-          //                           day.value = formattedDate.length != 2
-          //                               ? "0$formattedDate"
-          //                               : formattedDate;
-          //                           // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
-          //                           // year.value = formattedDate2;
-          //                           log(month.value);
-          //                           monthName.value = DateFormat('MMMM')
-          //                               .format(DateTime.parse(
-          //                               "${year.value}-${month.value}-${day.value}"));
-          //                         });
-          //                       },
-          //                       child: Padding(
-          //                         padding: const EdgeInsets.all(8.0),
-          //                         child: Container(
-          //                           decoration: BoxDecoration(
-          //                               color: index == selectedIndex
-          //                                   ? Colors.white
-          //                                   : Colors.transparent,
-          //                               borderRadius:
-          //                               BorderRadius.circular(20)),
-          //                           child: Padding(
-          //                             padding: const EdgeInsets.all(12.0),
-          //                             child: Column(
-          //                               children: [
-          //                                 Text(
-          //                                   weekDay[0].toString(),
-          //                                   style: TextStyle(
-          //                                       fontSize: 16,
-          //                                       fontWeight: FontWeight.w600,
-          //                                       color:
-          //                                       index == selectedIndex
-          //                                           ? Colors.black
-          //                                           : Colors.white),
-          //                                 ),
-          //                                 Text(
-          //                                   formattedDate,
-          //                                   style: TextStyle(
-          //                                       fontSize: 16,
-          //                                       fontWeight: FontWeight.w600,
-          //                                       color:
-          //                                       index == selectedIndex
-          //                                           ? Colors.black
-          //                                           : Colors.white),
-          //                                 ),
-          //                               ],
-          //                             ),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                     ),
-          //                   );
-          //                 }),
-          //               ),
-          //             ),
-          //           ),
-          //           const Center(
-          //             child: Text(
-          //               'August - November',
-          //               style: TextStyle(
-          //                   fontSize: 17,
-          //                   fontWeight: FontWeight.w600,
-          //                   color:Colors.white),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     )
-          // ),
           Container(
               height: size.height * .260,
               decoration: const BoxDecoration(
@@ -301,8 +155,8 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 5),
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(50)),
@@ -328,17 +182,16 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: months.length,
-                              itemBuilder:
-                                  (BuildContext context, int index) {
+                              itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () {
                                     selectedMonthIndex = index;
                                     month.value = "${index + 1}".length != 2
                                         ? "0${index + 1}"
                                         : "${index + 1}";
-                                    monthName.value = DateFormat('MMMM')
-                                        .format(DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}"));
+                                    monthName.value = DateFormat('MMMM').format(
+                                        DateTime.parse(
+                                            "${year.value}-${month.value}-${day.value}"));
                                     now = DateTime.parse(
                                         "${year.value}-${month.value}-${day.value}");
                                     totalDays = daysInMonth(now);
@@ -366,8 +219,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 17,
-                                            color:
-                                            index == selectedMonthIndex
+                                            color: index == selectedMonthIndex
                                                 ? Colors.white
                                                 : Colors.black)),
                                   ),
@@ -384,17 +236,14 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
                         child: Row(
-                          children:
-                          List.generate(weekDates.length, (index) {
+                          children: List.generate(weekDates.length, (index) {
                             DateTime date = weekDates[index];
-                            String formattedDate =
-                            DateFormat('d').format(date);
+                            String formattedDate = DateFormat('d').format(date);
                             String formattedDate1 =
                             DateFormat('MM').format(date);
                             String formattedDate2 =
                             DateFormat('yyyy').format(date);
-                            String weekDay =
-                            DateFormat('EEEE').format(date);
+                            String weekDay = DateFormat('EEEE').format(date);
                             return Padding(
                               key: keysList[index],
                               padding: EdgeInsets.only(right: 0, left: 0),
@@ -411,9 +260,9 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                     log(month.value);
                                     log(year.value);
 
-                                    monthName.value = DateFormat('MMMM')
-                                        .format(DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}"));
+                                    monthName.value = DateFormat('MMMM').format(
+                                        DateTime.parse(
+                                            "${year.value}-${month.value}-${day.value}"));
 
                                     String date = year.value +
                                         "-" +
@@ -444,8 +293,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedIndex
+                                                color: index == selectedIndex
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -454,8 +302,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedIndex
+                                                color: index == selectedIndex
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
@@ -473,11 +320,11 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                   ],
                 ),
               )),
-
           Positioned.fill(
-            top: size.height*.260,
+            top: size.height * .260,
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
+              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 12)
+                  .copyWith(bottom: 0),
               height: size.height,
               width: size.width,
               decoration: const BoxDecoration(
@@ -485,80 +332,249 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                 borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
               ),
               child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Text('Half Yearly',
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600
-                        ),),
-                    ),
-                    SizedBox(
-                      height: size.height,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return  Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 22,
+                    Obx(
+                          () => examResultController.isExamTypeLoading.value
+                          ? SizedBox.shrink()
+                          : Container(
+                        // transformAlignment: Alignment.center,
+                        // width: size.width * .45,
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          // color: Colors.white,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: examResultController
+                            .getExamTypeModel.value.data!.isEmpty
+                            ? SizedBox.shrink()
+                            : Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Type -',
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Colors.black,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('16th Mar',
-                                    style: GoogleFonts.poppins(
-                                        color: AppThemes.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600
-                                    ),),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
 
-                                  Container(
-                                    width: size.width*.40,
-                                    padding: const EdgeInsets.all(9),
-                                    decoration: BoxDecoration(
-                                        color: AppThemes.lightPink,
-                                        borderRadius: BorderRadius.circular(8)
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Text('Social Science',
-                                          style: GoogleFonts.poppins(
-                                              color: AppThemes.blueColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600
-                                          ),),
-                                        Text('52/100',
-                                          style: GoogleFonts.poppins(
-                                              color: AppThemes.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600
-                                          ),),
-
-                                      ],
+                            CommonDropDownButton(
+                              value: examResultController
+                                  .selectedExamType?.value,
+                              items: examResultController
+                                  .getExamTypeModel.value.data!
+                                  .toList()
+                                  .map((items) {
+                                return DropdownMenuItem(
+                                  value: items.id,
+                                  child: Text(
+                                    items.name!,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: examResultController
+                                          .selectedExamType
+                                          ?.value ==
+                                          items.id
+                                          ? Colors.black
+                                      // Colors.grey.shade900 // Change the color for selected item
+                                          : Colors
+                                          .black, // Default color for unselected items
                                     ),
                                   ),
-                                  Text('Pass',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.green,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600
-                                    ),),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                examResultController
+                                    .selectedExamType!
+                                    .value = newValue!;
+                                print(examResultController
+                                    .selectedExamType?.value);
+
+                                examResultController
+                                    .getExamResultData();
+                              },
+                              width: size.width * 0.55,
+                              backgroundColor: Colors.white,
+                            ),
+
+                            // DropdownButtonHideUnderline(
+                            //   child: DropdownButton2(
+                            //     value: examResultController
+                            //         .selectedExamType?.value,
+                            //     // icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
+                            //     dropdownStyleData:
+                            //     DropdownStyleData(
+                            //       maxHeight: size.height * 0.28,
+                            //       width: size.width * 0.55,
+                            //       padding: EdgeInsets.symmetric(
+                            //           horizontal: 5),
+                            //       isOverButton: false,
+                            //       decoration: BoxDecoration(
+                            //         borderRadius:
+                            //         BorderRadius.circular(14),
+                            //         color: Colors.white,
+                            //       ),
+                            //       offset: const Offset(-10, 0),
+                            //       scrollbarTheme:
+                            //       ScrollbarThemeData(
+                            //         radius:
+                            //         const Radius.circular(40),
+                            //         thickness: MaterialStateProperty
+                            //             .all<double>(6),
+                            //         thumbVisibility:
+                            //         MaterialStateProperty.all<
+                            //             bool>(true),
+                            //       ),
+                            //     ),
+                            //     menuItemStyleData:
+                            //     const MenuItemStyleData(
+                            //       height: 45,
+                            //       padding: EdgeInsets.only(
+                            //           left: 10, right: 10),
+                            //     ),
+                            //     // dropdownColor: Colors.white70,
+                            //     items: examResultController
+                            //         .getExamTypeModel.value.data!
+                            //         .toList()
+                            //         .map((items) {
+                            //       return DropdownMenuItem(
+                            //         value: items.id,
+                            //         child: Text(
+                            //           items.name!,
+                            //           style: TextStyle(
+                            //             fontWeight: FontWeight.w500,
+                            //             fontSize: 17,
+                            //             color: examResultController
+                            //                 .selectedExamType
+                            //                 ?.value ==
+                            //                 items.id
+                            //                 ? Colors.black
+                            //             // Colors.grey.shade900 // Change the color for selected item
+                            //                 : Colors
+                            //                 .black, // Default color for unselected items
+                            //           ),
+                            //         ),
+                            //       );
+                            //     }).toList(),
+                            //     onChanged: (newValue) {
+                            //       examResultController
+                            //           .selectedExamType!
+                            //           .value = newValue!;
+                            //       print(examResultController
+                            //           .selectedExamType?.value);
+                            //
+                            //       examResultController
+                            //           .getExamResultData();
+                            //     },
+                            //   ),
+                            // )
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Obx(
+                      () => examResultController.isDataLoading.value ?  SizedBox(
+                          height: size.height * 0.525,
+                          child: Center(child: const CommonProgressIndicator())) : Container(
+                        height: size.height * 0.525,
+                        // color: Colors.amber,
+                        child: examResultController.getExamResultModel.value.data!.isEmpty ? Center(
+                          child: Text(
+                            "No result Available",
+                          ),
+                        ): ListView.builder(
+                          // shrinkWrap: true,
+                          itemCount: examResultController.getExamResultModel.value.data!.length,
+                          physics: const BouncingScrollPhysics(),
+                          // padding: EdgeInsets.symmetric(vertical: 5),
+                          itemBuilder: (context, index) {
+                            var values = examResultController.getExamResultModel.value.data![index];
+
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                              values.from!,
+                                        // '16th Mar',
+                                        style: GoogleFonts.poppins(
+                                            color: AppThemes.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Container(
+                                        width: size.width * .40,
+                                        padding: const EdgeInsets.all(9),
+                                        decoration: BoxDecoration(
+                                            color: AppThemes.lightPink,
+                                            borderRadius: BorderRadius.circular(8)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              values.subjectName!,
+
+                                              // 'Social Science',
+                                              style: GoogleFonts.poppins(
+                                                  color: AppThemes.blueColor,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              values.marks! + "/" + values.totalMarks.toString(),
+                                              // '52/100',
+                                              style: GoogleFonts.poppins(
+                                                  color: AppThemes.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      int.parse(values.marks!) >=  values.passingMarks! ? Text(
+                                        'Pass',
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.green,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ) :
+                                      Text(
+                                        'Fail',
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.red,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          );
-                        },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
