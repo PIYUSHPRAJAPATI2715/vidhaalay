@@ -22,7 +22,7 @@ class ExamResultStudentController extends GetxController {
   RxBool isDataLoading = true.obs;
   Rx<ExamResultModel> getExamResultModel = ExamResultModel().obs;
 
-  RxBool isExamTypeLoading = false.obs;
+  RxBool isExamTypeLoading = true.obs;
   Rx<ExamTypeList> getExamTypeModel = ExamTypeList().obs;
   RxInt selectedExamType = 0.obs;
 

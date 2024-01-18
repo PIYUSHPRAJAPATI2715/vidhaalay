@@ -8,13 +8,13 @@ import 'package:vidhaalay_app/models/school_list_model.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 
 class FavouriteController extends GetxController {
-  RxBool isFavouriteListLoading = false.obs;
+  RxBool isFavouriteListLoading = true.obs;
   Rx<FavourateListModel> favourateListModel = FavourateListModel().obs;
   RxString favForType = "Schools".obs;
 
   // Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
   Future getFavouriteListRepo() async {
-    isFavouriteListLoading.value = false;
+    isFavouriteListLoading.value = true;
     print("api Call");
 
     final Map<String, dynamic> MapData = {
@@ -32,9 +32,9 @@ class FavouriteController extends GetxController {
       // Helpers.hideLoader(loader);
       favourateListModel.value = FavourateListModel.fromJson(jsonDecode(response.body));
       print(favourateListModel);
-      isFavouriteListLoading.value = true;
+      isFavouriteListLoading.value = false;
     } else {
-      isFavouriteListLoading.value = true;
+      isFavouriteListLoading.value = false;
       // Helpers.hideLoader(loader);
       // Helpers.createSnackBar(context, response.statusCode.toString());
       throw Exception(response.body);

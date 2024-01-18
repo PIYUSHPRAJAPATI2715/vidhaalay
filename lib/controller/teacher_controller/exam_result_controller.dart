@@ -16,16 +16,16 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
 class ExamResultController extends GetxController {
-  RxBool isDetailsLoading = false.obs;
+  RxBool isDetailsLoading = true.obs;
   Rx<StudentDetails> getStudentDetailsModel = StudentDetails().obs;
 
-  RxBool isDataLoading = false.obs;
+  RxBool isDataLoading = true.obs;
   Rx<ExamResultModel> getExamResultModel = ExamResultModel().obs;
 
   // RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
 
-  RxBool isExamTypeLoading = false.obs;
+  RxBool isExamTypeLoading = true.obs;
   Rx<ExamTypeList> getExamTypeModel = ExamTypeList().obs;
 
   RxInt selectedExamType = 0.obs;

@@ -173,8 +173,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
             controller: tabController,
             children: [
               Obx(() {
-                return favouriteController.isFavouriteListLoading.value == true
-                    ? favouriteController
+                return favouriteController.isFavouriteListLoading.value
+                    ? const CommonProgressIndicator() : favouriteController
                                 .favourateListModel.value.data!.length ==
                             0
                         ? Center(child: Text('No Item in Favourite'))
@@ -352,15 +352,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                                 ),
                               );
                             },
-                          )
-                    : const CommonProgressIndicator();
+                          );
               }),
+
               Obx(() {
-                return favouriteController.isFavouriteListLoading.value == true
-                    ? favouriteController
+                return favouriteController.isFavouriteListLoading.value
+                    ? const CommonProgressIndicator() :  favouriteController
                     .favourateListModel.value.data!.length ==
-                    0
-                    ? Center(child: Text('No Item in Favourite'))
+                    0 ? Center(child: Text('No Item in Favourite'))
                     : ListView.builder(
                   itemCount: favouriteController
                       .favourateListModel.value.data!.length,
@@ -531,13 +530,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                       ),
                     );
                   },
-                )
-                    : const CommonProgressIndicator();
+                );
               }),
 
               Obx(() {
-                return favouriteController.isFavouriteListLoading.value == true
-                    ? favouriteController
+                return favouriteController.isFavouriteListLoading.value
+                    ? const CommonProgressIndicator() : favouriteController
                     .favourateListModel.value.data!.length ==
                     0
                     ? Center(child: Text('No Item in Favourite'))
@@ -711,8 +709,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> with TickerProviderSt
                       ),
                     );
                   },
-                )
-                    : const CommonProgressIndicator();
+                );
               }),
               // Padding(
               //   padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 18),

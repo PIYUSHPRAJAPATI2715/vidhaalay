@@ -13,7 +13,7 @@ import 'package:vidhaalay_app/resourses/helper.dart';
 
 class EvenetDetailController extends GetxController {
   RxBool isDataLoading = true.obs;
-  RxBool isDetailsLoading = false.obs;
+  RxBool isDetailsLoading = true.obs;
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
   Rx<GetEventModel> getEventModel = GetEventModel().obs;
 

@@ -28,16 +28,16 @@ class CreateExamTimeTableController extends GetxController {
   String? selectedSubject;
 
 
-  RxBool isTeacherLoading = false.obs;
+  RxBool isTeacherLoading = true.obs;
   Rx<TeacherList> getTeacherListModel = TeacherList().obs;
   String? selectedTeacher;
 
 
-  RxBool isExamTypeLoading = false.obs;
+  RxBool isExamTypeLoading = true.obs;
   Rx<ExamTypeList> getExamTypeModel = ExamTypeList().obs;
   String? selectedExamType;
 
-  RxBool isClassLoading = false.obs;
+  RxBool isClassLoading = true.obs;
   Rx<ClassList> getClassListModel = ClassList().obs;
   String? selectedClassForSeating;
 

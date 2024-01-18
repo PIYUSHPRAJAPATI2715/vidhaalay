@@ -6,7 +6,7 @@ import '../../resourses/api_constant.dart';
 
 
 class StudentHomeController extends GetxController{
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
   Rx<LatestEventModel> getLatestEventModel = LatestEventModel().obs;
 
   Future<LatestEventModel> getLatestEventRepo() async {

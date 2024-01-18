@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 
 class UpdateEventController extends GetxController {
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
-  RxBool isDetailsLoading = false.obs;
+  RxBool isDetailsLoading = true.obs;
 
   TextEditingController dobController = TextEditingController();
   TextEditingController message = TextEditingController();

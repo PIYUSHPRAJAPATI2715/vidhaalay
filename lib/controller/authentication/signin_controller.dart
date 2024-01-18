@@ -107,6 +107,7 @@ class SignInController extends GetxController {
 
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('type', value.data!.userType.toString());
+          pref.setString('username', value.data!.name.toString());
           pref.setBool('emailVerify', isEmailVerify);
           pref.setBool('mobileVerify', isMobileVerify);
 
@@ -133,6 +134,8 @@ class SignInController extends GetxController {
           pref.setBool('isLoggedIn', true);
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('type', value.data!.userType.toString());
+          pref.setString('username', value.data!.name.toString());
+
           List<String> classList = value.data!.classArr!.map((item) => json.encode(item)).toList();
           print("classList : $classList");
 
@@ -168,6 +171,8 @@ class SignInController extends GetxController {
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('classId', value.data!.classId.toString());
           pref.setString('studentId', value.data!.id.toString());
+          pref.setString('username', value.data!.name.toString());
+
           print("student id : ${value.data!.id.toString()}");
           print("student token : ${value.data!.token.toString()}");
 

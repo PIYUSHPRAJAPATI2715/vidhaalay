@@ -12,9 +12,9 @@ import 'package:http/http.dart' as http;
 import '../../resourses/api_constant.dart';
 
 class StudentListController extends GetxController{
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
   Rx<StudentList> getStudentListModel = StudentList().obs;
-    RxBool isDetailsLoading = false.obs;
+    RxBool isDetailsLoading = true.obs;
     Rx<StudentDetails> getStudentDetailsModel = StudentDetails().obs;
 
   RxList<MyClass> classList = <MyClass>[].obs;

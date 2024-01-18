@@ -40,7 +40,7 @@ class GetStudentProfileController extends GetxController {
     'Math', 'Computer',
   ];
 
-  RxBool isProfileLoading = false.obs;
+  RxBool isProfileLoading = true.obs;
   Rx<GetProfileModel> getProfileModel = GetProfileModel().obs;
   RxString imagePath = "".obs;
 
@@ -49,9 +49,10 @@ class GetStudentProfileController extends GetxController {
 
 
   Future getProfileData() async {
-    isProfileLoading.value = false;
+    print("en000");
+    isProfileLoading.value = true;
     await getProfileRepo().then((value) {
-      isProfileLoading.value = true;
+      isProfileLoading.value = false;
       getProfileModel.value = value;
       nameController.text = getProfileModel.value.data!.name.toString();
       emailController.text = getProfileModel.value.data!.email.toString();

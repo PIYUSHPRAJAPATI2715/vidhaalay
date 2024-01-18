@@ -553,257 +553,257 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                   color: AppThemes.white,
                   borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
                 ),
-                child: !examTimeTableController.isDataLoading.value ? SingleChildScrollView(
-                    physics: NeverScrollableScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('today'.toUpperCase(),
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w600
-                              ),),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(MyRouters.createExamTimeTable);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                                decoration: BoxDecoration(
-                                    color:                   AppThemes.primaryColor,
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text('add'.toUpperCase(),
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600
-                                      ),),
-                                    Icon(
-                                      Icons.add,
-                                      size: 22,
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
+                child: examTimeTableController.isDataLoading.value ? const CommonProgressIndicator() :  SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('today'.toUpperCase(),
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600
+                            ),),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(MyRouters.createExamTimeTable);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                              decoration: BoxDecoration(
+                                  color:                   AppThemes.primaryColor,
+                                  borderRadius: BorderRadius.circular(10)
                               ),
-                            )
-                          ],
+                              child: Row(
+                                children: [
+                                  Text('add'.toUpperCase(),
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600
+                                    ),),
+                                  Icon(
+                                    Icons.add,
+                                    size: 22,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      // Text('today'.toUpperCase(),
+                      //   style: GoogleFonts.poppins(
+                      //       color: Colors.black,
+                      //       fontSize: 19,
+                      //       fontWeight: FontWeight.w600
+                      //   ),),
+
+                      examTimeTableController.getExamTimetableModel.value.data!.isEmpty ? Container(
+                        height: size.height * .4,
+                        // color: Colors.red,
+                        child: Center(
+                          child: Text("No exam time table available"),
                         ),
-                        // Text('today'.toUpperCase(),
-                        //   style: GoogleFonts.poppins(
-                        //       color: Colors.black,
-                        //       fontSize: 19,
-                        //       fontWeight: FontWeight.w600
-                        //   ),),
+                      ) : SizedBox(
+                        height: size.height,
+                        width: size.width,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: examTimeTableController.getExamTimetableModel.value.data!.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
 
-                        examTimeTableController.getExamTimetableModel.value.data!.isEmpty ? Container(
-                          height: size.height * .4,
-                          // color: Colors.red,
-                          child: Center(
-                            child: Text("No exam time table available"),
-                          ),
-                        ) : SizedBox(
-                          height: size.height,
-                          width: size.width,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: examTimeTableController.getExamTimetableModel.value.data!.length,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
+                            var value = examTimeTableController.getExamTimetableModel.value.data![index];
 
-                              var value = examTimeTableController.getExamTimetableModel.value.data![index];
+                            DateTime timestampUtc = DateTime.parse(value.from!);
+                            String formattedHour = timestampUtc.hour.toString().padLeft(2, '0');
+                            String formattedMinute = timestampUtc.minute.toString().padLeft(2, '0');
+                            String fromTime = '$formattedHour:$formattedMinute';
+                            print("fromTime $fromTime");
 
-                              DateTime timestampUtc = DateTime.parse(value.from!);
-                              String formattedHour = timestampUtc.hour.toString().padLeft(2, '0');
-                              String formattedMinute = timestampUtc.minute.toString().padLeft(2, '0');
-                              String fromTime = '$formattedHour:$formattedMinute';
-                              print("fromTime $fromTime");
+                            DateTime timestampUtc1 = DateTime.parse(value.to!);
+                            String formattedHour1 = timestampUtc1.hour.toString().padLeft(2, '0');
+                            String formattedMinute1 = timestampUtc1.minute.toString().padLeft(2, '0');
+                            String toTime = '$formattedHour1:$formattedMinute1';
+                            print("toTime $toTime");
 
-                              DateTime timestampUtc1 = DateTime.parse(value.to!);
-                              String formattedHour1 = timestampUtc1.hour.toString().padLeft(2, '0');
-                              String formattedMinute1 = timestampUtc1.minute.toString().padLeft(2, '0');
-                              String toTime = '$formattedHour1:$formattedMinute1';
-                              print("toTime $toTime");
-
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: size.width * .7,
-                                      padding: const EdgeInsets.all(9),
-                                      decoration: BoxDecoration(
-                                          color: AppThemes.lightGreyColor,
-                                          borderRadius: BorderRadius.circular(8)
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Column(
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: size.width * .7,
+                                    padding: const EdgeInsets.all(9),
+                                    decoration: BoxDecoration(
+                                        color: AppThemes.lightGreyColor,
+                                        borderRadius: BorderRadius.circular(8)
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  fromTime,
+                                                  // '08: AM',
+                                                  style: GoogleFonts.poppins(
+                                                      color: AppThemes.black,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600
+                                                  ),
+                                                ),
+                                                Text(
+                                                  // '09: AM',
+                                                  toTime,
+                                                  style: GoogleFonts.poppins(
+                                                      color: AppThemes.black,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600
+                                                  ),),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                              height: size.height * .07,
+                                              child:  VerticalDivider(
+                                                thickness: 1,
+                                                color: AppThemes.black,
+                                              ),
+                                            ),
+                                            Container(
+                                              // color: Colors.green,
+                                              // width: size.width * .47,
+                                              child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    fromTime,
-                                                    // '08: AM',
+                                                    value.subject!.name!,
+
+                                                    // 'Social Science',
                                                     style: GoogleFonts.poppins(
-                                                        color: AppThemes.black,
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w600
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    // '09: AM',
-                                                      toTime,
-                                                    style: GoogleFonts.poppins(
-                                                        color: AppThemes.black,
+                                                        color: AppThemes.blueColor,
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w600
                                                     ),),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                                height: size.height * .07,
-                                                child:  VerticalDivider(
-                                                  thickness: 1,
-                                                  color: AppThemes.black,
-                                                ),
-                                              ),
-                                              Container(
-                                                // color: Colors.green,
-                                                // width: size.width * .47,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      value.subject!.name!,
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text('Class A-1',
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppThemes.textGray,
+                                                            fontSize: 10,
+                                                            fontWeight: FontWeight.w500
+                                                        ),),
 
-                                                      // 'Social Science',
-                                                      style: GoogleFonts.poppins(
-                                                          color: AppThemes.blueColor,
-                                                          fontSize: 14,
-                                                          fontWeight: FontWeight.w600
-                                                      ),),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text('Class A-1',
-                                                          style: GoogleFonts.poppins(
-                                                              color: AppThemes.textGray,
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.w500
-                                                          ),),
+                                                      Padding(
+                                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                        child: const SizedBox(
+                                                          height: 20,
+                                                          child: VerticalDivider(
+                                                            width: 1,
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                      ),
 
-                                                       Padding(
-                                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                                         child: const SizedBox(
-                                                            height: 20,
-                                                            child: VerticalDivider(
-                                                              width: 1,
-                                                              color: Colors.grey,
+                                                      Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          ClipOval(
+                                                            child: Image.asset(
+                                                              AppAssets.studentImg,
+                                                              width: 15,
                                                             ),
                                                           ),
-                                                       ),
-
-                                                        Row(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                          children: [
-                                                            ClipOval(
-                                                              child: Image.asset(
-                                                                AppAssets.studentImg,
-                                                                width: 15,
-                                                              ),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            'By : ',
+                                                            style: GoogleFonts.poppins(
+                                                                color: Colors.grey,
+                                                                fontSize: 12.0,
+                                                                fontWeight: FontWeight.w500
                                                             ),
-                                                            const SizedBox(
-                                                              width: 5,
-                                                            ),
-                                                            Text(
-                                                              'By : ',
-                                                              style: GoogleFonts.poppins(
-                                                                  color: Colors.grey,
+                                                          ),
+                                                          Container(
+                                                            width: size.width * .19,
+                                                            // color: Colors.amber,
+                                                            child: Text(
+                                                              value.teacher!.name!,
+                                                              // 'Rosie David',
+                                                              style:  GoogleFonts.poppins(
+                                                                  color: Colors.black,
                                                                   fontSize: 12.0,
                                                                   fontWeight: FontWeight.w500
                                                               ),
+                                                              maxLines: 2,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
-                                                            Container(
-                                                              width: size.width * .19,
-                                                              // color: Colors.amber,
-                                                              child: Text(
-                                                                value.teacher!.name!,
-                                                                // 'Rosie David',
-                                                                style:  GoogleFonts.poppins(
-                                                                    color: Colors.black,
-                                                                    fontSize: 12.0,
-                                                                    fontWeight: FontWeight.w500
-                                                                ),
-                                                                maxLines: 2,
-                                                                overflow: TextOverflow.ellipsis,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
 
-                                                  ],
-                                                ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
+                                        ),
 
-                                        ],
-                                      ),
+                                      ],
                                     ),
+                                  ),
 
-                                    Container(
-                                      width: size.width * .22,
-                                      // color: Colors.blue,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .center,
-                                        children: [
-                                          Expanded(
-                                            child: IconButton(onPressed: (){
-                                              Get.to(() => UpdateExamTimeTable(id: value.id!.toString(),));
-                                            },
-                                                icon: const Icon(Icons.edit,size: 19,)),
-                                          ),
-                                          Expanded(
-                                            child: IconButton(onPressed: (){
-                                              examTimeTableController.deleteExamTimetableAPI(context,value.id!);
-                                            },
-                                                icon: const Icon(Icons.delete,color: Colors.red,size: 19,)),
-                                          )
-                                        ],
-                                      ),
+                                  Container(
+                                    width: size.width * .22,
+                                    // color: Colors.blue,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Expanded(
+                                          child: IconButton(onPressed: (){
+                                            Get.to(() => UpdateExamTimeTable(id: value.id!.toString(),));
+                                          },
+                                              icon: const Icon(Icons.edit,size: 19,)),
+                                        ),
+                                        Expanded(
+                                          child: IconButton(onPressed: (){
+                                            examTimeTableController.deleteExamTimetableAPI(context,value.id!);
+                                          },
+                                              icon: const Icon(Icons.delete,color: Colors.red,size: 19,)),
+                                        )
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
-                  ) : const CommonProgressIndicator(),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

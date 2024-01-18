@@ -12,7 +12,7 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
 class StudentClassTimeController extends GetxController{
-  RxBool isDataLoading = false.obs;
+  RxBool isDataLoading = true.obs;
   Rx<GetTimetableModel> getTimetableModel = GetTimetableModel().obs;
 
   String? selectedDate;

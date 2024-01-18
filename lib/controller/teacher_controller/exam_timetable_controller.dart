@@ -19,7 +19,7 @@ class ExamTimeTableController extends GetxController {
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
 
-  RxBool isExamTypeLoading = false.obs;
+  RxBool isExamTypeLoading = true.obs;
   Rx<ExamTypeList> getExamTypeModel = ExamTypeList().obs;
   RxInt selectedExamType = 0.obs;
   // String? selectedExamType;
@@ -28,7 +28,6 @@ class ExamTimeTableController extends GetxController {
 
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
-
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {
@@ -71,7 +70,6 @@ class ExamTimeTableController extends GetxController {
       };
 
       print("body : $body");
-
 
       // Map body = {
       //   "class_id": 13

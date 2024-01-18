@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
+import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
+import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
@@ -25,12 +27,35 @@ class commonDrawer extends StatefulWidget{
 
 class _commonDrawerState extends State<commonDrawer> {
   final bottomController = Get.put(BottomNavBarController());
+  // Rx<ClassList> getClassListModel = ClassList().obs;
+
+  String username = '';
 
   @override
   void initState() {
-    // TODO: implement initState
+    getUserName();
     super.initState();
   }
+
+  getUserName() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? name = await pref.getString('username');
+    username = name!;
+    setState(() {
+
+    });
+    print(username);
+  }
+
+  // Future getClassListData() async {
+  //   isClassLoading = true;
+  //   await getClassListRepo().then((value) {
+  //     print("class value : $value");
+  //     getClassListModel.value = value;
+  //     isClassLoading = false;
+  //   });
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +87,16 @@ class _commonDrawerState extends State<commonDrawer> {
                             backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
                           ),
                           SizedBox(height: size.height * 0.016),
-                          const Text(
-                            "Rosie Wannh", // Display user's name here
+                          Text(
+                            username,
                             style: TextStyle(
                               fontSize: 21,
                               fontWeight: FontWeight.w600,
                               color: AppThemes.white,
                             ),
                           ),
-                          const Text(
-                            "CLASS-12th", // Display user's name here
+                          Text(
+                            bottomController.userType == 0 ? "" : "CLASS-12th", // Display user's name here
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,

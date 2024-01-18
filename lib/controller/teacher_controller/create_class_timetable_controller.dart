@@ -23,7 +23,7 @@ class CreateTimeTableController extends GetxController {
   Rx<SubjectList> getSubjectListModel = SubjectList().obs;
   String? selectedSubject;
 
-  RxBool isTeacherLoading = false.obs;
+  RxBool isTeacherLoading = true.obs;
   Rx<TeacherList> getTeacherListModel = TeacherList().obs;
   String? selectedTeacher;
 

@@ -11,7 +11,7 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
 class ClassTimeController extends GetxController{
-  RxBool isDataLoading = false.obs;
+  RxBool isDataLoading = true.obs;
   Rx<GetTimetableModel> getTimetableModel = GetTimetableModel().obs;
   RxList<MyClass> classList = <MyClass>[].obs;
   // RxInt? selectedClassId;
@@ -20,7 +20,6 @@ class ClassTimeController extends GetxController{
   String? selectedDate;
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
-
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {

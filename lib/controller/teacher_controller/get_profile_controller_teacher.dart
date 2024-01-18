@@ -37,7 +37,7 @@ class GetTeacherProfileController extends GetxController {
     'Math', 'Computer',
   ];
 
-  RxBool isProfileLoading = false.obs;
+  RxBool isProfileLoading = true.obs;
   Rx<GetProfileModel> getProfileModel = GetProfileModel().obs;
   RxString imagePath = "".obs;
 

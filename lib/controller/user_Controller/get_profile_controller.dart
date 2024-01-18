@@ -29,7 +29,7 @@ class GetProfileController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController uniqueIdController = TextEditingController();
 
-  RxBool isProfileLoading = false.obs;
+  RxBool isProfileLoading = true.obs;
   Rx<GetProfileModel> getProfileModel = GetProfileModel().obs;
   RxString imagePath = "".obs;
 

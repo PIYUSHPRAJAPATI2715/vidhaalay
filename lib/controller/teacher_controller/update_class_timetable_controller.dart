@@ -17,7 +17,7 @@ import 'package:http/http.dart' as http;
 
 class UpdateClassTimeTableController extends GetxController {
   Rx<ClassTimetableDetails> getDetailsModel = ClassTimetableDetails().obs;
-  RxBool isDetailsLoading = false.obs;
+  RxBool isDetailsLoading = true.obs;
 
   RxList<MyClass> classList = <MyClass>[].obs;
   RxInt selectedClassId = 0.obs;
@@ -27,7 +27,7 @@ class UpdateClassTimeTableController extends GetxController {
   Rx<SubjectList> getSubjectListModel = SubjectList().obs;
   String? selectedSubject;
 
-  RxBool isTeacherLoading = false.obs;
+  RxBool isTeacherLoading = true.obs;
   Rx<TeacherList> getTeacherListModel = TeacherList().obs;
   String? selectedTeacher;
 

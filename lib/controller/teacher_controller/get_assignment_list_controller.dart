@@ -21,7 +21,7 @@ class AssignmentListTeacherController extends GetxController {
   RxInt selectedClassId = 0.obs;
 
   RxBool isDataLoading = true.obs;
-  RxBool isDetailsLoading = false.obs;
+  RxBool isDetailsLoading = true.obs;
   Rx<AssignmentDetails> getAssignmentDetailsModel = AssignmentDetails().obs;
   Rx<GetAssignmentModel> getAssignmentModel = GetAssignmentModel().obs;
   RxString selDate = ''.obs;

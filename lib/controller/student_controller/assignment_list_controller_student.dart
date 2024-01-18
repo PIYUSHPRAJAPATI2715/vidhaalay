@@ -15,7 +15,7 @@ import 'package:vidhaalay_app/resourses/helper.dart';
 class AssignmentListStudentController extends GetxController {
 
   RxBool isDataLoading = true.obs;
-  RxBool isDetailsLoading = false.obs;
+  RxBool isDetailsLoading = true.obs;
   Rx<AssignmentDetails> getAssignmentDetailsModel = AssignmentDetails().obs;
   Rx<GetAssignmentModel> getAssignmentModel = GetAssignmentModel().obs;
   RxString selDate = ''.obs;
