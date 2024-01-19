@@ -601,14 +601,21 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      items.assignmentName!,
-                                                      // 'Social Science',
-                                                      style: GoogleFonts.poppins(
-                                                          color: AppThemes.blueColor,
-                                                          fontSize: 14,
-                                                          fontWeight: FontWeight.w600
-                                                      ),),
+                                                    Container(
+                                                      width: size.width * 0.41,
+                                                      // color: Colors.amber,
+                                                      child: Text(
+                                                        items.assignmentName!,
+                                                        // 'Social Science Social Science Social Science Social Science',
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppThemes.blueColor,
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
                                                     Row(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -627,12 +634,19 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                               fontWeight: FontWeight.w500
                                                           ),
                                                         ),
-                                                        Text(
-                                                          'Rosie David',
-                                                          style:  GoogleFonts.poppins(
-                                                              color: Colors.black,
-                                                              fontSize: 12.0,
-                                                              fontWeight: FontWeight.w500
+                                                        Container(
+                                                          width: size.width * 0.2,
+                                                          // color: Colors.amber,
+                                                          child: Text(
+                                                              items.teacher!.name!,
+                                                              // 'Rosie David',
+                                                            style:  GoogleFonts.poppins(
+                                                                color: Colors.black,
+                                                                fontSize: 12.0,
+                                                                fontWeight: FontWeight.w500
+                                                            ),
+                                                            maxLines: 2,
+                                                            overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ),
                                                       ],

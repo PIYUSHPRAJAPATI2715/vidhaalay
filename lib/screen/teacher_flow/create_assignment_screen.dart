@@ -177,6 +177,28 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
                               const SizedBox(
                                 height: 25,
                               ),
+                              Text('Tagline',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              CommonTextfield(
+                                hintText: 'Enter tagline',
+                                obSecure: false,
+                                controller: createAssignmentController.tagline,
+                                validator: MultiValidator([
+                                  RequiredValidator(errorText: 'Please enter tagline')
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
                               Text('Class',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
@@ -301,7 +323,11 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    DropdownButtonHideUnderline(
+                                    createAssignmentController.getSubjectListModel.value.data!.isEmpty ?
+
+                                    CommonTextfield(obSecure: false, readOnly:  true,
+                                        hintText: "No subject in this class")
+                                        : DropdownButtonHideUnderline(
                                       child: DropdownButtonFormField2<String>(
                                         isExpanded: true,
                                         style: TextStyle(

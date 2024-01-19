@@ -21,6 +21,7 @@ class UpdateAssignmentController extends GetxController {
   TextEditingController dobController = TextEditingController();
   TextEditingController message = TextEditingController();
   TextEditingController assignmentName = TextEditingController();
+  TextEditingController tagline = TextEditingController();
 
   RxString selectStudent = 'Select Student'.obs;
   RxList selectStudentData = [
@@ -37,6 +38,9 @@ class UpdateAssignmentController extends GetxController {
   RxBool isSubjectLoading = true.obs;
   Rx<SubjectList> getSubjectListModel = SubjectList().obs;
   String? selectedSubject;
+
+  String? assignmentId;
+
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {
@@ -55,7 +59,7 @@ class UpdateAssignmentController extends GetxController {
     isSubjectLoading.value = true;
     // isSubjectLoading = true.obs;
 
-    await getSubjectListRepo(classId: '4').then((value) {
+    await getSubjectListRepo(classId: classId).then((value) {
       print("subject value : $value");
       getSubjectListModel.value = value;
       // isSubjectLoading = false.obs;
@@ -79,10 +83,13 @@ class UpdateAssignmentController extends GetxController {
         print("assi details responseData  : ${responseData}");
 
         getAssignmentDetailsModel.value = AssignmentDetails.fromJson(responseData);
-        message.text = getAssignmentDetailsModel.value.data!.detail!;
         assignmentName.text = getAssignmentDetailsModel.value.data!.assignmentName!;
-        dobController.text = getAssignmentDetailsModel.value.data!.dueDate!;
+        tagline.text = getAssignmentDetailsModel.value.data!.tagline!;
+        message.text = getAssignmentDetailsModel.value.data!.detail!;
+
         selectClass = getAssignmentDetailsModel.value.data!.classId!.toString();
+        selectedSubject = getAssignmentDetailsModel.value.data!.subjectId!.toString();
+        dobController.text = getAssignmentDetailsModel.value.data!.dueDate != null ? getAssignmentDetailsModel.value.data!.dueDate! : '';
         // selectedSubject = getAssignmentDetailsModel.value.data!.s!.toString();
 
         isDetailsLoading.value =  false;
@@ -101,12 +108,12 @@ class UpdateAssignmentController extends GetxController {
       Overlay.of(context).insert(loader);
 
       Map body = {
-        "assignment_name": assignmentName.text,
-        "subject_id": int.parse(selectedSubject!),
-        "class_id" : int.parse(selectedSubject!),
-        "detail": message.text,
-        // "date": "${dobController.text}T23:55:06.957Z",
-        "tagline": "${dobController.text}T23:55:06.957Z"
+      "assignment_name": assignmentName.text,
+      "tagline": tagline.text,
+      "subject_id": int.parse(selectedSubject!),
+      "class_id": int.parse(selectClass!),
+      "detail": message.text,
+      "dueDate": "${dobController.text}T23:55:06.957Z"
       };
 
       final response = await http.put(

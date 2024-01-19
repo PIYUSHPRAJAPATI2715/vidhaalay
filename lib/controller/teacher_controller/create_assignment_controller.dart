@@ -18,6 +18,7 @@ class CreateAssignmentController extends GetxController {
   TextEditingController dobController = TextEditingController();
   TextEditingController message = TextEditingController();
   TextEditingController assignmentName = TextEditingController();
+  TextEditingController tagline = TextEditingController();
 
   RxString selectStudent = 'Select Student'.obs;
   RxList selectStudentData = [
@@ -52,7 +53,7 @@ class CreateAssignmentController extends GetxController {
     isSubjectLoading.value = true;
     // isSubjectLoading = true.obs;
 
-    await getSubjectListRepo(classId: '4').then((value) {
+    await getSubjectListRepo(classId: classId).then((value) {
       print("subject value : $value");
       getSubjectListModel.value = value;
       // isSubjectLoading = false.obs;
@@ -67,13 +68,11 @@ class CreateAssignmentController extends GetxController {
 
       Map body = {
         "assignment_name": assignmentName.text,
+        "tagline": tagline.text,
         "subject_id": int.parse(selectedSubject!),
-        "class_id" : int.parse(selectedSubject!),
+        "class_id": int.parse(selectClass!),
         "detail": message.text,
-        // "date": "${dobController.text}T23:55:06.957Z",
-        "tagline": "${dobController.text}T23:55:06.957Z"
-        // dobController.text,
-        // "tagline": dobController.text
+        "dueDate": "${dobController.text}T23:55:06.957Z"
       };
       print("body $body");
 

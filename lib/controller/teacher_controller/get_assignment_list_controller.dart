@@ -49,10 +49,10 @@ class AssignmentListTeacherController extends GetxController {
       isDataLoading.value = true;
 
       Map body = {
-        "date": "2023-01-13",
-        "class_id": 6
-        // "date": selectedDate.value,
-        // "class_id":  selectedClassId.value
+        // "date": "2023-01-13",
+        // "class_id": 6
+        "date": selectedDate.value,
+        "class_id":  selectedClassId.value
       };
 
       print("body $body");
