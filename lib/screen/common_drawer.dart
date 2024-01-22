@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
@@ -18,6 +20,9 @@ import 'package:vidhaalay_app/screen/student_screen/exam_timetable_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
+
+import '../login screens/splash.dart';
+import '../models/multi_login_model.dart';
 
 class commonDrawer extends StatefulWidget{
 
@@ -96,7 +101,7 @@ class _commonDrawerState extends State<commonDrawer> {
                             ),
                           ),
                           Text(
-                            bottomController.userType == 0 ? "" : "CLASS-12th", // Display user's name here
+                            bottomController.userType == 2 ?  "CLASS-${bottomController.userClassName}" : "", // Display user's name here
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -573,26 +578,61 @@ class _commonDrawerState extends State<commonDrawer> {
                   ],
                 ),
                 SizedBox(height: size.height*.05,),
-                InkWell(
-                  onTap: (){
-                    logOutUser();
-
-                    // Get.offAllNamed(MyRouters.signInPage);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 48.0,vertical: 8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: InkWell(
+                    onTap: (){
+                      _showMultiLoginAlertDialog(context);
+                    },
+                    child: Container(
+                      width: size.width,
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(
+                              color: Colors.white,
+                              width: 2
+                          )
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Multi Login'.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 18,
                             color: Colors.white,
-                            width: 2
-                        )
+                          ),
+                        ),
+                      ),
                     ),
-                    child: const Text(
-                      'LOGOUT',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: size.height*.02,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: InkWell(
+                    onTap: (){
+                      logOutUser();
+
+                      // Get.offAllNamed(MyRouters.signInPage);
+                    },
+                    child: Container(
+                      width: size.width,
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(
+                              color: Colors.white,
+                              width: 2
+                          )
+                      ),
+                      child: Center(
+                        child: const Text(
+                          'LOGOUT',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -619,6 +659,100 @@ class _commonDrawerState extends State<commonDrawer> {
       sharedPreference.setString("token", jsonEncode(modelSiteSettings));
     }
     sharedPreference.setBool("isFirstTime", false);
+  }
+
+  void _showMultiLoginAlertDialog(BuildContext context) {
+    final signInController = Get.put(SignInController());
+
+    List<MultiLoginModel> loginData = [
+      MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
+      MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
+      MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
+    ];
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          // titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+          contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+          title: Text('Switch Account',
+            style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: AppThemes.black,
+          ),
+          ),
+          content: Container(
+            width: double.minPositive,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: loginData.length, // Set your itemCount according to your data
+              itemBuilder: (BuildContext context, int index) {
+                var items = loginData[index];
+
+                return ListTile(
+                  // dense: true,
+                  visualDensity: VisualDensity(vertical: -3),
+                  // contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                  leading: Icon(Icons.person),
+                  title: Text(items.userName!),
+                  subtitle: Text(items.email!),
+                  onTap: () {
+                    signInController.login(context: context,email: items.email!,
+                      type: items.type!,
+                      pass: items.password!,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+
+          // actions: <Widget>[
+          //   ElevatedButton(
+          //     onPressed: () {
+          //       Get.back();
+          //     },
+          //     style: ElevatedButton.styleFrom(
+          //       primary: AppThemes.white,
+          //       // Set the button color
+          //       shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(4.0),
+          //       ),
+          //     ),
+          //     child: Text('No'.toUpperCase(),
+          //       style: GoogleFonts.poppins(
+          //         fontSize: 14,
+          //         fontWeight: FontWeight.w600,
+          //         color: AppThemes.black,
+          //       ),
+          //     ),
+          //   ),
+          //
+          //   ElevatedButton(
+          //     onPressed: () {
+          //       Get.back();
+          //     },
+          //     style: ElevatedButton.styleFrom(
+          //       primary: AppThemes.primaryColor,
+          //       // Set the button color
+          //       shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(4.0),
+          //       ),
+          //     ),
+          //     child: Text('Yes'.toUpperCase(),
+          //         style: GoogleFonts.poppins(
+          //           fontSize: 14,
+          //           fontWeight: FontWeight.w600,
+          //           color: AppThemes.white,
+          //         ),
+          //     ),
+          //   ),
+          // ],
+        );
+      },
+    );
   }
 
 }

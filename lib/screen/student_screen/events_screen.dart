@@ -205,61 +205,6 @@ class _EventsScreenState extends State<EventsScreen> {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   height: size.height*.045,
-                        //   decoration: BoxDecoration(
-                        //     // color: Colors.amberAccent,
-                        //       borderRadius: BorderRadius.circular(10)),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //
-                        //       // Expanded(
-                        //       //   child: ListView.builder(
-                        //       //     scrollDirection: Axis.horizontal,
-                        //       //     shrinkWrap: true,
-                        //       //     itemCount: years.length,
-                        //       //     itemBuilder:
-                        //       //         (BuildContext context, int index) {
-                        //       //       return InkWell(
-                        //       //         onTap: () {
-                        //       //           selectedMonthIndex = index;
-                        //       //           month.value = "${index + 1}".length != 2
-                        //       //               ? "0${index + 1}"
-                        //       //               : "${index + 1}";
-                        //       //           monthName.value = DateFormat('MMMM')
-                        //       //               .format(DateTime.parse(
-                        //       //               "${year.value}-${month.value}-${day.value}"));
-                        //       //           now = DateTime.parse(
-                        //       //               "${year.value}-${month.value}-${day.value}");
-                        //       //           totalDays = daysInMonth(now);
-                        //       //           listOfDates = List<int>.generate(
-                        //       //               totalDays, (i) => i + 1);
-                        //       //           todayDay = DateFormat('dd').format(now);
-                        //       //           getWeekDates(now);
-                        //       //           log(DateFormat('EEEE').format(now));
-                        //       //           // Get.back();
-                        //       //         },
-                        //       //         child: Padding(
-                        //       //           padding: const EdgeInsets.symmetric(
-                        //       //               horizontal: 10,vertical: 5),
-                        //       //           child: Text(year.value.toString(),
-                        //       //               style: GoogleFonts.poppins(
-                        //       //                   fontWeight: FontWeight.w500,
-                        //       //                   fontSize: 17,
-                        //       //                   color: index == selectedMonthIndex
-                        //       //                       ? Colors.white
-                        //       //                       : Colors.black)
-                        //       //           ),
-                        //       //         ),
-                        //       //       );
-                        //       //     },
-                        //       //   ),
-                        //       // ),
-                        //     ],
-                        //   ),
-                        // ),
-
                         Container(
                           height: size.height * .070,
                           decoration: BoxDecoration(
@@ -562,13 +507,19 @@ class _EventsScreenState extends State<EventsScreen> {
                                                           mainAxisAlignment:
                                                           MainAxisAlignment.spaceBetween,
                                                           children: [
-                                                            Text(
-                                                              items.eventName.toString(),
-                                                              style: GoogleFonts.poppins(color: AppThemes.primaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                                            Container(
+                                                              width: size.width * 0.6,
+                                                              // color: Colors.amber,
+                                                              child: Text(
+                                                                items.eventName.toString(),
+                                                                style: GoogleFonts.poppins(color: AppThemes.primaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                                              ),
                                                             ),
                                                             Text(
                                                               formattedDate.toString(),
                                                               style: GoogleFonts.poppins(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w400),
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ],
                                                         ),
@@ -580,6 +531,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                                               color: Colors.grey,
                                                               fontSize: 10,
                                                               fontWeight: FontWeight.w500),
+                                                          maxLines: 3,
+                                                          overflow: TextOverflow.ellipsis,
                                                         ),
                                                       ],
                                                     ),

@@ -1,13 +1,37 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/no_internet_screen.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 // import 'notification_service/local_notifications.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
+bool ischeck = false;
+bool isdailogopen = false;
+
+void checkstatus() async {
+  var connectionactivityresult = await (Connectivity().checkConnectivity());
+  if (connectionactivityresult == ConnectivityResult.mobile) {
+    ischeck = true;
+    // futureAdss = getad;
+  } else if (connectionactivityresult == ConnectivityResult.wifi) {
+    ischeck = true;
+    // futureAdss = getad;
+  } else if (connectionactivityresult == ConnectivityResult.none) {
+    ischeck = false;
+    if (isdailogopen == false) {
+      // showmydailog();
+      await Get.to(() => NoConnectionScreen(), arguments: []);
+    }
+  }
+}
 
 //https://vidhaalay-a464e.firebaseapp.com/__/auth/handler
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -30,6 +54,9 @@ Future<void> main() async {
   // NotificationService().initializeNotification();
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  const oneSeconds = const Duration(seconds: 1);
+  Timer.periodic(oneSeconds, (Timer t) => checkstatus());
   runApp(const MyApp());
 }
 

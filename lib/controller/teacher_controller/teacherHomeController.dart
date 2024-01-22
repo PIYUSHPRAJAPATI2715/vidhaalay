@@ -41,10 +41,10 @@ class TeacherHomeController extends GetxController{
     try{
       isAssignmentLoading.value = true;
 
-      // http.Response response = await http.get(Uri.parse(ApiUrls.latestAssignment), headers: await getAuthHeader());
-      final response = await http.get(
-        Uri.parse(ApiUrls.assignmentListUrl+"/29"),
-        headers: await getAuthHeader(),);
+      http.Response response = await http.get(Uri.parse(ApiUrls.latestAssignment), headers: await getAuthHeader());
+      // final response = await http.get(
+      //   Uri.parse(ApiUrls.assignmentListUrl+"/29"),
+      //   headers: await getAuthHeader(),);
       print(response.statusCode);
 
       if (response.statusCode == 200) {

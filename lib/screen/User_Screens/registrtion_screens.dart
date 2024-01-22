@@ -196,8 +196,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String? religion;
   var religionItems = [
     // 'Select your religion',
-    'hindu',
-    'muslim',
+    "Hindu", "Islam", "Christian", "Judaism", "Buddhist", "Jain", "Atheist"
   ];
   String nationality = 'Select Nationality';
   var nationalityItems = [
@@ -277,7 +276,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: AppThemes.primaryColor,
+        // backgroundColor: AppThemes.primaryColor,
+        backgroundColor: AppThemes.white,
         appBar: AppBar(
           surfaceTintColor: Colors.white,
           actionsIconTheme: const IconThemeData(color: Colors.black),
@@ -301,30 +301,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           child: Column(
             children: [
               Container(
-                height: 80,
-                decoration:  const BoxDecoration(color: AppThemes.primaryColor,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40))),
+                height: 75,
                 width: double.maxFinite,
+                decoration: BoxDecoration(
+                  color: AppThemes.primaryColor,
+                    // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)
+                    ),
                 child: Stack(
                   children: [
-                    Positioned(
-                        child: Center(
-                            child: Padding(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 12),
-                                child: TweenAnimationBuilder(
-                                  tween: Tween<double>(begin: 0, end: kk),
-                                  duration: const Duration(milliseconds: 600),
-                                  builder: (BuildContext context, double value,
-                                      Widget? child) {
-                                    return LinearProgressIndicator(
-                                      backgroundColor: Colors.white,
-                                      color: Colors.black,
-                                      value: value,
-                                      minHeight: 3,
-                                    );
-                                  },
-                                )))
-                    ),
+                    Center(
+                        child: Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 12),
+                            child: TweenAnimationBuilder(
+                              tween: Tween<double>(begin: 0, end: kk),
+                              duration: const Duration(milliseconds: 600),
+                              builder: (BuildContext context, double value,
+                                  Widget? child) {
+                                return LinearProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                  color: Colors.black,
+                                  value: value,
+                                  minHeight: 3,
+                                );
+                              },
+                            ))),
                     Positioned.fill(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -466,7 +467,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               Container(
                  height:40,
-                decoration:  BoxDecoration(color: AppThemes.primaryColor,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40))),
+                decoration:  BoxDecoration(
+                    color: AppThemes.primaryColor,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Row(
@@ -594,771 +596,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
+
+
               if (kk == 0)
                 Container(
-
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                    BorderRadius.only(topRight: Radius.circular(50)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Center(
-                              child: Text('Student information'.toUpperCase(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 19,
-                                      color: AppThemes.primaryColor))),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text('Student Name',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter your name'),
-
-                            ]),
-                            hintText: 'Enter Full Name',
-                            controller: stNameController,
-                            keyboardType: TextInputType.name,
-                            obSecure: false,
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Father\'s Name',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Full Name',
-                            controller: fatherNameController,
-                            keyboardType: TextInputType.name,
-                            validator: MultiValidator([
-                          RequiredValidator(
-                            errorText:
-                            'Please Enter father\'s name'),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Mother\'s Name',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s name'),
-
-                            ]),
-                            hintText: 'Enter Full Name',
-                            obSecure: false,
-                            controller: motherNameController,
-                            keyboardType: TextInputType.name,
-
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Date of Birth',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            hintText: 'Enter days here',
-                            obSecure: false,
-                            readOnly: true,
-                            keyboardType: TextInputType.number,
-                            controller: dobController,
-                            onTap: () {
-                              selectDate();
-                            },
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  selectDate();
-                                },
-                                icon: Icon(Icons.calendar_month,color: Colors.grey
-                                )
-                            ),
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText: 'Please select date of birth'),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Gender',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Radio(
-                                    value: "female",
-                                    groupValue: gender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gender = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  const Text("Female"),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Radio(
-                                    value: "male",
-                                    groupValue: gender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gender = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  const Text("Male"),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Radio(
-                                    value: "other",
-                                    groupValue: gender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gender = value.toString();
-                                      });
-                                    },
-                                  ),
-                                  const Text("Other"),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Aadhar Card No.',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Card Number',
-                            controller: adharcardNo,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(12),
-                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                            ],
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: 'Please enter aadhar number'),
-                              LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character")
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Category',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-
-                          // DropdownButtonFormField(
-                          //     focusColor: Colors.grey.shade50,
-                          //     isExpanded: true,
-                          //     iconEnabledColor: const Color(0xff97949A),
-                          //     icon: const Icon(Icons.keyboard_arrow_down),
-                          //     hint: Text(
-                          //       category,
-                          //       style: const TextStyle(
-                          //           color: Color(0xff463B57),
-                          //           fontSize: 16,
-                          //           fontWeight: FontWeight.w300),
-                          //       textAlign: TextAlign.justify,
-                          //     ),
-                          //     decoration: InputDecoration(
-                          //         fillColor: Colors.grey.shade50,
-                          //         contentPadding: const EdgeInsets.symmetric(
-                          //             horizontal: 20, vertical: 10),
-                          //         focusedBorder: OutlineInputBorder(
-                          //           borderSide:
-                          //           BorderSide(color: Colors.grey.shade300),
-                          //           borderRadius: BorderRadius.circular(25.0),
-                          //         ),
-                          //         enabledBorder: const OutlineInputBorder(
-                          //             borderSide:
-                          //             BorderSide(color: Color(0xffE3E3E3)),
-                          //             borderRadius: BorderRadius.all(
-                          //                 Radius.circular(25.0)
-                          //             )
-                          //         )
-                          //     ),
-                          //     value: category,
-                          //     items: categoryitems.map((String items) {
-                          //       return DropdownMenuItem(
-                          //         value: items,
-                          //         child: Text(
-                          //           items,
-                          //           style: const TextStyle(
-                          //               color: Colors.grey, fontSize: 14),
-                          //         ),
-                          //       );
-                          //     }).toList(),
-                          //     onChanged: (String? newValue) {
-                          //       setState(() {
-                          //         category = newValue!;
-                          //       });
-                          //     },
-                          //   ),
-                          /**/
-                          // DropdownMenuTheme(
-                          //   data: DropdownMenuThemeData(
-                          //     menuStyle: MenuStyle(
-                          //       surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                          //         return Colors.white;
-                          //       }),
-                          //     ),
-                          //     textStyle: TextStyle(
-                          //         color: Colors.grey,
-                          //         fontSize: AddSize.font14),
-                          //     inputDecorationTheme: InputDecorationTheme(
-                          //       alignLabelWithHint: true,
-                          //       floatingLabelAlignment: FloatingLabelAlignment.center,
-                          //       constraints: BoxConstraints(
-                          //         maxHeight: 50,
-                          //         // minHeight: 30
-                          //       ),
-                          //       hintStyle: TextStyle(
-                          //         color: Colors.grey,
-                          //         fontSize: AddSize.font14,),
-                          //       contentPadding: EdgeInsets.only(left: 15),
-                          //       enabledBorder: OutlineInputBorder(
-                          //           gapPadding: 0.0,
-                          //           borderRadius: BorderRadius.circular(50),
-                          //           borderSide: BorderSide(
-                          //               color: Colors.grey!.withOpacity(0.5),
-                          //               width: 1
-                          //           )
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   child: DropdownMenu<String>(
-                          //     width: size.width * 0.93,
-                          //     menuHeight: size.height * 0.3,
-                          //     hintText: 'Select category',
-                          //     textStyle:  TextStyle(
-                          //         color: Colors.grey,
-                          //         fontSize: AddSize.font14),
-                          //     onSelected: (String? value) {
-                          //       category = value!;
-                          //       print(value);
-                          //     },
-                          //     trailingIcon: const Icon(Icons.keyboard_arrow_down),
-                          //     dropdownMenuEntries: categoryitems.toList().map((value) {
-                          //       return DropdownMenuEntry(value: value.toString(), label: value.toString());
-                          //     }).toList(),
-                          //   ),
-                          // ),
-
-                          DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                              value: category,
-                              items: categoryitems.toList()
-                                  .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              ))
-                                  .toList(),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select category';
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                setState(() {
-                                  category = value!;
-                                });
-                              },
-                              isExpanded: true,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                hintText: 'Select Category',
-                                hintStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15,
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1
-                                  ),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey!.withOpacity(0.5),
-                                        width: 1
-                                    )
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey!.withOpacity(0.5),
-                                        width: 1
-                                    )
-                                ),
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: size.height * 0.28,
-                                width: size.width * 0.925,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                isOverButton: false,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white,
-                                ),
-
-                                offset: const Offset(2, -10),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness: MaterialStateProperty.all<double>(6),
-                                  thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 45,
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Mother Tongue',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-
-                          // DropdownButtonFormField<String>(
-                          //   value: motherTongue,
-                          //   items: motherTongueItems.toList()
-                          //       .map((item) => DropdownMenuItem(
-                          //     value: item,
-                          //     child: Text(item),
-                          //   ))
-                          //       .toList(),
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       motherTongue = value!;
-                          //     });
-                          //   },
-                          //   menuMaxHeight: size.height * 0.25,
-                          //   borderRadius: BorderRadius.circular(10),
-                          //   decoration: InputDecoration(
-                          //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                          //     hintText: 'Select mother tongue',
-                          //     errorBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       borderSide: BorderSide(
-                          //           color: Colors.red,
-                          //           width: 1
-                          //       ),
-                          //     ),
-                          //     focusedErrorBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       borderSide: BorderSide(
-                          //           color: Colors.red,
-                          //           width: 1
-                          //       ),
-                          //     ),
-                          //     enabledBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(50),
-                          //         borderSide: BorderSide(
-                          //             color: Colors.grey!.withOpacity(0.5),
-                          //             width: 1
-                          //         )
-                          //     ),
-                          //
-                          //     focusedBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(50),
-                          //         borderSide: BorderSide(
-                          //             color: Colors.grey!.withOpacity(0.5),
-                          //             width: 1
-                          //         )
-                          //     ),
-                          //   ),
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return 'Please select mother tongue';
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
-
-                          DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                              value: motherTongue,
-                              items: motherTongueItems.toList()
-                                  .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  motherTongue = value!;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select mother tongue';
-                                }
-                                return null;
-                              },
-                              isExpanded: true,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                hintText: 'Select mother tongue',
-                                hintStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15,
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1
-                                  ),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey!.withOpacity(0.5),
-                                        width: 1
-                                    )
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey!.withOpacity(0.5),
-                                        width: 1
-                                    )
-                                ),
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: size.height * 0.28,
-                                width: size.width * 0.925,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                isOverButton: false,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white,
-                                ),
-
-                                offset: const Offset(2, -10),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness: MaterialStateProperty.all<double>(6),
-                                  thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 45,
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Blood Group',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          // DropdownButtonFormField<String>(
-                          //   value: bloodType,
-                          //   // isExpanded: true,
-                          //   // padding: EdgeInsets.symmetric(horizontal: 15),
-                          //   // alignment: Alignment.center,
-                          //   items: bloodGroupItems.toList()
-                          //       .map((item) => DropdownMenuItem(
-                          //     value: item,
-                          //     child: Text(item),
-                          //   )).toList(),
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       bloodType = value!;
-                          //     });
-                          //   },
-                          //   menuMaxHeight: size.height * 0.25,
-                          //   borderRadius: BorderRadius.circular(10),
-                          //   decoration: InputDecoration(
-                          //     // constraints: BoxConstraints(
-                          //     //   maxWidth: size.width * 0.8
-                          //     // ),
-                          //     // isCollapsed: false,
-                          //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                          //     hintText: 'Select your blood group',
-                          //     errorBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       borderSide: BorderSide(
-                          //           color: Colors.red,
-                          //           width: 1
-                          //       ),
-                          //     ),
-                          //     focusedErrorBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       borderSide: BorderSide(
-                          //           color: Colors.red,
-                          //           width: 1
-                          //       ),
-                          //     ),
-                          //     enabledBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(50),
-                          //         borderSide: BorderSide(
-                          //             color: Colors.grey!.withOpacity(0.5),
-                          //             width: 1
-                          //         )
-                          //     ),
-                          //
-                          //     focusedBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(50),
-                          //         borderSide: BorderSide(
-                          //             color: Colors.grey!.withOpacity(0.5),
-                          //             width: 1
-                          //         )
-                          //     ),
-                          //   ),
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return 'Please select your blood group';
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
-
-                          DropdownButtonHideUnderline(
-                            child: DropdownButtonFormField2(
-                              value: bloodType,
-                              items: bloodGroupItems.toList()
-                                  .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(item),
-                              )).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  bloodType = value!;
-                                });
-                              },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please select your blood group';
-                                }
-                                return null;
-                              },
-                              isExpanded: true,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                hintText: 'Select your blood group',
-                                hintStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15,
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1
-                                  ),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  borderSide: BorderSide(
-                                      color: Colors.red,
-                                      width: 1
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey!.withOpacity(0.5),
-                                        width: 1
-                                    )
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    borderSide: BorderSide(
-                                        color: Colors.grey!.withOpacity(0.5),
-                                        width: 1
-                                    )
-                                ),
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                maxHeight: size.height * 0.28,
-                                width: size.width * 0.925,
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                isOverButton: false,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14),
-                                  color: Colors.white,
-                                ),
-
-                                offset: const Offset(2, -10),
-                                scrollbarTheme: ScrollbarThemeData(
-                                  radius: const Radius.circular(40),
-                                  thickness: MaterialStateProperty.all<double>(6),
-                                  thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 45,
-                                padding: EdgeInsets.only(left: 10, right: 10),
-                              ),
-                            ),
-                          ),
-
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            width: double.maxFinite,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: AppThemes.primaryColor,
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
-                                  textStyle:
-                                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  // getCountryController.getCountryListFunction();
-                                  kk = 0.2;
-
-                                  setState(() {
-                                    _scrollController.animateTo(
-                                      0.0,
-                                      duration: Duration(milliseconds: 10),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  });
-                                }
-                              },
-                              child: const Text('Continue',style: TextStyle(color: Colors.white),),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
+                  color: AppThemes.primaryColor,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                      BorderRadius.only(topRight: Radius.circular(50)),
+                      color: Colors.white,
                     ),
-                  ),
-                ),
-              if (kk == .2)
-                Container(
-                  // height: Get.height,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      controller: _scrollController,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Form(
-                        key: _formKeyResidential,
+                        key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -1366,7 +618,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               height: 10,
                             ),
                             Center(
-                                child: Text('residential information'.toUpperCase(),
+                                child: Text('Student information'.toUpperCase(),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 19,
@@ -1374,7 +626,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(
                               height: 15,
                             ),
-                            const Text('Religion',
+                            const Text('Student Name',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -1382,79 +634,309 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            // DropdownButtonFormField<String>(
-                            //   value: religion,
-                            //   items: religionItems.toList()
-                            //       .map((item) => DropdownMenuItem(
-                            //     value: item,
-                            //     child: Text(item),
-                            //   )).toList(),
-                            //   onChanged: (value) {
-                            //     setState(() {
-                            //       religion = value!;
-                            //     });
-                            //   },
-                            //   menuMaxHeight: size.height * 0.25,
-                            //   borderRadius: BorderRadius.circular(10),
-                            //   decoration: InputDecoration(
-                            //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                            //     hintText: 'Select religion',
-                            //     errorBorder: OutlineInputBorder(
-                            //       borderRadius: BorderRadius.circular(50),
-                            //       borderSide: BorderSide(
-                            //           color: Colors.red,
-                            //           width: 1
-                            //       ),
+                            CommonTextfield(
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter your name'),
+
+                              ]),
+                              hintText: 'Enter Full Name',
+                              controller: stNameController,
+                              keyboardType: TextInputType.name,
+                              obSecure: false,
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Father\'s Name',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Full Name',
+                              controller: fatherNameController,
+                              keyboardType: TextInputType.name,
+                              validator: MultiValidator([
+                            RequiredValidator(
+                              errorText:
+                              'Please Enter father\'s name'),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Mother\'s Name',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter mother\'s name'),
+
+                              ]),
+                              hintText: 'Enter Full Name',
+                              obSecure: false,
+                              controller: motherNameController,
+                              keyboardType: TextInputType.name,
+
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Date of Birth',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              hintText: 'Enter days here',
+                              obSecure: false,
+                              readOnly: true,
+                              keyboardType: TextInputType.number,
+                              controller: dobController,
+                              onTap: () {
+                                selectDate();
+                              },
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    selectDate();
+                                  },
+                                  icon: Icon(Icons.calendar_month,color: Colors.grey
+                                  )
+                              ),
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText: 'Please select date of birth'),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Gender',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: "female",
+                                      groupValue: gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    const Text("Female"),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: "male",
+                                      groupValue: gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    const Text("Male"),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: "other",
+                                      groupValue: gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value.toString();
+                                        });
+                                      },
+                                    ),
+                                    const Text("Other"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Aadhar Card No.',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Card Number',
+                              controller: adharcardNo,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(12),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
+                              validator: MultiValidator([
+                                RequiredValidator(errorText: 'Please enter aadhar number'),
+                                LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character")
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Category',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+
+                            // DropdownButtonFormField(
+                            //     focusColor: Colors.grey.shade50,
+                            //     isExpanded: true,
+                            //     iconEnabledColor: const Color(0xff97949A),
+                            //     icon: const Icon(Icons.keyboard_arrow_down),
+                            //     hint: Text(
+                            //       category,
+                            //       style: const TextStyle(
+                            //           color: Color(0xff463B57),
+                            //           fontSize: 16,
+                            //           fontWeight: FontWeight.w300),
+                            //       textAlign: TextAlign.justify,
                             //     ),
-                            //     focusedErrorBorder: OutlineInputBorder(
-                            //       borderRadius: BorderRadius.circular(50),
-                            //       borderSide: BorderSide(
-                            //           color: Colors.red,
-                            //           width: 1
-                            //       ),
-                            //     ),
-                            //     enabledBorder: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(50),
-                            //         borderSide: BorderSide(
-                            //             color: Colors.grey!.withOpacity(0.5),
-                            //             width: 1
+                            //     decoration: InputDecoration(
+                            //         fillColor: Colors.grey.shade50,
+                            //         contentPadding: const EdgeInsets.symmetric(
+                            //             horizontal: 20, vertical: 10),
+                            //         focusedBorder: OutlineInputBorder(
+                            //           borderSide:
+                            //           BorderSide(color: Colors.grey.shade300),
+                            //           borderRadius: BorderRadius.circular(25.0),
+                            //         ),
+                            //         enabledBorder: const OutlineInputBorder(
+                            //             borderSide:
+                            //             BorderSide(color: Color(0xffE3E3E3)),
+                            //             borderRadius: BorderRadius.all(
+                            //                 Radius.circular(25.0)
+                            //             )
                             //         )
                             //     ),
-                            //
-                            //     focusedBorder: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(50),
-                            //         borderSide: BorderSide(
-                            //             color: Colors.grey!.withOpacity(0.5),
-                            //             width: 1
-                            //         )
+                            //     value: category,
+                            //     items: categoryitems.map((String items) {
+                            //       return DropdownMenuItem(
+                            //         value: items,
+                            //         child: Text(
+                            //           items,
+                            //           style: const TextStyle(
+                            //               color: Colors.grey, fontSize: 14),
+                            //         ),
+                            //       );
+                            //     }).toList(),
+                            //     onChanged: (String? newValue) {
+                            //       setState(() {
+                            //         category = newValue!;
+                            //       });
+                            //     },
+                            //   ),
+                            /**/
+                            // DropdownMenuTheme(
+                            //   data: DropdownMenuThemeData(
+                            //     menuStyle: MenuStyle(
+                            //       surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                            //         return Colors.white;
+                            //       }),
+                            //     ),
+                            //     textStyle: TextStyle(
+                            //         color: Colors.grey,
+                            //         fontSize: AddSize.font14),
+                            //     inputDecorationTheme: InputDecorationTheme(
+                            //       alignLabelWithHint: true,
+                            //       floatingLabelAlignment: FloatingLabelAlignment.center,
+                            //       constraints: BoxConstraints(
+                            //         maxHeight: 50,
+                            //         // minHeight: 30
+                            //       ),
+                            //       hintStyle: TextStyle(
+                            //         color: Colors.grey,
+                            //         fontSize: AddSize.font14,),
+                            //       contentPadding: EdgeInsets.only(left: 15),
+                            //       enabledBorder: OutlineInputBorder(
+                            //           gapPadding: 0.0,
+                            //           borderRadius: BorderRadius.circular(50),
+                            //           borderSide: BorderSide(
+                            //               color: Colors.grey!.withOpacity(0.5),
+                            //               width: 1
+                            //           )
+                            //       ),
                             //     ),
                             //   ),
-                            //   validator: (value) {
-                            //     if (value == null || value.isEmpty) {
-                            //       return 'Please select religion';
-                            //     }
-                            //     return null;
-                            //   },
+                            //   child: DropdownMenu<String>(
+                            //     width: size.width * 0.93,
+                            //     menuHeight: size.height * 0.3,
+                            //     hintText: 'Select category',
+                            //     textStyle:  TextStyle(
+                            //         color: Colors.grey,
+                            //         fontSize: AddSize.font14),
+                            //     onSelected: (String? value) {
+                            //       category = value!;
+                            //       print(value);
+                            //     },
+                            //     trailingIcon: const Icon(Icons.keyboard_arrow_down),
+                            //     dropdownMenuEntries: categoryitems.toList().map((value) {
+                            //       return DropdownMenuEntry(value: value.toString(), label: value.toString());
+                            //     }).toList(),
+                            //   ),
                             // ),
 
                             DropdownButtonHideUnderline(
                               child: DropdownButtonFormField2(
-                                value: religion,
-                                items: religionItems.toList()
+                                value: category,
+                                items: categoryitems.toList()
                                     .map((item) => DropdownMenuItem(
                                   value: item,
                                   child: Text(item),
-                                )).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    religion = value!;
-                                  });
-                                },
+                                ))
+                                    .toList(),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please select religion';
+                                    return 'Please select category';
                                   }
                                   return null;
+                                },
+                                onChanged: (value) {
+                                  setState(() {
+                                    category = value!;
+                                  });
                                 },
                                 isExpanded: true,
                                 style: TextStyle(
@@ -1463,7 +945,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                  hintText: 'Select religion',
+                                  hintText: 'Select Category',
                                   hintStyle: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 15,
@@ -1521,99 +1003,163 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
 
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Mother Tongue',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
 
-                            // Container(
-                            //   height: 55,
-                            //   width: Get.width,
-                            //   decoration: BoxDecoration(
+                            // DropdownButtonFormField<String>(
+                            //   value: motherTongue,
+                            //   items: motherTongueItems.toList()
+                            //       .map((item) => DropdownMenuItem(
+                            //     value: item,
+                            //     child: Text(item),
+                            //   ))
+                            //       .toList(),
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       motherTongue = value!;
+                            //     });
+                            //   },
+                            //   menuMaxHeight: size.height * 0.25,
+                            //   borderRadius: BorderRadius.circular(10),
+                            //   decoration: InputDecoration(
+                            //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            //     hintText: 'Select mother tongue',
+                            //     errorBorder: OutlineInputBorder(
                             //       borderRadius: BorderRadius.circular(50),
-                            //       border: Border.all(
-                            //           color: Colors.grey,
-                            //           width: 0.5
-                            //       )
-                            //   ),
-                            //   child: PopupMenuButton<String>(
-                            //     shape: Border.all(
-                            //         color: AppThemes.primaryColor
-                            //     ),
-                            //     onSelected: (String newValue) {
-                            //       setState(() {
-                            //         religion = newValue;
-                            //       });
-                            //     },
-                            //     itemBuilder: (BuildContext context) {
-                            //       return religionItems.map((String item) {
-                            //         return PopupMenuItem<String>(
-                            //           value: item,
-                            //           child: Text(
-                            //             item,
-                            //             style: const TextStyle(color: AppThemes.black, fontSize: 14),
-                            //           ),
-                            //         );
-                            //       }).toList();
-                            //     },
-                            //     child: ListTile(
-                            //       title: Text(
-                            //         religion,
-                            //         style: const TextStyle(
-                            //           color: Colors.grey,
-                            //           fontSize: 16,
-                            //           fontWeight: FontWeight.w300,
-                            //         ),
-                            //         textAlign: TextAlign.justify,
+                            //       borderSide: BorderSide(
+                            //           color: Colors.red,
+                            //           width: 1
                             //       ),
-                            //       trailing: const Icon(Icons.keyboard_arrow_down),
+                            //     ),
+                            //     focusedErrorBorder: OutlineInputBorder(
+                            //       borderRadius: BorderRadius.circular(50),
+                            //       borderSide: BorderSide(
+                            //           color: Colors.red,
+                            //           width: 1
+                            //       ),
+                            //     ),
+                            //     enabledBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(50),
+                            //         borderSide: BorderSide(
+                            //             color: Colors.grey!.withOpacity(0.5),
+                            //             width: 1
+                            //         )
+                            //     ),
+                            //
+                            //     focusedBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(50),
+                            //         borderSide: BorderSide(
+                            //             color: Colors.grey!.withOpacity(0.5),
+                            //             width: 1
+                            //         )
                             //     ),
                             //   ),
-                            //   // DropdownButtonFormField(
-                            //   //   focusColor: Colors.grey.shade50,
-                            //   //   isExpanded: true,
-                            //   //   iconEnabledColor: const Color(0xff97949A),
-                            //   //   icon: const Icon(Icons.keyboard_arrow_down),
-                            //   //   hint: Text(
-                            //   //     religion,
-                            //   //     style: const TextStyle(
-                            //   //         color: Color(0xff463B57),
-                            //   //         fontSize: 16,
-                            //   //         fontWeight: FontWeight.w300),
-                            //   //     textAlign: TextAlign.justify,
-                            //   //   ),
-                            //   //   decoration: InputDecoration(
-                            //   //       fillColor: Colors.grey.shade50,
-                            //   //       contentPadding: const EdgeInsets.symmetric(
-                            //   //           horizontal: 20, vertical: 10),
-                            //   //       focusedBorder: OutlineInputBorder(
-                            //   //         borderSide:
-                            //   //         BorderSide(color: Colors.grey.shade300),
-                            //   //         borderRadius: BorderRadius.circular(25.0),
-                            //   //       ),
-                            //   //       enabledBorder: const OutlineInputBorder(
-                            //   //           borderSide:
-                            //   //           BorderSide(color: Color(0xffE3E3E3)),
-                            //   //           borderRadius:
-                            //   //           BorderRadius.all(Radius.circular(25.0)))),
-                            //   //   value: religion,
-                            //   //   items: religionItems.map((String items) {
-                            //   //     return DropdownMenuItem(
-                            //   //       value: items,
-                            //   //       child: Text(
-                            //   //         items,
-                            //   //         style: const TextStyle(
-                            //   //             color: Colors.grey, fontSize: 14),
-                            //   //       ),
-                            //   //     );
-                            //   //   }).toList(),
-                            //   //   onChanged: (String? newValue) {
-                            //   //     setState(() {
-                            //   //       religion = newValue!;
-                            //   //     });
-                            //   //   },
-                            //   // ),
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'Please select mother tongue';
+                            //     }
+                            //     return null;
+                            //   },
                             // ),
+
+                            DropdownButtonHideUnderline(
+                              child: DropdownButtonFormField2(
+                                value: motherTongue,
+                                items: motherTongueItems.toList()
+                                    .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    motherTongue = value!;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select mother tongue';
+                                  }
+                                  return null;
+                                },
+                                isExpanded: true,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                ),
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                  hintText: 'Select mother tongue',
+                                  hintStyle: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 1
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 1
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey!.withOpacity(0.5),
+                                          width: 1
+                                      )
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey!.withOpacity(0.5),
+                                          width: 1
+                                      )
+                                  ),
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: size.height * 0.28,
+                                  width: size.width * 0.925,
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  isOverButton: false,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: Colors.white,
+                                  ),
+
+                                  offset: const Offset(2, -10),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: const Radius.circular(40),
+                                    thickness: MaterialStateProperty.all<double>(6),
+                                    thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                  ),
+                                ),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 45,
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                ),
+                              ),
+                            ),
+
                             const SizedBox(
                               height: 25,
                             ),
-                            const Text('Nationality',
+                            const Text('Blood Group',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -1621,166 +1167,245 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(
                               height: 10,
                             ),
+                            // DropdownButtonFormField<String>(
+                            //   value: bloodType,
+                            //   // isExpanded: true,
+                            //   // padding: EdgeInsets.symmetric(horizontal: 15),
+                            //   // alignment: Alignment.center,
+                            //   items: bloodGroupItems.toList()
+                            //       .map((item) => DropdownMenuItem(
+                            //     value: item,
+                            //     child: Text(item),
+                            //   )).toList(),
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       bloodType = value!;
+                            //     });
+                            //   },
+                            //   menuMaxHeight: size.height * 0.25,
+                            //   borderRadius: BorderRadius.circular(10),
+                            //   decoration: InputDecoration(
+                            //     // constraints: BoxConstraints(
+                            //     //   maxWidth: size.width * 0.8
+                            //     // ),
+                            //     // isCollapsed: false,
+                            //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            //     hintText: 'Select your blood group',
+                            //     errorBorder: OutlineInputBorder(
+                            //       borderRadius: BorderRadius.circular(50),
+                            //       borderSide: BorderSide(
+                            //           color: Colors.red,
+                            //           width: 1
+                            //       ),
+                            //     ),
+                            //     focusedErrorBorder: OutlineInputBorder(
+                            //       borderRadius: BorderRadius.circular(50),
+                            //       borderSide: BorderSide(
+                            //           color: Colors.red,
+                            //           width: 1
+                            //       ),
+                            //     ),
+                            //     enabledBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(50),
+                            //         borderSide: BorderSide(
+                            //             color: Colors.grey!.withOpacity(0.5),
+                            //             width: 1
+                            //         )
+                            //     ),
+                            //
+                            //     focusedBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(50),
+                            //         borderSide: BorderSide(
+                            //             color: Colors.grey!.withOpacity(0.5),
+                            //             width: 1
+                            //         )
+                            //     ),
+                            //   ),
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'Please select your blood group';
+                            //     }
+                            //     return null;
+                            //   },
+                            // ),
 
+                            DropdownButtonHideUnderline(
+                              child: DropdownButtonFormField2(
+                                value: bloodType,
+                                items: bloodGroupItems.toList()
+                                    .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(item),
+                                )).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    bloodType = value!;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please select your blood group';
+                                  }
+                                  return null;
+                                },
+                                isExpanded: true,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                ),
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                  hintText: 'Select your blood group',
+                                  hintStyle: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 1
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 1
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey!.withOpacity(0.5),
+                                          width: 1
+                                      )
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey!.withOpacity(0.5),
+                                          width: 1
+                                      )
+                                  ),
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: size.height * 0.28,
+                                  width: size.width * 0.925,
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  isOverButton: false,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: Colors.white,
+                                  ),
 
-                           Obx(() {
-                           return getCountryController.isDataLoading.value == true ?
+                                  offset: const Offset(2, -10),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: const Radius.circular(40),
+                                    thickness: MaterialStateProperty.all<double>(6),
+                                    thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                  ),
+                                ),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 45,
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                ),
+                              ),
+                            ),
 
-                           DropdownButtonHideUnderline(
-                             child: DropdownButtonFormField2(
-                               value: getCountryController.selectCountyValue,
-                               items: getCountryController.getCountryModel.value.data!.toList()
-                                   .map((item) => DropdownMenuItem(
-                                 value: item.id.toString(),
-                                 child: Container(
-                                   width: size.width * 0.75,
-                                   child: Text(
-                                     // "Test",
-                                     item.name.toString(),
-                                     overflow: TextOverflow.ellipsis,maxLines: 5,),
-                                 ),
-                               )).toList(),
-                               // isExpanded: false,
-                               onChanged: (value) {
-                                 setState(() {
-                                   getCountryController.selectCountyValue = value!.toString();
-                                 });
-                               },
-                               validator: (value) {
-                                 if (value == null || value == '') {
-                                   return 'Please select Country';
-                                 }
-                                 return null;
-                               },
-                               isExpanded: true,
-                               style: TextStyle(
-                                 color: Colors.grey,
-                                 fontSize: 15,
-                               ),
-                               decoration: InputDecoration(
-                                 contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                 hintText: 'Select Country',
-                                 hintStyle: const TextStyle(
-                                   color: Colors.grey,
-                                   fontSize: 15,
-                                 ),
-                                 errorBorder: OutlineInputBorder(
-                                   borderRadius: BorderRadius.circular(50),
-                                   borderSide: BorderSide(
-                                       color: Colors.red,
-                                       width: 1
-                                   ),
-                                 ),
-                                 focusedErrorBorder: OutlineInputBorder(
-                                   borderRadius: BorderRadius.circular(50),
-                                   borderSide: BorderSide(
-                                       color: Colors.red,
-                                       width: 1
-                                   ),
-                                 ),
-                                 enabledBorder: OutlineInputBorder(
-                                     borderRadius: BorderRadius.circular(50),
-                                     borderSide: BorderSide(
-                                         color: Colors.grey!.withOpacity(0.5),
-                                         width: 1
-                                     )
-                                 ),
-                                 focusedBorder: OutlineInputBorder(
-                                     borderRadius: BorderRadius.circular(50),
-                                     borderSide: BorderSide(
-                                         color: Colors.grey!.withOpacity(0.5),
-                                         width: 1
-                                     )
-                                 ),
-                               ),
-                               dropdownStyleData: DropdownStyleData(
-                                 maxHeight: size.height * 0.28,
-                                 width: size.width * 0.925,
-                                 padding: EdgeInsets.symmetric(horizontal: 5),
-                                 isOverButton: false,
-                                 decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(14),
-                                   color: Colors.white,
-                                 ),
-
-                                 offset: const Offset(2, -10),
-                                 scrollbarTheme: ScrollbarThemeData(
-                                   radius: const Radius.circular(40),
-                                   thickness: MaterialStateProperty.all<double>(6),
-                                   thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                 ),
-                               ),
-                               menuItemStyleData: const MenuItemStyleData(
-                                 height: 45,
-                                 padding: EdgeInsets.only(left: 10, right: 10),
-                               ),
-                             ),
-                           )
-
-                             : SizedBox();
-                           }),
                             const SizedBox(
                               height: 25,
-                            ),
-                            const Text('Residential Address',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                            const SizedBox(
-                              height: 10,
                             ),
                             SizedBox(
+                              width: double.maxFinite,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: AppThemes.primaryColor,
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
+                                    textStyle:
+                                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // getCountryController.getCountryListFunction();
+                                    kk = 0.2;
 
-                              child: CommonTextfield(
-                                hintText: 'Enter Address',
-                                obSecure: false,
-                                controller: addressController,
-                                keyboardType: TextInputType.name,
-                                validator: MultiValidator([
-                                  RequiredValidator(
-                                      errorText:
-                                      'Please Enter address'),
-                                ]),
+                                    setState(() {
+                                      _scrollController.animateTo(
+                                        0.0,
+                                        duration: Duration(milliseconds: 10),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    });
+                                  }
+                                },
+                                child: const Text('Continue',style: TextStyle(color: Colors.white),),
                               ),
                             ),
                             const SizedBox(
                               height: 25,
                             ),
-                            const Text('State',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Obx(() {
-                              return getCountryController.isGetStateLoading.value == true ?
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (kk == .2)
+                Container(
+                  color: AppThemes.primaryColor,
+                  child: Container(
+                    // height: Get.height,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        controller: _scrollController,
+                        child: Form(
+                          key: _formKeyResidential,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                  child: Text('residential information'.toUpperCase(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 19,
+                                          color: AppThemes.primaryColor))),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              const Text('Religion',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               DropdownButtonHideUnderline(
                                 child: DropdownButtonFormField2(
-                                  value: getCountryController.selectStateValue,
-                                  items: getCountryController.getStateListModel.value.data!.toList()
+                                  value: religion,
+                                  items: religionItems.toList()
                                       .map((item) => DropdownMenuItem(
-                                    value:
-                                    // "test",
-                                    item.id.toString(),
-                                    child: Text(
-                                      // "test",
-                                      item.name.toString(),
-                                      overflow: TextOverflow.ellipsis,maxLines: 5,),
+                                    value: item,
+                                    child: Text(item),
                                   )).toList(),
-                                  // isExpanded: false,
                                   onChanged: (value) {
-                                    getCountryController.selectStateValue = value!.toString();
-                                    getCountryController.selectCityValue = null;
-                                    getCountryController.getCityListFunction(getCountryController.selectStateValue!);
-                                    print(value);
-                                    setState(() {});
+                                    setState(() {
+                                      religion = value!;
+                                    });
                                   },
                                   validator: (value) {
-                                    if (value == null || value == '') {
-                                      return 'Please select state';
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please select religion';
                                     }
                                     return null;
                                   },
@@ -1791,7 +1416,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                    hintText: 'Select State',
+                                    hintText: 'Select religion',
                                     hintStyle: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -1847,294 +1472,826 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     padding: EdgeInsets.only(left: 10, right: 10),
                                   ),
                                 ),
-                              )
-                              : SizedBox();
-                            }),
+                              ),
 
-                            Obx(() {
-                            return getCountryController.isGetCityLoading.value == true ?
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 25,
+
+                              // Container(
+                              //   height: 55,
+                              //   width: Get.width,
+                              //   decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(50),
+                              //       border: Border.all(
+                              //           color: Colors.grey,
+                              //           width: 0.5
+                              //       )
+                              //   ),
+                              //   child: PopupMenuButton<String>(
+                              //     shape: Border.all(
+                              //         color: AppThemes.primaryColor
+                              //     ),
+                              //     onSelected: (String newValue) {
+                              //       setState(() {
+                              //         religion = newValue;
+                              //       });
+                              //     },
+                              //     itemBuilder: (BuildContext context) {
+                              //       return religionItems.map((String item) {
+                              //         return PopupMenuItem<String>(
+                              //           value: item,
+                              //           child: Text(
+                              //             item,
+                              //             style: const TextStyle(color: AppThemes.black, fontSize: 14),
+                              //           ),
+                              //         );
+                              //       }).toList();
+                              //     },
+                              //     child: ListTile(
+                              //       title: Text(
+                              //         religion,
+                              //         style: const TextStyle(
+                              //           color: Colors.grey,
+                              //           fontSize: 16,
+                              //           fontWeight: FontWeight.w300,
+                              //         ),
+                              //         textAlign: TextAlign.justify,
+                              //       ),
+                              //       trailing: const Icon(Icons.keyboard_arrow_down),
+                              //     ),
+                              //   ),
+                              //   // DropdownButtonFormField(
+                              //   //   focusColor: Colors.grey.shade50,
+                              //   //   isExpanded: true,
+                              //   //   iconEnabledColor: const Color(0xff97949A),
+                              //   //   icon: const Icon(Icons.keyboard_arrow_down),
+                              //   //   hint: Text(
+                              //   //     religion,
+                              //   //     style: const TextStyle(
+                              //   //         color: Color(0xff463B57),
+                              //   //         fontSize: 16,
+                              //   //         fontWeight: FontWeight.w300),
+                              //   //     textAlign: TextAlign.justify,
+                              //   //   ),
+                              //   //   decoration: InputDecoration(
+                              //   //       fillColor: Colors.grey.shade50,
+                              //   //       contentPadding: const EdgeInsets.symmetric(
+                              //   //           horizontal: 20, vertical: 10),
+                              //   //       focusedBorder: OutlineInputBorder(
+                              //   //         borderSide:
+                              //   //         BorderSide(color: Colors.grey.shade300),
+                              //   //         borderRadius: BorderRadius.circular(25.0),
+                              //   //       ),
+                              //   //       enabledBorder: const OutlineInputBorder(
+                              //   //           borderSide:
+                              //   //           BorderSide(color: Color(0xffE3E3E3)),
+                              //   //           borderRadius:
+                              //   //           BorderRadius.all(Radius.circular(25.0)))),
+                              //   //   value: religion,
+                              //   //   items: religionItems.map((String items) {
+                              //   //     return DropdownMenuItem(
+                              //   //       value: items,
+                              //   //       child: Text(
+                              //   //         items,
+                              //   //         style: const TextStyle(
+                              //   //             color: Colors.grey, fontSize: 14),
+                              //   //       ),
+                              //   //     );
+                              //   //   }).toList(),
+                              //   //   onChanged: (String? newValue) {
+                              //   //     setState(() {
+                              //   //       religion = newValue!;
+                              //   //     });
+                              //   //   },
+                              //   // ),
+                              // ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Nationality',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+
+
+                             Obx(() {
+                             return getCountryController.isDataLoading.value == true ?
+
+                             DropdownButtonHideUnderline(
+                               child: DropdownButtonFormField2(
+                                 value: getCountryController.selectCountyValue,
+                                 items: getCountryController.getCountryModel.value.data!.toList()
+                                     .map((item) => DropdownMenuItem(
+                                   value: item.id.toString(),
+                                   child: Container(
+                                     width: size.width * 0.75,
+                                     child: Text(
+                                       // "Test",
+                                       item.name.toString(),
+                                       overflow: TextOverflow.ellipsis,maxLines: 5,),
+                                   ),
+                                 )).toList(),
+                                 // isExpanded: false,
+                                 onChanged: (value) {
+                                   setState(() {
+                                     getCountryController.selectCountyValue = value!.toString();
+                                   });
+                                 },
+                                 validator: (value) {
+                                   if (value == null || value == '') {
+                                     return 'Please select Country';
+                                   }
+                                   return null;
+                                 },
+                                 isExpanded: true,
+                                 style: TextStyle(
+                                   color: Colors.grey,
+                                   fontSize: 15,
+                                 ),
+                                 decoration: InputDecoration(
+                                   contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                   hintText: 'Select Country',
+                                   hintStyle: const TextStyle(
+                                     color: Colors.grey,
+                                     fontSize: 15,
+                                   ),
+                                   errorBorder: OutlineInputBorder(
+                                     borderRadius: BorderRadius.circular(50),
+                                     borderSide: BorderSide(
+                                         color: Colors.red,
+                                         width: 1
+                                     ),
+                                   ),
+                                   focusedErrorBorder: OutlineInputBorder(
+                                     borderRadius: BorderRadius.circular(50),
+                                     borderSide: BorderSide(
+                                         color: Colors.red,
+                                         width: 1
+                                     ),
+                                   ),
+                                   enabledBorder: OutlineInputBorder(
+                                       borderRadius: BorderRadius.circular(50),
+                                       borderSide: BorderSide(
+                                           color: Colors.grey!.withOpacity(0.5),
+                                           width: 1
+                                       )
+                                   ),
+                                   focusedBorder: OutlineInputBorder(
+                                       borderRadius: BorderRadius.circular(50),
+                                       borderSide: BorderSide(
+                                           color: Colors.grey!.withOpacity(0.5),
+                                           width: 1
+                                       )
+                                   ),
+                                 ),
+                                 dropdownStyleData: DropdownStyleData(
+                                   maxHeight: size.height * 0.28,
+                                   width: size.width * 0.925,
+                                   padding: EdgeInsets.symmetric(horizontal: 5),
+                                   isOverButton: false,
+                                   decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(14),
+                                     color: Colors.white,
+                                   ),
+
+                                   offset: const Offset(2, -10),
+                                   scrollbarTheme: ScrollbarThemeData(
+                                     radius: const Radius.circular(40),
+                                     thickness: MaterialStateProperty.all<double>(6),
+                                     thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                   ),
+                                 ),
+                                 menuItemStyleData: const MenuItemStyleData(
+                                   height: 45,
+                                   padding: EdgeInsets.only(left: 10, right: 10),
+                                 ),
+                               ),
+                             )
+
+                               : SizedBox();
+                             }),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Residential Address',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+
+                                child: CommonTextfield(
+                                  hintText: 'Enter Address',
+                                  obSecure: false,
+                                  controller: addressController,
+                                  keyboardType: TextInputType.name,
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText:
+                                        'Please Enter address'),
+                                  ]),
                                 ),
-                                const Text('City',
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('State',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Obx(() {
+                                return getCountryController.isGetStateLoading.value == true ?
+                                DropdownButtonHideUnderline(
+                                  child: DropdownButtonFormField2(
+                                    value: getCountryController.selectStateValue,
+                                    items: getCountryController.getStateListModel.value.data!.toList()
+                                        .map((item) => DropdownMenuItem(
+                                      value:
+                                      // "test",
+                                      item.id.toString(),
+                                      child: Text(
+                                        // "test",
+                                        item.name.toString(),
+                                        overflow: TextOverflow.ellipsis,maxLines: 5,),
+                                    )).toList(),
+                                    // isExpanded: false,
+                                    onChanged: (value) {
+                                      getCountryController.selectStateValue = value!.toString();
+                                      getCountryController.selectCityValue = null;
+                                      getCountryController.getCityListFunction(getCountryController.selectStateValue!);
+                                      print(value);
+                                      setState(() {});
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value == '') {
+                                        return 'Please select state';
+                                      }
+                                      return null;
+                                    },
+                                    isExpanded: true,
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: Colors.black)),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Obx(() {
-                                  return getCountryController.isGetCityLoading.value == true ?
-                                  // DropdownButtonFormField<String>(
-                                  //   value: getCountryController.selectCityValue,
-                                  //   items: getCountryController.getCityListModel.value.data!.toList()
-                                  //       .map((item) => DropdownMenuItem(
-                                  //     value:
-                                  //     // "test",
-                                  //     item.id.toString(),
-                                  //     child: Text(
-                                  //       // "test",
-                                  //       item.city.toString(),
-                                  //       overflow: TextOverflow.ellipsis,maxLines: 5,),
-                                  //   )).toList(),
-                                  //   // isExpanded: false,
-                                  //   onChanged: (value) {
-                                  //     setState(() {
-                                  //       getCountryController.selectCityValue = value!.toString();
-                                  //     });
-                                  //   },
-                                  //   menuMaxHeight: size.height * 0.25,
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   decoration: InputDecoration(
-                                  //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                  //     hintText: 'Select City',
-                                  //     errorBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.circular(50),
-                                  //       borderSide: BorderSide(
-                                  //           color: Colors.red,
-                                  //           width: 1
-                                  //       ),
-                                  //     ),
-                                  //     focusedErrorBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.circular(50),
-                                  //       borderSide: BorderSide(
-                                  //           color: Colors.red,
-                                  //           width: 1
-                                  //       ),
-                                  //     ),
-                                  //     enabledBorder: OutlineInputBorder(
-                                  //         borderRadius: BorderRadius.circular(50),
-                                  //         borderSide: BorderSide(
-                                  //             color: Colors.grey!.withOpacity(0.5),
-                                  //             width: 1
-                                  //         )
-                                  //     ),
-                                  //
-                                  //     focusedBorder: OutlineInputBorder(
-                                  //         borderRadius: BorderRadius.circular(50),
-                                  //         borderSide: BorderSide(
-                                  //             color: Colors.grey!.withOpacity(0.5),
-                                  //             width: 1
-                                  //         )
-                                  //     ),
-                                  //   ),
-                                  //   validator: (value) {
-                                  //     if (value == null || value == '') {
-                                  //       return 'Please select city';
-                                  //     }
-                                  //     return null;
-                                  //   },
-                                  // )
-                                  DropdownButtonHideUnderline(
-                                    child: DropdownButtonFormField2(
-                                      value: getCountryController.selectCityValue,
-                                      items: getCountryController.getCityListModel.value.data!.toList()
-                                          .map((item) => DropdownMenuItem(
-                                        value:
-                                        item.id.toString(),
-                                        child: Text(
-                                          item.city.toString(),
-                                          overflow: TextOverflow.ellipsis,maxLines: 5,),
-                                      )).toList(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          getCountryController.selectCityValue = value!.toString();
-                                        });
-                                      },
-                                      validator: (value) {
-                                        if (value == null || value == '') {
-                                          return 'Please select city';
-                                        }
-                                        return null;
-                                      },
-                                      isExpanded: true,
-                                      style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                      hintText: 'Select State',
+                                      hintStyle: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
                                       ),
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                        hintText: 'Select City',
-                                        hintStyle: const TextStyle(
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.red,
+                                            width: 1
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.red,
+                                            width: 1
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey!.withOpacity(0.5),
+                                              width: 1
+                                          )
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey!.withOpacity(0.5),
+                                              width: 1
+                                          )
+                                      ),
+                                    ),
+                                    dropdownStyleData: DropdownStyleData(
+                                      maxHeight: size.height * 0.28,
+                                      width: size.width * 0.925,
+                                      padding: EdgeInsets.symmetric(horizontal: 5),
+                                      isOverButton: false,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Colors.white,
+                                      ),
+
+                                      offset: const Offset(2, -10),
+                                      scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(40),
+                                        thickness: MaterialStateProperty.all<double>(6),
+                                        thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                      ),
+                                    ),
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 45,
+                                      padding: EdgeInsets.only(left: 10, right: 10),
+                                    ),
+                                  ),
+                                )
+                                : SizedBox();
+                              }),
+
+                              Obx(() {
+                              return getCountryController.isGetCityLoading.value == true ?
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 25,
+                                  ),
+                                  const Text('City',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: Colors.black)),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Obx(() {
+                                    return getCountryController.isGetCityLoading.value == true ?
+                                    DropdownButtonHideUnderline(
+                                      child: DropdownButtonFormField2(
+                                        value: getCountryController.selectCityValue,
+                                        items: getCountryController.getCityListModel.value.data!.toList()
+                                            .map((item) => DropdownMenuItem(
+                                          value:
+                                          item.id.toString(),
+                                          child: Text(
+                                            item.city.toString(),
+                                            overflow: TextOverflow.ellipsis,maxLines: 5,),
+                                        )).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            getCountryController.selectCityValue = value!.toString();
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value == null || value == '') {
+                                            return 'Please select city';
+                                          }
+                                          return null;
+                                        },
+                                        isExpanded: true,
+                                        style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 15,
                                         ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(50),
-                                          borderSide: BorderSide(
-                                              color: Colors.red,
-                                              width: 1
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                          hintText: 'Select City',
+                                          hintStyle: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 15,
                                           ),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(50),
-                                          borderSide: BorderSide(
-                                              color: Colors.red,
-                                              width: 1
-                                          ),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
+                                          errorBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(50),
                                             borderSide: BorderSide(
-                                                color: Colors.grey!.withOpacity(0.5),
+                                                color: Colors.red,
                                                 width: 1
-                                            )
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
+                                            ),
+                                          ),
+                                          focusedErrorBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(50),
                                             borderSide: BorderSide(
-                                                color: Colors.grey!.withOpacity(0.5),
+                                                color: Colors.red,
                                                 width: 1
-                                            )
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(50),
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey!.withOpacity(0.5),
+                                                  width: 1
+                                              )
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(50),
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey!.withOpacity(0.5),
+                                                  width: 1
+                                              )
+                                          ),
                                         ),
-                                      ),
-                                      dropdownStyleData: DropdownStyleData(
-                                        maxHeight: size.height * 0.28,
-                                        width: size.width * 0.925,
-                                        padding: EdgeInsets.symmetric(horizontal: 5),
-                                        isOverButton: false,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
-                                          color: Colors.white,
-                                        ),
+                                        dropdownStyleData: DropdownStyleData(
+                                          maxHeight: size.height * 0.28,
+                                          width: size.width * 0.925,
+                                          padding: EdgeInsets.symmetric(horizontal: 5),
+                                          isOverButton: false,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(14),
+                                            color: Colors.white,
+                                          ),
 
-                                        offset: const Offset(2, -10),
-                                        scrollbarTheme: ScrollbarThemeData(
-                                          radius: const Radius.circular(40),
-                                          thickness: MaterialStateProperty.all<double>(6),
-                                          thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                          offset: const Offset(2, -10),
+                                          scrollbarTheme: ScrollbarThemeData(
+                                            radius: const Radius.circular(40),
+                                            thickness: MaterialStateProperty.all<double>(6),
+                                            thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                          ),
+                                        ),
+                                        menuItemStyleData: const MenuItemStyleData(
+                                          height: 45,
+                                          padding: EdgeInsets.only(left: 10, right: 10),
                                         ),
                                       ),
-                                      menuItemStyleData: const MenuItemStyleData(
-                                        height: 45,
-                                        padding: EdgeInsets.only(left: 10, right: 10),
-                                      ),
-                                    ),
-                                  )
+                                    )
+
+                                    : SizedBox();
+                                  }),
+
+                                ],
+                              )
 
                                   : SizedBox();
-                                }),
+                              }),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Pincode',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
 
-                                // DropdownMenuTheme(
-                                //   data: DropdownMenuThemeData(
-                                //     menuStyle: MenuStyle(
-                                //       surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                                //         return Colors.white;
-                                //       }),
-                                //     ),
-                                //     textStyle: TextStyle(
-                                //         color: Colors.grey,
-                                //         fontSize: AddSize.font14),
-                                //     inputDecorationTheme: InputDecorationTheme(
-                                //       alignLabelWithHint: true,
-                                //       floatingLabelAlignment: FloatingLabelAlignment.center,
-                                //       // floatingLabelAlignment: ,
-                                //       constraints: BoxConstraints(
-                                //         maxHeight: 50,
-                                //         // minHeight: 30
-                                //       ),
-                                //       contentPadding: EdgeInsets.only(left: 15),
-                                //       hintStyle: TextStyle(
-                                //         color: Colors.grey,
-                                //         fontSize: AddSize.font14,),
-                                //       enabledBorder: OutlineInputBorder(
-                                //           gapPadding: 0.0,
-                                //           borderRadius: BorderRadius.circular(50),
-                                //           borderSide: BorderSide(
-                                //               color: Colors.grey!.withOpacity(0.5),
-                                //               width: 1
-                                //           )
-                                //       ),
-                                //     ),
-                                //   ),
-                                //   child: DropdownMenu<String>(
-                                //     width: size.width * 0.93,
-                                //     menuHeight: size.height * 0.3,
-                                //     hintText: 'Select City',
-                                //     textStyle:  TextStyle(
-                                //         color: Colors.grey,
-                                //         fontSize: AddSize.font14),
-                                //     onSelected: (String? value) {
-                                //       getCountryController.selectCityValue = value!;
-                                //       print(value);
-                                //     },
-                                //     trailingIcon: const Icon(Icons.keyboard_arrow_down),
-                                //     dropdownMenuEntries: getCountryController.getCityListModel.value.data!.toList().map((value) {
-                                //       return DropdownMenuEntry(value: value.id.toString(), label: value.city.toString());
-                                //     }).toList(),
-                                //   ),
-                                // ),
-                              ],
-                            )
+                                child: CommonTextfield(
+                                  obSecure: false,
+                                  hintText: 'Enter Pincode',
+                                  controller: pincodeController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(6),
+                                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                  ],
+                                  validator: MultiValidator([
+                                    RequiredValidator(errorText: 'Please Enter pincode'),
+                                    LengthRangeValidator(min: 6, max: 6, errorText: "Please enter at least 6 character")
+                                  ]),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: AppThemes.primaryColor,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 50, vertical: 13),
+                                      textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                  onPressed: () {
+                                    if (_formKeyResidential.currentState!
+                                        .validate()) {
+                                      kk = 0.4;
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Continue',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (kk == 0.4)
+                Container(
+                  color: AppThemes.primaryColor,
+                  child: Container(
+                    // height: Get.height,
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                      BorderRadius.only(topRight: Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        // controller: _scrollController1,
+                        child: Form(
+                          key: _formKeyPrevious,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10,),
+                              Center(
+                                  child: Text('previous school info'.toUpperCase(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 19,
+                                          color: AppThemes.primaryColor))),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              const Text('Name of Previous School',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CommonTextfield(
+                                hintText: 'Enter Full Name',
+                                obSecure: false,
+                                controller: schoolNameController,
+                                keyboardType: TextInputType.name,
+                                validator: MultiValidator([
+                                  RequiredValidator(
+                                      errorText:
+                                      'Please Enter school name'),
 
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Location',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CommonTextfield(
+                                hintText: 'Enter School Location',
+                                obSecure: false,
+                                controller: locationController,
+                                keyboardType: TextInputType.name,
+                                validator: MultiValidator([
+                                  RequiredValidator(
+                                      errorText:
+                                      'Please Enter loaction'),
+
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Class',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+
+                              CommonTextfield(
+                                obSecure: false,
+                                hintText: 'Enter class',
+                                controller: classPrevCon,
+                                keyboardType: TextInputType.name,
+                                validator: MultiValidator([
+                                  RequiredValidator(
+                                      errorText:
+                                      'Please Enter class'),
+
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Years of study in that school',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CommonTextfield(
+                                obSecure: false,
+                                hintText: 'Enter year',
+                                controller: yearprevSchoolCon,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(2),
+                                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                ],
+                                validator: MultiValidator([
+                                  RequiredValidator(errorText: 'Please enter years'),
+                                ]),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('Percentage/Grade',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+
+                                child: CommonTextfield(
+                                  obSecure: false,
+                                  hintText: 'Enter Card Number',
+                                  controller: percentageController,
+                                  keyboardType: TextInputType.name,
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText:
+                                        'Please Enter percentage'),
+
+                                  ]),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              SizedBox(
+                                width: double.maxFinite,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: AppThemes.primaryColor,
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
+                                      textStyle:
+                                      const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                  onPressed: () {
+                              if (_formKeyPrevious.currentState!.validate()) {
+                                kk = 0.6;
+                                setState(() {
+
+                                });
+                              } },
+                                  child: const Text('Continue',style: TextStyle(color: Colors.white),),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (kk == 0.6)
+                Container(
+                  color: AppThemes.primaryColor,
+                  child: Container(
+
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                      BorderRadius.only(topRight: Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Form(
+                        key: _formKeyFathers,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10,),
+                            Center(
+                                child: Text('father\'s information'.toUpperCase(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 19,
+                                        color: AppThemes.primaryColor))),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const Text('Father\'s Qualification',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              hintText: 'Enter Qualification',
+                              controller: qualificationController,
+                              keyboardType: TextInputType.name,
+                              obSecure: false,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter father\'s qualification'),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Occupation',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Father Occupation',
+                              controller: occupationController,
+                              keyboardType: TextInputType.name,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter father\'s occupation'),
+
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Organization',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             // Container(
-                            // height: 55,
-                            // width: Get.width,
-                            // decoration: BoxDecoration(
-                            // borderRadius: BorderRadius.circular(50),
-                            // border: Border.all(
-                            // color: Colors.grey,
-                            // width: 0.5
-                            // )
+                            //
+                            //   width: Get.width,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(25),
+                            //   ),
+                            //   child: DropdownButtonFormField(
+                            //     focusColor: Colors.grey.shade50,
+                            //     isExpanded: true,
+                            //     iconEnabledColor: const Color(0xff97949A),
+                            //     icon: const Icon(Icons.keyboard_arrow_down),
+                            //     hint: Text(
+                            //       organization,
+                            //       style: const TextStyle(
+                            //           color: Color(0xff463B57),
+                            //           fontSize: 16,
+                            //           fontWeight: FontWeight.w300),
+                            //       textAlign: TextAlign.justify,
+                            //     ),
+                            //     decoration: InputDecoration(
+                            //         fillColor: Colors.grey.shade50,
+                            //         contentPadding: const EdgeInsets.symmetric(
+                            //             horizontal: 20, vertical: 10),
+                            //         focusedBorder: OutlineInputBorder(
+                            //           borderSide:
+                            //           BorderSide(color: Colors.grey.shade300),
+                            //           borderRadius: BorderRadius.circular(25.0),
+                            //         ),
+                            //         enabledBorder: const OutlineInputBorder(
+                            //             borderSide:
+                            //             BorderSide(color: Color(0xffE3E3E3)),
+                            //             borderRadius:
+                            //             BorderRadius.all(Radius.circular(25.0)))),
+                            //     value: organization,
+                            //     items: organizationItem.map((String items) {
+                            //       return DropdownMenuItem(
+                            //         value: items,
+                            //         child: Text(
+                            //           items,
+                            //           style: const TextStyle(
+                            //               color: Colors.grey, fontSize: 14),
+                            //         ),
+                            //       );
+                            //     }).toList(),
+                            //     onChanged: (String? newValue) {
+                            //       setState(() {
+                            //         organization = newValue!;
+                            //       });
+                            //     },
+                            //   ),
                             // ),
-                            // child: DropdownButtonFormField<dynamic>(
-                            // focusColor: Colors.white,
-                            // isExpanded: true,
-                            // validator: (value) {
-                            // if (value == null) {
-                            // return 'Please enter allergens';
-                            // }
-                            // return null;
-                            // },
-                            // iconEnabledColor: const Color(0xff97949A),
-                            // icon: const Icon(Icons.keyboard_arrow_down),
-                            // hint: Text(
-                            // "Select City",
-                            // style: TextStyle(
-                            // color: Colors.grey,
-                            // fontSize: AddSize.font14),
-                            // textAlign: TextAlign.justify,
-                            // ),
-                            // decoration: InputDecoration(
-                            // fillColor: const Color(0xFFF2F2F2),
-                            // contentPadding:
-                            // const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                            // focusedBorder: OutlineInputBorder(
-                            // borderSide: const BorderSide(color: Colors.transparent),
-                            // borderRadius: BorderRadius.circular(50.0),
-                            // ),
-                            // enabledBorder: const OutlineInputBorder(
-                            // borderSide: BorderSide(color: Colors.transparent),
-                            // borderRadius:
-                            // BorderRadius.all(Radius.circular(50.0)))),
-                            // value: getCountryController.selectCityValue,
-                            // items: getCountryController.getCityListModel.value.data!.toList().map((value) {
-                            // return DropdownMenuItem(
-                            // value: value.id.toString(),
-                            // child: Text(
-                            // value.city.toString(),
-                            // style: TextStyle(
-                            // color: Colors.grey,
-                            // fontSize: AddSize.font14),
-                            // ),
-                            // );
-                            // }).toList(),
-                            // onChanged: (newValue) {
-                            // setState(() {
-                            // getCountryController.selectCityValue = newValue!;
-                            // });
-                            // },
-                            // ),
-                            // )
-
-                                : SizedBox();
-                            }),
-
                             // Container(
                             //   height: 55,
                             //   width: Get.width,
@@ -2151,11 +2308,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             //     ),
                             //     onSelected: (String newValue) {
                             //       setState(() {
-                            //         optionCity = newValue;
+                            //         organization = newValue;
                             //       });
                             //     },
                             //     itemBuilder: (BuildContext context) {
-                            //       return optionCityItems.map((String item) {
+                            //       return organizationItem.map((String item) {
                             //         return PopupMenuItem<String>(
                             //           value: item,
                             //           child: Text(
@@ -2167,7 +2324,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             //     },
                             //     child: ListTile(
                             //       title: Text(
-                            //         optionCity,
+                            //         organization,
                             //         style: const TextStyle(
                             //           color: Colors.grey,
                             //           fontSize: 16,
@@ -2223,63 +2380,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             //   //   },
                             //   // ),
                             // ),
-                            //
-                            // Container(
-                            //
-                            //   width: Get.width,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(25),
-                            //   ),
-                            //   child: DropdownButtonFormField(
-                            //     focusColor: Colors.grey.shade50,
-                            //     isExpanded: true,
-                            //     iconEnabledColor: const Color(0xff97949A),
-                            //     icon: const Icon(Icons.keyboard_arrow_down),
-                            //     hint: Text(
-                            //       optionState,
-                            //       style: const TextStyle(
-                            //           color: Color(0xff463B57),
-                            //           fontSize: 16,
-                            //           fontWeight: FontWeight.w300),
-                            //       textAlign: TextAlign.justify,
-                            //     ),
-                            //     decoration: InputDecoration(
-                            //         fillColor: Colors.grey.shade50,
-                            //         contentPadding: const EdgeInsets.symmetric(
-                            //             horizontal: 20, vertical: 10),
-                            //         focusedBorder: OutlineInputBorder(
-                            //           borderSide:
-                            //           BorderSide(color: Colors.grey.shade300),
-                            //           borderRadius: BorderRadius.circular(25.0),
-                            //         ),
-                            //         enabledBorder: const OutlineInputBorder(
-                            //             borderSide:
-                            //             BorderSide(color: Color(0xffE3E3E3)),
-                            //             borderRadius:
-                            //             BorderRadius.all(Radius.circular(25.0)))),
-                            //     value: optionState,
-                            //     items: optionStateItems.map((String items) {
-                            //       return DropdownMenuItem(
-                            //         value: items,
-                            //         child: Text(
-                            //           items,
-                            //           style: const TextStyle(
-                            //               color: Colors.grey, fontSize: 14),
-                            //         ),
-                            //       );
-                            //     }).toList(),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         optionState = newValue!;
-                            //       });
-                            //     },
-                            //   ),
-                            // ),
+                            CommonTextfield(
+                              hintText: 'Enter Organization',
+                              obSecure: false,
+                              readOnly: false,
+                              keyboardType: TextInputType.text,
+                              controller: organizationController,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter Organization'),
 
+                              ]),
+                            ),
                             const SizedBox(
                               height: 25,
                             ),
-                            const Text('Pincode',
+                            const Text('Mobile Number',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -2287,22 +2404,116 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            SizedBox(
-
-                              child: CommonTextfield(
-                                obSecure: false,
-                                hintText: 'Enter Pincode',
-                                controller: pincodeController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(6),
-                                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                ],
-                                validator: MultiValidator([
-                                  RequiredValidator(errorText: 'Please Enter pincode'),
-                                  LengthRangeValidator(min: 6, max: 6, errorText: "Please enter at least 6 character")
-                                ]),
-                              ),
+                            CommonTextfield(
+                              hintText: 'Enter Mobile Number',
+                              obSecure: false,
+                              readOnly: false,
+                              keyboardType: TextInputType.number,
+                              controller: mobileNOController,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter father\'s mobile no'),
+                                LengthRangeValidator(min: 10, max: 10, errorText: "Please enter at least 10 character")
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Aadhar Number',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Father Aadhar Number',
+                              controller: aadharController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(12),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
+                              validator: MultiValidator([
+                              RequiredValidator(
+                                    errorText:
+                                    'Please Enter father\'s aadhar number'),
+                                LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character"),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Email Id',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Father Email Address',
+                              controller: emailIdController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter father\'s email'),
+                                EmailValidator(errorText: "enter a valid mail")
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Annual Income',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Father annual Income',
+                              controller: annualIncomeController,
+                              keyboardType: TextInputType.number,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter father\'s annual income'),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Landline Number',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Landline Number',
+                              controller: landlineNOController,
+                              keyboardType: TextInputType.number,
+                              // validator: MultiValidator([
+                              //   RequiredValidator(
+                              //       errorText:
+                              //       'Please Enter father\'s landline no'),
+                              // ]),
                             ),
                             const SizedBox(
                               height: 25,
@@ -2318,9 +2529,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500)),
                                 onPressed: () {
-                                  if (_formKeyResidential.currentState!
-                                      .validate()) {
-                                    kk = 0.4;
+                                  if (_formKeyFathers.currentState!.validate()) {
+                                    kk = 0.8;
                                     setState(() {});
                                   }
                                 },
@@ -2330,33 +2540,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              height: 25,
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
                 ),
-              if (kk == 0.4)
+              if (kk == 0.8)
                 Container(
-                  // height: Get.height,
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                    BorderRadius.only(topRight: Radius.circular(50)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      // controller: _scrollController1,
+                  color: AppThemes.primaryColor,
+                  child: Container(
+
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                      BorderRadius.only(topRight: Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Form(
-                        key: _formKeyPrevious,
+                        key: _formKeyMother,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 10,),
                             Center(
-                                child: Text('previous school info'.toUpperCase(),
+                                child: Text('mother\'s information'.toUpperCase(),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 19,
@@ -2364,7 +2576,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(
                               height: 15,
                             ),
-                            const Text('Name of Previous School',
+                            const Text('Mothers\'s Qualification',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -2374,20 +2586,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             CommonTextfield(
                               hintText: 'Enter Full Name',
-                              obSecure: false,
-                              controller: schoolNameController,
+                              controller: motherqualificationController,
                               keyboardType: TextInputType.name,
+                              obSecure: false,
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter school name'),
+                                    'Please Enter mother\'s qualification'),
 
                               ]),
                             ),
                             const SizedBox(
                               height: 25,
                             ),
-                            const Text('Location',
+                            const Text('Occupation',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -2396,14 +2608,241 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               height: 10,
                             ),
                             CommonTextfield(
-                              hintText: 'Enter School Location',
                               obSecure: false,
-                              controller: locationController,
+                              hintText: 'Enter mother Occupation',
+                              controller: motheroccupationController,
                               keyboardType: TextInputType.name,
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter loaction'),
+                                    'Please Enter mother\'s occupation'),
+
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Organization',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              hintText: 'Enter Organization',
+                              obSecure: false,
+                              readOnly: false,
+                              keyboardType: TextInputType.text,
+                              controller: organizationController1,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter Organization'),
+
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Mobile Number',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              hintText: 'Enter Mobile Number',
+                              obSecure: false,
+                              readOnly: false,
+                              keyboardType: TextInputType.number,
+                              controller: mothermobileNOController,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter mother\'s mobile no'),
+                                LengthRangeValidator(min: 10, max: 10, errorText: "Please enter at least 10 character")
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Aadhar Number',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter mother Aadhar Number',
+                              controller: motheraadharController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(12),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter mother\'s aadhar number'),
+                                LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character"),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Email Id',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter mother Email Address',
+                              controller: motheremailIdController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter mother\'s email'),
+                                EmailValidator(errorText: "enter a valid mail")
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Annual Income',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter mother annual Income',
+                              controller: motherannualIncomeController,
+                              keyboardType: TextInputType.number,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter mother\'s annual income'),
+
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            const Text('Landline Number',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              obSecure: false,
+                              hintText: 'Enter Landline Number',
+                              controller: motherlandlineNOController,
+                              keyboardType: TextInputType.number,
+                              // validator: MultiValidator([
+                              //   RequiredValidator(
+                              //       errorText:
+                              //       'Please Enter mother\'s landline no'),
+                              //
+                              // ]),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                            SizedBox(
+                              width: double.maxFinite,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: AppThemes.primaryColor,
+                                    padding:
+                                    const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
+                                    textStyle:
+                                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                onPressed: () {
+                                  if (_formKeyMother.currentState!.validate()) {
+                                    kk = 1;
+                                    setState(() {
+
+                                    });
+                                  }},
+                                child: const Text('Continue',style: TextStyle(color: Colors.white),),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              if (kk == 1)
+                Container(
+                  color: AppThemes.primaryColor,
+                  child: Container(
+                    height: Get.height,
+                    // height: AddSize.screenHeight,
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                      BorderRadius.only(topRight: Radius.circular(50)),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Form(
+                        key: _formKeySibling,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10,),
+                            Center(
+                                child: Text('sibling information'.toUpperCase(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 19,
+                                        color: AppThemes.primaryColor))),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const Text('Name',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonTextfield(
+                              hintText: 'Enter Full Name',
+                              controller: siblingController,
+                              keyboardType: TextInputType.name,
+                              obSecure: false,
+                              validator: MultiValidator([
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter sibling\'s name'),
 
                               ]),
                             ),
@@ -2421,20 +2860,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                             CommonTextfield(
                               obSecure: false,
-                              hintText: 'Enter class',
-                              controller: classPrevCon,
+                              hintText: 'Enter Class Name',
+                              controller: schoolSibblingCon,
                               keyboardType: TextInputType.name,
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter class'),
-
+                                    'Please Enter Class Name'),
                               ]),
                             ),
                             const SizedBox(
                               height: 25,
                             ),
-                            const Text('Years of study in that school',
+                            const Text('School/Collage Currently Studing',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
@@ -2444,45 +2882,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             CommonTextfield(
                               obSecure: false,
-                              hintText: 'Enter year',
-                              controller: yearprevSchoolCon,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(2),
-                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                              ],
+                              hintText: 'Enter School/Collage Name',
+                              controller: collegController,
+                              keyboardType: TextInputType.name,
                               validator: MultiValidator([
-                                RequiredValidator(errorText: 'Please enter years'),
+                                RequiredValidator(
+                                    errorText:
+                                    'Please Enter colage\'s name'),
+
                               ]),
                             ),
                             const SizedBox(
                               height: 25,
-                            ),
-                            const Text('Percentage/Grade',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-
-                              child: CommonTextfield(
-                                obSecure: false,
-                                hintText: 'Enter Card Number',
-                                controller: percentageController,
-                                keyboardType: TextInputType.name,
-                                validator: MultiValidator([
-                                  RequiredValidator(
-                                      errorText:
-                                      'Please Enter percentage'),
-
-                                ]),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
                             ),
                             SizedBox(
                               width: double.maxFinite,
@@ -2494,871 +2905,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     textStyle:
                                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                                 onPressed: () {
-                            if (_formKeyPrevious.currentState!.validate()) {
-                              kk = 0.6;
-                              setState(() {
-
-                              });
-                            } },
-                                child: const Text('Continue',style: TextStyle(color: Colors.white),),
+                                  addMissionRepo(context: context,appliedForId: 1,appliedFor: 'School',name: stNameController.text.trim(),
+                                    fatherName: fatherNameController.text.trim(),motherName: motherNameController.text.trim(),dob: dobController.text.trim(),
+                                    category: category.toString(),adharNo: adharcardNo.text.trim(),
+                                    gender: gender.toString(), motherTongue: 'hindi',bloodGroup: bloodGroup.text.trim(),religion: 'hindhu',nationality: 'indian',
+                                    address: addressController.text.trim(),state: 'raj',city: 'hmh',pincode: pincodeController.text.trim(),previous_school_name: schoolNameController.text.trim(),
+                                    location: locationController.text.trim(),classprev: classPrevCon.text.trim(),yearOfStudy: yearprevSchoolCon.text.trim(),
+                                    percentage: percentageController.text.trim(),father_name: fatherNameController.text.trim(),occupation: occupationController.text.trim(),
+                                    organization: organizationController.text.trim(),mobile_number: mobileNOController.text.trim(),aadhar_number: aadharController.text.trim(),
+                                    email_father: emailIdController.text.trim(),annual_income_father: annualIncomeController.text.trim(),landline_number: landlineNOController.text.trim(),
+                                    mother_name: motherNameController.text.trim(),occupation_mother: occupationController.text.trim(),
+                                    organization_mother: organizationController.text.trim(),mobile_mother: mobileNOController.text.trim(),
+                                    aadhar_mother: aadharController.text.trim(),email_mother: emailIdController.text.trim(),annual_income_mother: annualIncomeController.text.trim(),
+                                    landline_mother: landlineNOController.text.trim(),name_sibling: siblingController.text.trim(),class_school_sibling: classPrevCon.text.trim(),
+                                    class_sibling: schoolSibblingCon.text.trim()
+                                  ).then((value) {
+                                    if(value.status == true){
+                                      showToast(value.msg.toString().toString());
+                                      Get.toNamed(MyRouters.drawerForUser);
+                                    }else{
+                                      showToast(value.msg.toString().toString());
+                                    }
+                                  });
+                                },
+                                child: const Text('Save',style: TextStyle(color: Colors.white),),
                               ),
                             ),
                             const SizedBox(
-                              height: 50,
+                              height:25,
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (kk == 0.6)
-                Container(
-
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                    BorderRadius.only(topRight: Radius.circular(50)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Form(
-                      key: _formKeyFathers,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 10,),
-                          Center(
-                              child: Text('father\'s information'.toUpperCase(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 19,
-                                      color: AppThemes.primaryColor))),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text('Father\'s Qualification',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            hintText: 'Enter Qualification',
-                            controller: qualificationController,
-                            keyboardType: TextInputType.name,
-                            obSecure: false,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s qualification'),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Occupation',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Father Occupation',
-                            controller: occupationController,
-                            keyboardType: TextInputType.name,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s occupation'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Organization',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          // Container(
-                          //
-                          //   width: Get.width,
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(25),
-                          //   ),
-                          //   child: DropdownButtonFormField(
-                          //     focusColor: Colors.grey.shade50,
-                          //     isExpanded: true,
-                          //     iconEnabledColor: const Color(0xff97949A),
-                          //     icon: const Icon(Icons.keyboard_arrow_down),
-                          //     hint: Text(
-                          //       organization,
-                          //       style: const TextStyle(
-                          //           color: Color(0xff463B57),
-                          //           fontSize: 16,
-                          //           fontWeight: FontWeight.w300),
-                          //       textAlign: TextAlign.justify,
-                          //     ),
-                          //     decoration: InputDecoration(
-                          //         fillColor: Colors.grey.shade50,
-                          //         contentPadding: const EdgeInsets.symmetric(
-                          //             horizontal: 20, vertical: 10),
-                          //         focusedBorder: OutlineInputBorder(
-                          //           borderSide:
-                          //           BorderSide(color: Colors.grey.shade300),
-                          //           borderRadius: BorderRadius.circular(25.0),
-                          //         ),
-                          //         enabledBorder: const OutlineInputBorder(
-                          //             borderSide:
-                          //             BorderSide(color: Color(0xffE3E3E3)),
-                          //             borderRadius:
-                          //             BorderRadius.all(Radius.circular(25.0)))),
-                          //     value: organization,
-                          //     items: organizationItem.map((String items) {
-                          //       return DropdownMenuItem(
-                          //         value: items,
-                          //         child: Text(
-                          //           items,
-                          //           style: const TextStyle(
-                          //               color: Colors.grey, fontSize: 14),
-                          //         ),
-                          //       );
-                          //     }).toList(),
-                          //     onChanged: (String? newValue) {
-                          //       setState(() {
-                          //         organization = newValue!;
-                          //       });
-                          //     },
-                          //   ),
-                          // ),
-                          // Container(
-                          //   height: 55,
-                          //   width: Get.width,
-                          //   decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       border: Border.all(
-                          //           color: Colors.grey,
-                          //           width: 0.5
-                          //       )
-                          //   ),
-                          //   child: PopupMenuButton<String>(
-                          //     shape: Border.all(
-                          //         color: AppThemes.primaryColor
-                          //     ),
-                          //     onSelected: (String newValue) {
-                          //       setState(() {
-                          //         organization = newValue;
-                          //       });
-                          //     },
-                          //     itemBuilder: (BuildContext context) {
-                          //       return organizationItem.map((String item) {
-                          //         return PopupMenuItem<String>(
-                          //           value: item,
-                          //           child: Text(
-                          //             item,
-                          //             style: const TextStyle(color: AppThemes.black, fontSize: 14),
-                          //           ),
-                          //         );
-                          //       }).toList();
-                          //     },
-                          //     child: ListTile(
-                          //       title: Text(
-                          //         organization,
-                          //         style: const TextStyle(
-                          //           color: Colors.grey,
-                          //           fontSize: 16,
-                          //           fontWeight: FontWeight.w300,
-                          //         ),
-                          //         textAlign: TextAlign.justify,
-                          //       ),
-                          //       trailing: const Icon(Icons.keyboard_arrow_down),
-                          //     ),
-                          //   ),
-                          //   // DropdownButtonFormField(
-                          //   //   focusColor: Colors.grey.shade50,
-                          //   //   isExpanded: true,
-                          //   //   iconEnabledColor: const Color(0xff97949A),
-                          //   //   icon: const Icon(Icons.keyboard_arrow_down),
-                          //   //   hint: Text(
-                          //   //     religion,
-                          //   //     style: const TextStyle(
-                          //   //         color: Color(0xff463B57),
-                          //   //         fontSize: 16,
-                          //   //         fontWeight: FontWeight.w300),
-                          //   //     textAlign: TextAlign.justify,
-                          //   //   ),
-                          //   //   decoration: InputDecoration(
-                          //   //       fillColor: Colors.grey.shade50,
-                          //   //       contentPadding: const EdgeInsets.symmetric(
-                          //   //           horizontal: 20, vertical: 10),
-                          //   //       focusedBorder: OutlineInputBorder(
-                          //   //         borderSide:
-                          //   //         BorderSide(color: Colors.grey.shade300),
-                          //   //         borderRadius: BorderRadius.circular(25.0),
-                          //   //       ),
-                          //   //       enabledBorder: const OutlineInputBorder(
-                          //   //           borderSide:
-                          //   //           BorderSide(color: Color(0xffE3E3E3)),
-                          //   //           borderRadius:
-                          //   //           BorderRadius.all(Radius.circular(25.0)))),
-                          //   //   value: religion,
-                          //   //   items: religionItems.map((String items) {
-                          //   //     return DropdownMenuItem(
-                          //   //       value: items,
-                          //   //       child: Text(
-                          //   //         items,
-                          //   //         style: const TextStyle(
-                          //   //             color: Colors.grey, fontSize: 14),
-                          //   //       ),
-                          //   //     );
-                          //   //   }).toList(),
-                          //   //   onChanged: (String? newValue) {
-                          //   //     setState(() {
-                          //   //       religion = newValue!;
-                          //   //     });
-                          //   //   },
-                          //   // ),
-                          // ),
-                          CommonTextfield(
-                            hintText: 'Enter Organization',
-                            obSecure: false,
-                            readOnly: false,
-                            keyboardType: TextInputType.text,
-                            controller: organizationController,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter Organization'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Mobile Number',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            hintText: 'Enter Mobile Number',
-                            obSecure: false,
-                            readOnly: false,
-                            keyboardType: TextInputType.number,
-                            controller: mobileNOController,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s mobile no'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Aadhar Number',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Father Aadhar Number',
-                            controller: aadharController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(12),
-                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                            ],
-                            validator: MultiValidator([
-                            RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s aadhar number'),
-                              LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character"),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Email Id',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Father Email Address',
-                            controller: emailIdController,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s email'),
-                              EmailValidator(errorText: "enter a valid mail")
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Annual Income',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Father annual Income',
-                            controller: annualIncomeController,
-                            keyboardType: TextInputType.number,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s annual income'),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Landline Number',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Landline Number',
-                            controller: landlineNOController,
-                            keyboardType: TextInputType.number,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter father\'s landline no'),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: double.maxFinite,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: AppThemes.primaryColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 13),
-                                  textStyle: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500)),
-                              onPressed: () {
-                                if (_formKeyFathers.currentState!.validate()) {
-                                  kk = 0.8;
-                                  setState(() {});
-                                }
-                              },
-                              child: const Text(
-                                'Continue',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              if (kk == 0.8)
-                Container(
-
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                    BorderRadius.only(topRight: Radius.circular(50)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Form(
-                      key: _formKeyMother,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 10,),
-                          Center(
-                              child: Text('mother\'s information'.toUpperCase(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 19,
-                                      color: AppThemes.primaryColor))),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text('Mothers\'s Qualification',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            hintText: 'Enter Full Name',
-                            controller: motherqualificationController,
-                            keyboardType: TextInputType.name,
-                            obSecure: false,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s qualification'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Occupation',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter mother Occupation',
-                            controller: motheroccupationController,
-                            keyboardType: TextInputType.name,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s occupation'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Organization',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          // Container(
-                          //   height: 55,
-                          //   width: Get.width,
-                          //   decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //       border: Border.all(
-                          //           color: Colors.grey,
-                          //           width: 0.5
-                          //       )
-                          //   ),
-                          //   child: PopupMenuButton<String>(
-                          //     shape: Border.all(
-                          //         color: AppThemes.primaryColor
-                          //     ),
-                          //     onSelected: (String newValue) {
-                          //       setState(() {
-                          //         organization = newValue;
-                          //       });
-                          //     },
-                          //     itemBuilder: (BuildContext context) {
-                          //       return organizationItem.map((String item) {
-                          //         return PopupMenuItem<String>(
-                          //           value: item,
-                          //           child: Text(
-                          //             item,
-                          //             style: const TextStyle(color: AppThemes.black, fontSize: 14),
-                          //           ),
-                          //         );
-                          //       }).toList();
-                          //     },
-                          //     child: ListTile(
-                          //       title: Text(
-                          //         organization,
-                          //         style: const TextStyle(
-                          //           color: Colors.grey,
-                          //           fontSize: 16,
-                          //           fontWeight: FontWeight.w300,
-                          //         ),
-                          //         textAlign: TextAlign.justify,
-                          //       ),
-                          //       trailing: const Icon(Icons.keyboard_arrow_down),
-                          //     ),
-                          //   ),
-                          //   // DropdownButtonFormField(
-                          //   //   focusColor: Colors.grey.shade50,
-                          //   //   isExpanded: true,
-                          //   //   iconEnabledColor: const Color(0xff97949A),
-                          //   //   icon: const Icon(Icons.keyboard_arrow_down),
-                          //   //   hint: Text(
-                          //   //     religion,
-                          //   //     style: const TextStyle(
-                          //   //         color: Color(0xff463B57),
-                          //   //         fontSize: 16,
-                          //   //         fontWeight: FontWeight.w300),
-                          //   //     textAlign: TextAlign.justify,
-                          //   //   ),
-                          //   //   decoration: InputDecoration(
-                          //   //       fillColor: Colors.grey.shade50,
-                          //   //       contentPadding: const EdgeInsets.symmetric(
-                          //   //           horizontal: 20, vertical: 10),
-                          //   //       focusedBorder: OutlineInputBorder(
-                          //   //         borderSide:
-                          //   //         BorderSide(color: Colors.grey.shade300),
-                          //   //         borderRadius: BorderRadius.circular(25.0),
-                          //   //       ),
-                          //   //       enabledBorder: const OutlineInputBorder(
-                          //   //           borderSide:
-                          //   //           BorderSide(color: Color(0xffE3E3E3)),
-                          //   //           borderRadius:
-                          //   //           BorderRadius.all(Radius.circular(25.0)))),
-                          //   //   value: religion,
-                          //   //   items: religionItems.map((String items) {
-                          //   //     return DropdownMenuItem(
-                          //   //       value: items,
-                          //   //       child: Text(
-                          //   //         items,
-                          //   //         style: const TextStyle(
-                          //   //             color: Colors.grey, fontSize: 14),
-                          //   //       ),
-                          //   //     );
-                          //   //   }).toList(),
-                          //   //   onChanged: (String? newValue) {
-                          //   //     setState(() {
-                          //   //       religion = newValue!;
-                          //   //     });
-                          //   //   },
-                          //   // ),
-                          // ),
-                          CommonTextfield(
-                            hintText: 'Enter Organization',
-                            obSecure: false,
-                            readOnly: false,
-                            keyboardType: TextInputType.number,
-                            controller: organizationController1,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter Organization'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Mobile Number',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            hintText: 'Enter Mobile Number',
-                            obSecure: false,
-                            readOnly: false,
-                            keyboardType: TextInputType.number,
-                            controller: mothermobileNOController,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s mobile no'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Aadhar Number',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter mother Aadhar Number',
-                            controller: motheraadharController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(12),
-                              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                            ],
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s aadhar number'),
-                              LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character"),
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Email Id',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter mother Email Address',
-                            controller: motheremailIdController,
-                            keyboardType: TextInputType.emailAddress,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s email'),
-                              EmailValidator(errorText: "enter a valid mail")
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Annual Income',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter mother annual Income',
-                            controller: motherannualIncomeController,
-                            keyboardType: TextInputType.number,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s annual income'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Landline Number',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Landline Number',
-                            controller: motherlandlineNOController,
-                            keyboardType: TextInputType.number,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter mother\'s landline no'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: double.maxFinite,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: AppThemes.primaryColor,
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
-                                  textStyle:
-                                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                              onPressed: () {
-                                if (_formKeyMother.currentState!.validate()) {
-                                  kk = 1;
-                                  setState(() {
-
-                                  });
-                                }},
-                              child: const Text('Continue',style: TextStyle(color: Colors.white),),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              if (kk == 1)
-                Container(
-                  height: Get.height,
-                  // height: AddSize.screenHeight,
-                  decoration: const BoxDecoration(
-                    borderRadius:
-                    BorderRadius.only(topRight: Radius.circular(50)),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Form(
-                      key: _formKeySibling,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 10,),
-                          Center(
-                              child: Text('sibling information'.toUpperCase(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 19,
-                                      color: AppThemes.primaryColor))),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text('Name',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            hintText: 'Enter Full Name',
-                            controller: siblingController,
-                            keyboardType: TextInputType.name,
-                            obSecure: false,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter sibling\'s name'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('Class',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter Class Name',
-                            controller: schoolSibblingCon,
-                            keyboardType: TextInputType.name,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter Class Name'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          const Text('School/Collage Currently Studing',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Colors.black)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          CommonTextfield(
-                            obSecure: false,
-                            hintText: 'Enter School/Collage Name',
-                            controller: collegController,
-                            keyboardType: TextInputType.name,
-                            validator: MultiValidator([
-                              RequiredValidator(
-                                  errorText:
-                                  'Please Enter colage\'s name'),
-
-                            ]),
-                          ),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          SizedBox(
-                            width: double.maxFinite,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: AppThemes.primaryColor,
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
-                                  textStyle:
-                                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                              onPressed: () {
-                                addMissionRepo(context: context,appliedForId: 1,appliedFor: 'School',name: stNameController.text.trim(),
-                                  fatherName: fatherNameController.text.trim(),motherName: motherNameController.text.trim(),dob: dobController.text.trim(),
-                                  category: category.toString(),adharNo: adharcardNo.text.trim(),
-                                  gender: gender.toString(), motherTongue: 'hindi',bloodGroup: bloodGroup.text.trim(),religion: 'hindhu',nationality: 'indian',
-                                  address: addressController.text.trim(),state: 'raj',city: 'hmh',pincode: pincodeController.text.trim(),previous_school_name: schoolNameController.text.trim(),
-                                  location: locationController.text.trim(),classprev: classPrevCon.text.trim(),yearOfStudy: yearprevSchoolCon.text.trim(),
-                                  percentage: percentageController.text.trim(),father_name: fatherNameController.text.trim(),occupation: occupationController.text.trim(),
-                                  organization: organizationController.text.trim(),mobile_number: mobileNOController.text.trim(),aadhar_number: aadharController.text.trim(),
-                                  email_father: emailIdController.text.trim(),annual_income_father: annualIncomeController.text.trim(),landline_number: landlineNOController.text.trim(),
-                                  mother_name: motherNameController.text.trim(),occupation_mother: occupationController.text.trim(),
-                                  organization_mother: organizationController.text.trim(),mobile_mother: mobileNOController.text.trim(),
-                                  aadhar_mother: aadharController.text.trim(),email_mother: emailIdController.text.trim(),annual_income_mother: annualIncomeController.text.trim(),
-                                  landline_mother: landlineNOController.text.trim(),name_sibling: siblingController.text.trim(),class_school_sibling: classPrevCon.text.trim(),
-                                  class_sibling: schoolSibblingCon.text.trim()
-                                ).then((value) {
-                                  if(value.status == true){
-                                    showToast(value.msg.toString().toString());
-                                    Get.toNamed(MyRouters.drawerForUser);
-                                  }else{
-                                    showToast(value.msg.toString().toString());
-                                  }
-                                });
-                              },
-                              child: const Text('Save',style: TextStyle(color: Colors.white),),
-                            ),
-                          ),
-                          const SizedBox(
-                            height:120,
-                          ),
-                        ],
                       ),
                     ),
                   ),

@@ -695,7 +695,6 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                     width: size.width * .505,
                                                     child: Text(
                                                         value.subject!.name!,
-                                                        //
                                                         // 'Social Science Social Science Social Science Social Science Social Science',
                                                         style: GoogleFonts.poppins(
                                                             color: AppThemes.blueColor,

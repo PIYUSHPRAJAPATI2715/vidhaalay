@@ -617,7 +617,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                       ),
                                                     ),
                                                     Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
                                                         ClipOval(
@@ -627,7 +627,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'By :',
+                                                          'By : ',
                                                           style: GoogleFonts.poppins(
                                                               color: Colors.grey,
                                                               fontSize: 12.0,

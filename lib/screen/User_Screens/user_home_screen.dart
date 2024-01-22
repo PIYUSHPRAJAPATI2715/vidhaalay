@@ -1105,7 +1105,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                             color: AppThemes.white,
                                                             fontWeight: FontWeight.w700,
                                                             fontSize: 12),
-                                                        maxLines: 3,
+                                                        maxLines: 1,
                                                         overflow: TextOverflow.ellipsis,
                                                       ),
                                                       const SizedBox(

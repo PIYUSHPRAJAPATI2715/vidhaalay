@@ -515,7 +515,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                              values.from!,
+                                       values.from!,
                                         // '16th Mar',
                                         style: GoogleFonts.poppins(
                                             color: AppThemes.black,
@@ -523,7 +523,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Container(
-                                        width: size.width * .40,
+                                        width: size.width * .52,
                                         padding: const EdgeInsets.all(9),
                                         decoration: BoxDecoration(
                                             color: AppThemes.lightPink,
@@ -536,12 +536,13 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                           children: [
                                             Text(
                                               values.subjectName!,
-
-                                              // 'Social Science',
+                                              // 'Social Scien/ce Social Science Social Science Social Science Social Science',
                                               style: GoogleFonts.poppins(
                                                   color: AppThemes.blueColor,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w600),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
                                               values.marks! + "/" + values.totalMarks.toString(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
 import '../screen/User_Screens/drawer_user.dart';
 import '../screen/User_Screens/my_lecturs_screen.dart';
 import '../screen/User_Screens/notification_user_screen.dart';
@@ -51,4 +53,18 @@ class BottomNavBarController extends GetxController {
     // const UserMoreScreen(),
     // const MoreScreen(),
   ];
+
+  RxBool isClassLoading = true.obs;
+  Rx<ClassList> getClassListModel = ClassList().obs;
+  String? userClassName;
+
+  Future getClassListData() async {
+    isClassLoading.value = true;
+    await getClassListRepo().then((value) {
+      print("class value : $value");
+      getClassListModel.value = value;
+      isClassLoading.value = false;
+    });
+  }
+
 }

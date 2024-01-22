@@ -615,7 +615,13 @@ class _SignInPageState extends State<SignInPage> {
                         ElevatedButton(
                           onPressed: () async {
                             // String? token = await FirebaseMessaging.instance.getToken();
-                            signInController.login(context);
+                            if (signInController.formKey.currentState!.validate()) {
+                              FocusManager.instance.primaryFocus!.unfocus();
+                              signInController.login(context: context,email: signInController.emailController.text,
+                                type:  signInController.userType.value,
+                                pass: signInController.passwordController.text,
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),

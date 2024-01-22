@@ -11,6 +11,7 @@ import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 import 'package:http/http.dart' as http;
+import 'package:vidhaalay_app/widgets/resources.dart';
 
 class UpdateEventController extends GetxController {
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
@@ -110,11 +111,12 @@ class UpdateEventController extends GetxController {
     try {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
+      String eveName = capitalizeFirstLetter(eventName.text);
 
       // isDataLoading.value = true;
       Map body = {
         "id": id,
-        "event_name":name,
+        "event_name": eveName,
         "event_class_id": int.parse(selectClass!),
         "message":message,
         "date":date

@@ -10,6 +10,7 @@ import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay_app/widgets/resources.dart';
 
 
 class CreateAssignmentController extends GetxController {
@@ -66,8 +67,10 @@ class CreateAssignmentController extends GetxController {
       OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
 
+      String assiName = capitalizeFirstLetter(assignmentName.text);
+
       Map body = {
-        "assignment_name": assignmentName.text,
+        "assignment_name": assiName,
         "tagline": tagline.text,
         "subject_id": int.parse(selectedSubject!),
         "class_id": int.parse(selectClass!),

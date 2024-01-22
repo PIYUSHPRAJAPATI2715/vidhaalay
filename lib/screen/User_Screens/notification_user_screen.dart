@@ -579,9 +579,15 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceBetween,
                                                                           children: [
-                                                                            Text(
-                                                                              items.title.toString(),
-                                                                              style: GoogleFonts.poppins(color: AppThemes.primaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                                                            Container(
+                                                                              // color: Colors.green,
+                                                                              width: size.width * .6,
+                                                                              child: Text(
+                                                                                items.title.toString(),
+                                                                                style: GoogleFonts.poppins(color: AppThemes.primaryColor, fontSize: 15, fontWeight: FontWeight.w500),
+                                                                                maxLines: 1,
+                                                                                overflow: TextOverflow.ellipsis,
+                                                                              ),
                                                                             ),
                                                                             Text(
                                                                               formattedDate.toString(),
@@ -597,6 +603,8 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                                               color: Colors.grey,
                                                                               fontSize: 10,
                                                                               fontWeight: FontWeight.w500),
+                                                                          maxLines: 3,
+                                                                          overflow: TextOverflow.ellipsis,
                                                                         ),
                                                                       ],
                                                                     ),

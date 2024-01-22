@@ -82,7 +82,7 @@ class ApiUrls {
   static const String createAssignment = "${apiBaseUrl}assignment/create";
   static const String updateAssignment = "${apiBaseUrl}assignment/update";
   static const String deleteAssignment = "${apiBaseUrl}assignment";
-  static const String latestAssignment = "${apiBaseUrl}assignment/findLatest";
+  static const String latestAssignment = "${apiBaseUrl}assignment/home/findLatest";
 
   //Student
   static const String assignmentListUrl = "${apiBaseUrl}assignment";

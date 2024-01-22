@@ -302,6 +302,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                                   height: size.height*.010,
                                                 ),
                                                 Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     ClipOval(
@@ -312,7 +313,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                                     ),
                                                     const SizedBox(width: 10),
                                                     Text(
-                                                      'By :',
+                                                      'By : ',
                                                       style: GoogleFonts.poppins(
                                                           color: Colors.grey,
                                                           fontSize: 12.0,

@@ -384,11 +384,14 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
 
                                 return Padding(
                                   padding: EdgeInsets.symmetric(vertical: 10),
-                                  child: GestureDetector(
+                                  child: InkWell(
                                     onTap: () {
                                       Get.to(() => AssignmentDetailScreen(), arguments: items.id.toString());
                                     },
                                     child: Container(
+                                      width: size.width * 0.72,
+                                      padding: EdgeInsets.symmetric(vertical: 5),
+                                      // color: Colors.amber,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -397,19 +400,25 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                items.assignmentName!,
-                                                // 'Social Science',
-                                                style: GoogleFonts.poppins(
-                                                    color: AppThemes.blueColor,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600
-                                                ),),
+                                              Container(
+                                                width: size.width * 0.62,
+                                                // color: Colors.amber,
+                                                child: Text(
+                                                  items.assignmentName!,
+                                                  // 'Social Science Social Science Social Science Social Science',
+                                                  style: GoogleFonts.poppins(
+                                                      color: AppThemes.blueColor,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w600
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
                                               Row(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-
                                                   ClipOval(
                                                     child: Image.asset(
                                                       AppAssets.studentImg,
@@ -417,19 +426,26 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    'By :',
+                                                    'By : ',
                                                     style: GoogleFonts.poppins(
                                                         color: Colors.grey,
                                                         fontSize: 12.0,
                                                         fontWeight: FontWeight.w500
                                                     ),
                                                   ),
-                                                  Text(
-                                                    'Rosie David',
-                                                    style:  GoogleFonts.poppins(
-                                                        color: Colors.black,
-                                                        fontSize: 12.0,
-                                                        fontWeight: FontWeight.w500
+                                                  Container(
+                                                    width: size.width * 0.2,
+                                                    // color: Colors.amber,
+                                                    child: Text(
+                                                      items.teacher!.name!,
+                                                      // 'Rosie David',
+                                                      style:  GoogleFonts.poppins(
+                                                          color: Colors.black,
+                                                          fontSize: 12.0,
+                                                          fontWeight: FontWeight.w500
+                                                      ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ),
                                                 ],
@@ -442,7 +458,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                           ),
                                           Text(
                                             items.detail!,
-                                            // 'It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
+                                            // 'It has survived not only five centuries, but alse five centuries, but alse the leep into electron five centuries, but alse the leep into electron the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
                                             style: TextStyle(
                                                 color: AppThemes.blueColor,
                                                 fontSize: 9,

@@ -172,8 +172,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                               onTap: () {
                                 print("Tap");
                                 Get.toNamed(MyRouters.celebrationScreenStu, arguments: studentHomeController.getLatestEventModel.value.data?.id.toString());
-                                // Get.toNamed(MyRouters.teacherEventsScreen);
-                                // Get.to(() => TeacherEventsScreen());
+
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,6 +310,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                                 ),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
                                                     ClipOval(
                                                       child: Image.asset(
@@ -320,7 +320,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                                     ),
                                                     const SizedBox(width: 10),
                                                     Text(
-                                                      'By :',
+                                                      'By : ',
                                                       style: GoogleFonts.poppins(
                                                           color: Colors.grey,
                                                           fontSize: 12.0,
@@ -420,7 +420,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                 Get.to(() => AssignmentDetailScreen(), arguments: studentHomeController.getLatestAssignmentModel.value.data!.id.toString());
                               },
                               child: Column(
-                                                                children: [
+                                 children: [
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

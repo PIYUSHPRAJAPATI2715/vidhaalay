@@ -38,7 +38,9 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          title: Text('Holi Celebration',
+          title: Text( notificationController.isDetailsLoading.value == false ? '' :
+          notificationController.getNotificationDetailsModel.value.data!.title!.toString(),
+            // 'Holi Celebration',
             style: GoogleFonts.poppins(
               fontSize: 19,
               fontWeight: FontWeight.w600,
@@ -49,7 +51,7 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
           actions: [
             IconButton(
                 onPressed: () async{
-                  await Share.share('Holi Celebration');
+                  await Share.share(notificationController.getNotificationDetailsModel.value.data!.title!.toString(),);
                 },
                 icon: const Icon( Icons.share,color: Colors.black,)
             )
@@ -104,10 +106,9 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
                         height: 7,
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-
                           ClipOval(
                             child: Image.asset(
                               AppAssets.studentImg,
@@ -118,7 +119,7 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
                             width: 5,
                           ),
                           Text(
-                            'By :',
+                            'By : ',
                             style: GoogleFonts.poppins(
                                 color: Colors.grey,
                                 fontSize: 12.0,
@@ -139,7 +140,7 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
                         height: 7,
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
 
@@ -174,7 +175,7 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
                         height: 7,
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
 

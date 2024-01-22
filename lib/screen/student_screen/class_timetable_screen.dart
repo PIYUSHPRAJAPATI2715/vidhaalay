@@ -344,7 +344,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
             top: size.height*.230,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
-              height: size.height,
+              height: size.height * 0.4,
               width: size.width,
               decoration: const BoxDecoration(
                 color: AppThemes.white,
@@ -353,7 +353,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
               child: Obx(() {
                 return  !studentClassTimeController.isDataLoading.value ?
                 SingleChildScrollView(
-                  // physics: BouncingScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -370,8 +370,11 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                           child: Center(child: Text('No time table available')
                           )
                       )
-                          : SizedBox(
+                          : Container(
                         height: size.height,
+                        width: size.width,
+                        // color: Colors.black,
+
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: studentClassTimeController.getTimetableModel.value.data!.length,
@@ -406,7 +409,8 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                                 color: AppThemes.black,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600
-                                            ),),
+                                            ),
+                                          ),
                                           Text(
                                             // '08 AM',
                                             value.toTime!.toString(),
@@ -433,14 +437,17 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                           children: [
                                             Text(
                                               value.subject!.name.toString(),
-                                              // 'Social Science',
+                                              // "Test test test  test test test testvtest test test test",
                                               style: GoogleFonts.poppins(
                                                   color: AppThemes.blueColor,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w600
-                                              ),),
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                             Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 ClipOval(
@@ -453,24 +460,27 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  'By :',
+                                                  'By : ',
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.grey,
                                                       fontSize: 12.0,
                                                       fontWeight: FontWeight.w500
                                                   ),
                                                 ),
-                                                Text(
-                                                  // "Test test test test test test test",
-                                                  value.teacher!.name.toString(),
-                                                  // 'Rosie David',
-                                                  style:  GoogleFonts.poppins(
-                                                      color: Colors.black,
-                                                      fontSize: 12.0,
-                                                      fontWeight: FontWeight.w500
+                                                Container(
+                                                  width: size.width * .52,
+                                                  // color: Colors.amber,
+                                                  child: Text(
+                                                    // "Test test test  test test test testvtest test test test",
+                                                    value.teacher!.name.toString(),
+                                                    style:  GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w500
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),

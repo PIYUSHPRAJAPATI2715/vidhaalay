@@ -500,8 +500,145 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
+                                  // Container(
+                                  //   width: size.width * .9,
+                                  //   padding: const EdgeInsets.all(9),
+                                  //   decoration: BoxDecoration(
+                                  //       color: AppThemes.lightGreyColor,
+                                  //       borderRadius: BorderRadius.circular(8)
+                                  //   ),
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Row(
+                                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                                  //         children: [
+                                  //           Column(
+                                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                                  //             mainAxisAlignment: MainAxisAlignment.start,
+                                  //             children: [
+                                  //               Text(
+                                  //                 fromTime,
+                                  //                 // '08: AM',
+                                  //                 style: GoogleFonts.poppins(
+                                  //                     color: AppThemes.black,
+                                  //                     fontSize: 14,
+                                  //                     fontWeight: FontWeight.w600
+                                  //                 ),
+                                  //               ),
+                                  //               Text(
+                                  //                 // '09: AM',
+                                  //                 toTime,
+                                  //                 style: GoogleFonts.poppins(
+                                  //                     color: AppThemes.black,
+                                  //                     fontSize: 14,
+                                  //                     fontWeight: FontWeight.w600
+                                  //                 ),),
+                                  //             ],
+                                  //           ),
+                                  //           SizedBox(
+                                  //             width: 10,
+                                  //             height: size.height * .055,
+                                  //             child:  VerticalDivider(
+                                  //               thickness: 1,
+                                  //               color: AppThemes.black,
+                                  //             ),
+                                  //           ),
+                                  //           Container(
+                                  //             // color: Colors.green,
+                                  //             // width: size.width * .47,
+                                  //             child: Column(
+                                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                                  //               mainAxisAlignment: MainAxisAlignment.start,
+                                  //               children: [
+                                  //                 Text(
+                                  //                   value.subject!.name!,
+                                  //
+                                  //                   // 'Social Science',
+                                  //                   style: GoogleFonts.poppins(
+                                  //                       color: AppThemes.blueColor,
+                                  //                       fontSize: 14,
+                                  //                       fontWeight: FontWeight.w600
+                                  //                   ),
+                                  //                   maxLines: 1,
+                                  //                   overflow: TextOverflow.ellipsis,
+                                  //                 ),
+                                  //                 const SizedBox(
+                                  //                   height: 5,
+                                  //                 ),
+                                  //                 Row(
+                                  //                   children: [
+                                  //                     Text('Class A-1',
+                                  //                       style: GoogleFonts.poppins(
+                                  //                           color: AppThemes.textGray,
+                                  //                           fontSize: 10,
+                                  //                           fontWeight: FontWeight.w500
+                                  //                       ),),
+                                  //
+                                  //                     Padding(
+                                  //                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  //                       child: const SizedBox(
+                                  //                         height: 20,
+                                  //                         child: VerticalDivider(
+                                  //                           width: 1,
+                                  //                           color: Colors.grey,
+                                  //                         ),
+                                  //                       ),
+                                  //                     ),
+                                  //
+                                  //                     Row(
+                                  //                       crossAxisAlignment: CrossAxisAlignment.start,
+                                  //                       mainAxisAlignment: MainAxisAlignment.start,
+                                  //                       children: [
+                                  //                         ClipOval(
+                                  //                           child: Image.asset(
+                                  //                             AppAssets.studentImg,
+                                  //                             width: 15,
+                                  //                           ),
+                                  //                         ),
+                                  //                         const SizedBox(
+                                  //                           width: 5,
+                                  //                         ),
+                                  //                         Text(
+                                  //                           'By : ',
+                                  //                           style: GoogleFonts.poppins(
+                                  //                               color: Colors.grey,
+                                  //                               fontSize: 12.0,
+                                  //                               fontWeight: FontWeight.w500
+                                  //                           ),
+                                  //                         ),
+                                  //                         Container(
+                                  //                           width: size.width * .4,
+                                  //                           // color: Colors.amber,
+                                  //                           child: Text(
+                                  //                             value.teacher!.name!,
+                                  //                             // 'Rosie David',
+                                  //                             style:  GoogleFonts.poppins(
+                                  //                                 color: Colors.black,
+                                  //                                 fontSize: 12.0,
+                                  //                                 fontWeight: FontWeight.w500
+                                  //                             ),
+                                  //                             maxLines: 1,
+                                  //                             overflow: TextOverflow.ellipsis,
+                                  //                           ),
+                                  //                         ),
+                                  //                       ],
+                                  //                     ),
+                                  //                   ],
+                                  //                 ),
+                                  //
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   Container(
-                                    width: size.width * .9,
+                                    width: size.width * 0.92,
                                     padding: const EdgeInsets.all(9),
                                     decoration: BoxDecoration(
                                         color: AppThemes.lightGreyColor,
@@ -539,7 +676,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                             ),
                                             SizedBox(
                                               width: 10,
-                                              height: size.height * .055,
+                                              height: size.height * .05,
                                               child:  VerticalDivider(
                                                 thickness: 1,
                                                 color: AppThemes.black,
@@ -552,32 +689,44 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    value.subject!.name!,
-
-                                                    // 'Social Science',
-                                                    style: GoogleFonts.poppins(
-                                                        color: AppThemes.blueColor,
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w600
+                                                  Container(
+                                                    // color: Colors.green,
+                                                    width: size.width * .73,
+                                                    child: Text(
+                                                      value.subject!.name!,
+                                                      // 'Social Science Social Science Social Science Social Science Social Science',
+                                                      style: GoogleFonts.poppins(
+                                                          color: AppThemes.blueColor,
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w600
+                                                      ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
                                                     ),
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
                                                   ),
+
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
                                                   Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text('Class A-1',
-                                                        style: GoogleFonts.poppins(
-                                                            color: AppThemes.textGray,
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w500
-                                                        ),),
-
+                                                      Container(
+                                                        width: size.width * .32,
+                                                        // color: Colors.amber,
+                                                        child: Text(
+                                                          'Class - ' + value.seatClass!.name!,
+                                                          style: GoogleFonts.poppins(
+                                                              color: AppThemes.textGray,
+                                                              fontSize: 10,
+                                                              fontWeight: FontWeight.w500
+                                                          ),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
                                                       Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
                                                         child: const SizedBox(
                                                           height: 20,
                                                           child: VerticalDivider(
@@ -586,7 +735,6 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                           ),
                                                         ),
                                                       ),
-
                                                       Row(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -609,8 +757,8 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: size.width * .4,
-                                                            color: Colors.amber,
+                                                            width: size.width * .25,
+                                                            // color: Colors.amber,
                                                             child: Text(
                                                               value.teacher!.name!,
                                                               // 'Rosie David',
@@ -627,7 +775,6 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                       ),
                                                     ],
                                                   ),
-
                                                 ],
                                               ),
                                             ),

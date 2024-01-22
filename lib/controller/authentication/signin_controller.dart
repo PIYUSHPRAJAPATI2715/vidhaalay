@@ -60,16 +60,24 @@ class SignInController extends GetxController {
     }
   }
 
-  Future<void> login(BuildContext context) async {
-    if (formKey.currentState!.validate()) {
-      FocusManager.instance.primaryFocus!.unfocus();
-      OverlayEntry loader = Helpers.overlayLoader(context);
+
+
+  Future<void> login({
+    required BuildContext context,
+    required String email,
+    required String pass,
+    required String type,
+  }) async {
+     OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
 
       var userInfo = <String, dynamic>{};
-      userInfo['email'] = emailController.text;
-      userInfo['password'] = passwordController.text;
-      userInfo['type'] =  userType.value;
+      userInfo['email'] = email;
+          // emailController.text;
+      userInfo['password'] = pass;
+          // passwordController.text;
+      userInfo['type'] = type;
+          // userType.value;
       userInfo['device_type'] = deviceType;
       userInfo['device_token'] = deviceToken;
       print("userInfo : $userInfo");
@@ -94,7 +102,7 @@ class SignInController extends GetxController {
 
         SharedPreferences pref = await SharedPreferences.getInstance();
 
-        if (userType.value == "user") {
+        if (type == "user") {
           print("Enter");
           final value = LoginModel.fromJson(jsonDecode(response.body));
           print("value : $value");
@@ -124,10 +132,11 @@ class SignInController extends GetxController {
             // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
           } else {
             pref.setBool('isLoggedIn', true);
+            print("Enter Login Home ");
             // Get.offAllNamed(MyRouters.drawerForUser);
             Get.offAll(() => BottomBarScreen(userType: 0,));
           }
-        } else if (userType.value == "teacher") {
+        } else if (type == "teacher") {
           final value = LoginModelTeacher.fromJson(jsonDecode(response.body));
 
           print("Enter Teacher");
@@ -150,7 +159,6 @@ class SignInController extends GetxController {
           }).toList();
           print('Retrieved List model from resultList: $resultList');
 
-
           // List<Map<String, dynamic>> resultMapList =
           // (classListJson ?? []).map<Map<String, dynamic>>((jsonString) {
           //   return json.decode(jsonString);
@@ -160,7 +168,7 @@ class SignInController extends GetxController {
           // Get.offAllNamed(MyRouters.drawerForTeacher);
           Get.offAll(() => BottomBarScreen(userType: 1,));
 
-        } else if (userType.value == "student") {
+        } else if (type == "student") {
           print("Enter000");
 
           final value = LoginStudentModel.fromJson(jsonDecode(response.body));
@@ -176,8 +184,9 @@ class SignInController extends GetxController {
           print("student id : ${value.data!.id.toString()}");
           print("student token : ${value.data!.token.toString()}");
 
-          // Get.offAllNamed(MyRouters.drawerForStudent);
           Get.offAll(() => BottomBarScreen(userType: 2,));
+
+          // Get.offAllNamed(MyRouters.drawerForStudent);
 
 
           // Get.offAllNamed(MyRouters.bottomNavigationStudentScreen);
@@ -205,7 +214,6 @@ class SignInController extends GetxController {
           //     isMobileVerify,
           //     isEmailVerify
           //   ]);
-          //
           //   // Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
           // } else {
           //   print("E1");
@@ -271,7 +279,6 @@ class SignInController extends GetxController {
       //     showToast(value.msg.toString());
       //   }
       // });
-    }
   }
 
 // login(token) {

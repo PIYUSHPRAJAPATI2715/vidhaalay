@@ -10,6 +10,8 @@ import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
 
+import '../../widgets/resources.dart';
+
 
 class CreateEventController extends GetxController {
   Rx<CreateEvent> createEventModel = CreateEvent().obs;
@@ -86,9 +88,10 @@ class CreateEventController extends GetxController {
       Overlay.of(context).insert(loader);
 
       // isDataLoading.value = true;
+      String eveName = capitalizeFirstLetter(eventName.text);
 
       Map body = {
-          "event_name": eventName.text,
+          "event_name": eveName,
           "event_class_id": int.parse(selectClass!),
           "message": message.text,
           "date": dobController.text
