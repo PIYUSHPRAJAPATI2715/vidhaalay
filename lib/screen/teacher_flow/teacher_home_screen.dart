@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
 import '../../controller/bottom_controller.dart';
 import '../../controller/teacher_controller/teacherHomeController.dart';
@@ -26,8 +27,8 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
     // TODO: implement initState
     super.initState();
     print("Teacher home enter");
-
     teacherHomeController.getLatestEventData();
+    teacherHomeController.getLatestAssignmentRepo();
   }
 
   @override
@@ -196,7 +197,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w700
                                               ),
-                                              maxLines: 2,
+                                              maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           )
@@ -348,14 +349,13 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                     ],
                   ),
                 ),
-
                 const Divider(
                   color: AppThemes.dividerColor,
                   height: 0.2,
                   thickness: 1,
                 ),
                 Container(
-                  height: size.height * 0.445,
+                  height: size.height * 0.44,
                   decoration: const BoxDecoration(
                     // color: Colors.pink
                       gradient: LinearGradient(colors: [
@@ -377,6 +377,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20).copyWith(
                             bottom: 25
                         ),
+                        height: size.height * 0.19,
                         width: double.maxFinite,
                         decoration: const BoxDecoration(
                             color: Colors.white,
@@ -398,65 +399,100 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                             const SizedBox(
                               height: 12,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Social Science',
-                                  style: GoogleFonts.poppins(
-                                      color: AppThemes.blueColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600
-                                  ),),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
 
-                                    ClipOval(
-                                      child: Image.asset(
-                                        AppAssets.studentImg,
-                                        width: 13,
+                            teacherHomeController.isAssignmentLoading.value || teacherHomeController.getLatestAssignmentModel.value.data == null
+                                ?  SizedBox() : GestureDetector(
+                              onTap: () {
+                                Get.to(() => AssignmentDetailScreen(), arguments: teacherHomeController.getLatestAssignmentModel.value.data!.id.toString());
+                              },
+                              child: Column(
+                                                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: size.width * 0.54,
+                                        // color: Colors.amber,
+                                        child: Text(
+                                          teacherHomeController.getLatestAssignmentModel.value.data!.assignmentName!.toString(),
+                                          // 'Social Science',
+                                          style: GoogleFonts.poppins(
+                                              color: AppThemes.blueColor,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'By :',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.grey,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+
+                                          ClipOval(
+                                            child: Image.asset(
+                                              AppAssets.studentImg,
+                                              width: 13,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(
+                                            'By : ',
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.grey,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w500
+                                            ),
+                                          ),
+                                          Container(
+                                            width: size.width * 0.215,
+                                            // color: Colors.amber,
+                                            child: Text(
+                                              teacherHomeController.getLatestAssignmentModel.value.data!.teacher!.name!.toString(),
+                                              // 'Rosie David',
+                                              style:  GoogleFonts.poppins(
+                                                  color: Colors.black,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w500
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+
+                                            ),
+                                          ),
+                                        ],
                                       ),
+
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    teacherHomeController.getLatestAssignmentModel.value.data!.detail.toString(),
+                                    // 'It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the as survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
+                                    style: TextStyle(
+                                        color: AppThemes.blueColor,
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w300
                                     ),
-                                    Text(
-                                      'Rosie David',
-                                      style:  GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500
-                                      ),
-                                    ),
-                                  ],
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                                                ],
+                                                              ),
                                 ),
-
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            const Text('It has survived not only five centuries, but alse the leep into electronic typesetting remaining essentially unchanged. It was popularised in the',
-                              style: TextStyle(
-                                  color: AppThemes.blueColor,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w300
-                              ),
-                            ),
                           ],
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 18),
                         width: double.maxFinite,
-                        height: size.height * 0.26,
+                        height: size.height * 0.25,
                         decoration: const BoxDecoration(
                             color:  AppThemes.primaryColor,
                             borderRadius: BorderRadius.only(

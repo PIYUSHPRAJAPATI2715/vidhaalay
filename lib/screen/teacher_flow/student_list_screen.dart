@@ -320,13 +320,20 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                                 const SizedBox(
                                                   width: 12,
                                                 ),
-                                                Text(
-                                                  studentListController.getStudentListModel.value.data![index].name.toString(),
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight
-                                                        .w500,
-                                                    fontSize: 15,
-                                                    color: AppThemes.black,
+                                                Container(
+                                                  width: size.width * 0.67,
+                                                  // color: Colors.grey,
+                                                  child: Text(
+                                                    // "Test test test ytet ysguhfjifjofjojoj",
+                                                    studentListController.getStudentListModel.value.data![index].name.toString(),
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight
+                                                          .w500,
+                                                      fontSize: 15,
+                                                      color: AppThemes.black,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                               ],

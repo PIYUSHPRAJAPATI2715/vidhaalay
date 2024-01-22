@@ -44,6 +44,7 @@ class Data {
   Subject? subject;
   ExamType? examType;
   Teacher? teacher;
+  SeatClass? seatClass;
 
   Data(
       {this.id,
@@ -61,7 +62,8 @@ class Data {
         this.updatedAt,
         this.subject,
         this.examType,
-        this.teacher});
+        this.teacher,
+        this.seatClass});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -84,6 +86,9 @@ class Data {
         : null;
     teacher =
     json['teacher'] != null ? new Teacher.fromJson(json['teacher']) : null;
+    seatClass = json['SeatClass'] != null
+        ? new SeatClass.fromJson(json['SeatClass'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -109,6 +114,9 @@ class Data {
     }
     if (this.teacher != null) {
       data['teacher'] = this.teacher!.toJson();
+    }
+    if (this.seatClass != null) {
+      data['SeatClass'] = this.seatClass!.toJson();
     }
     return data;
   }
@@ -179,6 +187,25 @@ class Teacher {
     data['id'] = this.id;
     data['name'] = this.name;
     data['profile_image'] = this.profileImage;
+    return data;
+  }
+}
+
+class SeatClass {
+  int? id;
+  String? name;
+
+  SeatClass({this.id, this.name});
+
+  SeatClass.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     return data;
   }
 }

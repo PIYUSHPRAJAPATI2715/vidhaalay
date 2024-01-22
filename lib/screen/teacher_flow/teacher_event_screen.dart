@@ -208,29 +208,6 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 5),
-                      //   child: Container(
-                      //     transformAlignment: Alignment.center,
-                      //     width: size.width * .45,
-                      //     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                      //     decoration: BoxDecoration(
-                      //       // color: Colors.white,
-                      //         borderRadius: BorderRadius.circular(50)
-                      //     ),
-                      //     child: Center(
-                      //       child: Text(year.value.toString(),
-                      //         style: GoogleFonts.poppins(
-                      //             fontWeight: FontWeight.w500,
-                      //             fontSize: 17,
-                      //             color: Colors.white),
-                      //         textAlign: TextAlign.center,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
-                      /* */
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Container(
@@ -292,100 +269,6 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                       width: size.width * 0.3,
                                     ),
 
-                                    // DropdownButtonHideUnderline(
-                                    //       child: DropdownButton2(
-                                    //         value:  evenetDetailController.selectedClassId?.value,
-                                    //         // icon: Icon(Icons.keyboard_arrow_down,color: Colors.black),
-                                    //         dropdownStyleData: DropdownStyleData(
-                                    //           maxHeight: size.height * 0.28,
-                                    //           width: size.width * 0.3,
-                                    //           padding: EdgeInsets.symmetric(horizontal: 5),
-                                    //           isOverButton: false,
-                                    //           decoration: BoxDecoration(
-                                    //             borderRadius: BorderRadius.circular(14),
-                                    //             color: Colors.white70,
-                                    //           ),
-                                    //           offset: const Offset(-10, 0),
-                                    //           scrollbarTheme: ScrollbarThemeData(
-                                    //             radius: const Radius.circular(40),
-                                    //             thickness: MaterialStateProperty.all<double>(6),
-                                    //             thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                    //           ),
-                                    //         ),
-                                    //         menuItemStyleData: const MenuItemStyleData(
-                                    //           height: 45,
-                                    //           padding: EdgeInsets.only(left: 10, right: 10),
-                                    //         ),
-                                    //         items: evenetDetailController.classList.value.toList().map((items) {
-                                    //           return DropdownMenuItem(
-                                    //             value: items.id,
-                                    //             child: Text(items.name,style: TextStyle(
-                                    //               fontWeight: FontWeight.w500,
-                                    //               fontSize: 17,
-                                    //               color: evenetDetailController.selectedClassId?.value == items.id
-                                    //                   ? Colors.black
-                                    //                   : Colors.black, // Default color for unselected items
-                                    //             ),
-                                    //             ),
-                                    //           );
-                                    //         }).toList(),
-                                    //         onChanged: (newValue) {
-                                    //           // print(newValue);
-                                    //           evenetDetailController.selectedClassId!.value = newValue!;
-                                    //           print(evenetDetailController.selectedClassId?.value);
-                                    //
-                                    //           evenetDetailController.getEventData(dateFormat : evenetDetailController.selectedDate.value, classId : evenetDetailController.selectedClassId.value);
-                                    //         },
-                                    //       ),
-                                    // )
-
-                                    // SizedBox(
-                                    //   height: 20,
-                                    //   width: 40,
-                                    //   child: DropdownButtonFormField(
-                                    //     focusColor: Colors.grey.shade50,
-                                    //     isExpanded: true,
-                                    //     iconEnabledColor: const Color(0xff97949A),
-                                    //     icon: const Icon(Icons.keyboard_arrow_down),
-                                    //     hint: Text(
-                                    //       classTimeController.selectedClassId.value.toString(),
-                                    //       style: const TextStyle(
-                                    //           color: Colors.white,
-                                    //           fontSize: 12,
-                                    //           fontWeight: FontWeight.w300),
-                                    //       textAlign: TextAlign.justify,
-                                    //     ),
-                                    //     decoration: InputDecoration(
-                                    //         fillColor: Colors.grey.shade50,
-                                    //         contentPadding: const EdgeInsets.symmetric(
-                                    //             horizontal: 20, vertical: 13),
-                                    //         focusedBorder: OutlineInputBorder(
-                                    //           borderSide:
-                                    //           BorderSide(color: Colors.grey.shade300),
-                                    //           borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25)),
-                                    //         ),
-                                    //         enabledBorder: const OutlineInputBorder(
-                                    //             borderSide:
-                                    //             BorderSide(color: Color(0xffE3E3E3)),
-                                    //             borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topRight: Radius.circular(25))
-                                    //         )
-                                    //     ),
-                                    //     value: classTimeController.selectedClassId.value,
-                                    //     items: classTimeController.classList.value.toList().map((items) {
-                                    //       return DropdownMenuItem(
-                                    //         value: items.id,
-                                    //         child: Text(
-                                    //           items.name,
-                                    //           style: const TextStyle(
-                                    //               color: Colors.grey, fontSize: 14),
-                                    //         ),
-                                    //       );
-                                    //     }).toList(),
-                                    //     onChanged: (newValue) {
-                                    //         classTimeController.selectedClassId.value = newValue!;
-                                    //     },
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ],
@@ -393,80 +276,6 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                           ),
                         ),
                       ),
-
-                      // Padding(
-                      //   padding: const EdgeInsets.only(top: 5),
-                      //   child: Container(
-                      //     padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                      //     decoration: BoxDecoration(
-                      //         color: Colors.white,
-                      //         borderRadius: BorderRadius.circular(50)
-                      //     ),
-                      //     child: Text(year.value.toString(),
-                      //       style: GoogleFonts.poppins(
-                      //           fontWeight: FontWeight.w500,
-                      //           fontSize: 17,
-                      //           color: Colors.white),
-                      //       textAlign: TextAlign.center,
-                      //     ),
-                      //   ),
-                      // ),
-                      /**/
-                      // Container(
-                      //   height: size.height*.045,
-                      //   decoration: BoxDecoration(
-                      //     // color: Colors.amberAccent,
-                      //       borderRadius: BorderRadius.circular(10)),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: [
-                      //
-                      //       // Expanded(
-                      //       //   child: ListView.builder(
-                      //       //     scrollDirection: Axis.horizontal,
-                      //       //     shrinkWrap: true,
-                      //       //     itemCount: years.length,
-                      //       //     itemBuilder:
-                      //       //         (BuildContext context, int index) {
-                      //       //       return InkWell(
-                      //       //         onTap: () {
-                      //       //           evenetDetailController.selectedMonthIndex.value = index;
-                      //       //           month.value = "${index + 1}".length != 2
-                      //       //               ? "0${index + 1}"
-                      //       //               : "${index + 1}";
-                      //       //           monthName.value = DateFormat('MMMM')
-                      //       //               .format(DateTime.parse(
-                      //       //               "${year.value}-${month.value}-${day.value}"));
-                      //       //           now = DateTime.parse(
-                      //       //               "${year.value}-${month.value}-${day.value}");
-                      //       //           totalDays = daysInMonth(now);
-                      //       //           listOfDates = List<int>.generate(
-                      //       //               totalDays, (i) => i + 1);
-                      //       //           todayDay = DateFormat('dd').format(now);
-                      //       //           getWeekDates(now);
-                      //       //           log(DateFormat('EEEE').format(now));
-                      //       //           // Get.back();
-                      //       //         },
-                      //       //         child: Padding(
-                      //       //           padding: const EdgeInsets.symmetric(
-                      //       //               horizontal: 10,vertical: 5),
-                      //       //           child: Text(year.value.toString(),
-                      //       //               style: GoogleFonts.poppins(
-                      //       //                   fontWeight: FontWeight.w500,
-                      //       //                   fontSize: 17,
-                      //       //                   color: index == evenetDetailController.selectedMonthIndex.value
-                      //       //                       ? Colors.white
-                      //       //                       : Colors.black)
-                      //       //           ),
-                      //       //         ),
-                      //       //       );
-                      //       //     },
-                      //       //   ),
-                      //       // ),
-                      //     ],
-                      //   ),
-                      // ),
-
                       Container(
                         height: size.height*.050,
                         decoration: BoxDecoration(
@@ -897,6 +706,8 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                                                   fontSize: 15,
                                                                   fontWeight:
                                                                   FontWeight.w500),
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ),
                                                           Container(
@@ -919,6 +730,8 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                                             fontSize: 10,
                                                             fontWeight:
                                                             FontWeight.w500),
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow.ellipsis,
                                                       ),
                                                     ],
                                                   ),

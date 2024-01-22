@@ -304,6 +304,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                   color: Colors.white,),
                                 textAlign: TextAlign.center,
                               ),
+
                               const SizedBox(
                                 width: 5,
                               ),
@@ -676,7 +677,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                             ),
                                             SizedBox(
                                               width: 10,
-                                              height: size.height * .07,
+                                              height: size.height * .05,
                                               child:  VerticalDivider(
                                                 thickness: 1,
                                                 color: AppThemes.black,
@@ -689,29 +690,44 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    value.subject!.name!,
+                                                  Container(
+                                                    // color: Colors.green,
+                                                    width: size.width * .505,
+                                                    child: Text(
+                                                        value.subject!.name!,
+                                                        //
+                                                        // 'Social Science Social Science Social Science Social Science Social Science',
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppThemes.blueColor,
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w600
+                                                        ),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                  ),
 
-                                                    // 'Social Science',
-                                                    style: GoogleFonts.poppins(
-                                                        color: AppThemes.blueColor,
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w600
-                                                    ),),
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Text('Class A-1',
-                                                        style: GoogleFonts.poppins(
-                                                            color: AppThemes.textGray,
-                                                            fontSize: 10,
-                                                            fontWeight: FontWeight.w500
-                                                        ),),
-
+                                                      Container(
+                                                        width: size.width * .18,
+                                                        // color: Colors.amber,
+                                                        child: Text(
+                                                          'Class - ' + value.seatClass!.name!,
+                                                          style: GoogleFonts.poppins(
+                                                              color: AppThemes.textGray,
+                                                              fontSize: 10,
+                                                              fontWeight: FontWeight.w500
+                                                          ),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
                                                       Padding(
-                                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
                                                         child: const SizedBox(
                                                           height: 20,
                                                           child: VerticalDivider(
@@ -720,7 +736,6 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                           ),
                                                         ),
                                                       ),
-
                                                       Row(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -743,7 +758,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: size.width * .19,
+                                                            width: size.width * .17,
                                                             // color: Colors.amber,
                                                             child: Text(
                                                               value.teacher!.name!,
@@ -753,7 +768,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                                   fontSize: 12.0,
                                                                   fontWeight: FontWeight.w500
                                                               ),
-                                                              maxLines: 2,
+                                                              maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ),
@@ -761,7 +776,6 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                       ),
                                                     ],
                                                   ),
-
                                                 ],
                                               ),
                                             ),

@@ -560,7 +560,10 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                         color: AppThemes.blueColor,
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w600
-                                                    ),),
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
@@ -607,7 +610,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                           ),
                                                           Container(
                                                             width: size.width * .4,
-                                                            // color: Colors.amber,
+                                                            color: Colors.amber,
                                                             child: Text(
                                                               value.teacher!.name!,
                                                               // 'Rosie David',
@@ -616,7 +619,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                                   fontSize: 12.0,
                                                                   fontWeight: FontWeight.w500
                                                               ),
-                                                              maxLines: 2,
+                                                              maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,
                                                             ),
                                                           ),

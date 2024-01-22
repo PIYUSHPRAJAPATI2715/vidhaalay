@@ -612,7 +612,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                             fontSize: 14,
                                                             fontWeight: FontWeight.w600
                                                         ),
-                                                        maxLines: 3,
+                                                        maxLines: 1,
                                                         overflow: TextOverflow.ellipsis,
                                                       ),
                                                     ),
@@ -645,7 +645,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                                 fontSize: 12.0,
                                                                 fontWeight: FontWeight.w500
                                                             ),
-                                                            maxLines: 2,
+                                                            maxLines: 1,
                                                             overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ),

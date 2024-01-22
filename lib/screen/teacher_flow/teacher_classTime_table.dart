@@ -556,14 +556,17 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                           children: [
                                             Text(
                                               value.subject!.name.toString(),
-                                              // 'Social Science',
+                                              // 'Social Science Social Scienc Social Scienc Social Scienc',
                                               style: GoogleFonts.poppins(
                                                   color: AppThemes.blueColor,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w600
-                                              ),),
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                             Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 ClipOval(
@@ -576,24 +579,28 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  'By :',
+                                                  'By : ',
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.grey,
                                                       fontSize: 12.0,
                                                       fontWeight: FontWeight.w500
                                                   ),
                                                 ),
-                                                Text(
-                                                  // "Test test test test test test test",
-                                                  value.teacher!.name.toString(),
-                                                  // 'Rosie David',
-                                                  style:  GoogleFonts.poppins(
-                                                      color: Colors.black,
-                                                      fontSize: 12.0,
-                                                      fontWeight: FontWeight.w500
+                                                Container(
+                                                  width: size.width*.38,
+                                                  // color: Colors.green,
+                                                child: Text(
+                                                    "Test test test test test test test",
+                                                    // value.teacher!.name.toString(),
+                                                    // 'Rosie David',
+                                                    style:  GoogleFonts.poppins(
+                                                        color: Colors.black,
+                                                        fontSize: 12.0,
+                                                        fontWeight: FontWeight.w500
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
