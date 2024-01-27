@@ -97,6 +97,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             print(value);
 
             if(value == 2) {
+              // ScaffoldMessenger.of(context).hideCurrentSnackBar();
               controller.scaffoldKey.currentState?.openEndDrawer();
             } else {
               controller.selectedIndex = value;

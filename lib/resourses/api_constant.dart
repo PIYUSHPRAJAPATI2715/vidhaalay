@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/appTheme.dart';
@@ -107,18 +109,47 @@ Future getAuthHeader() async {
   print('token isss${gg}');
   return gg;
 }
+
 // HttpHeaders.contentTypeHeader: 'application/json',
 // HttpHeaders.acceptHeader: 'application/json',
 //     HttpHeaders.authorizationHeader: 'Bearer ${pref.getString("cookie")!.toString().replaceAll('\"', '')}',
 
 showToast(String message) {
   Fluttertoast.cancel();
-  Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: AppThemes.primaryColor,
-      textColor: Color(0xffffffff),
-      fontSize: 14);
+
+  Get.snackbar(
+    "Vidhyaalay",
+    "Display the message here",
+    colorText: AppThemes.primaryColor, // text color
+    backgroundColor: AppThemes.white, // background color
+    borderColor: AppThemes.primaryColor, // border color
+    borderWidth: 1.5,
+    margin: EdgeInsets.only(top: 15,left: 20,right: 20),
+    duration: Duration(seconds: 1),
+  );
+
+  // Get.snackbar(
+  //   "Vidhyaalay",
+  //   message,
+  //   colorText: AppThemes.white, // text color
+  //   backgroundColor: AppThemes.primaryColor, // background color
+  //   borderColor: AppThemes.white, // border color
+  //   borderWidth: 1.5, // border width
+  //   duration: Duration(seconds: 1),
+  // );
+
+  // Fluttertoast.showToast(
+  //     msg: message,
+  //     toastLength: Toast.LENGTH_LONG,
+  //     gravity: ToastGravity.BOTTOM,
+  //     timeInSecForIosWeb: 1,
+  //     backgroundColor: AppThemes.primaryColor,
+  //     textColor: Color(0xffffffff),
+  //     fontSize: 14);
+
+  // final snackBar = SnackBar(
+  //   content: Text("Hell"),
+  //   behavior: SnackBarBehavior.fixed, // Set behavior to fixed for top snackbar
+  // );
+  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

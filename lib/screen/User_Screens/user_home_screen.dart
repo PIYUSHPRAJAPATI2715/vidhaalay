@@ -16,6 +16,7 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/lecture_list_screen.dart';
+import 'package:vidhaalay_app/screen/User_Screens/school_list_see_all_screen.dart';
 import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -399,6 +400,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       ),
                                       InkWell(
                                         onTap: () {
+                                          Get.to(() => SeeAllScreen(type: 'S',appBarTitle: 'Schools',));
                                           // Get.to(() => LectureListScreen());
                                         },
                                         child: const Text(
@@ -452,13 +454,6 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                           ),
                                         ),
                                       )
-
-                                      // Container(
-                                      //     height: size.height * .22,
-                                      //     width: size.width,
-                                      //     child:
-                                      //   Center(child: CommonProgressIndicator())
-                                      // )
                                           : Container(
                                         height: size.height * .22,
                                         width: size.width,
@@ -569,202 +564,6 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       );
                                     },
                                   ),
-
-                                  /* */
-                                  // lecturesController.isLectureListLoading.value ? CommonProgressIndicator() : SizedBox(
-                                  //   height: size.height * .22,
-                                  //   child: ListView.builder(
-                                  //     scrollDirection: Axis.horizontal,
-                                  //     physics: const AlwaysScrollableScrollPhysics(),
-                                  //     itemCount: lecturesController.lectureListModel.value.data!.length,
-                                  //     itemBuilder: (context, index) {
-                                  //       return Padding(
-                                  //         padding:
-                                  //         const EdgeInsets.symmetric(horizontal: 12.0)
-                                  //             .copyWith(left: 0),
-                                  //         child: Row(
-                                  //           children: [
-                                  //             Container(
-                                  //               width: size.width * .35,
-                                  //               padding: const EdgeInsets.symmetric(
-                                  //                   vertical: 8, horizontal: 7),
-                                  //               decoration: BoxDecoration(
-                                  //                 color: AppThemes.lightBlue,
-                                  //                 borderRadius: BorderRadius.circular(8),
-                                  //                 boxShadow: [
-                                  //                   BoxShadow(
-                                  //                     color: Colors.black.withOpacity(0.2),
-                                  //                     spreadRadius: 1,
-                                  //                     blurRadius: 2,
-                                  //                     offset: const Offset(0, 2),
-                                  //                   ),
-                                  //                 ],
-                                  //               ),
-                                  //               child: Column(
-                                  //                 crossAxisAlignment:
-                                  //                 CrossAxisAlignment.start,
-                                  //                 children: [
-                                  //                   ClipRRect(
-                                  //                     borderRadius: BorderRadius.circular(8),
-                                  //                     child: CachedNetworkImage(
-                                  //                       imageUrl: lecturesController.lectureListModel.value.data![index].image!,
-                                  //                       fit: BoxFit.cover,
-                                  //                       width: size.width * .33,
-                                  //                       height: size.height * .09,
-                                  //                       errorWidget: (__, _, ___) =>
-                                  //                           Image.asset(
-                                  //                             AppAssets.collageImg,
-                                  //                             fit: BoxFit.cover,
-                                  //                             width: size.width,
-                                  //                             height: size.height * .16,
-                                  //                           ),
-                                  //                       placeholder: (__, _) =>
-                                  //                       const Center(
-                                  //                           child: CircularProgressIndicator()),
-                                  //                     ),
-                                  //                   ),
-                                  //                   // Image.network(
-                                  //                   //   lecturesController.lectureListModel.value.data![index].image!,
-                                  //                   //   width: size.width * .33,
-                                  //                   // ),
-                                  //                   // Image.asset(
-                                  //                   //   AppAssets.lectureImg,
-                                  //                   //   width: size.width * .33,
-                                  //                   // ),
-                                  //                   const SizedBox(
-                                  //                     height: 5,
-                                  //                   ),
-                                  //                   Text(
-                                  //                     lecturesController.lectureListModel.value.data![index].name!,
-                                  //                     // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                  //                     style: GoogleFonts.poppins(
-                                  //                         color: AppThemes.white,
-                                  //                         fontWeight: FontWeight.w700,
-                                  //                         fontSize: 12),
-                                  //                     maxLines: 3,
-                                  //                     overflow: TextOverflow.ellipsis,
-                                  //                   ),
-                                  //                   const SizedBox(
-                                  //                     height: 3,
-                                  //                   ),
-                                  //                   Text(
-                                  //                     lecturesController.lectureListModel.value.data![index].description!,
-                                  //                     // 'Creative Art Design here dummy data',
-                                  //                     // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                  //                     style: TextStyle(
-                                  //                         color: AppThemes.white,
-                                  //                         fontWeight: FontWeight.w600,
-                                  //                         fontSize: 10),
-                                  //                     maxLines: 2,
-                                  //                     overflow: TextOverflow.ellipsis,
-                                  //                   )
-                                  //                 ],
-                                  //               ),
-                                  //             )
-                                  //           ],
-                                  //         ),
-                                  //       );
-                                  //     },
-                                  //   ),
-                                  // ),
-
-
-                                  // lecturesController.isLectureListLoading.value ? CommonProgressIndicator() : SizedBox(
-                                  //   height: size.height * .22,
-                                  //   child: ListView.builder(
-                                  //     scrollDirection: Axis.horizontal,
-                                  //     physics: const AlwaysScrollableScrollPhysics(),
-                                  //     itemCount: lecturesController.lectureListModel.value.data!.length,
-                                  //     itemBuilder: (context, index) {
-                                  //       return Padding(
-                                  //         padding:
-                                  //             const EdgeInsets.symmetric(horizontal: 12.0)
-                                  //                 .copyWith(left: 0),
-                                  //         child: Row(
-                                  //           children: [
-                                  //             Container(
-                                  //               width: size.width * .35,
-                                  //               padding: const EdgeInsets.symmetric(
-                                  //                   vertical: 8, horizontal: 7),
-                                  //               decoration: BoxDecoration(
-                                  //                 color: AppThemes.lightBlue,
-                                  //                 borderRadius: BorderRadius.circular(8),
-                                  //                 boxShadow: [
-                                  //                   BoxShadow(
-                                  //                     color: Colors.black.withOpacity(0.2),
-                                  //                     spreadRadius: 1,
-                                  //                     blurRadius: 2,
-                                  //                     offset: const Offset(0, 2),
-                                  //                   ),
-                                  //                 ],
-                                  //               ),
-                                  //               child: Column(
-                                  //                 crossAxisAlignment:
-                                  //                     CrossAxisAlignment.start,
-                                  //                 children: [
-                                  //                   ClipRRect(
-                                  //                     borderRadius: BorderRadius.circular(8),
-                                  //                     child: CachedNetworkImage(
-                                  //                       imageUrl: lecturesController.lectureListModel.value.data![index].image!,
-                                  //                       fit: BoxFit.cover,
-                                  //                       width: size.width * .33,
-                                  //                       height: size.height * .09,
-                                  //                       errorWidget: (__, _, ___) =>
-                                  //                           Image.asset(
-                                  //                             AppAssets.collageImg,
-                                  //                             fit: BoxFit.cover,
-                                  //                             width: size.width,
-                                  //                             height: size.height * .16,
-                                  //                           ),
-                                  //                       placeholder: (__, _) =>
-                                  //                       const Center(
-                                  //                           child: CircularProgressIndicator()),
-                                  //                     ),
-                                  //                   ),
-                                  //                   // Image.network(
-                                  //                   //   lecturesController.lectureListModel.value.data![index].image!,
-                                  //                   //   width: size.width * .33,
-                                  //                   // ),
-                                  //                   // Image.asset(
-                                  //                   //   AppAssets.lectureImg,
-                                  //                   //   width: size.width * .33,
-                                  //                   // ),
-                                  //                   const SizedBox(
-                                  //                     height: 5,
-                                  //                   ),
-                                  //                   Text(
-                                  //                       lecturesController.lectureListModel.value.data![index].name!,
-                                  //                     // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                  //                     style: GoogleFonts.poppins(
-                                  //                         color: AppThemes.white,
-                                  //                         fontWeight: FontWeight.w700,
-                                  //                         fontSize: 12),
-                                  //                     maxLines: 3,
-                                  //                     overflow: TextOverflow.ellipsis,
-                                  //                   ),
-                                  //                   const SizedBox(
-                                  //                     height: 3,
-                                  //                   ),
-                                  //                   Text(
-                                  //                     lecturesController.lectureListModel.value.data![index].description!,
-                                  //                     // 'Creative Art Design here dummy data',
-                                  //                     // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
-                                  //                     style: TextStyle(
-                                  //                         color: AppThemes.white,
-                                  //                         fontWeight: FontWeight.w600,
-                                  //                         fontSize: 10),
-                                  //                     maxLines: 2,
-                                  //                     overflow: TextOverflow.ellipsis,
-                                  //                   )
-                                  //                 ],
-                                  //               ),
-                                  //             )
-                                  //           ],
-                                  //         ),
-                                  //       );
-                                  //     },
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                               Column(
@@ -781,7 +580,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => LectureListScreen());
+                                          // Get.to(() => LectureListScreen());
+                                          Get.to(() => SeeAllScreen(type: 'C',appBarTitle: 'Colleges',));
                                         },
                                         child: const Text(
                                           'View All',
@@ -965,7 +765,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => LectureListScreen());
+                                          // Get.to(() => LectureListScreen());
+                                          Get.to(() => SeeAllScreen(type: 'I',appBarTitle: 'Institutes',));
                                         },
                                         child: const Text(
                                           'View All',
@@ -1156,7 +957,9 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                 ),),)
                     :  ListView.builder(
                       itemCount: getSchoolListController
+                          .getSchoolListModel.value.data!.length >= 3 ? 3 : getSchoolListController
                           .getSchoolListModel.value.data!.length,
+
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(16),
                       itemBuilder: (context, index) {
@@ -1339,7 +1142,9 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     color: Colors.black
                 ),),) :  ListView.builder(
                   itemCount: getSchoolListController
+                      .getSchoolListModel.value.data!.length >= 3 ? 3 : getSchoolListController
                       .getSchoolListModel.value.data!.length,
+
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(16),
                   itemBuilder: (context, index) {
@@ -1523,6 +1328,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     color: Colors.black
                 ),),) :  ListView.builder(
                   itemCount: getSchoolListController
+                      .getSchoolListModel.value.data!.length >= 3 ? 3 : getSchoolListController
                       .getSchoolListModel.value.data!.length,
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(16),

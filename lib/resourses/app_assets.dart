@@ -20,6 +20,7 @@ class AppAssets {
   static const String greenInfo = "assets/images/green-info.png";
   static const String addMore = "assets/images/add-more.png";
   static const String activeStep = "assets/images/active-step.png";
+  static const String commingSoonPoster = "assets/images/commingSoon.png";
 
 
   static const String syllabusImg = "assets/images/menu-syllabus.png";

@@ -15,13 +15,17 @@ import '../resourses/api_constant.dart';
 import '../resourses/helper.dart';
 
 
-Future<AddmissionModelUser> addMissionRepo({appliedFor,appliedForId,category,dob,motherTongue,name,fatherName,
+// Future<AddmissionModelUser>
+addMissionRepo({appliedFor,appliedForId,category,dob,motherTongue,name,fatherName,
   motherName,adharNo,bloodGroup,gender,religion,nationality,address,city,state,pincode,previous_school_name,
   location,classprev,yearOfStudy,percentage,
   father_name,occupation,organization,mobile_number,aadhar_number,email_father,annual_income_father,
   landline_number,mother_name,occupation_mother,organization_mother,mobile_mother,
-  aadhar_mother,email_mother,annual_income_mother,landline_mother,class_sibling,name_sibling,
-  class_school_sibling,
+  aadhar_mother,email_mother,annual_income_mother,landline_mother,
+  sibling_list,
+  // class_sibling,name_sibling,
+  // class_school_sibling,
+
   context}) async {
 
   SharedPreferences pref = await SharedPreferences.getInstance();
@@ -78,13 +82,16 @@ Future<AddmissionModelUser> addMissionRepo({appliedFor,appliedForId,category,dob
   map5['email_mother'] =  email_mother;
   map5['annual_income_mother'] =  annual_income_mother;
   map5['landline_mother'] =  landline_mother;
-  map['sibling_info'] =  map6;
-  map6['name_sibling'] =  name_sibling;
-  map6['class_sibling'] =  class_sibling;
-  map6['class_school_sibling'] =  class_school_sibling;
+  map['sibling_info'] = sibling_list;
 
+  // map['sibling_info'] = map6;
+  // map6['name_sibling'] =  name_sibling;
+  // map6['class_sibling'] =  class_sibling;
+  // map6['class_school_sibling'] =  class_school_sibling;
 
   log(map.toString());
+  print("map $map");
+
   OverlayEntry loader = Helpers.overlayLoader(context);
   Overlay.of(context)!.insert(loader);
 
@@ -97,6 +104,7 @@ Future<AddmissionModelUser> addMissionRepo({appliedFor,appliedForId,category,dob
       body: jsonEncode(map),   headers: await getAuthHeader(),);
 
   log(response.body);
+  log(response.statusCode.toString());
 
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);

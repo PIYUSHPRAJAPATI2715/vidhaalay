@@ -6,6 +6,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vidhaalay_app/models/admission_body_model.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
@@ -73,9 +74,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController motherlandlineNOController = TextEditingController();
 
   ///
-  final _formKeySibling = GlobalKey<FormState>();
-  TextEditingController siblingController = TextEditingController();
-  TextEditingController collegController = TextEditingController();
+  List<SiblingInfo> siblingInfoList = [
+    SiblingInfo(name: '', className: '', schoolName: ''),
+  ];
+  List<GlobalKey<FormState>> formKeySibling = [];
+  List<TextEditingController> siblingNameControllers = [];
+  List<TextEditingController> siblingClassControllers = [];
+  List<TextEditingController> siblingSchoolControllers = [];
+
+  // final _formKeySibling = GlobalKey<FormState>();
+  // TextEditingController siblingController = TextEditingController();
+  // TextEditingController collegController = TextEditingController();
+
   String number = '';
   int result = 0;
   RxString selectedDate1 = "".obs;
@@ -268,7 +278,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     getCountryController.getCountryListFunction();
     getCountryController.getStateListFunction();
     getCountryController.getCityListFunction("1");
+    _initializeControllers();
     // getCountryController.getCityListFunction();
+  }
+
+  void _initializeControllers() {
+    formKeySibling =
+        siblingInfoList.map((_) => GlobalKey<FormState>()).toList();
+    siblingNameControllers =
+        siblingInfoList.map((_) => TextEditingController()).toList();
+    siblingClassControllers =
+        siblingInfoList.map((_) => TextEditingController()).toList();
+    siblingSchoolControllers =
+        siblingInfoList.map((_) => TextEditingController()).toList();
+
+    // for (int i = 0; i < siblingInfoList.length; i++) {
+    //   siblingNameControllers[i].text = siblingInfoList[i].name ?? '';
+    //   siblingClassControllers[i].text = siblingInfoList[i].className ?? '';
+    //   siblingSchoolControllers[i].text = siblingInfoList[i].schoolName ?? '';
+    // }
   }
 
 
@@ -340,99 +368,60 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               print('currentIndex : $currentIndex');
 
 
-                              if(currentIndex == index) {
-                                  print("Equal");
-                                } else if(currentIndex < index) {
-                                  print("Increase");
+                              // if(currentIndex == index) {
+                              //     print("Equal");
+                              //   } else if(currentIndex < index) {
+                              //     print("Increase");
+                              //
+                              //     switch (currentIndex) {
+                              //       case 0:
+                              //         print('The number is 0');
+                              //         if(_formKey.currentState!.validate()) {
+                              //           kk = (currentIndex+1) / 5;
+                              //         }
+                              //         break;
+                              //
+                              //       case 1:
+                              //         print('The number is 1');
+                              //         if(_formKeyResidential.currentState!.validate()) {
+                              //           kk = (currentIndex+1) / 5;
+                              //         }
+                              //         break;
+                              //
+                              //       case 2:
+                              //         print('The number is 2');
+                              //         if(_formKeyPrevious.currentState!.validate()) {
+                              //           kk = (currentIndex+1) / 5;
+                              //         }
+                              //         break;
+                              //
+                              //       case 3:
+                              //         print('The number is 3');
+                              //         if(_formKeyFathers.currentState!.validate()) {
+                              //           kk = (currentIndex+1) / 5;
+                              //         }
+                              //         break;
+                              //
+                              //       case 4:
+                              //         print('The number is 3');
+                              //         if(_formKeyMother.currentState!.validate()) {
+                              //           kk = (currentIndex+1) / 5;
+                              //         }
+                              //         break;
+                              //
+                              //       default:
+                              //         print('The number is not 1, 2, or 3');
+                              //     }
+                              //
+                              //   } else {
+                              //     kk = index / 5;
+                              //     print("Decrease");
+                              //   }
+                              //
+                              // print("index : $index");
+                              // print("kk : $kk");
 
-                                  switch (currentIndex) {
-                                    case 0:
-                                      print('The number is 0');
-                                      if(_formKey.currentState!.validate()) {
-                                        kk = (currentIndex+1) / 5;
-                                      }
-                                      break;
-
-                                    case 1:
-                                      print('The number is 1');
-                                      if(_formKeyResidential.currentState!.validate()) {
-                                        kk = (currentIndex+1) / 5;
-                                      }
-                                      break;
-
-                                    case 2:
-                                      print('The number is 2');
-                                      if(_formKeyPrevious.currentState!.validate()) {
-                                        kk = (currentIndex+1) / 5;
-                                      }
-                                      break;
-
-                                    case 3:
-                                      print('The number is 3');
-                                      if(_formKeyFathers.currentState!.validate()) {
-                                        kk = (currentIndex+1) / 5;
-                                      }
-                                      break;
-
-                                    case 4:
-                                      print('The number is 3');
-                                      if(_formKeyMother.currentState!.validate()) {
-                                        kk = (currentIndex+1) / 5;
-                                      }
-                                      break;
-
-                                    default:
-                                      print('The number is not 1, 2, or 3');
-                                  }
-
-                                } else {
-                                  kk = index / 5;
-                                  print("Decrease");
-                                }
-
-                              print("index : $index");
-                              print("kk : $kk");
-                              // print(_formKey.currentState!.validate());
-                              // print(_formKeyResidential.currentState!.validate());
-                              // print(_formKeyPrevious.currentState!.validate());
-
-                              // if(_formKey.currentState!.validate()) {
-                                // if(index == 0) {
-                                //   kk = index / 5;
-                                // } else {
-                                //   if(_formKeyResidential.currentState!.validate()) {
-                                //     if(index == 1) {
-                                //       kk = index / 5;
-                                //     } else {
-                                //       if(_formKeyPrevious.currentState!.validate()) {
-                                //         if(index == 2) {
-                                //           kk = index / 5;
-                                //         } else {
-                                //           if(_formKeyFathers.currentState!.validate()) {
-                                //             if(index == 3) {
-                                //               kk = index / 5;
-                                //             } else {
-                                //               if(_formKeyMother.currentState!.validate()) {
-                                //                 if(index == 4) {
-                                //                   kk = index / 5;
-                                //                 } else {
-                                //                   if(_formKeySibling.currentState!.validate()) {
-                                //                     if(index == 5) {
-                                //                       kk = index / 5;
-                                //                     } else {
-                                //                       print("All info submitted");
-                                //                     }
-                                //                   }
-                                //                 }
-                                //               }
-                                //             }
-                                //           }
-                                //         }
-                                //       }
-                                //     }
-                                //   }
-                                // }
-                              // }
+                              kk = index / 5;
                               print("kk : $kk");
                               setState(() {});
 
@@ -820,103 +809,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-
-                            // DropdownButtonFormField(
-                            //     focusColor: Colors.grey.shade50,
-                            //     isExpanded: true,
-                            //     iconEnabledColor: const Color(0xff97949A),
-                            //     icon: const Icon(Icons.keyboard_arrow_down),
-                            //     hint: Text(
-                            //       category,
-                            //       style: const TextStyle(
-                            //           color: Color(0xff463B57),
-                            //           fontSize: 16,
-                            //           fontWeight: FontWeight.w300),
-                            //       textAlign: TextAlign.justify,
-                            //     ),
-                            //     decoration: InputDecoration(
-                            //         fillColor: Colors.grey.shade50,
-                            //         contentPadding: const EdgeInsets.symmetric(
-                            //             horizontal: 20, vertical: 10),
-                            //         focusedBorder: OutlineInputBorder(
-                            //           borderSide:
-                            //           BorderSide(color: Colors.grey.shade300),
-                            //           borderRadius: BorderRadius.circular(25.0),
-                            //         ),
-                            //         enabledBorder: const OutlineInputBorder(
-                            //             borderSide:
-                            //             BorderSide(color: Color(0xffE3E3E3)),
-                            //             borderRadius: BorderRadius.all(
-                            //                 Radius.circular(25.0)
-                            //             )
-                            //         )
-                            //     ),
-                            //     value: category,
-                            //     items: categoryitems.map((String items) {
-                            //       return DropdownMenuItem(
-                            //         value: items,
-                            //         child: Text(
-                            //           items,
-                            //           style: const TextStyle(
-                            //               color: Colors.grey, fontSize: 14),
-                            //         ),
-                            //       );
-                            //     }).toList(),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         category = newValue!;
-                            //       });
-                            //     },
-                            //   ),
-                            /**/
-                            // DropdownMenuTheme(
-                            //   data: DropdownMenuThemeData(
-                            //     menuStyle: MenuStyle(
-                            //       surfaceTintColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-                            //         return Colors.white;
-                            //       }),
-                            //     ),
-                            //     textStyle: TextStyle(
-                            //         color: Colors.grey,
-                            //         fontSize: AddSize.font14),
-                            //     inputDecorationTheme: InputDecorationTheme(
-                            //       alignLabelWithHint: true,
-                            //       floatingLabelAlignment: FloatingLabelAlignment.center,
-                            //       constraints: BoxConstraints(
-                            //         maxHeight: 50,
-                            //         // minHeight: 30
-                            //       ),
-                            //       hintStyle: TextStyle(
-                            //         color: Colors.grey,
-                            //         fontSize: AddSize.font14,),
-                            //       contentPadding: EdgeInsets.only(left: 15),
-                            //       enabledBorder: OutlineInputBorder(
-                            //           gapPadding: 0.0,
-                            //           borderRadius: BorderRadius.circular(50),
-                            //           borderSide: BorderSide(
-                            //               color: Colors.grey!.withOpacity(0.5),
-                            //               width: 1
-                            //           )
-                            //       ),
-                            //     ),
-                            //   ),
-                            //   child: DropdownMenu<String>(
-                            //     width: size.width * 0.93,
-                            //     menuHeight: size.height * 0.3,
-                            //     hintText: 'Select category',
-                            //     textStyle:  TextStyle(
-                            //         color: Colors.grey,
-                            //         fontSize: AddSize.font14),
-                            //     onSelected: (String? value) {
-                            //       category = value!;
-                            //       print(value);
-                            //     },
-                            //     trailingIcon: const Icon(Icons.keyboard_arrow_down),
-                            //     dropdownMenuEntries: categoryitems.toList().map((value) {
-                            //       return DropdownMenuEntry(value: value.toString(), label: value.toString());
-                            //     }).toList(),
-                            //   ),
-                            // ),
 
                             DropdownButtonHideUnderline(
                               child: DropdownButtonFormField2(
@@ -2802,140 +2694,462 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Container(
                   color: AppThemes.primaryColor,
                   child: Container(
-                    height: Get.height,
+                    // height: Get.height,
                     // height: AddSize.screenHeight,
+                    height: size.height * 0.78,
                     decoration: const BoxDecoration(
                       borderRadius:
                       BorderRadius.only(topRight: Radius.circular(50)),
                       color: Colors.white,
+                      // color: Colors.black,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Form(
-                        key: _formKeySibling,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10,),
-                            Center(
-                                child: Text('sibling information'.toUpperCase(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 19,
-                                        color: AppThemes.primaryColor))),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            const Text('Name',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            CommonTextfield(
-                              hintText: 'Enter Full Name',
-                              controller: siblingController,
-                              keyboardType: TextInputType.name,
-                              obSecure: false,
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText:
-                                    'Please Enter sibling\'s name'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
 
-                              ]),
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            const Text('Class',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                            const SizedBox(
-                              height: 10,
-                            ),
+                          // siblingInfoForm(),
 
-                            CommonTextfield(
-                              obSecure: false,
-                              hintText: 'Enter Class Name',
-                              controller: schoolSibblingCon,
-                              keyboardType: TextInputType.name,
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText:
-                                    'Please Enter Class Name'),
-                              ]),
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            const Text('School/Collage Currently Studing',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            CommonTextfield(
-                              obSecure: false,
-                              hintText: 'Enter School/Collage Name',
-                              controller: collegController,
-                              keyboardType: TextInputType.name,
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText:
-                                    'Please Enter colage\'s name'),
+                          // ListView.builder(itemBuilder: itemBuilder)
 
-                              ]),
+                          Container(
+                            height: size.height * 0.75,
+                            margin: EdgeInsets.only(top: 20),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                              BorderRadius.only(topRight: Radius.circular(50)),
+                              // color: Colors.amber,
                             ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            SizedBox(
-                              width: double.maxFinite,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
-                                    padding:
-                                    const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
-                                    textStyle:
-                                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                                onPressed: () {
-                                  addMissionRepo(context: context,appliedForId: 1,appliedFor: 'School',name: stNameController.text.trim(),
-                                    fatherName: fatherNameController.text.trim(),motherName: motherNameController.text.trim(),dob: dobController.text.trim(),
-                                    category: category.toString(),adharNo: adharcardNo.text.trim(),
-                                    gender: gender.toString(), motherTongue: 'hindi',bloodGroup: bloodGroup.text.trim(),religion: 'hindhu',nationality: 'indian',
-                                    address: addressController.text.trim(),state: 'raj',city: 'hmh',pincode: pincodeController.text.trim(),previous_school_name: schoolNameController.text.trim(),
-                                    location: locationController.text.trim(),classprev: classPrevCon.text.trim(),yearOfStudy: yearprevSchoolCon.text.trim(),
-                                    percentage: percentageController.text.trim(),father_name: fatherNameController.text.trim(),occupation: occupationController.text.trim(),
-                                    organization: organizationController.text.trim(),mobile_number: mobileNOController.text.trim(),aadhar_number: aadharController.text.trim(),
-                                    email_father: emailIdController.text.trim(),annual_income_father: annualIncomeController.text.trim(),landline_number: landlineNOController.text.trim(),
-                                    mother_name: motherNameController.text.trim(),occupation_mother: occupationController.text.trim(),
-                                    organization_mother: organizationController.text.trim(),mobile_mother: mobileNOController.text.trim(),
-                                    aadhar_mother: aadharController.text.trim(),email_mother: emailIdController.text.trim(),annual_income_mother: annualIncomeController.text.trim(),
-                                    landline_mother: landlineNOController.text.trim(),name_sibling: siblingController.text.trim(),class_school_sibling: classPrevCon.text.trim(),
-                                    class_sibling: schoolSibblingCon.text.trim()
-                                  ).then((value) {
-                                    if(value.status == true){
-                                      showToast(value.msg.toString().toString());
-                                      Get.toNamed(MyRouters.drawerForUser);
-                                    }else{
-                                      showToast(value.msg.toString().toString());
-                                    }
-                                  });
-                                },
-                                child: const Text('Save',style: TextStyle(color: Colors.white),),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 10,),
+                                  Center(
+                                      child: Text('sibling information'.toUpperCase(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 19,
+                                              color: AppThemes.primaryColor))),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+
+                                  if(siblingInfoList.isEmpty)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('No  sibling'.toUpperCase(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Colors.black)
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          _addSiblingInfo();
+                                        },
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+
+                                          children: [
+                                            Image.asset(AppAssets.addMore,height: 24,),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            const Text(
+                                              'Add More',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15,
+                                                color: AppThemes.primaryColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  else
+                                  for (int index = 0; index < siblingInfoList.length; index++)
+                                    Card(
+                                      margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 1),
+                                      color: Colors.white,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Form(
+                                          key: formKeySibling[index],
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text('Sibling ${(index + 1).toString()}',
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color: Colors.black)),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        _deleteSiblingInfo(index);
+                                                        isFieldEmpty();
+                                                      }, icon: const Icon(Icons.delete,color: Colors.red,size: 19,)
+                                                  ),
+                                                ],
+                                              ),
+
+                                              SizedBox(height: 10),
+
+                                              const Text('Name',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Colors.black)),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              CommonTextfield(
+                                                hintText: 'Enter Full Name',
+                                                controller: siblingNameControllers[index],
+                                                keyboardType: TextInputType.name,
+                                                obSecure: false,
+                                                validator: MultiValidator([
+                                                  RequiredValidator(
+                                                      errorText:
+                                                      'Please Enter sibling\'s name'),
+
+                                                ]),
+                                                onChanged: (value) {
+                                                  siblingInfoList[index].name = siblingNameControllers[index].text;
+                                                  printList();
+                                                },
+                                              ),
+                                              const SizedBox(
+                                                height: 25,
+                                              ),
+                                              const Text('Class',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Colors.black)),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              SizedBox(height: 10),
+                                              CommonTextfield(
+                                                obSecure: false,
+                                                hintText: 'Enter Class Name',
+                                                controller: siblingClassControllers[index],
+                                                keyboardType: TextInputType.name,
+                                                validator: MultiValidator([
+                                                  RequiredValidator(
+                                                      errorText:
+                                                      'Please Enter Class Name'),
+                                                ]),
+                                                onChanged: (value) {
+                                                  siblingInfoList[index].className = siblingClassControllers[index].text;
+                                                  printList();
+                                                },
+                                              ),
+                                              const SizedBox(
+                                                height: 25,
+                                              ),
+                                              const Text('School/Collage Currently Studing',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Colors.black)),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              CommonTextfield(
+                                                obSecure: false,
+                                                hintText: 'Enter School/Collage Name',
+                                                controller: siblingSchoolControllers[index],
+                                                keyboardType: TextInputType.name,
+                                                validator: MultiValidator([
+                                                  RequiredValidator(
+                                                      errorText:
+                                                      'Please Enter colage\'s name'),
+                                                ]),
+                                                onChanged: (value) {
+                                                  siblingInfoList[index].schoolName = siblingSchoolControllers[index].text;
+                                                  printList();
+                                                },
+                                              ),
+
+                                              Visibility(
+                                                visible: index == siblingInfoList.length -1 ,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(top: 8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      bool isFieldEmpty0 = await isFieldEmpty();
+                                                      print("isFieldEmpty0 : $isFieldEmpty0");
+
+                                                      if(!isFieldEmpty0) {
+                                                        _addSiblingInfo();
+                                                      }
+                                                    },
+                                                    child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+
+                                                      children: [
+                                                        Image.asset(AppAssets.addMore,height: 24,),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        const Text(
+                                                          'Add More',
+                                                          style: TextStyle(
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 15,
+                                                            color: AppThemes.primaryColor,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                  // Form(
+                                  //   key: _formKeySibling[i],
+                                  //   child: Column(
+                                  //     mainAxisAlignment: MainAxisAlignment.start,
+                                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                                  //     children: [
+                                  //       Row(
+                                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Text('Sibling ${(i + 1).toString()}',
+                                  //               style: TextStyle(
+                                  //                   fontWeight: FontWeight.w600,
+                                  //                   fontSize: 14,
+                                  //                   color: Colors.black)),
+                                  //           IconButton(
+                                  //               onPressed: () {
+                                  //                 List<Map<String, dynamic>> listMap =
+                                  //                 siblingInfo.map((model) => model.toJson()).toList();
+                                  //                 print("listMap1 : $listMap");
+                                  //                 print("index : $i");
+                                  //
+                                  //                 if(i == 0) {
+                                  //                   siblingInfo.removeAt(i);
+                                  //                 } else {
+                                  //                   siblingInfo.removeAt(i);
+                                  //                   siblingNameController[i].clear();
+                                  //                   // siblingSchoolController[i].clear();
+                                  //                   // siblingClassController[i].clear();
+                                  //                   // siblingNameController[i + 1].clear();
+                                  //                 }
+                                  //
+                                  //                 List<Map<String, dynamic>> listMap0 =
+                                  //                 siblingInfo.map((model) => model.toJson()).toList();
+                                  //                 print("listMap1 : $listMap0");
+                                  //
+                                  //                 setState(() {
+                                  //
+                                  //                 });
+                                  //               }, icon: const Icon(Icons.delete,color: Colors.red,size: 19,)
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       const SizedBox(
+                                  //         height: 10,
+                                  //       ),
+                                  //       const Text('Name',
+                                  //           style: TextStyle(
+                                  //               fontWeight: FontWeight.w600,
+                                  //               fontSize: 14,
+                                  //               color: Colors.black)),
+                                  //       const SizedBox(
+                                  //         height: 10,
+                                  //       ),
+                                  //       CommonTextfield(
+                                  //         hintText: 'Enter Full Name',
+                                  //         controller: siblingNameController[i],
+                                  //         keyboardType: TextInputType.name,
+                                  //         obSecure: false,
+                                  //         validator: MultiValidator([
+                                  //           RequiredValidator(
+                                  //               errorText:
+                                  //               'Please Enter sibling\'s name'),
+                                  //
+                                  //         ]),
+                                  //         // onChanged: (value) {
+                                  //         //   siblingInfo[i].name = value;
+                                  //         //   // siblingNameController[i];
+                                  //         // },
+                                  //       ),
+                                  //       const SizedBox(
+                                  //         height: 25,
+                                  //       ),
+                                  //       // const Text('Class',
+                                  //       //     style: TextStyle(
+                                  //       //         fontWeight: FontWeight.w600,
+                                  //       //         fontSize: 14,
+                                  //       //         color: Colors.black)),
+                                  //       // const SizedBox(
+                                  //       //   height: 10,
+                                  //       // ),
+                                  //       //
+                                  //       // CommonTextfield(
+                                  //       //   obSecure: false,
+                                  //       //   hintText: 'Enter Class Name',
+                                  //       //   controller: siblingClassController[i],
+                                  //       //   keyboardType: TextInputType.name,
+                                  //       //   validator: MultiValidator([
+                                  //       //     RequiredValidator(
+                                  //       //         errorText:
+                                  //       //         'Please Enter Class Name'),
+                                  //       //   ]),
+                                  //       // ),
+                                  //       // const SizedBox(
+                                  //       //   height: 25,
+                                  //       // ),
+                                  //       // const Text('School/Collage Currently Studing',
+                                  //       //     style: TextStyle(
+                                  //       //         fontWeight: FontWeight.w600,
+                                  //       //         fontSize: 14,
+                                  //       //         color: Colors.black)),
+                                  //       // const SizedBox(
+                                  //       //   height: 10,
+                                  //       // ),
+                                  //       // CommonTextfield(
+                                  //       //   obSecure: false,
+                                  //       //   hintText: 'Enter School/Collage Name',
+                                  //       //   controller: siblingSchoolController[i],
+                                  //       //   keyboardType: TextInputType.name,
+                                  //       //   validator: MultiValidator([
+                                  //       //     RequiredValidator(
+                                  //       //         errorText:
+                                  //       //         'Please Enter colage\'s name'),
+                                  //       //   ]),
+                                  //       // ),
+                                  //       const SizedBox(
+                                  //         height: 10,
+                                  //       ),
+                                  //       const Divider(
+                                  //         color: AppThemes.dividerColor,
+                                  //         height: 1.2,
+                                  //         thickness: 2,
+                                  //       ),
+                                  //       const SizedBox(
+                                  //         height: 15,
+                                  //       ),
+                                  //       Visibility(
+                                  //         visible: i == siblingInfo.length -1 ,
+                                  //         child: GestureDetector(
+                                  //           onTap: () {
+                                  //             List<Map<String, dynamic>> listMap =
+                                  //             siblingInfo.map((model) => model.toJson()).toList();
+                                  //             print("listMap1 : $listMap");
+                                  //
+                                  //             if (_formKeySibling[i].currentState!.validate()) {
+                                  //               siblingInfo.add(SiblingInfo(
+                                  //                 name: siblingClassController[i].text,
+                                  //                 className: siblingNameController[i].text,
+                                  //                 schoolName: siblingSchoolController[i].text,
+                                  //               ));
+                                  //               List<Map<String, dynamic>> listMap =
+                                  //                   siblingInfo.map((model) => model.toJson()).toList();
+                                  //               print("listMap2 : $listMap");
+                                  //               setState(() {
+                                  //               });
+                                  //             }
+                                  //           },
+                                  //           child: Row(
+                                  //             crossAxisAlignment: CrossAxisAlignment.center,
+                                  //             mainAxisAlignment: MainAxisAlignment.start,
+                                  //
+                                  //             children: [
+                                  //               Image.asset(AppAssets.addMore,height: 24,),
+                                  //               const SizedBox(
+                                  //                 width: 8,
+                                  //               ),
+                                  //               const Text(
+                                  //                 'Add More',
+                                  //                 style: TextStyle(
+                                  //                   fontWeight: FontWeight.w500,
+                                  //                   fontSize: 15,
+                                  //                   color: AppThemes.primaryColor,
+                                  //                 ),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    width: double.maxFinite,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          primary: AppThemes.primaryColor,
+                                          padding:
+                                          const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
+                                          textStyle:
+                                          const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                                      onPressed: () async {
+                                        bool isFieldEmpty0 = await isFieldEmpty();
+
+                                        if(!isFieldEmpty0) {
+                                          List listMap = siblingInfoList.map((model) => model.toJson()).toList();
+                                          print("siblingInfoList000 : $listMap");
+
+                                          addMissionRepo(context: context,appliedForId: 1,appliedFor: 'School',name: stNameController.text.trim(),
+                                            fatherName: fatherNameController.text.trim(),motherName: motherNameController.text.trim(),dob: dobController.text.trim(),
+                                            category: category.toString(),adharNo: adharcardNo.text.trim(),
+                                            gender: gender.toString(), motherTongue: 'hindi',bloodGroup: bloodGroup.text.trim(),religion: 'hindhu',nationality: 'indian',
+                                            address: addressController.text.trim(),state: 'raj',city: 'hmh',pincode: pincodeController.text.trim(),previous_school_name: schoolNameController.text.trim(),
+                                            location: locationController.text.trim(),classprev: classPrevCon.text.trim(),yearOfStudy: yearprevSchoolCon.text.trim(),
+                                            percentage: percentageController.text.trim(),father_name: fatherNameController.text.trim(),occupation: occupationController.text.trim(),
+                                            organization: organizationController.text.trim(),mobile_number: mobileNOController.text.trim(),aadhar_number: aadharController.text.trim(),
+                                            email_father: emailIdController.text.trim(),annual_income_father: annualIncomeController.text.trim(),landline_number: landlineNOController.text.trim(),
+                                            mother_name: motherNameController.text.trim(),occupation_mother: occupationController.text.trim(),
+                                            organization_mother: organizationController.text.trim(),mobile_mother: mobileNOController.text.trim(),
+                                            aadhar_mother: aadharController.text.trim(),email_mother: emailIdController.text.trim(),annual_income_mother: annualIncomeController.text.trim(),
+                                            landline_mother: landlineNOController.text.trim(),
+                                            sibling_list: listMap,
+
+                                            // name_sibling: siblingController.text.trim(),class_school_sibling: classPrevCon.text.trim(),
+                                            // class_sibling: schoolSibblingCon.text.trim()
+                                          ).then((value) {
+                                            if(value.status == true){
+                                              showToast(value.msg.toString().toString());
+                                              Get.toNamed(MyRouters.drawerForUser);
+                                            }else{
+                                              showToast(value.msg.toString().toString());
+                                            }
+                                          });
+
+                                        }
+                                      },
+                                      child: const Text('Save',style: TextStyle(color: Colors.white),),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
                               ),
                             ),
-                            const SizedBox(
-                              height:25,
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -2945,6 +3159,157 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         )
     );
   }
+
+  Future<bool> isFieldEmpty() async {
+    List<bool> booleanList = [];
+
+    for (int i = 0; i < siblingInfoList.length; i++) {
+      print(i);
+      bool isValid = formKeySibling[i].currentState!.validate();
+      booleanList.add(isValid);
+    }
+    print(booleanList);
+
+    bool result = booleanList.contains(false);
+    print(result);
+
+    return await result;
+  }
+
+  void _addSiblingInfo() {
+    setState(() {
+      siblingInfoList.add(SiblingInfo());
+      formKeySibling.add(GlobalKey<FormState>());
+      siblingNameControllers.add(TextEditingController());
+      siblingClassControllers.add(TextEditingController());
+      siblingSchoolControllers.add(TextEditingController());
+      printList();
+    });
+  }
+
+  void printList() {
+    List<Map<String, dynamic>> listMap =
+    siblingInfoList.map((model) => model.toJson()).toList();
+    print("submitSiblingInfo : $listMap");
+  }
+
+  void _updateSiblingInfo(int index) {
+    setState(() {
+      siblingInfoList[index].name = siblingNameControllers[index].text;
+      siblingInfoList[index].className = siblingClassControllers[index].text;
+      siblingInfoList[index].schoolName = siblingSchoolControllers[index].text;
+      printList();
+    });
+  }
+
+  void _deleteSiblingInfo(int  index) {
+    setState(() {
+      siblingInfoList.removeAt(index);
+      siblingNameControllers.removeAt(index).dispose();
+      siblingClassControllers.removeAt(index).dispose();
+      siblingSchoolControllers.removeAt(index).dispose();
+      printList();
+    });
+  }
+
+  // Future<List> manageSiblingInfo() async  {
+  //   submitSiblingInfo.clear();
+  //   if(siblingInfo.isEmpty) {
+  //     submitSiblingInfo.add(SiblingInfo(
+  //       name: siblingClassController[0].text,
+  //       className: siblingNameController[0].text,
+  //       schoolName: siblingSchoolController[0].text,
+  //     ));
+  //   } else {
+  //     for (int i = 0; i < siblingInfo.length + 1; i++) {
+  //       submitSiblingInfo.add(SiblingInfo(
+  //         name: siblingClassController[i].text,
+  //         className: siblingNameController[i].text,
+  //         schoolName: siblingSchoolController[i].text,
+  //       ));
+  //     }
+  //   }
+  //   List<Map<String, dynamic>> listMap =
+  //   submitSiblingInfo.map((model) => model.toJson()).toList();
+  //   print("submitSiblingInfo : $listMap");
+  //
+  //   return await listMap;
+  // }
+
+  // Widget siblingInfoForm() {
+  //   return ListView.builder(
+  //     itemCount: 1,
+  //     itemBuilder: (context, index) => Column(
+  //       mainAxisAlignment: MainAxisAlignment.start,
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const Text('Name',
+  //             style: TextStyle(
+  //                 fontWeight: FontWeight.w600,
+  //                 fontSize: 14,
+  //                 color: Colors.black)),
+  //         const SizedBox(
+  //           height: 10,
+  //         ),
+  //         CommonTextfield(
+  //           hintText: 'Enter Full Name',
+  //           controller: si[0],
+  //           keyboardType: TextInputType.name,
+  //           obSecure: false,
+  //           validator: MultiValidator([
+  //             RequiredValidator(errorText: 'Please Enter sibling\'s name'),
+  //           ]),
+  //         ),
+  //         const SizedBox(
+  //           height: 25,
+  //         ),
+  //         // const Text('Class',
+  //         //     style: TextStyle(
+  //         //         fontWeight: FontWeight.w600,
+  //         //         fontSize: 14,
+  //         //         color: Colors.black)),
+  //         // const SizedBox(
+  //         //   height: 10,
+  //         // ),
+  //         //
+  //         // CommonTextfield(
+  //         //   obSecure: false,
+  //         //   hintText: 'Enter Class Name',
+  //         //   controller: schoolSibblingCon,
+  //         //   keyboardType: TextInputType.name,
+  //         //   validator: MultiValidator([
+  //         //     RequiredValidator(
+  //         //         errorText:
+  //         //         'Please Enter Class Name'),
+  //         //   ]),
+  //         // ),
+  //         // const SizedBox(
+  //         //   height: 25,
+  //         // ),
+  //         // const Text('School/Collage Currently Studing',
+  //         //     style: TextStyle(
+  //         //         fontWeight: FontWeight.w600,
+  //         //         fontSize: 14,
+  //         //         color: Colors.black)),
+  //         // const SizedBox(
+  //         //   height: 10,
+  //         // ),
+  //         // CommonTextfield(
+  //         //   obSecure: false,
+  //         //   hintText: 'Enter School/Collage Name',
+  //         //   controller: collegController,
+  //         //   keyboardType: TextInputType.name,
+  //         //   validator: MultiValidator([
+  //         //     RequiredValidator(
+  //         //         errorText:
+  //         //         'Please Enter colage\'s name'),
+  //         //
+  //         //   ]),
+  //         // ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget controlBuilders(context) {
     return Column(
@@ -2969,6 +3334,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ],
     );
   }
+
+
 }
 class TriangleClipper extends CustomClipper<Path> {
   @override

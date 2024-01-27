@@ -13,12 +13,14 @@ import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/videos_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/attendance_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/class_timetable_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/exam_result_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/exam_timetable_screen.dart';
 import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
+import 'package:vidhaalay_app/screen/teacher_flow/video_lecture_teacher_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
 
 import '../login screens/splash.dart';
@@ -398,7 +400,7 @@ class _commonDrawerState extends State<commonDrawer> {
                   children: [
                     ListTile(
                       onTap: (){
-                        // Get.to(() => VideoScreen());
+                        Get.to(() => VideoTeacherScreen());
                       },
                       contentPadding: EdgeInsets.zero,
                       visualDensity:
@@ -438,31 +440,6 @@ class _commonDrawerState extends State<commonDrawer> {
                       ),
                       leading: Image.asset(
                         AppAssets.syllabusImg,
-                        height: 20,
-                        width: 24,
-                        color: AppThemes.white,
-                        // width: 23,
-                        // height: 23,
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    ListTile(
-                      onTap: (){
-                        Get.to(() => AttendanceScreen());
-                      },
-                      contentPadding: EdgeInsets.zero,
-                      visualDensity:
-                      const VisualDensity(
-                          horizontal: -4, vertical: -4),
-                      title: const Text(
-                        'Attendance',
-                        style: TextStyle(
-                            color: AppThemes.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      leading: Image.asset(
-                        AppAssets.personIcon,
                         height: 20,
                         width: 24,
                         color: AppThemes.white,

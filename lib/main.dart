@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:vidhaalay_app/PractiseScreen/piechart.dart';
+import 'package:vidhaalay_app/PractiseScreen/practise.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/no_internet_screen.dart';
 import '../../widgets/appTheme.dart';
@@ -86,8 +88,10 @@ class MyApp extends StatelessWidget {
       // initialRoute: "/bottomNavigationUserScreen",
       // initialRoute: "/drawerForUser",
       initialRoute: "/",
+      // home: MyFormPage(),
+      // home: PieChartSample1(),
       // initialRoute: "/drawerForTeacher",
-      getPages:MyRouters.route,
+      getPages: MyRouters.route,
       // home: MainColumn(),
     );
   }

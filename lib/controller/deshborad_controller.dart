@@ -14,6 +14,7 @@ class GetSchoolListController extends GetxController {
   RxBool isSchoolListLoading = false.obs;
   // RxBool isNoRecord = false.obs;
   RxBool isSchoolDetailsLoading = false.obs;
+
   Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
   Rx<SchoolDetailsModel> schoolDetailsModel = SchoolDetailsModel().obs;
 
@@ -21,10 +22,16 @@ class GetSchoolListController extends GetxController {
   Rx<SchoolListModel> topSchoolListModel = SchoolListModel().obs;
 
   Future getSchoolListFunction() async {
+    print("Enter");
+
     isSchoolListLoading.value = false;
+    // update();
+
     await schoolListRepo('',roleType.value).then((value) {
+      print("value $value");
       isSchoolListLoading.value = true;
       getSchoolListModel.value = value;
+      // update();
       print(value);
     });
   }

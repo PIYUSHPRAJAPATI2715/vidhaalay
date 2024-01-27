@@ -10,126 +10,52 @@ import 'package:vidhaalay_app/screen/User_Screens/notification_user_screen.dart'
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
 
-
-class VideoScreen extends StatefulWidget {
-  const VideoScreen({Key? key}) : super(key: key);
+class VideoTeacherScreen extends StatefulWidget {
+  const VideoTeacherScreen({Key? key}) : super(key: key);
 
   @override
-  State<VideoScreen> createState() => _VideoScreenState();
+  State<VideoTeacherScreen> createState() => _VideoTeacherScreenState();
 }
 
-class _VideoScreenState extends State<VideoScreen> {
-  final TextEditingController searchController = TextEditingController();
-  List<String> subjects = [
-    'Arts',
-    'Commerce',
-    'Economics',
-    'Maths',
-    'Business Studies',
-    'Hindi',
-    'English',
-    'French',
-  ];
-  String? location = null;
-
-  Future<void> getLocation() async {
-    GetProfileModel getProfileModel = GetProfileModel();
-
-    await getProfileRepo().then((value) {
-      getProfileModel = value;
-      setState(() {
-        location = getProfileModel.data?.address;
-      });
-      print("Location $location");
-      if(location == null) {
-        Get.to(() => AddressScreen(isAddressUpdateRequire: true,));
-      }
-    });
-  }
-
-
+class _VideoTeacherScreenState extends State<VideoTeacherScreen> {
   @override
   void initState() {
     super.initState();
-    getLocation();
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title:  Row(
-            children: [
-              const Icon(
-                Icons.location_pin,
-                color: AppThemes.primaryColor,
-                size: 20,
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: (){
-                    Get.to(() => AddressScreen(address: location!,));
-                  },
-                  child: Text(
-                    location == null ? 'Select Address' : location!,
-                    // getAddressCon.isProfileLoading.value == true ?  getAddressCon.getProfileModel.value.data!.address.toString()
-                    // :  'Select Address',
-                    maxLines: 1,
-                    style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        color: AppThemes.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15),
-                  ),
-                ),
-              )
-            ],
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                        onTap: (){
-                          Get.to(()=>NotificationScreenUser());
-                        },
-                        child: Icon(Icons.notifications,color: Colors.grey,size: 28,)),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(MyRouters.myProfileScreen);
-                    },
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppAssets.studentImg,
-                        height: 35,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+          title: Text(
+            'Video Lecture',
+            style: GoogleFonts.poppins(
+              fontSize: 19,
+              fontWeight: FontWeight.w600,
+              color: AppThemes.black,
             ),
-          ],
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Image.asset(
+              AppAssets.arrowBack,
+              width: 25,
+              height: 25,
+            ),
+          ),
         ),
-      body:   Center(
-        child: Container(
-        height: size.height * 0.3,
-        width: size.width,
-
-        child: Image.asset(AppAssets.commingSoonPoster,)
-    )
-    )
-    );
+        body: Center(
+            child: Container(
+                height: size.height * 0.3,
+                width: size.width,
+                child: Image.asset(
+                  AppAssets.commingSoonPoster,
+                ))));
     //   SingleChildScrollView(
     //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     //     child:
@@ -360,6 +286,3 @@ class _VideoScreenState extends State<VideoScreen> {
     // ));
   }
 }
-
-
-
