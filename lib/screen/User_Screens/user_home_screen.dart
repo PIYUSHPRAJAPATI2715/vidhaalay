@@ -1113,9 +1113,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       physics:
-                      BouncingScrollPhysics(),
+                      NeverScrollableScrollPhysics(),
+
                       // physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
@@ -1298,9 +1299,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       physics:
-                      BouncingScrollPhysics(),
-                      // physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: 4,
+                      NeverScrollableScrollPhysics(),
+                      itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
@@ -1479,9 +1479,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       physics:
-                      BouncingScrollPhysics(),
-                      // physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: 4,
+                      NeverScrollableScrollPhysics(),
+                      itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),

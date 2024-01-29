@@ -22,6 +22,9 @@ Future<UpdateLocationModel> updateLocationRepo({lat,context,long,address}) async
   map['longitude'] =  long;
   map['address'] = address;
 
+  print("Map $map");
+
+
   //
   // SharedPreferences pref = await SharedPreferences.getInstance();
   // LoginModel model = LoginModel.fromJson(jsonDecode(pref.getString("cookie")!));

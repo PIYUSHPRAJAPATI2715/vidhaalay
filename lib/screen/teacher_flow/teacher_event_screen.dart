@@ -653,8 +653,8 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               var items = evenetDetailController.getEventModel.value.data![index];
-                              DateTime dateTime = DateTime.parse(items.createdAt.toString());
-                              String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+                              // DateTime dateTime = DateTime.parse(items.createdAt.toString());
+                              // String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
                               return Column(
                                 children: [
                                   GestureDetector(
@@ -713,7 +713,8 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                                           Container(
                                                             // color: Colors.green,
                                                             child: Text(
-                                                              formattedDate.toString(),
+                                                              items.date.toString(),
+                                                              // formattedDate.toString(),
                                                               style: GoogleFonts.poppins(
                                                                   color: Colors.grey,
                                                                   fontSize: 13,

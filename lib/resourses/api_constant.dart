@@ -119,7 +119,7 @@ showToast(String message) {
 
   Get.snackbar(
     "Vidhyaalay",
-    "Display the message here",
+    message,
     colorText: AppThemes.primaryColor, // text color
     backgroundColor: AppThemes.white, // background color
     borderColor: AppThemes.primaryColor, // border color

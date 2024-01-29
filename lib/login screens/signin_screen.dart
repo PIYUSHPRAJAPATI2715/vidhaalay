@@ -16,6 +16,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
+import 'package:vidhaalay_app/models/multi_login_model.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
@@ -622,6 +623,8 @@ class _SignInPageState extends State<SignInPage> {
                                 pass: signInController.passwordController.text,
                               );
                             }
+
+                            // _showMultiLoginAlertDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -684,6 +687,70 @@ class _SignInPageState extends State<SignInPage> {
       ),
     );
   }
+
+  Future<void> _showMultiLoginAlertDialog(BuildContext context) async {
+    final signInController = Get.put(SignInController());
+
+    List<MultiLoginModel> loginData =
+    [
+      MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
+      MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
+      MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
+    ];
+
+    print("loginData : $loginData");
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          // titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+          contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+          title: Text('Switch Account',
+            style: GoogleFonts.poppins(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: AppThemes.black,
+            ),
+          ),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: loginData.length, // Set your itemCount according to your data
+              itemBuilder: (BuildContext context, int index) {
+                var items = loginData[index];
+
+                return Column(
+                  children: [
+                    Divider(
+                      thickness: 1.0,
+                      height: 2,
+                    ),
+                    ListTile(
+                      // dense: true,
+                      visualDensity: VisualDensity(vertical: -3),
+                      // contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                      leading: Icon(Icons.person),
+                      title: Text(items.userName!),
+                      subtitle: Text(items.email!),
+                      onTap: () {
+                        signInController.login(context: context,email: items.email!,
+                          type: items.type!,
+                          pass: items.password!,
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 
   // signInWithGoogle() async {
   //   await GoogleSignIn().signOut();

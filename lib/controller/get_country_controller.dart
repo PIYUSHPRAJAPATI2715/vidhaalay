@@ -54,9 +54,11 @@ class GetCountryListController extends GetxController {
 
   getStateListFunction() async {
     isGetStateLoading.value = false;
+    // print()
     // try {
     http.Response response = await http.get(
-      Uri.parse(ApiUrls.getStateUrl+"/105"),
+      Uri.parse(ApiUrls.getStateUrl+"/${selectCountyValue}"),
+      // Uri.parse(ApiUrls.getStateUrl+"/105"),
       headers: await getAuthHeader(),
     );
 
@@ -68,6 +70,7 @@ class GetCountryListController extends GetxController {
       print(jsonDecode(response.body));
       isGetStateLoading.value = true;
       getStateListModel.value = StateListModel.fromJson(jsonDecode(response.body));
+      // getStateListModel.value.data[0] ;
     } else {
       isGetStateLoading.value = true;
       if (kDebugMode) {
@@ -86,7 +89,9 @@ class GetCountryListController extends GetxController {
     // try {
     http.Response response =
     // await http.get(Uri.parse(ApiUrls.getCityUrl + id), headers: headers);
-    await http.get(Uri.parse(ApiUrls.getCityUrl + id), headers: await getAuthHeader());
+    await http.get(
+        Uri.parse(ApiUrls.getCityUrl + id),
+        headers: await getAuthHeader());
 
     print("API Status");
     print(response.statusCode.toString());

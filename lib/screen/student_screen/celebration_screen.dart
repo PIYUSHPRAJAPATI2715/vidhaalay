@@ -8,8 +8,6 @@ import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
 
-
-
 class CelebrationScreenStu extends StatefulWidget {
   // final String id;
   // const CelebrationScreenStu({super.key, required this.id});
@@ -21,7 +19,6 @@ class CelebrationScreenStu extends StatefulWidget {
 }
 
 class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
-
   final evenetDetailController = Get.put(EvenetDetailController());
   String id = '';
 
@@ -37,10 +34,16 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Obx(
-      () => Scaffold(
+    return Obx(() {
+
+      return Scaffold(
         appBar: AppBar(
-          title: Text(  evenetDetailController.isDetailsLoading.value ? '' : evenetDetailController.getEventDetailsModel.value.data!.eventName!.toString(),
+          title: Text(
+            evenetDetailController.isDetailsLoading.value
+                ? ''
+                : evenetDetailController
+                .getEventDetailsModel.value.data!.eventName!
+                .toString(),
             style: GoogleFonts.poppins(
               fontSize: 19,
               fontWeight: FontWeight.w600,
@@ -49,50 +52,62 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
           ),
           centerTitle: true,
           leading: IconButton(
-            onPressed: (){
+            onPressed: () {
               Get.back();
             },
-            icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+            icon: Image.asset(
+              AppAssets.arrowBack,
+              width: 25,
+              height: 25,
+            ),
           ),
           actions: [
             IconButton(
-                onPressed: () async{
-                   await Share.share(evenetDetailController.getEventDetailsModel.value.data!.eventName!.toString());
+                onPressed: () async {
+                  await Share.share(evenetDetailController
+                      .getEventDetailsModel.value.data!.eventName!
+                      .toString());
                 },
-                icon: const Icon(Icons.share,color: Colors.black,)
-            )
+                icon: const Icon(
+                  Icons.share,
+                  color: Colors.black,
+                ))
           ],
         ),
-
-        body: evenetDetailController.isDetailsLoading.value ?  SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Center(child: const CommonProgressIndicator())
-          ) : SafeArea(
-            child: Stack(
-              children: [
-                Container(
-                    height: size.height,
-                    color: Colors.white,
-                ),
-                ClipRRect(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
-                    child: Image.asset(AppAssets.holiImg,)
-                ),
-
-                Positioned.fill(
-                  top: size.height*.260,
+        body: evenetDetailController.isDetailsLoading.value
+            ? SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Center(child: const CommonProgressIndicator()))
+            : SafeArea(
+          child: Stack(
+            children: [
+              Container(
+                height: size.height,
+                color: Colors.white,
+              ),
+              ClipRRect(
+                  borderRadius:
+                  BorderRadius.only(bottomLeft: Radius.circular(0)),
+                  child: Image.asset(
+                    AppAssets.holiImg,
+                  )),
+              Positioned.fill(
+                  top: size.height * .260,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.width * 0.05),
                     height: size.height,
                     width: size.width,
                     decoration: const BoxDecoration(
                       color: AppThemes.white,
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(40),topLeft: Radius.circular(0)),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(40),
+                          topLeft: Radius.circular(0)),
                     ),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
-                      child:  Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -100,9 +115,13 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
                             height: 30,
                           ),
                           Text(
-                            evenetDetailController.getEventDetailsModel.value.data!.eventName!.toString(),
+                            evenetDetailController.getEventDetailsModel
+                                .value.data!.eventName!
+                                .toString(),
                             // "Holi Celebration Holi Celebration Holi Celebration Holi Celebration Holi Celebration",
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800),
                           ),
                           const SizedBox(
                             height: 7,
@@ -111,7 +130,6 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
                               ClipOval(
                                 child: Image.asset(
                                   AppAssets.studentImg,
@@ -126,17 +144,21 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
                                 style: GoogleFonts.poppins(
                                     color: Colors.grey,
                                     fontSize: 12.0,
-                                    fontWeight: FontWeight.w500
-                                ),
+                                    fontWeight: FontWeight.w500),
                               ),
                               Text(
                                 // " ",
-                                evenetDetailController.getEventDetailsModel.value.data!.teacher!.name!.toString(),
-                                style:  GoogleFonts.poppins(
+                                evenetDetailController
+                                    .getEventDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher!
+                                    .name!
+                                    .toString(),
+                                style: GoogleFonts.poppins(
                                     color: Colors.orange,
                                     fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
+                                    fontWeight: FontWeight.w500),
                               )
                             ],
                           ),
@@ -147,7 +169,6 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
                               ClipOval(
                                 child: Image.asset(
                                   AppAssets.watchIcon,
@@ -158,112 +179,132 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
                                 width: 5,
                               ),
                               Text(
-                                '8.00 AM ',
+                                  evenetDetailController.getEventDetailsModel
+                                      .value.data!.date!
+                                      .toString(),
                                 style: GoogleFonts.poppins(
                                     color: Colors.grey,
                                     fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
+                                    fontWeight: FontWeight.w500),
                               ),
-                              Text(
-                                '3.00 PM',
-                                style:  GoogleFonts.poppins(
-                                    color: Colors.grey,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
+                              // Text(
+                              //   '8.00 AM ',
+                              //   style: GoogleFonts.poppins(
+                              //       color: Colors.grey,
+                              //       fontSize: 13.0,
+                              //       fontWeight: FontWeight.w500
+                              //   ),
+                              // ),
+                              // Text(
+                              //   '3.00 PM',
+                              //   style:  GoogleFonts.poppins(
+                              //       color: Colors.grey,
+                              //       fontSize: 13.0,
+                              //       fontWeight: FontWeight.w500
+                              //   ),
+                              // ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                          // const SizedBox(
+                          //   height: 7,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //
+                          //     ClipOval(
+                          //       child: Image.asset(
+                          //         AppAssets.location,
+                          //         width: 13,
+                          //         color: Colors.red,
+                          //       ),
+                          //     ),
+                          //     const SizedBox(
+                          //       width: 5,
+                          //     ),
+                          //     Text(
+                          //       '4101 Parkway Street, St. Louis., California',
+                          //       style: GoogleFonts.poppins(
+                          //           color: Colors.grey,
+                          //           fontSize: 13.0,
+                          //           fontWeight: FontWeight.w500
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
 
-                              ClipOval(
-                                child: Image.asset(
-                                  AppAssets.location,
-                                  width: 13,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '4101 Parkway Street, St. Louis., California',
-                                style: GoogleFonts.poppins(
-                                    color: Colors.grey,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          Text(
-                            evenetDetailController.getEventDetailsModel.value.data!.message!.toString(),
-                            // 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
+
+                          // const SizedBox(
+                          //   height: 12,
+                          // ),
+                          // Text(
+                          //   evenetDetailController
+                          //       .getEventDetailsModel.value.data!.message!
+                          //       .toString(),
+                          //   // 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500),
+                          // ),
                           const SizedBox(
                             height: 19,
                           ),
                           const Text(
                             "Activities",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800),
                           ),
                           const SizedBox(
                             height: 7,
                           ),
                           Text(
-                            '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                            evenetDetailController
+                                .getEventDetailsModel.value.data!.message!
+                                .toString(),
+                            // 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
                             style: GoogleFonts.poppins(
                                 color: Colors.grey,
                                 fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
+                                fontWeight: FontWeight.w500),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
+                          // Text(
+                          //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500),
+                          // ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Text(
+                          //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500),
+                          // ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Text(
+                          //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500),
+                          // ),
                         ],
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
+                  )),
+            ],
           ),
-      ),
-    );
+        ),
+      );
+    });
   }
 }

@@ -426,13 +426,15 @@ class _EventsScreenState extends State<EventsScreen> {
                                     .getEventModel
                                     .value
                                     .data![index];
-                                DateTime dateTime =
-                                DateTime.parse(items
-                                    .createdAt
-                                    .toString());
-                                String formattedDate =
-                                DateFormat('yyyy-MM-dd')
-                                    .format(dateTime);
+
+                                // DateTime dateTime =
+                                // DateTime.parse(items
+                                //     .createdAt
+                                //     .toString());
+                                // String formattedDate =
+                                // DateFormat('yyyy-MM-dd')
+                                //     .format(dateTime);
+
                                 return Column(
                                   children: [
                                     GestureDetector(
@@ -516,7 +518,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              formattedDate.toString(),
+                                                                items.date.toString(),
+                                                              // formattedDate.toString(),
                                                               style: GoogleFonts.poppins(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w400),
                                                               maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,

@@ -10,8 +10,8 @@ class StudentHomeController extends GetxController{
   RxBool isLoading = true.obs;
   Rx<LatestEventModel> getLatestEventModel = LatestEventModel().obs;
 
-  RxBool isAssignmentLoading = true.obs;
-  Rx<AssignmentDetails> getLatestAssignmentModel = AssignmentDetails().obs;
+  // RxBool isAssignmentLoading = true.obs;
+  // Rx<AssignmentDetails> getLatestAssignmentModel = AssignmentDetails().obs;
 
   Future<LatestEventModel> getLatestEventRepo() async {
     // try{
@@ -38,27 +38,27 @@ class StudentHomeController extends GetxController{
     });
   }
 
-  getLatestAssignmentRepo() async {
-    try{
-    isAssignmentLoading.value = true;
-
-    http.Response response = await http.get(Uri.parse(ApiUrls.latestAssignment), headers: await getAuthHeader());
-    // http.Response response = await http.get(Uri.parse(ApiUrls.latestAssignment), headers: await getAuthHeader());
-    // final response = await http.get(
-    //   Uri.parse(ApiUrls.assignmentListUrl+"/29"),
-    //   headers: await getAuthHeader(),);
-    print(response.statusCode);
-
-    if (response.statusCode == 200) {
-      print(response.body);
-      getLatestAssignmentModel.value = AssignmentDetails.fromJson(jsonDecode(response.body));
-      isAssignmentLoading.value = false;
-    } else {
-      throw Exception(response.body);
-    }
-    }catch(e){
-      print(e.toString());
-    }
-  }
+  // getLatestAssignmentRepo() async {
+  //   try{
+  //   isAssignmentLoading.value = true;
+  //
+  //   http.Response response = await http.get(Uri.parse(ApiUrls.latestAssignment), headers: await getAuthHeader());
+  //   // http.Response response = await http.get(Uri.parse(ApiUrls.latestAssignment), headers: await getAuthHeader());
+  //   // final response = await http.get(
+  //   //   Uri.parse(ApiUrls.assignmentListUrl+"/29"),
+  //   //   headers: await getAuthHeader(),);
+  //   print(response.statusCode);
+  //
+  //   if (response.statusCode == 200) {
+  //     print(response.body);
+  //     getLatestAssignmentModel.value = AssignmentDetails.fromJson(jsonDecode(response.body));
+  //     isAssignmentLoading.value = false;
+  //   } else {
+  //     throw Exception(response.body);
+  //   }
+  //   }catch(e){
+  //     print(e.toString());
+  //   }
+  // }
 
 }

@@ -276,8 +276,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // TODO: implement initState
     super.initState();
     getCountryController.getCountryListFunction();
-    getCountryController.getStateListFunction();
-    getCountryController.getCityListFunction("1");
+    // getCountryController.getStateListFunction();
+    // getCountryController.getCityListFunction("1");
+
     _initializeControllers();
     // getCountryController.getCityListFunction();
   }
@@ -368,61 +369,61 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               print('currentIndex : $currentIndex');
 
 
-                              // if(currentIndex == index) {
-                              //     print("Equal");
-                              //   } else if(currentIndex < index) {
-                              //     print("Increase");
-                              //
-                              //     switch (currentIndex) {
-                              //       case 0:
-                              //         print('The number is 0');
-                              //         if(_formKey.currentState!.validate()) {
-                              //           kk = (currentIndex+1) / 5;
-                              //         }
-                              //         break;
-                              //
-                              //       case 1:
-                              //         print('The number is 1');
-                              //         if(_formKeyResidential.currentState!.validate()) {
-                              //           kk = (currentIndex+1) / 5;
-                              //         }
-                              //         break;
-                              //
-                              //       case 2:
-                              //         print('The number is 2');
-                              //         if(_formKeyPrevious.currentState!.validate()) {
-                              //           kk = (currentIndex+1) / 5;
-                              //         }
-                              //         break;
-                              //
-                              //       case 3:
-                              //         print('The number is 3');
-                              //         if(_formKeyFathers.currentState!.validate()) {
-                              //           kk = (currentIndex+1) / 5;
-                              //         }
-                              //         break;
-                              //
-                              //       case 4:
-                              //         print('The number is 3');
-                              //         if(_formKeyMother.currentState!.validate()) {
-                              //           kk = (currentIndex+1) / 5;
-                              //         }
-                              //         break;
-                              //
-                              //       default:
-                              //         print('The number is not 1, 2, or 3');
-                              //     }
-                              //
-                              //   } else {
-                              //     kk = index / 5;
-                              //     print("Decrease");
-                              //   }
-                              //
-                              // print("index : $index");
-                              // print("kk : $kk");
+                              if(currentIndex == index) {
+                                  print("Equal");
+                                } else if(currentIndex < index) {
+                                  print("Increase");
 
-                              kk = index / 5;
+                                  switch (currentIndex) {
+                                    case 0:
+                                      print('The number is 0');
+                                      if(_formKey.currentState!.validate()) {
+                                        kk = (currentIndex+1) / 5;
+                                      }
+                                      break;
+
+                                    case 1:
+                                      print('The number is 1');
+                                      if(_formKeyResidential.currentState!.validate()) {
+                                        kk = (currentIndex+1) / 5;
+                                      }
+                                      break;
+
+                                    case 2:
+                                      print('The number is 2');
+                                      if(_formKeyPrevious.currentState!.validate()) {
+                                        kk = (currentIndex+1) / 5;
+                                      }
+                                      break;
+
+                                    case 3:
+                                      print('The number is 3');
+                                      if(_formKeyFathers.currentState!.validate()) {
+                                        kk = (currentIndex+1) / 5;
+                                      }
+                                      break;
+
+                                    case 4:
+                                      print('The number is 3');
+                                      if(_formKeyMother.currentState!.validate()) {
+                                        kk = (currentIndex+1) / 5;
+                                      }
+                                      break;
+
+                                    default:
+                                      print('The number is not 1, 2, or 3');
+                                  }
+
+                                } else {
+                                  kk = index / 5;
+                                  print("Decrease");
+                                }
+
+                              print("index : $index");
                               print("kk : $kk");
+
+                              // kk = index / 5;
+                              // print("kk : $kk");
                               setState(() {});
 
                             },
@@ -494,8 +495,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                              fontWeight: FontWeight.w400,
                              fontSize: 12
                            ),),
-
-
 
                             ],
                       ),
@@ -627,7 +626,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter your name'),
+                                    'Please enter your name'),
 
                               ]),
                               hintText: 'Enter Full Name',
@@ -654,7 +653,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                             RequiredValidator(
                               errorText:
-                              'Please Enter father\'s name'),
+                              'Please enter father\'s name'),
                               ]),
                             ),
                             const SizedBox(
@@ -672,7 +671,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s name'),
+                                    'Please enter mother\'s name'),
 
                               ]),
                               hintText: 'Enter Full Name',
@@ -1489,6 +1488,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                  onChanged: (value) {
                                    setState(() {
                                      getCountryController.selectCountyValue = value!.toString();
+                                     print(getCountryController.selectCountyValue);
+                                     getCountryController.getStateListFunction();
                                    });
                                  },
                                  validator: (value) {
@@ -1562,7 +1563,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                ),
                              )
 
-                               : SizedBox();
+                               :  CommonTextfield(obSecure: false, readOnly:  true,
+                               hintText: "Country not available",
+                               validator: (value) {
+                                 if (value == null || value == '') {
+                                   return 'Please select country';
+                                 }
+                                 return null;
+                               },
+                             );
                              }),
                               const SizedBox(
                                 height: 25,
@@ -1585,7 +1594,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   validator: MultiValidator([
                                     RequiredValidator(
                                         errorText:
-                                        'Please Enter address'),
+                                        'Please enter address'),
                                   ]),
                                 ),
                               ),
@@ -1602,7 +1611,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                               Obx(() {
                                 return getCountryController.isGetStateLoading.value == true ?
-                                DropdownButtonHideUnderline(
+                                getCountryController
+                                    .getStateListModel
+                                    .value
+                                    .data!.isEmpty ?
+                                CommonTextfield(obSecure: false, readOnly:  true,
+                                    hintText: "State not available",
+                                  validator: (value) {
+                                    if (value == null || value == '') {
+                                      return 'Please select state';
+                                    }
+                                    return null;
+                                  },
+                                )
+                                    :  DropdownButtonHideUnderline(
                                   child: DropdownButtonFormField2(
                                     value: getCountryController.selectStateValue,
                                     items: getCountryController.getStateListModel.value.data!.toList()
@@ -1693,123 +1715,141 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     ),
                                   ),
                                 )
-                                : SizedBox();
+                                :  CommonTextfield(obSecure: false, readOnly:  true,
+                                    hintText: "State not available",
+                                  validator: (value) {
+                                    if (value == null || value == '') {
+                                      return 'Please select state';
+                                    }
+                                    return null;
+                                  },
+                                );
                               }),
+
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const Text('City',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
 
                               Obx(() {
                               return getCountryController.isGetCityLoading.value == true ?
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 25,
-                                  ),
-                                  const Text('City',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color: Colors.black)),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Obx(() {
-                                    return getCountryController.isGetCityLoading.value == true ?
-                                    DropdownButtonHideUnderline(
-                                      child: DropdownButtonFormField2(
-                                        value: getCountryController.selectCityValue,
-                                        items: getCountryController.getCityListModel.value.data!.toList()
-                                            .map((item) => DropdownMenuItem(
-                                          value:
-                                          item.id.toString(),
-                                          child: Text(
-                                            item.city.toString(),
-                                            overflow: TextOverflow.ellipsis,maxLines: 5,),
-                                        )).toList(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            getCountryController.selectCityValue = value!.toString();
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value == null || value == '') {
-                                            return 'Please select city';
-                                          }
-                                          return null;
-                                        },
-                                        isExpanded: true,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 15,
-                                        ),
-                                        decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                          hintText: 'Select City',
-                                          hintStyle: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 15,
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(50),
-                                            borderSide: BorderSide(
-                                                color: Colors.red,
-                                                width: 1
-                                            ),
-                                          ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(50),
-                                            borderSide: BorderSide(
-                                                color: Colors.red,
-                                                width: 1
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(50),
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey!.withOpacity(0.5),
-                                                  width: 1
-                                              )
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(50),
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey!.withOpacity(0.5),
-                                                  width: 1
-                                              )
-                                          ),
-                                        ),
-                                        dropdownStyleData: DropdownStyleData(
-                                          maxHeight: size.height * 0.28,
-                                          width: size.width * 0.925,
-                                          padding: EdgeInsets.symmetric(horizontal: 5),
-                                          isOverButton: false,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(14),
-                                            color: Colors.white,
-                                          ),
-
-                                          offset: const Offset(2, -10),
-                                          scrollbarTheme: ScrollbarThemeData(
-                                            radius: const Radius.circular(40),
-                                            thickness: MaterialStateProperty.all<double>(6),
-                                            thumbVisibility: MaterialStateProperty.all<bool>(true),
-                                          ),
-                                        ),
-                                        menuItemStyleData: const MenuItemStyleData(
-                                          height: 45,
-                                          padding: EdgeInsets.only(left: 10, right: 10),
+                              getCountryController
+                                  .getCityListModel
+                                  .value
+                                  .data!.isEmpty ?
+                              CommonTextfield(obSecure: false, readOnly:  true,
+                                hintText: "City not available",
+                                validator: (value) {
+                                  if (value == null || value == '') {
+                                    return 'Please select city';
+                                  }
+                                  return null;
+                                },
+                              )
+                                  : DropdownButtonHideUnderline(
+                                  child: DropdownButtonFormField2(
+                                    value: getCountryController.selectCityValue,
+                                    items: getCountryController.getCityListModel.value.data!.toList()
+                                        .map((item) => DropdownMenuItem(
+                                      value:
+                                      item.id.toString(),
+                                      child: Text(
+                                        item.city.toString(),
+                                        overflow: TextOverflow.ellipsis,maxLines: 5,),
+                                    )).toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        getCountryController.selectCityValue = value!.toString();
+                                      });
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value == '') {
+                                        return 'Please select city';
+                                      }
+                                      return null;
+                                    },
+                                    isExpanded: true,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                      hintText: 'Select City',
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.red,
+                                            width: 1
                                         ),
                                       ),
-                                    )
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                        borderSide: BorderSide(
+                                            color: Colors.red,
+                                            width: 1
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey!.withOpacity(0.5),
+                                              width: 1
+                                          )
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey!.withOpacity(0.5),
+                                              width: 1
+                                          )
+                                      ),
+                                    ),
+                                    dropdownStyleData: DropdownStyleData(
+                                      maxHeight: size.height * 0.28,
+                                      width: size.width * 0.925,
+                                      padding: EdgeInsets.symmetric(horizontal: 5),
+                                      isOverButton: false,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Colors.white,
+                                      ),
 
-                                    : SizedBox();
-                                  }),
-
-                                ],
-                              )
-
-                                  : SizedBox();
+                                      offset: const Offset(2, -10),
+                                      scrollbarTheme: ScrollbarThemeData(
+                                        radius: const Radius.circular(40),
+                                        thickness: MaterialStateProperty.all<double>(6),
+                                        thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                      ),
+                                    ),
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 45,
+                                      padding: EdgeInsets.only(left: 10, right: 10),
+                                    ),
+                                  ),
+                                )
+                                    : CommonTextfield(obSecure: false, readOnly:  true,
+                                  hintText: "City not available",
+                                validator: (value) {
+                                  if (value == null || value == '') {
+                                    return 'Please select city';
+                                  }
+                                  return null;
+                                },
+                              );
                               }),
+
                               const SizedBox(
                                 height: 25,
                               ),
@@ -1833,7 +1873,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                                   ],
                                   validator: MultiValidator([
-                                    RequiredValidator(errorText: 'Please Enter pincode'),
+                                    RequiredValidator(errorText: 'Please enter pincode'),
                                     LengthRangeValidator(min: 6, max: 6, errorText: "Please enter at least 6 character")
                                   ]),
                                 ),
@@ -1920,7 +1960,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 validator: MultiValidator([
                                   RequiredValidator(
                                       errorText:
-                                      'Please Enter school name'),
+                                      'Please enter school name'),
 
                                 ]),
                               ),
@@ -1943,7 +1983,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 validator: MultiValidator([
                                   RequiredValidator(
                                       errorText:
-                                      'Please Enter loaction'),
+                                      'Please enter loaction'),
 
                                 ]),
                               ),
@@ -1967,7 +2007,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 validator: MultiValidator([
                                   RequiredValidator(
                                       errorText:
-                                      'Please Enter class'),
+                                      'Please enter class'),
 
                                 ]),
                               ),
@@ -2016,7 +2056,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   validator: MultiValidator([
                                     RequiredValidator(
                                         errorText:
-                                        'Please Enter percentage'),
+                                        'Please enter percentage'),
 
                                   ]),
                                 ),
@@ -2096,7 +2136,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter father\'s qualification'),
+                                    'Please enter father\'s qualification'),
                               ]),
                             ),
                             const SizedBox(
@@ -2118,7 +2158,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter father\'s occupation'),
+                                    'Please enter father\'s occupation'),
 
                               ]),
                             ),
@@ -2281,7 +2321,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter Organization'),
+                                    'Please enter Organization'),
 
                               ]),
                             ),
@@ -2309,7 +2349,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter father\'s mobile no'),
+                                    'Please enter father\'s mobile no'),
                                 LengthRangeValidator(min: 10, max: 10, errorText: "Please enter at least 10 character")
                               ]),
                             ),
@@ -2336,7 +2376,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                               RequiredValidator(
                                     errorText:
-                                    'Please Enter father\'s aadhar number'),
+                                    'Please enter father\'s aadhar number'),
                                 LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character"),
                               ]),
                             ),
@@ -2359,7 +2399,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter father\'s email'),
+                                    'Please enter father\'s email'),
                                 EmailValidator(errorText: "enter a valid mail")
                               ]),
                             ),
@@ -2382,7 +2422,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter father\'s annual income'),
+                                    'Please enter father\'s annual income'),
                               ]),
                             ),
                             const SizedBox(
@@ -2404,7 +2444,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               // validator: MultiValidator([
                               //   RequiredValidator(
                               //       errorText:
-                              //       'Please Enter father\'s landline no'),
+                              //       'Please enter father\'s landline no'),
                               // ]),
                             ),
                             const SizedBox(
@@ -2484,7 +2524,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s qualification'),
+                                    'Please enter mother\'s qualification'),
 
                               ]),
                             ),
@@ -2507,7 +2547,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s occupation'),
+                                    'Please enter mother\'s occupation'),
 
                               ]),
                             ),
@@ -2531,7 +2571,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter Organization'),
+                                    'Please enter Organization'),
 
                               ]),
                             ),
@@ -2559,7 +2599,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s mobile no'),
+                                    'Please enter mother\'s mobile no'),
                                 LengthRangeValidator(min: 10, max: 10, errorText: "Please enter at least 10 character")
                               ]),
                             ),
@@ -2586,7 +2626,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s aadhar number'),
+                                    'Please enter mother\'s aadhar number'),
                                 LengthRangeValidator(min: 12, max: 12, errorText: "Please enter at least 12 character"),
                               ]),
                             ),
@@ -2609,7 +2649,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s email'),
+                                    'Please enter mother\'s email'),
                                 EmailValidator(errorText: "enter a valid mail")
                               ]),
                             ),
@@ -2632,7 +2672,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(
                                     errorText:
-                                    'Please Enter mother\'s annual income'),
+                                    'Please enter mother\'s annual income'),
 
                               ]),
                             ),
@@ -2655,7 +2695,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               // validator: MultiValidator([
                               //   RequiredValidator(
                               //       errorText:
-                              //       'Please Enter mother\'s landline no'),
+                              //       'Please enter mother\'s landline no'),
                               //
                               // ]),
                             ),
@@ -2818,7 +2858,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                 validator: MultiValidator([
                                                   RequiredValidator(
                                                       errorText:
-                                                      'Please Enter sibling\'s name'),
+                                                      'Please enter sibling\'s name'),
 
                                                 ]),
                                                 onChanged: (value) {
@@ -2846,7 +2886,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                 validator: MultiValidator([
                                                   RequiredValidator(
                                                       errorText:
-                                                      'Please Enter Class Name'),
+                                                      'Please enter Class Name'),
                                                 ]),
                                                 onChanged: (value) {
                                                   siblingInfoList[index].className = siblingClassControllers[index].text;
@@ -2872,7 +2912,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                 validator: MultiValidator([
                                                   RequiredValidator(
                                                       errorText:
-                                                      'Please Enter colage\'s name'),
+                                                      'Please enter colage\'s name'),
                                                 ]),
                                                 onChanged: (value) {
                                                   siblingInfoList[index].schoolName = siblingSchoolControllers[index].text;
@@ -2982,7 +3022,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   //         validator: MultiValidator([
                                   //           RequiredValidator(
                                   //               errorText:
-                                  //               'Please Enter sibling\'s name'),
+                                  //               'Please enter sibling\'s name'),
                                   //
                                   //         ]),
                                   //         // onChanged: (value) {
@@ -3010,7 +3050,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   //       //   validator: MultiValidator([
                                   //       //     RequiredValidator(
                                   //       //         errorText:
-                                  //       //         'Please Enter Class Name'),
+                                  //       //         'Please enter Class Name'),
                                   //       //   ]),
                                   //       // ),
                                   //       // const SizedBox(
@@ -3032,7 +3072,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   //       //   validator: MultiValidator([
                                   //       //     RequiredValidator(
                                   //       //         errorText:
-                                  //       //         'Please Enter colage\'s name'),
+                                  //       //         'Please enter colage\'s name'),
                                   //       //   ]),
                                   //       // ),
                                   //       const SizedBox(
@@ -3257,7 +3297,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   //           keyboardType: TextInputType.name,
   //           obSecure: false,
   //           validator: MultiValidator([
-  //             RequiredValidator(errorText: 'Please Enter sibling\'s name'),
+  //             RequiredValidator(errorText: 'Please enter sibling\'s name'),
   //           ]),
   //         ),
   //         const SizedBox(
@@ -3280,7 +3320,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   //         //   validator: MultiValidator([
   //         //     RequiredValidator(
   //         //         errorText:
-  //         //         'Please Enter Class Name'),
+  //         //         'Please enter Class Name'),
   //         //   ]),
   //         // ),
   //         // const SizedBox(
@@ -3302,7 +3342,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   //         //   validator: MultiValidator([
   //         //     RequiredValidator(
   //         //         errorText:
-  //         //         'Please Enter colage\'s name'),
+  //         //         'Please enter colage\'s name'),
   //         //
   //         //   ]),
   //         // ),

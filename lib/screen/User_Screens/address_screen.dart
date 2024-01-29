@@ -47,6 +47,8 @@ class _AddressScreenState extends State<AddressScreen> {
 
   final address = TextEditingController();
   bool isAddressUpdateRequire = false;
+  final _focusNode = FocusScopeNode();
+
 
   @override
   void initState() {
@@ -202,7 +204,7 @@ class _AddressScreenState extends State<AddressScreen> {
           ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
           child: Column(
             children: [
               Padding(
@@ -250,49 +252,130 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 15,
               ),
 
-              GooglePlaceAutoCompleteTextField(
-                  textEditingController: address,
-                  googleAPIKey: googleApikey,
-                  boxDecoration: BoxDecoration(
-                      border: Border.all(color: Colors.transparent)),
-                  textStyle: TextStyle(
-                      color: AppThemes.textGray,
-                      fontSize: 14
-                  ),
-                  inputDecoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                    labelText: 'Location',
-                    labelStyle: TextStyle(
-                      color: AppThemes.textGray,
-                      fontSize: 14
-                    ),
-                    suffixIcon: Icon(
-                      Icons.location_on,
-                      color: AppThemes.primaryColor,
-                      size: 22,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                            color: Colors.grey!.withOpacity(0.5),
-                            width: 1
-                        )
-                    ),
+              Padding(
 
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                            color: Colors.grey!.withOpacity(0.5),
-                            width: 1
-                        )
-                    ),
-                  ),
-                  debounceTime: 600,
-                  isLatLngRequired: false,
-                  itemClick: (prediction) {
-                    address.text = prediction.description!;
-                  }
+                padding: const EdgeInsets.only(left: 10.0,right: 10,bottom: 10),
+               child: FocusScope(
+                 node: _focusNode,
+                 child: GooglePlaceAutoCompleteTextField(
+                     textEditingController: address,
+                     googleAPIKey: googleApikey,
+                     inputDecoration: InputDecoration(
+                       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                       labelText: 'Location',
+                       labelStyle: TextStyle(
+                           color: AppThemes.textGray,
+                           fontSize: 14
+                       ),
+                       suffixIcon: Icon(
+                         Icons.location_on,
+                         color: AppThemes.primaryColor,
+                         size: 22,
+                       ),
+                       enabledBorder: OutlineInputBorder(
+                           borderRadius: BorderRadius.circular(50),
+                           borderSide: BorderSide(
+                               color: Colors.grey!.withOpacity(0.5),
+                               width: 1
+                           )
+                       ),
+
+                       focusedBorder: OutlineInputBorder(
+                           borderRadius: BorderRadius.circular(50),
+                           borderSide: BorderSide(
+                               color: Colors.grey!.withOpacity(0.5),
+                               width: 1
+                           )
+                       ),
+                     ),
+                     seperatedBuilder: Divider(
+                       color: Colors.grey,
+                       height: 1,
+                     ),
+                     // Container(),
+                     boxDecoration: BoxDecoration(
+                       border: Border.all(
+                           color: Colors.transparent
+                       ),
+                     ),
+
+                     itemBuilder: (context, index, prediction) => Container(
+                       // height: 50,
+                       padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                       decoration: BoxDecoration(
+                         color: Colors.white,
+                       ),
+                       child: Text(
+                         prediction.description.toString(),
+                         style: TextStyle(
+                             color: AppThemes.textGray,
+                             fontSize: 14
+                         ),
+                       ),
+                     ),
+                     isCrossBtnShown: true,
+                     textStyle: TextStyle(
+                         color: AppThemes.textGray,
+                         fontSize: 14
+                     ),
+                     debounceTime: 600,
+                     isLatLngRequired: true,
+                     itemClick: (prediction) {
+                       _focusNode.unfocus();
+                       address.text = prediction.description!;
+                       lat = prediction.lat!;
+                       lang = prediction.lng!;
+                     }
+                 ),
+               ),
               ),
+
+              // GooglePlaceAutoCompleteTextField(
+              //     textEditingController: address,
+              //     googleAPIKey: googleApikey,
+              //     boxDecoration: BoxDecoration(
+              //         border: Border.all(color: Colors.transparent)),
+              //     textStyle: TextStyle(
+              //         color: AppThemes.textGray,
+              //         fontSize: 14
+              //     ),
+              //
+              //     inputDecoration: InputDecoration(
+              //       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+              //       labelText: 'Location',
+              //       labelStyle: TextStyle(
+              //         color: AppThemes.textGray,
+              //         fontSize: 14
+              //       ),
+              //       suffixIcon: Icon(
+              //         Icons.location_on,
+              //         color: AppThemes.primaryColor,
+              //         size: 22,
+              //       ),
+              //       enabledBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(50),
+              //           borderSide: BorderSide(
+              //               color: Colors.grey!.withOpacity(0.5),
+              //               width: 1
+              //           )
+              //       ),
+              //
+              //       focusedBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(50),
+              //           borderSide: BorderSide(
+              //               color: Colors.grey!.withOpacity(0.5),
+              //               width: 1
+              //           )
+              //       ),
+              //     ),
+              //     // debounceTime: 600,
+              //     isLatLngRequired: true,
+              //     itemClick: (prediction) {
+              //       address.text = prediction.description!;
+              //       lat = prediction.lat!;
+              //       lang = prediction.lng!;
+              //     }
+              // ),
 
 // Container(
 //     decoration: BoxDecoration(
@@ -322,6 +405,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       : 'Update Location',
                   onPressed: () {
                    /* Get.offAllNamed(MyRouters.drawerForTeacher);*/
+                    _focusNode.unfocus();
 
                     if (_address!.isNotEmpty) {
                       updateLocationRepo(
