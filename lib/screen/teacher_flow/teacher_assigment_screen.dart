@@ -244,7 +244,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
-                                      color: Colors.black,),
+                                      color: Colors.white,),
                                     textAlign: TextAlign.center,
                                   ),
                                   const SizedBox(
@@ -259,9 +259,12 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                           child: Text(items.name,style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 17,
-                                            color: getAssignmentController.selectedClassId?.value == items.id
-                                                ? Colors.black
-                                                : Colors.black, // Default color for unselected items
+                                              color: getAssignmentController.selectedClassId?.value == items.id
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            // color: getAssignmentController.selectedClassId?.value == items.id
+                                            //     ? Colors.black
+                                            //     : Colors.black, // Default color for unselected items
                                           ),
                                           ),
                                         );
@@ -275,6 +278,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                         // getAssignmentController.getEventData(dateFormat : getAssignmentController.selectedDate.value, classId : getAssignmentController.selectedClassId.value);
                                       },
                                       width: size.width * 0.3,
+                                      backgroundColor: AppThemes.themeBackgroundColor,
                                     ),
                                   ),
                                   // Obx(

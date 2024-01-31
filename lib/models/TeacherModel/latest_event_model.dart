@@ -295,8 +295,8 @@ class NextClass {
 }
 
 class AttRatio {
-  int? present;
-  int? absent;
+  String? present;
+  String? absent;
 
   AttRatio({this.present, this.absent});
 

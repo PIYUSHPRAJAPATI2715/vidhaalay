@@ -238,7 +238,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                       style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 17,
-                                        color: Colors.black,),
+                                        color: Colors.white,),
                                       textAlign: TextAlign.center,
                                     ),
                                     const SizedBox(
@@ -253,8 +253,11 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                             fontWeight: FontWeight.w500,
                                             fontSize: 17,
                                             color: evenetDetailController.selectedClassId?.value == items.id
-                                                ? Colors.black
-                                                : Colors.black, // Default color for unselected items
+                                                ? Colors.white
+                                                : Colors.black,
+                                            // evenetDetailController.selectedClassId?.value == items.id
+                                            //     ? Colors.black
+                                            //     : Colors.black, // Default color for unselected items
                                           ),
                                           ),
                                         );
@@ -267,6 +270,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                         evenetDetailController.getEventData(dateFormat : evenetDetailController.selectedDate.value, classId : evenetDetailController.selectedClassId.value);
                                       },
                                       width: size.width * 0.3,
+                                      backgroundColor: AppThemes.themeBackgroundColor,
                                     ),
 
                                   ],

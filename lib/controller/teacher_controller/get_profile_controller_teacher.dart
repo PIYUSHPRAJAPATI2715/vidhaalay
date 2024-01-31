@@ -167,13 +167,13 @@ class GetTeacherProfileController extends GetxController {
 
     if (res.statusCode == 200) {
       print('Response: $responseBody');
-      showToast("Profile image updated successfully.");
+      showToast(message:"Profile image updated successfully.");
 
     } else {
       if (res.statusCode == 500) {
-        showToast("Internal Server Error");
+        showToast(message:"Internal Server Error");
       } else {
-        showToast('Please Update Your Profile Picture!!!');
+        showToast(message:'Please Update Your Profile Picture!!!');
       }
     }
   }
@@ -186,9 +186,9 @@ class GetTeacherProfileController extends GetxController {
         phone: phoneController.text.trim(),
       ).then((value) async {
         if(value.status == true){
-          showToast(value.msg.toString());
+          showToast(message:value.msg.toString());
         } else {
-          showToast(value.msg.toString().toString());
+          showToast(message:value.msg.toString().toString());
         }
       });
     }

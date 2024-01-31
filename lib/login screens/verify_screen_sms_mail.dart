@@ -76,7 +76,7 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
     Size size = MediaQuery.of(context).size;
     return  WillPopScope(
       onWillPop: () async {
-        showToast("Please verify your details.");
+        showToast(message:"Please verify your details.");
         return false;
       },
       child: Scaffold(
@@ -291,7 +291,7 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                               if (isEmailVerify0 == true) {
                                 isEmailVerify.value = true;
                                 selectedContainerValue = 'SMS';
-                                showToast('Email Already Verified');
+                                showToast(message:'Email Already Verified');
                               } else {
                                 // print(email);
                                 Get.toNamed(MyRouters.verifyWithMail,
@@ -301,13 +301,13 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                               if (isMobileVerify0 == true) {
                                 isMobileVerify.value = true;
                                 selectedContainerValue = 'Email';
-                                showToast('Phone Already Verified');
+                                showToast(message:'Phone Already Verified');
                               } else {
                                 Get.toNamed(MyRouters.verifyWithSms,
                                     arguments: mobile.value);
                               }
                             } else {
-                              showToast('Please Select One');
+                              showToast(message:'Please Select One');
                             }
                             setState(() {
 
@@ -316,7 +316,7 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                             //  if (selectedContainerValue.isNotEmpty) {
                             //   if (selectedContainerValue == 'Email') {
                             //     if (pref.getBool('emailVerify') == true) {
-                            //       showToast('Email Already Verified');
+                            //       showToast(message:'Email Already Verified');
                             //     } else {
                             //       // print(email);
                             //       Get.toNamed(MyRouters.verifyWithMail,arguments: email.value);
@@ -324,13 +324,13 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                             //   }
                             //   else if (selectedContainerValue == 'SMS') {
                             //     if ( pref.getBool('mobileVerify') == true) {
-                            //       showToast('Phone Already Verified');
+                            //       showToast(message:'Phone Already Verified');
                             //     } else {
                             //       Get.toNamed(MyRouters.verifyWithSms,arguments: mobile.value);
                             //     }
                             //   }
                             // } else {
-                            //   showToast('Please Select One');
+                            //   showToast(message:'Please Select One');
                             // }
                           },
                           style: ElevatedButton.styleFrom(

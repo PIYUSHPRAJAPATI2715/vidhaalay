@@ -411,14 +411,14 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                                 fontWeight: FontWeight.w600
                                             ),
                                           ),
-                                          Text(
-                                            // '08 AM',
-                                            value.toTime!.toString(),
-                                            style: GoogleFonts.poppins(
-                                                color: AppThemes.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600
-                                            ),),
+                                          // Text(
+                                          //   // '08 AM',
+                                          //   value.toTime!.toString(),
+                                          //   style: GoogleFonts.poppins(
+                                          //       color: AppThemes.black,
+                                          //       fontSize: 14,
+                                          //       fontWeight: FontWeight.w600
+                                          //   ),),
                                         ],
                                       ),
                                     ),

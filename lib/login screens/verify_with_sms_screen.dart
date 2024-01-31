@@ -159,11 +159,11 @@ class _VerifyWithSmsState extends State<VerifyWithSms> {
                           if(formKey99.currentState!.validate()){
                             verifySmsOtpSendRepo(mobile: mobileController.text.toString(),type: 'user',context: context).then((value) {
                               if(value.status == true){
-                                showToast(value.msg.toString().toString());
+                                showToast(message:value.msg.toString().toString());
                                 Get.toNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text]);
                                 // Get.offAllNamed(MyRouters.otpSmsScreen,arguments: [mobileController.text.toString()]);
                               }else{
-                                showToast(value.msg.toString().toString());
+                                showToast(message:value.msg.toString().toString());
                               }
                             });
                           }

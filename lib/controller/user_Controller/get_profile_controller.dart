@@ -159,13 +159,13 @@ class GetProfileController extends GetxController {
 
     if (res.statusCode == 200) {
       print('Response: $responseBody');
-      showToast("Profile image updated successfully.");
+      showToast(message:"Profile image updated successfully.");
 
     } else {
       if (res.statusCode == 500) {
-        showToast("Internal Server Error");
+        showToast(message:"Internal Server Error");
       } else {
-        showToast('Please Update Your Profile Picture!!!');
+        showToast(message:'Please Update Your Profile Picture!!!');
      }
     }
   }
@@ -176,9 +176,9 @@ class GetProfileController extends GetxController {
   //   if(pickedFile != null) {
   //     imagePath.value = pickedFile.path;
   //     // File image = File(pickedFile.path);
-  //     showToast("Image picked.");
+  //     showToast(message:"Image picked.");
   //   } else {
-  //     showToast("No Image picked.");
+  //     showToast(message:"No Image picked.");
   //     Get.back();
   //   }
   // }
@@ -203,7 +203,7 @@ class GetProfileController extends GetxController {
           pref.setBool('mobileVerify', isMobileVerify);
 
           if (!isEmailVerify || !isMobileVerify) {
-            showToast("Please verify your details.");
+            showToast(message:"Please verify your details.");
 
             Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: [
               value.data!.email.toString(),
@@ -213,11 +213,11 @@ class GetProfileController extends GetxController {
             ]);
 
           } else {
-            showToast(value.msg.toString());
+            showToast(message:value.msg.toString());
           }
 
         }else{
-          showToast(value.msg.toString().toString());
+          showToast(message:value.msg.toString().toString());
         }
       });
     }

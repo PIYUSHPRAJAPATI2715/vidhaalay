@@ -31,7 +31,7 @@ Future<ModelCommon> changePassRepo({oldPassword,context,password,type}) async {
 
   log(response.body);
   Map<String, dynamic> responseData = json.decode(response.body);
-  showToast(responseData['msg'].toString());
+  showToast(message:responseData['msg'].toString());
 
   if (response.statusCode == 200) {
     Helpers.hideLoader(loader);

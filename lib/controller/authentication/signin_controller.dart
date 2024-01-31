@@ -94,13 +94,13 @@ class SignInController extends GetxController {
           body: jsonEncode(userInfo));
 
       Map<String, dynamic> responseData = json.decode(response.body);
-      print("responseData : ${responseData}");
+      print("responseData00 : ${responseData}");
       print(response.statusCode);
 
 
       if (response.statusCode == 200) {
         Helpers.hideLoader(loader);
-        showToast(responseData['msg'].toString());
+        showToast(message: responseData['msg'].toString(),);
 
         SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -242,8 +242,8 @@ class SignInController extends GetxController {
       } else {
         Helpers.hideLoader(loader);
 
-        print("Tes ${responseData['msg'].toString()}");
-        showToast(responseData['msg'].toString());
+        print("test ${responseData['msg'].toString()}");
+        showToast(message:responseData['msg'].toString(),backgroundColor: Colors.red);
       }
 
       // if(!isEmailVerify || !isMobileVerify) {
@@ -266,7 +266,7 @@ class SignInController extends GetxController {
     //
     //   } else {
     //     Helpers.hideLoader(loader);
-    //     showToast(responseData['msg'].toString());
+    //     showToast(message:responseData['msg'].toString());
     //
     //   }
 
@@ -284,12 +284,12 @@ class SignInController extends GetxController {
       //     // controller.emailController.text = value.data!.email.toString();
       //     if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
       //       Get.offAllNamed(MyRouters.drawerForUser);
-      //       showToast(value.msg.toString());
+      //       showToast(message:value.msg.toString());
       //     }else{
       //       Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
       //     }
       //   }else{
-      //     showToast(value.msg.toString());
+      //     showToast(message:value.msg.toString());
       //   }
       // });
   }
@@ -311,12 +311,12 @@ class SignInController extends GetxController {
   //         // controller.emailController.text = value.data!.email.toString();
   //         if(value.data!.emailVerified == true && value.data!.mobileVerified == true){
   //           Get.offAllNamed(MyRouters.drawerForUser);
-  //           showToast(value.msg.toString());
+  //           showToast(message:value.msg.toString());
   //         }else{
   //           Get.offAndToNamed(MyRouters.verifyOtpLogin, arguments: [value.data!.email.toString(),value.data!.mobile.toString()]);
   //         }
   //       }else{
-  //         showToast(value.msg.toString());
+  //         showToast(message:value.msg.toString());
   //       }
   //     });
   //   }

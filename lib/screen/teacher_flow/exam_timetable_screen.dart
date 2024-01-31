@@ -229,7 +229,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                   examTimeTableController.getExamTimeTableData();
                                 },
                                 width: size.width * 0.55,
-                                backgroundColor: Colors.white70,
+                                backgroundColor: AppThemes.themeBackgroundColor,
                               ),
 
                               // DropdownButtonHideUnderline(
@@ -331,6 +331,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                   examTimeTableController.getExamTimeTableData();
                                 },
                                 width: size.width * 0.3,
+                                backgroundColor: AppThemes.themeBackgroundColor,
                               ),
 
                               // DropdownButtonHideUnderline(

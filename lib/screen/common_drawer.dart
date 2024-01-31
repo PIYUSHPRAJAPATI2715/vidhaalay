@@ -228,6 +228,33 @@ class _commonDrawerState extends State<commonDrawer> {
                     : bottomController.userType == 1 ? Column(
                   children: [
                     ListTile(
+                        onTap: (){
+                          Get.toNamed(MyRouters.myProfileTeacher);
+                        },
+                        contentPadding: EdgeInsets.zero,
+                        visualDensity:
+                        const VisualDensity(
+                            horizontal: -4, vertical: -4),
+                        title: const Text(
+                          'My Profile',
+                          style: TextStyle(
+                              color: AppThemes.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        leading: Icon(Icons.person,
+                          color: AppThemes.white,)
+                      // Image.asset(
+                      //   AppAssets.videoIcon,
+                      //   height: 20,
+                      //   width: 24,
+                      //   color: AppThemes.white,
+                      //   // width: 23,
+                      //   // height: 23,
+                      // ),
+                    ),
+                    const SizedBox(height: 10,),
+                    ListTile(
                       onTap: (){
                         Get.toNamed(MyRouters.teacherAttendanceScreen);
                       },
@@ -411,6 +438,34 @@ class _commonDrawerState extends State<commonDrawer> {
                   children: [
                     ListTile(
                       onTap: (){
+                        Get.toNamed(MyRouters.myProfileScreenStu);
+                      },
+                      contentPadding: EdgeInsets.zero,
+                      visualDensity:
+                      const VisualDensity(
+                          horizontal: -4, vertical: -4),
+                      title: const Text(
+                        'My Profile',
+                        style: TextStyle(
+                            color: AppThemes.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      leading: Icon(Icons.person,
+                        color: AppThemes.white,)
+                      // Image.asset(
+                      //   AppAssets.videoIcon,
+                      //   height: 20,
+                      //   width: 24,
+                      //   color: AppThemes.white,
+                      //   // width: 23,
+                      //   // height: 23,
+                      // ),
+                    ),
+
+                    const SizedBox(height: 10,),
+                    ListTile(
+                      onTap: (){
                         Get.to(() => VideoTeacherScreen());
                       },
                       contentPadding: EdgeInsets.zero,
@@ -584,7 +639,7 @@ class _commonDrawerState extends State<commonDrawer> {
                       ),
                       child: Center(
                         child: Text(
-                          'Multi Login'.toUpperCase(),
+                          'Switch Account'.toUpperCase(),
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -645,7 +700,7 @@ class _commonDrawerState extends State<commonDrawer> {
     }
     await sharedPreference.clear();
     Get.offAllNamed(MyRouters.signInPage);
-    showToast("Logged out");
+    showToast(message:"Logged out");
     if (modelSiteSettings.data != null) {
       sharedPreference.setString("token", jsonEncode(modelSiteSettings));
     }
@@ -715,10 +770,7 @@ class _commonDrawerState extends State<commonDrawer> {
   // }
 
   Future<void> _showMultiLoginAlertDialog(BuildContext context) async {
-    final signInController = Get.put(SignInController());
-
-    List<MultiLoginModel> loginData =
-    await getLoginData();
+    List<MultiLoginModel> loginData = await getLoginData();
     // [
     //   MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
     //   MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
@@ -768,6 +820,8 @@ class _commonDrawerState extends State<commonDrawer> {
                           title: Text(items.userName!),
                           subtitle: Text(items.email!),
                           onTap: () {
+                            final signInController = Get.put(SignInController());
+
                             signInController.login(
                               context: context,
                               email: items.email!,

@@ -161,6 +161,8 @@ class _StudentListScreenState extends State<StudentListScreen> {
                               studentListController.getStudentListData(classId: studentListController.selectedClassId.value.toString());
                             },
                             width: size.width * 0.3,
+                            backgroundColor: AppThemes.themeBackgroundColor,
+
                           ),
 
                           // DropdownButtonHideUnderline(

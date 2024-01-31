@@ -116,7 +116,7 @@ class CreateEventController extends GetxController {
         } else {
           Helpers.hideLoader(loader);
         }
-        showToast(createEventModel.value.msg.toString());
+        showToast(message:createEventModel.value.msg.toString());
       } else {
 
         throw Exception(response.body);

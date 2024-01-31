@@ -89,7 +89,7 @@ class NoConnectionScreen extends StatelessWidget {
                           if (ischeck) {
                             Navigator.pop(context);
                           } else {
-                            // showToast("Please check the internet connection.");
+                            // showToast(message:"Please check the internet connection.");
                           }
                         },
                         child: Card(

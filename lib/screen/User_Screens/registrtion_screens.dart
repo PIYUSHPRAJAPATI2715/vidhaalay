@@ -3170,10 +3170,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                             // class_sibling: schoolSibblingCon.text.trim()
                                           ).then((value) {
                                             if(value.status == true){
-                                              showToast(value.msg.toString().toString());
+                                              showToast(message:value.msg.toString().toString());
                                               Get.toNamed(MyRouters.drawerForUser);
                                             }else{
-                                              showToast(value.msg.toString().toString());
+                                              showToast(message:value.msg.toString().toString());
                                             }
                                           });
 

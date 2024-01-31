@@ -615,6 +615,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
+
                             // String? token = await FirebaseMessaging.instance.getToken();
 
                             if (signInController.formKey.currentState!.validate()) {
@@ -624,8 +625,8 @@ class _SignInPageState extends State<SignInPage> {
                                 pass: signInController.passwordController.text,
                               );
                             }
-
                             // _showMultiLoginAlertDialog(context);
+
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -775,10 +776,10 @@ class _SignInPageState extends State<SignInPage> {
   //     if (value.status == true) {
   //       SharedPreferences pref = await SharedPreferences.getInstance();
   //       pref.setString('user_info', jsonEncode(value));
-  //       showToast(value.message.toString());
+  //       showToast(message:value.message.toString());
   //       // Get.offAllNamed(MyRouters.bottomNavbar);
   //     } else {
-  //       showToast(value.message.toString());
+  //       showToast(message:value.message.toString());
   //     }
   //   });
   // }
@@ -808,12 +809,12 @@ class _SignInPageState extends State<SignInPage> {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
         pref.setString('cookie', value.data!.token.toString());
-        showToast(value.msg.toString());
+        showToast(message:value.msg.toString());
         pref.setBool('isLoggedIn', true);
         // Get.offAllNamed(MyRouters.drawerForUser);
         Get.offAll(() => BottomBarScreen(userType: 0,));
       } else {
-        showToast(value.msg.toString());
+        showToast(message:value.msg.toString());
       }
     });
   }
@@ -838,16 +839,16 @@ class _SignInPageState extends State<SignInPage> {
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_info', jsonEncode(value));
           pref.setString('cookie', value.data!.token.toString());
-          showToast(value.msg.toString());
+          showToast(message:value.msg.toString());
           pref.setBool('isLoggedIn', true);
           // Get.offAllNamed(MyRouters.drawerForUser);
           Get.offAll(() => BottomBarScreen(userType: 0,));
         } else {
-          showToast(value.msg.toString());
+          showToast(message:value.msg.toString());
         }
       });
     }).catchError((FirebaseAuthException? e) {
-      showToast(e.toString());
+      showToast(message:e.toString());
       throw Exception(e!.message);
     });
     log("Firebase response.... ${value.toString()}");

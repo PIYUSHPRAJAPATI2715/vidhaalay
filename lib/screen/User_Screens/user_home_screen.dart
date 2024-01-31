@@ -107,7 +107,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     // }
     await sharedPreference.clear();
     Get.offAllNamed(MyRouters.signInPage);
-    showToast("Logged out");
+    showToast(message:"Logged out");
     // if (modelSiteSettings.data != null) {
     //   sharedPreference.setString("token", jsonEncode(modelSiteSettings));
     // }
@@ -1025,8 +1025,9 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                 onTap: () {
                                                   favouriteController.addFavouriteInListRepo(item.id!,"Schools", !isFavourite).then(
                                                           (value) {
-                                                        _handleTabChange();
-                                                      });
+                                                            getSchoolListController.roleType.value = "S";
+                                                        getSchoolListController.getSchoolListFunction();
+                                                          });
                                                   // Get.toNamed(MyRouters
                                                   //     .favoritesScreen);
                                                 },
@@ -1211,7 +1212,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                               print(item.id);
                                               favouriteController.addFavouriteInListRepo(item.id!,"Colleges", !isFavourite).then(
                                                       (value) {
-                                                        _handleTabChange();
+                                                        getSchoolListController.roleType.value = "C";
+                                                        getSchoolListController.getSchoolListFunction();
                                                       });
                                               // Get.toNamed(MyRouters
                                               //     .favoritesScreen);
@@ -1393,8 +1395,11 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                             onTap: () {
                                               favouriteController.addFavouriteInListRepo(item.id!,"Institute", !isFavourite).then(
                                                       (value) {
-                                                    _handleTabChange();
-                                                  });
+                                                    // _handleTabChange();
+                                                    getSchoolListController.roleType.value = "I";
+                                                    getSchoolListController.getSchoolListFunction();
+
+                                                      });
                                             },
                                             child:  isFavourite ? const Icon(
                                               Icons.favorite,
@@ -1712,9 +1717,9 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                 addToWishlistRepo(context: context,favFor: 'school',favourite: getSchoolListController.getSchoolListModel.value.data![index].favourite.toString(),
                     favId: getSchoolListController.getSchoolListModel.value.data![index].id.toString())
                     .then((value) {
-                  showToast(value.msg.toString());
+                  showToast(message:value.msg.toString());
                   if (value.status == true) {
-                    showToast(value.msg.toString());
+                    showToast(message:value.msg.toString());
                     setState(() {});
                   }
                   return null;

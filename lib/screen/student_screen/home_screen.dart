@@ -561,7 +561,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
                                   Container(
                                     height: size.height * 0.14,
-                                    width: size.width * 0.4,
+                                    width: size.width * 0.38,
                                     // color: Colors.red,
                                     child: PieChart(
                                       PieChartData(
@@ -585,7 +585,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                         ),
                                         sectionsSpace: 2,
                                         centerSpaceRadius: 0,
-                                        sections: showingSections(absentValue: attandanceData.absent.toDouble(),presentValue: attandanceData.present.toDouble()),
+                                        sections: showingSections(absentValue:  double.parse(attandanceData.absent.toString()),presentValue: double.parse(attandanceData.present.toString()) )
+                                            // attandanceData.present.toDouble()),
                                       ),
                                     ),
                                   ),

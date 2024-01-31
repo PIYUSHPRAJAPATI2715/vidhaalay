@@ -306,7 +306,7 @@ class _DrawerForStudentState extends State<DrawerForStudent> {
     }
     await sharedPreference.clear();
     Get.offAllNamed(MyRouters.signInPage);
-    showToast("Logged out");
+    showToast(message:"Logged out");
     if (modelSiteSettings.data != null) {
       sharedPreference.setString("token", jsonEncode(modelSiteSettings));
     }

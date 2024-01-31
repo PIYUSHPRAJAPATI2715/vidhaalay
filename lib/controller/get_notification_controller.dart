@@ -26,7 +26,7 @@ class GetNotificationController extends GetxController {
       isDataLoading.value = true;
       getNotificationModel.value = value;
       // if(getNotificationModel.value.data!.isEmpty) {
-      //   // showToast("No data found");
+      //   // showToast(message:"No data found");
       // } else {
       //
       // }

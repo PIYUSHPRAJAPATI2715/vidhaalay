@@ -174,7 +174,7 @@ class UpdateExamTimeTableController extends GetxController {
         } else {
           Helpers.hideLoader(loader);
         }
-        showToast(responseData['msg'].toString());
+        showToast(message:responseData['msg'].toString());
       } else {
         Helpers.hideLoader(loader);
         throw Exception(response.body);

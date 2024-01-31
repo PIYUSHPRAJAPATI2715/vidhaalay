@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/studentModel/assignment_detail_model.dart';
-import '../../models/TeacherModel/latest_event_model.dart';
+import 'package:vidhaalay_app/models/TeacherModel/latest_event_model.dart';
 import '../../resourses/api_constant.dart';
 
 

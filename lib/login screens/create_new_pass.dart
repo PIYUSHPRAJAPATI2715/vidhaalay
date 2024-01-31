@@ -178,10 +178,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                             changePassword(context: context,password: passwordController.text.trim(),confirmPassword: confirmPasswordController.text.trim()
                             ).then((value) async {
                               if(value.status == true){
-                                showToast(value.msg.toString()!);
+                                showToast(message:value.msg.toString()!);
                                 Get.offAllNamed(MyRouters.signInPage);
                               }else{
-                                showToast(value.msg.toString()!);
+                                showToast(message:value.msg.toString()!);
                               }
                             });
                           }

@@ -228,7 +228,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                 studentExamTimeTableController.getExamTimeTableData();
                               },
                               width: size.width * 0.55,
-                              backgroundColor: Colors.white70,
+                              backgroundColor: AppThemes.themeBackgroundColor,
                             ),
 
                             // DropdownButtonHideUnderline(
@@ -447,7 +447,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
             Positioned.fill(
               top: size.height*.280,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
+                padding: const EdgeInsets.symmetric(vertical: 25).copyWith(bottom: 0),
                 height: size.height,
                 width: size.width,
                 decoration: const BoxDecoration(
@@ -459,12 +459,15 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('today'.toUpperCase(),
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600
-                        ),),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Text('today'.toUpperCase(),
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600
+                          ),),
+                      ),
 
                       studentExamTimeTableController.getExamTimetableModel.value.data!.isEmpty ? Container(
                         height: size.height * .4,
@@ -638,8 +641,8 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                   //   ),
                                   // ),
                                   Container(
-                                    width: size.width * 0.92,
-                                    padding: const EdgeInsets.all(9),
+                                    width: size.width,
+                                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 9),
                                     decoration: BoxDecoration(
                                         color: AppThemes.lightGreyColor,
                                         borderRadius: BorderRadius.circular(8)
@@ -712,7 +715,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Container(
-                                                        width: size.width * .32,
+                                                        width: size.width * .30,
                                                         // color: Colors.amber,
                                                         child: Text(
                                                           'Class - ' + value.seatClass!.name!,

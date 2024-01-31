@@ -185,10 +185,10 @@ class _ForgotOtpSmsScreenState extends State<ForgotOtpSmsScreen> {
                             if(value.status == true){
                               SharedPreferences pref = await SharedPreferences.getInstance();
                               pref.setString('cookie', value.data!.token.toString());
-                              showToast(value.msg.toString()!);
+                              showToast(message:value.msg.toString()!);
                               Get.toNamed(MyRouters.createPasswordScreen);
                             }else{
-                              showToast(value.msg.toString()!);
+                              showToast(message:value.msg.toString()!);
                             }
                           });
                         }

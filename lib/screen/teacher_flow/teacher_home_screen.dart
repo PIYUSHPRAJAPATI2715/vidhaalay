@@ -546,7 +546,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
 
                                 Container(
                                   height: size.height * 0.14,
-                                  width: size.width * 0.4,
+                                  width: size.width * 0.38,
                                   // color: Colors.red,
                                   child: PieChart(
                                     PieChartData(
@@ -629,7 +629,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                         SizedBox(
                                           width: size.width*.030,
                                         ),
-                                        Text('Absent ',
+                                        Text('Absent',
                                           style: GoogleFonts.poppins(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,

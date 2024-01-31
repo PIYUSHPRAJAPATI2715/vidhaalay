@@ -353,19 +353,19 @@ class _SignupScreenState extends State<SignupScreen> {
                               password: passwordController.text,phone: controller.phoneNumberController.text
                           ).then((value) async {
                             if(value.status == true){
-                              showToast(value.msg.toString());
+                              showToast(message:value.msg.toString());
                               // Get.toNamed(MyRouters.signInPage);
                               Get.offAllNamed(MyRouters.signInPage);
                             }else{
-                              showToast(value.msg.toString());
+                              showToast(message:value.msg.toString());
                             }
 
                           });
                         }
                         else if(showValidation == false){
-                          showToast('Please Select Terms & Conditions');
+                          showToast(message:'Please Select Terms & Conditions');
                           // if (showValidation) {
-                          //   showToast('Please Select Terms & Conditions');
+                          //   showToast(message:'Please Select Terms & Conditions');
                           // }
                           setState(() {
                           });

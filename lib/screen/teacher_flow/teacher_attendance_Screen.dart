@@ -175,6 +175,7 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                               studentAttandanceController.getAttandanceListDataAPI(classId: studentAttandanceController.selectedClassId.value.toString());
                             },
                             width: size.width * 0.3,
+                            backgroundColor: AppThemes.themeBackgroundColor,
                           ),
 
                           // DropdownButtonHideUnderline(

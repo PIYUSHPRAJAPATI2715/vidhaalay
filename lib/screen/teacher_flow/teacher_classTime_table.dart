@@ -224,6 +224,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                 classTimeController.getTimeTableData();
                               },
                               width: size.width * 0.3,
+                              backgroundColor: AppThemes.themeBackgroundColor,
                             ),
 
                             // DropdownButtonHideUnderline(

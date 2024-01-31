@@ -69,7 +69,7 @@ class FavouriteController extends GetxController {
       final seeAllController  = Get.put(SeeAllController());
       seeAllController.getSchoolListFunction();
 
-      showToast(responseData['msg'].toString());
+      showToast(message:responseData['msg'].toString());
       // isFavouriteListLoading.value = true;
     } else {
 

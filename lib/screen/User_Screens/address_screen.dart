@@ -115,7 +115,7 @@ class _AddressScreenState extends State<AddressScreen> {
             print(position);
           });
         } else {
-          showToast(
+          showToast(message:
               "Please on your device location and retry for update your location");
         }
       }
@@ -155,9 +155,9 @@ class _AddressScreenState extends State<AddressScreen> {
           Get.offAll(() => BottomBarScreen(
             userType: 0,
           ));
-          showToast(value.msg.toString().toString());
+          showToast(message:value.msg.toString().toString());
         } else {
-          showToast(value.msg.toString().toString());
+          showToast(message:value.msg.toString().toString());
         }
       });
 
@@ -176,7 +176,7 @@ class _AddressScreenState extends State<AddressScreen> {
     return WillPopScope(
       onWillPop: () async {
         if (isAddressUpdateRequire) {
-          showToast("Please update location");
+          showToast(message:"Please update location");
           return false;
         } else {
           return true;
@@ -190,7 +190,7 @@ class _AddressScreenState extends State<AddressScreen> {
           leading: IconButton(
               onPressed: () {
                 if (isAddressUpdateRequire) {
-                  showToast("Please update location");
+                  showToast(message:"Please update location");
                 } else {
                   Get.back();
                 }
@@ -383,9 +383,9 @@ class _AddressScreenState extends State<AddressScreen> {
                           userType: 0,
                         ));
 
-                        showToast(value.msg.toString().toString());
+                        showToast(message:value.msg.toString().toString());
                       } else {
-                        showToast(value.msg.toString().toString());
+                        showToast(message:value.msg.toString().toString());
                       }
                     });
                   }),
@@ -440,13 +440,13 @@ class _AddressScreenState extends State<AddressScreen> {
                             userType: 0,
                           ));
 
-                          showToast(value.msg.toString().toString());
+                          showToast(message:value.msg.toString().toString());
                         } else {
-                          showToast(value.msg.toString().toString());
+                          showToast(message:value.msg.toString().toString());
                         }
                       });
                     } else {
-                      showToast('Select Address');
+                      showToast(message:'Select Address');
                     }
                   },
                 ),
@@ -540,13 +540,13 @@ class _AddressScreenState extends State<AddressScreen> {
 //
 // Get.offAllNamed(MyRouters.drawerForUser);
 //
-// showToast(value.msg.toString().toString());
+// showToast(message:value.msg.toString().toString());
 // } else {
-// showToast(value.msg.toString().toString());
+// showToast(message:value.msg.toString().toString());
 // }
 // });
 // } else {
-// showToast('Select Address');
+// showToast(message:'Select Address');
 // }
 // },
 // ),

@@ -63,5 +63,5 @@ Future<void> deleteAllRecord() async {
   await prefs.clear();
   Get.offAll(() => SignInPage());
 
-  showToast("Sign out from all accounts");
+  showToast(message:"Sign out from all accounts");
 }

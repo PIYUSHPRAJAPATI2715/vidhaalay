@@ -18,7 +18,7 @@ class TeacherHomeController extends GetxController{
     print(response.statusCode);
 
     if (response.statusCode == 200) {
-      print(response.body);
+      print("enter : ${response.body}");
 
       return LatestEventModel.fromJson(jsonDecode(response.body));
     } else {

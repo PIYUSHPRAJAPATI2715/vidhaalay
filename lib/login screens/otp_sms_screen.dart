@@ -191,7 +191,7 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                         if(formKey99.currentState!.validate()){
                           verifySmsOtp(mobile:mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim().toString()).then((value) async{
 
-                            showToast(value.msg.toString());
+                            showToast(message:value.msg.toString());
 
                             print("value10:  $value");
                             print(value.msg);
@@ -205,7 +205,7 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                             print("isMobileVerify : $isMobileVerify");
 
                             if(value.status == true) {
-                              // showToast(value.msg.toString());
+                              // showToast(message:value.msg.toString());
 
                               if (isEmailVerify == true && isMobileVerify == true) {
                                 pref.setBool('isLoggedIn', true);
@@ -217,7 +217,7 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                                 Get.back();
                               }
                             } else {
-                              // showToast(value.msg.toString());
+                              // showToast(message:value.msg.toString());
                             }
                           });
                         }
