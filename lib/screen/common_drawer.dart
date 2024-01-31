@@ -7,8 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
+import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
+import 'package:vidhaalay_app/login%20screens/signup_screen.dart';
 import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
+import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
@@ -119,6 +122,9 @@ class _commonDrawerState extends State<commonDrawer> {
                       children: [
                         ListTile(
                           onTap: (){
+
+                            // MultiLoginModel data = MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar", token: 'test1');
+                            // saveLoginData(data);
                             Get.toNamed(MyRouters.myProfileScreen);
                           },
                           visualDensity:
@@ -143,6 +149,9 @@ class _commonDrawerState extends State<commonDrawer> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
+
+                            // MultiLoginModel data = MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2');
+                            // saveLoginData(data);
                             Get.toNamed(MyRouters.favoritesScreen);
                           },
                           visualDensity:
@@ -166,6 +175,9 @@ class _commonDrawerState extends State<commonDrawer> {
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){
+
+                            // MultiLoginModel data = MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3');
+                            // saveLoginData(data);
                             Get.toNamed(MyRouters.notificationScreenUser);
                           },
                           visualDensity:
@@ -202,7 +214,6 @@ class _commonDrawerState extends State<commonDrawer> {
                                 color: AppThemes.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
-
                           ),
                           leading: Icon(
                             // "assets/icons/home.png",
@@ -589,7 +600,7 @@ class _commonDrawerState extends State<commonDrawer> {
                   child: InkWell(
                     onTap: (){
                       // saveLoginData();
-                      //
+
                       logOutUser();
                       // Get.offAllNamed(MyRouters.signInPage);
                     },
@@ -627,6 +638,8 @@ class _commonDrawerState extends State<commonDrawer> {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
     LoginModel modelSiteSettings = LoginModel();
     if (sharedPreference.getString("token") != null) {
+      deleteRecordByToken(sharedPreference.getString("token")!);
+
       modelSiteSettings =
           LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
     }
@@ -701,18 +714,179 @@ class _commonDrawerState extends State<commonDrawer> {
   //   );
   // }
 
-  // Future<void> saveLoginData(List<MultiLoginModel> data) async {
-  //   List<MultiLoginModel> loginData = [
-  //     MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
-  //     MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
-  //     MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
-  //   ];
-  //
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   List<String> encodedData = loginData.map((item) => json.encode(item.toJson())).toList();
-  //   // List<String> encodedData = data.map((item) => json.encode(item.toJson())).toList();
-  //   await prefs.setStringList('loginData', encodedData);
-  // }
+  Future<void> _showMultiLoginAlertDialog(BuildContext context) async {
+    final signInController = Get.put(SignInController());
+
+    List<MultiLoginModel> loginData =
+    await getLoginData();
+    // [
+    //   MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
+    //   MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
+    //   MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
+    //   MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
+    // ];
+
+    // loginData.add(MultiLoginModel(userName: , email: email, type: type, password: password))
+
+    print("loginData : $loginData");
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          // titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+            contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+            title: Text('Switch Account',
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppThemes.black,
+              ),
+            ),
+            content: Container(
+              // Adjust padding as needed
+              // padding: EdgeInsets.all(8.0),
+
+              // Use a ListView.builder to build the list dynamically
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: loginData.length + 2,
+                // Additional items for "Add another account" and "Sign out of all accounts" options
+                itemBuilder: (BuildContext context, int index) {
+                  if (index < loginData.length) {
+                    var items = loginData[index];
+                    return Column(
+                      children: [
+                        Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        ListTile(
+                          visualDensity: VisualDensity(vertical: -3),
+                          leading: Icon(Icons.person),
+                          title: Text(items.userName!),
+                          subtitle: Text(items.email!),
+                          onTap: () {
+                            signInController.login(
+                              context: context,
+                              email: items.email!,
+                              type: items.type!,
+                              pass: items.password!,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  } else if (index == loginData.length) {
+                    return Column(
+                      children: [
+                        Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        ListTile(
+                          visualDensity: VisualDensity(vertical: -3),
+                          leading: Icon(Icons.add),
+                          title: Text("Add another account"),
+                          onTap: () {
+                            Get.offAll(() => SignInPage());
+                          },
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
+                        ListTile(
+                          visualDensity: VisualDensity(vertical: -3),
+                          leading: Icon(Icons.logout),
+                          title: Text("Sign out of all accounts"),
+                          onTap: () {
+                            deleteAllRecord();
+                          },
+                        ),
+                        // No divider after the last item
+                      ],
+                    );
+                  }
+                },
+              ),
+            )
+        );
+      },
+    );
+  }
+
+
+
+// Container(
+//   // constraints: BoxConstraints(maxHeight: maxHeight),
+//   // height: maxHeight,
+//   padding: EdgeInsets.all(8.0),
+//
+//   // double.maxFinite,
+//   // width: double.maxFinite,
+//   child: Column(
+//     children: [
+//       ListView.builder(
+//         shrinkWrap: true,
+//         itemCount: loginData.length, // Set your itemCount according to your data
+//         itemBuilder: (BuildContext context, int index) {
+//           var items = loginData[index];
+//           return Column(
+//             children: [
+//               Divider(
+//                 thickness: 1.0,
+//                 height: 2,
+//               ),
+//               ListTile(
+//                 // dense: true,
+//                 visualDensity: VisualDensity(vertical: -3),
+//                 // contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+//                 leading: Icon(Icons.person),
+//                 title: Text(items.userName!),
+//                 subtitle: Text(items.email!),
+//                 onTap: () {
+//                   signInController.login(context: context,email: items.email!,
+//                     type: items.type!,
+//                     pass: items.password!,
+//                   );
+//                 },
+//               ),
+//             ],
+//           );
+//         },
+//       ),
+//       ListTile(
+//         // dense: true,
+//         visualDensity: VisualDensity(vertical: -3),
+//         // contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+//         leading: Icon(Icons.add),
+//         title: Text("Add another account"),
+//         onTap: () {
+//            Get.to(()=>SignInPage());
+//         },
+//       ),
+//       ListTile(
+//         // dense: true,
+//         visualDensity: VisualDensity(vertical: -3),
+//         // contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+//         leading: Icon(Icons.logout),
+//         title: Text("Sign out of all accounts"),
+//         onTap: () {
+//
+//         },
+//       ),
+//     ],
+//   ),
+// ),
 
   // Future<void> saveLoginData() async {
   //   List<MultiLoginModel> loginData = [
@@ -726,124 +900,6 @@ class _commonDrawerState extends State<commonDrawer> {
   //   await prefs.setStringList('loginData', encodedData);
   // }
   //
-  // Future<List<MultiLoginModel>> getLoginData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   List<String>? encodedData = prefs.getStringList('loginData');
-  //
-  //   if (encodedData != null) {
-  //     List<MultiLoginModel> data = encodedData.map((item) => MultiLoginModel.fromJson(json.decode(item))).toList();
-  //     return data;
-  //   } else {
-  //     return [];
-  //   }
-  // }
 
-  Future<void> _showMultiLoginAlertDialog(BuildContext context) async {
-    final signInController = Get.put(SignInController());
-
-    List<MultiLoginModel> loginData =
-    // await getLoginData();
-    [
-      MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
-      MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
-      MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
-    ];
-    
-    // loginData.add(MultiLoginModel(userName: , email: email, type: type, password: password))
-
-    print("loginData : $loginData");
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          // titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-          contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-          title: Text('Switch Account',
-            style: GoogleFonts.poppins(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: AppThemes.black,
-          ),
-          ),
-          content: Container(
-            width: double.maxFinite,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: loginData.length, // Set your itemCount according to your data
-              itemBuilder: (BuildContext context, int index) {
-                var items = loginData[index];
-
-                return Column(
-                  children: [
-                    Divider(
-                      thickness: 1.0,
-                      height: 2,
-                    ),
-                    ListTile(
-                      // dense: true,
-                      visualDensity: VisualDensity(vertical: -3),
-                      // contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
-                      leading: Icon(Icons.person),
-                      title: Text(items.userName!),
-                      subtitle: Text(items.email!),
-                      onTap: () {
-                        signInController.login(context: context,email: items.email!,
-                          type: items.type!,
-                          pass: items.password!,
-                        );
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-
-          // actions: <Widget>[
-          //   ElevatedButton(
-          //     onPressed: () {
-          //       Get.back();
-          //     },
-          //     style: ElevatedButton.styleFrom(
-          //       primary: AppThemes.white,
-          //       // Set the button color
-          //       shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(4.0),
-          //       ),
-          //     ),
-          //     child: Text('No'.toUpperCase(),
-          //       style: GoogleFonts.poppins(
-          //         fontSize: 14,
-          //         fontWeight: FontWeight.w600,
-          //         color: AppThemes.black,
-          //       ),
-          //     ),
-          //   ),
-          //
-          //   ElevatedButton(
-          //     onPressed: () {
-          //       Get.back();
-          //     },
-          //     style: ElevatedButton.styleFrom(
-          //       primary: AppThemes.primaryColor,
-          //       // Set the button color
-          //       shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(4.0),
-          //       ),
-          //     ),
-          //     child: Text('Yes'.toUpperCase(),
-          //         style: GoogleFonts.poppins(
-          //           fontSize: 14,
-          //           fontWeight: FontWeight.w600,
-          //           color: AppThemes.white,
-          //         ),
-          //     ),
-          //   ),
-          // ],
-        );
-      },
-    );
-  }
 
 }

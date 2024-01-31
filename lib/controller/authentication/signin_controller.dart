@@ -11,9 +11,11 @@ import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/favourite_model_user.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/models/login_model_teacher.dart';
+import 'package:vidhaalay_app/models/multi_login_model.dart';
 import 'package:vidhaalay_app/models/school_list_model.dart';
 import 'package:vidhaalay_app/models/studentModel/login_student_model.dart';
 import 'package:vidhaalay_app/repositories/login_repo.dart';
+import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
@@ -119,6 +121,9 @@ class SignInController extends GetxController {
           pref.setBool('emailVerify', isEmailVerify);
           pref.setBool('mobileVerify', isMobileVerify);
 
+          MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"user",password: pass, token: value.data!.token!);
+          saveLoginData(data);
+
           if (!isEmailVerify || !isMobileVerify) {
             print("E0");
             // Get.to(() => VerifyOtpLogin());
@@ -144,6 +149,9 @@ class SignInController extends GetxController {
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('type', value.data!.userType.toString());
           pref.setString('username', value.data!.name.toString());
+
+          MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"teacher",password: pass, token: value.data!.token!);
+          saveLoginData(data);
 
           List<String> classList = value.data!.classArr!.map((item) => json.encode(item)).toList();
           print("classList : $classList");
@@ -180,6 +188,9 @@ class SignInController extends GetxController {
           pref.setString('classId', value.data!.classId.toString());
           pref.setString('studentId', value.data!.id.toString());
           pref.setString('username', value.data!.name.toString());
+
+          MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"student",password: pass, token: value.data!.token!);
+          saveLoginData(data);
 
           print("student id : ${value.data!.id.toString()}");
           print("student token : ${value.data!.token.toString()}");

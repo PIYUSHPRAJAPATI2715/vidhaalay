@@ -90,6 +90,8 @@ class ApiUrls {
   static const String assignmentListUrl = "${apiBaseUrl}assignment";
   static const String getStudentAttendance = "${apiBaseUrl}attendance/student";
 
+  static const String syllabusUrl = "${apiBaseUrl}syllabus";
+
 }
 
 

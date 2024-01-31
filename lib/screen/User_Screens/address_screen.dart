@@ -49,7 +49,6 @@ class _AddressScreenState extends State<AddressScreen> {
   bool isAddressUpdateRequire = false;
   final _focusNode = FocusScopeNode();
 
-
   @override
   void initState() {
     super.initState();
@@ -91,9 +90,7 @@ class _AddressScreenState extends State<AddressScreen> {
 
   getCurrentLocation() async {
     try {
-
       // bool _serviceEnabled = await Geolocator.serviceEnabled();
-
 
       LocationPermission permission = await Geolocator.requestPermission();
 
@@ -101,24 +98,25 @@ class _AddressScreenState extends State<AddressScreen> {
         print("LiveLocation Addd");
         return null;
       } else {
+        bool isLocationServiceEnabled =
+        await Geolocator.isLocationServiceEnabled();
 
-        bool isLocationServiceEnabled = await Geolocator.isLocationServiceEnabled();
-
-        if(isLocationServiceEnabled) {
+        if (isLocationServiceEnabled) {
           OverlayEntry loader = Helpers.overlayLoader(context);
           Overlay.of(context)!.insert(loader);
 
           await Geolocator.getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high,
-              forceAndroidLocationManager: true
-          ).then((Position position) {
+              forceAndroidLocationManager: true)
+              .then((Position position) {
             Helpers.hideLoader(loader);
 
-            getAddressFromLatLng(position.latitude,position.longitude);
+            getAddressFromLatLng(position.latitude, position.longitude);
             print(position);
           });
         } else {
-          showToast("Please on your device location and retry for update your location");
+          showToast(
+              "Please on your device location and retry for update your location");
         }
       }
       // return position;
@@ -128,14 +126,16 @@ class _AddressScreenState extends State<AddressScreen> {
     }
   }
 
-  Future<String?> getAddressFromLatLng(double latitude, double longitude) async {
+  Future<String?> getAddressFromLatLng(
+      double latitude, double longitude) async {
     print("Enter 2");
     try {
       List<Placemark> placemarks =
       await placemarkFromCoordinates(latitude, longitude);
       // Placemark place = placemarks[0];
       // String address =  "${placemarks.first.street}, ${placemarks.first.name}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.administrativeArea}";
-      String address =  "${placemarks.first.name}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.administrativeArea}";
+      String address =
+          "${placemarks.first.name}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.administrativeArea}";
 
       print("LiveLocation Adddress : ${address}");
 
@@ -152,14 +152,16 @@ class _AddressScreenState extends State<AddressScreen> {
           getSchoolListController.getTopLectureListRepo();
           // Get.back();
           // Get.offAllNamed(MyRouters.drawerForUser);
-          Get.offAll(() => BottomBarScreen(userType: 0,));
+          Get.offAll(() => BottomBarScreen(
+            userType: 0,
+          ));
           showToast(value.msg.toString().toString());
         } else {
           showToast(value.msg.toString().toString());
         }
       });
 
-      int pincode =  int.parse(placemarks.first.postalCode.toString());
+      int pincode = int.parse(placemarks.first.postalCode.toString());
       return address;
     } catch (e) {
       debugPrint("Error: $e");
@@ -210,16 +212,13 @@ class _AddressScreenState extends State<AddressScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 13),
                 child: CommonTextfield(
-                    // controller: passwordController,
-                    hintText: "Pick your current location",
-                    prefix: Icon(
-                        Icons.my_location,
-                        size: 23,
-                        color: Colors.grey),
+                  // controller: passwordController,
+                  hintText: "Pick your current location",
+                  prefix: Icon(Icons.my_location, size: 23, color: Colors.grey),
                   obSecure: false,
                   readOnly: true,
                   onTap: () {
-                      getCurrentLocation();
+                    getCurrentLocation();
                   },
                 ),
               ),
@@ -252,149 +251,165 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 15,
               ),
 
-              Padding(
-
-                padding: const EdgeInsets.only(left: 10.0,right: 10,bottom: 10),
-               child: FocusScope(
-                 node: _focusNode,
-                 child: GooglePlaceAutoCompleteTextField(
-                     textEditingController: address,
-                     googleAPIKey: googleApikey,
-                     inputDecoration: InputDecoration(
-                       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                       labelText: 'Location',
-                       labelStyle: TextStyle(
-                           color: AppThemes.textGray,
-                           fontSize: 14
-                       ),
-                       suffixIcon: Icon(
-                         Icons.location_on,
-                         color: AppThemes.primaryColor,
-                         size: 22,
-                       ),
-                       enabledBorder: OutlineInputBorder(
-                           borderRadius: BorderRadius.circular(50),
-                           borderSide: BorderSide(
-                               color: Colors.grey!.withOpacity(0.5),
-                               width: 1
-                           )
-                       ),
-
-                       focusedBorder: OutlineInputBorder(
-                           borderRadius: BorderRadius.circular(50),
-                           borderSide: BorderSide(
-                               color: Colors.grey!.withOpacity(0.5),
-                               width: 1
-                           )
-                       ),
-                     ),
-                     seperatedBuilder: Divider(
-                       color: Colors.grey,
-                       height: 1,
-                     ),
-                     // Container(),
-                     boxDecoration: BoxDecoration(
-                       border: Border.all(
-                           color: Colors.transparent
-                       ),
-                     ),
-
-                     itemBuilder: (context, index, prediction) => Container(
-                       // height: 50,
-                       padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                       decoration: BoxDecoration(
-                         color: Colors.white,
-                       ),
-                       child: Text(
-                         prediction.description.toString(),
-                         style: TextStyle(
-                             color: AppThemes.textGray,
-                             fontSize: 14
-                         ),
-                       ),
-                     ),
-                     isCrossBtnShown: true,
-                     textStyle: TextStyle(
-                         color: AppThemes.textGray,
-                         fontSize: 14
-                     ),
-                     debounceTime: 600,
-                     isLatLngRequired: true,
-                     itemClick: (prediction) {
-                       _focusNode.unfocus();
-                       address.text = prediction.description!;
-                       lat = prediction.lat!;
-                       lang = prediction.lng!;
-                     }
-                 ),
-               ),
-              ),
-
-              // GooglePlaceAutoCompleteTextField(
-              //     textEditingController: address,
-              //     googleAPIKey: googleApikey,
-              //     boxDecoration: BoxDecoration(
-              //         border: Border.all(color: Colors.transparent)),
-              //     textStyle: TextStyle(
-              //         color: AppThemes.textGray,
-              //         fontSize: 14
-              //     ),
+              // Padding(
               //
-              //     inputDecoration: InputDecoration(
-              //       contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-              //       labelText: 'Location',
-              //       labelStyle: TextStyle(
-              //         color: AppThemes.textGray,
-              //         fontSize: 14
-              //       ),
-              //       suffixIcon: Icon(
-              //         Icons.location_on,
-              //         color: AppThemes.primaryColor,
-              //         size: 22,
-              //       ),
-              //       enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(50),
-              //           borderSide: BorderSide(
-              //               color: Colors.grey!.withOpacity(0.5),
-              //               width: 1
-              //           )
-              //       ),
+              //   padding: const EdgeInsets.only(bottom: 10),
+              //  child: FocusScope(
+              //    node: _focusNode,
+              //    child: GooglePlaceAutoCompleteTextField(
+              //        textEditingController: address,
+              //        googleAPIKey: googleApikey,
+              //        inputDecoration: InputDecoration(
+              //          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+              //          labelText: 'Location',
+              //          labelStyle: TextStyle(
+              //              color: AppThemes.textGray,
+              //              fontSize: 14
+              //          ),
+              //          suffixIcon: Icon(
+              //            Icons.location_on,
+              //            color: AppThemes.primaryColor,
+              //            size: 22,
+              //          ),
+              //          enabledBorder: OutlineInputBorder(
+              //              borderRadius: BorderRadius.circular(50),
+              //              borderSide: BorderSide(
+              //                  color: Colors.grey!.withOpacity(0.5),
+              //                  width: 1
+              //              )
+              //          ),
               //
-              //       focusedBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(50),
-              //           borderSide: BorderSide(
-              //               color: Colors.grey!.withOpacity(0.5),
-              //               width: 1
-              //           )
-              //       ),
-              //     ),
-              //     // debounceTime: 600,
-              //     isLatLngRequired: true,
-              //     itemClick: (prediction) {
-              //       address.text = prediction.description!;
-              //       lat = prediction.lat!;
-              //       lang = prediction.lng!;
-              //     }
+              //          focusedBorder: OutlineInputBorder(
+              //              borderRadius: BorderRadius.circular(50),
+              //              borderSide: BorderSide(
+              //                  color: Colors.grey!.withOpacity(0.5),
+              //                  width: 1
+              //              )
+              //          ),
+              //        ),
+              //        seperatedBuilder: Divider(
+              //          color: Colors.grey,
+              //          height: 1,
+              //        ),
+              //        // Container(),
+              //        boxDecoration: BoxDecoration(
+              //          border: Border.all(
+              //              color: Colors.transparent
+              //          ),
+              //        ),
+              //
+              //        itemBuilder: (context, index, prediction) => Container(
+              //          // height: 50,
+              //          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+              //          decoration: BoxDecoration(
+              //            color: Colors.white,
+              //          ),
+              //          child: Text(
+              //            prediction.description.toString(),
+              //            style: TextStyle(
+              //                color: AppThemes.textGray,
+              //                fontSize: 14
+              //            ),
+              //          ),
+              //        ),
+              //        isCrossBtnShown: true,
+              //        textStyle: TextStyle(
+              //            color: AppThemes.textGray,
+              //            fontSize: 14
+              //        ),
+              //        debounceTime: 600,
+              //        isLatLngRequired: true,
+              //        itemClick: (prediction) {
+              //          _focusNode.unfocus();
+              //          address.text = prediction.description!;
+              //          lat = prediction.lat!;
+              //          lang = prediction.lng!;
+              //        }
+              //    ),
+              //  ),
               // ),
 
-// Container(
-//     decoration: BoxDecoration(
-//         border: Border.all(),
-//         borderRadius: BorderRadius.circular(10.0),
-//         color: Colors.grey.shade50),
-//     // width: MediaQuery.of(context).size.width - 40,
-//     child: ListTile(
-//       leading: const Icon(Icons.location_on),
-//       title: Text(
-//         _address ?? "Location".toString(),
-//         style: const TextStyle(fontSize: 14),
-//       ),
-//       trailing: const Icon(Icons.search),
-//       dense: true,
-//     )),
+              GooglePlaceAutoCompleteTextField(
+                  textEditingController: address,
+                  googleAPIKey: googleApikey,
+                  boxDecoration: BoxDecoration(
+                      border: Border.all(color: Colors.transparent)),
+                  textStyle: TextStyle(color: AppThemes.textGray, fontSize: 14),
+                  inputDecoration: InputDecoration(
+                    contentPadding:
+                    EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    labelText: 'Location',
+                    labelStyle:
+                    TextStyle(color: AppThemes.textGray, fontSize: 14),
+                    suffixIcon: Icon(
+                      Icons.location_on,
+                      color: AppThemes.primaryColor,
+                      size: 22,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(
+                            color: Colors.grey!.withOpacity(0.5), width: 1)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(
+                            color: Colors.grey!.withOpacity(0.5), width: 1)),
+                  ),
+                  // debounceTime: 600,
+                  isLatLngRequired: true,
+                  itemClick: (prediction) {
+                    address.text = prediction.description!;
+                    _address = prediction.description!;
+                    if(prediction.lat != null && prediction.lng != null) {
+                      lat =  prediction.lat!;
+                      lang = prediction.lng!;
+                    }
+
+                    // Get.back();
+                    updateLocationRepo(
+                        context: context,
+                        address: address.text,
+                        lat: lat,
+                        long: lang)
+                        .then((value) {
+                      if (value.status == true) {
+                        log(value.status.toString());
+                        getAddressCon.getProfileData();
+                        getSchoolListController.getSchoolListFunction();
+                        getSchoolListController.getTopLectureListRepo();
+                        // Get.back();
+                        // Get.offAllNamed(MyRouters.drawerForUser);
+                        Get.offAll(() => BottomBarScreen(
+                          userType: 0,
+                        ));
+
+                        showToast(value.msg.toString().toString());
+                      } else {
+                        showToast(value.msg.toString().toString());
+                      }
+                    });
+                  }),
+
+              // Container(
+              //     decoration: BoxDecoration(
+              //         border: Border.all(),
+              //         borderRadius: BorderRadius.circular(10.0),
+              //         color: Colors.grey.shade50),
+              //     // width: MediaQuery.of(context).size.width - 40,
+              //     child: ListTile(
+              //       leading: const Icon(Icons.location_on),
+              //       title: Text(
+              //         _address ?? "Location".toString(),
+              //         style: const TextStyle(fontSize: 14),
+              //       ),
+              //       trailing: const Icon(Icons.search),
+              //       dense: true,
+              //     )),
+
               SizedBox(
                 height: 30,
               ),
+
               Container(
                 width: size.width,
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -404,10 +419,10 @@ class _AddressScreenState extends State<AddressScreen> {
                       ? 'Add Location'
                       : 'Update Location',
                   onPressed: () {
-                   /* Get.offAllNamed(MyRouters.drawerForTeacher);*/
-                    _focusNode.unfocus();
+                    /* Get.offAllNamed(MyRouters.drawerForTeacher);*/
+                    // _focusNode.unfocus();
 
-                    if (_address!.isNotEmpty) {
+                    if (address.text!.isNotEmpty) {
                       updateLocationRepo(
                           context: context,
                           address: _address,
@@ -421,7 +436,9 @@ class _AddressScreenState extends State<AddressScreen> {
                           getSchoolListController.getTopLectureListRepo();
                           // Get.back();
                           // Get.offAllNamed(MyRouters.drawerForUser);
-                          Get.offAll(() => BottomBarScreen(userType: 0,));
+                          Get.offAll(() => BottomBarScreen(
+                            userType: 0,
+                          ));
 
                           showToast(value.msg.toString().toString());
                         } else {

@@ -616,6 +616,7 @@ class _SignInPageState extends State<SignInPage> {
                         ElevatedButton(
                           onPressed: () async {
                             // String? token = await FirebaseMessaging.instance.getToken();
+
                             if (signInController.formKey.currentState!.validate()) {
                               FocusManager.instance.primaryFocus!.unfocus();
                               signInController.login(context: context,email: signInController.emailController.text,
@@ -693,9 +694,9 @@ class _SignInPageState extends State<SignInPage> {
 
     List<MultiLoginModel> loginData =
     [
-      MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
-      MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
-      MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
+      MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar", token: 'test1'),
+      MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
+      MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3'),
     ];
 
     print("loginData : $loginData");

@@ -585,6 +585,39 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
           ),
         ],
       ),
+      bottomNavigationBar:  Obx(
+            () => examResultController.isDataLoading.value ||
+                examResultController.getExamResultModel.value.data!.isEmpty
+                ? SizedBox.shrink() : SizedBox(
+          width: size.width,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: size.width,
+                height: 45,
+                color: Colors.red,
+                child: InkWell(
+                  onTap: () {},
+                  child: const Center(
+                    child: Text(
+                      'Each Subjects needs 36 marks to pass',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
