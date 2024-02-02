@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:vidhaalay_app/controller/teacher_controller/get_profile_controller_teacher.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/student_attandance_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/add_attandance_model.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -23,6 +27,7 @@ class TeacherAttendanceScreen extends StatefulWidget {
 class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
   StudentAttandanceController studentAttandanceController =
   Get.put(StudentAttandanceController());
+  final getTeacherProfileController = Get.put(GetTeacherProfileController());
 
   @override
   void initState() {
@@ -54,25 +59,104 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                Get.toNamed(MyRouters.myProfileTeacher);
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipOval(
-                    child: Image.asset(
-                      AppAssets.studentImg,
-                      width: 30,
-                    ),
+            padding: const EdgeInsets.all(10.0),
+            child: Obx(
+                  () {
+                print("profile Image : ${getTeacherProfileController.networkProfileImage}");
+
+                return  GestureDetector(
+                  onTap: () {
+                    Get.toNamed(MyRouters.myProfileTeacher);
+                  },
+                  child: commonProfileImageCircle(
+                      context: context,
+                      isProfileImageLoading: !getTeacherProfileController
+                          .isProfileLoading.value,
+                      isProfileExist: getTeacherProfileController
+                          .networkProfileImage !=
+                          null,
+                      image:
+                      getTeacherProfileController
+                      // .getProfileModel.value.data!.profileImage
+                          .networkProfileImage
                   ),
-                ],
-              ),
+                  // CircleAvatar(
+                  //   radius: 18,
+                  //   backgroundColor: Colors.transparent,
+                  //   child: ClipOval(
+                  //     child: !getTeacherProfileController.isProfileLoading.value
+                  //         ? Shimmer.fromColors(
+                  //       // ignore: sort_child_properties_las t
+                  //       child: CircleAvatar(
+                  //           radius: 18, backgroundColor: Colors.grey),
+                  //       baseColor: Colors.grey[300]!,
+                  //       highlightColor: Colors.grey[400]!,
+                  //     )
+                  //         :
+                  //     getTeacherProfileController.networkProfileImage != null
+                  //     // getTeacherProfileController.getProfileModel.value.data?.profileImage != null
+                  //         ? CachedNetworkImage(
+                  //       imageUrl:
+                  //       // getTeacherProfileController.networkProfileImage.toString(),
+                  //       getTeacherProfileController.getProfileModel.value.data!.profileImage.toString(),
+                  //       fit: BoxFit.fill,
+                  //       errorWidget: (__, _, ___) => Image.asset(
+                  //         AppAssets.collageImg,
+                  //         fit: BoxFit.cover,
+                  //         width: double.maxFinite,
+                  //       ),
+                  //       imageBuilder: (context, imageProvider) =>
+                  //           Container(
+                  //             decoration: BoxDecoration(
+                  //               image: DecorationImage(
+                  //                 image: imageProvider,
+                  //                 fit: BoxFit.cover,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //       placeholder: (context, url) =>
+                  //           Shimmer.fromColors(
+                  //             // ignore: sort_child_properties_last
+                  //             child: CircleAvatar(
+                  //                 radius: 18,
+                  //                 backgroundColor: Colors.grey),
+                  //             baseColor: Colors.grey[300]!,
+                  //             highlightColor: Colors.grey[400]!,
+                  //           ),
+                  //     )
+                  //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                  //         : Image.asset(
+                  //       AppAssets.studentImg,
+                  //       fit: BoxFit.cover,
+                  //       // height: 35,
+                  //     ),
+                  //   ),
+                  // ),
+                );
+              },
             ),
-          )
+          ),
+
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: GestureDetector(
+          //     onTap: () {
+          //       Get.toNamed(MyRouters.myProfileTeacher);
+          //     },
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         ClipOval(
+          //           child: Image.asset(
+          //             AppAssets.studentImg,
+          //             width: 30,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // )
         ],
       ),
       body: Stack(

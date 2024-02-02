@@ -14,6 +14,7 @@ import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../controller/bottom_controller.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -32,30 +33,32 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
 
   int touchedIndex = -1;
   List pieData = [50.0, 50.0];
-  String? networkProfileImage;
-  bool isProfileLoading = true;
+
+  // String? networkProfileImage;
+  // bool isProfileLoading = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("Teacher home enter");
-    getProfile();
     teacherHomeController.getLatestEventData();
+    getTeacherProfileController.getProfileData();
+    // getProfile();
     // teacherHomeController.getLatestAssignmentRepo();
   }
 
-  Future<void> getProfile() async {
-    GetProfileModel getProfileModel = GetProfileModel();
-
-    await getProfileRepo().then((value) {
-      isProfileLoading = false;
-      getProfileModel = value;
-      setState(() {
-        networkProfileImage = getProfileModel.data!.profileImage;
-      });
-    });
-  }
+  // Future<void> getProfile() async {
+  //   GetProfileModel getProfileModel = GetProfileModel();
+  //
+  //   await getProfileRepo().then((value) {
+  //     isProfileLoading = false;
+  //     getProfileModel = value;
+  //     setState(() {
+  //       networkProfileImage = getProfileModel.data!.profileImage;
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,59 +94,81 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                 SizedBox(
                   width: size.width * .065,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(MyRouters.myProfileTeacher);
-                  },
-                  child:  CircleAvatar(
-                    radius: 18,
-                    backgroundColor: Colors.transparent,
-                    child: ClipOval(
-                      child: isProfileLoading
-                          ? Shimmer.fromColors(
-                        // ignore: sort_child_properties_last
-                        child: CircleAvatar(
-                            radius: 18, backgroundColor: Colors.grey),
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[400]!,
-                      )
-                          : networkProfileImage != null
-                          ? CachedNetworkImage(
-                        imageUrl: networkProfileImage.toString(),
-                        fit: BoxFit.fill,
-                        errorWidget: (__, _, ___) => Image.asset(
-                          AppAssets.collageImg,
-                          fit: BoxFit.cover,
-                          width: double.maxFinite,
-                        ),
-                        imageBuilder: (context, imageProvider) =>
-                            Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                        placeholder: (context, url) =>
-                            Shimmer.fromColors(
-                              // ignore: sort_child_properties_last
-                              child: CircleAvatar(
-                                  radius: 18,
-                                  backgroundColor: Colors.grey),
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[400]!,
-                            ),
-                      )
-                      // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
-                          : Image.asset(
-                        AppAssets.studentImg,
-                        fit: BoxFit.cover,
-                        // height: 35,
-                      ),
-                    ),
-                  ),
-                )
+                 Obx(
+                   () {
+                     print("profile Image : ${getTeacherProfileController.networkProfileImage}");
+
+                     return  GestureDetector(
+                       onTap: () {
+                         Get.toNamed(MyRouters.myProfileTeacher);
+                       },
+                       child: commonProfileImageCircle(
+                       context: context,
+                            isProfileImageLoading: !getTeacherProfileController
+                                .isProfileLoading.value,
+                            isProfileExist: getTeacherProfileController
+                                    .networkProfileImage !=
+                                null,
+                            image:
+                            getTeacherProfileController
+                                // .getProfileModel.value.data!.profileImage
+                                .networkProfileImage
+                       ),
+                        // CircleAvatar(
+                       //   radius: 18,
+                       //   backgroundColor: Colors.transparent,
+                       //   child: ClipOval(
+                       //     child: !getTeacherProfileController.isProfileLoading.value
+                       //         ? Shimmer.fromColors(
+                       //       // ignore: sort_child_properties_las t
+                       //       child: CircleAvatar(
+                       //           radius: 18, backgroundColor: Colors.grey),
+                       //       baseColor: Colors.grey[300]!,
+                       //       highlightColor: Colors.grey[400]!,
+                       //     )
+                       //         :
+                       //     getTeacherProfileController.networkProfileImage != null
+                       //     // getTeacherProfileController.getProfileModel.value.data?.profileImage != null
+                       //         ? CachedNetworkImage(
+                       //       imageUrl:
+                       //       // getTeacherProfileController.networkProfileImage.toString(),
+                       //       getTeacherProfileController.getProfileModel.value.data!.profileImage.toString(),
+                       //       fit: BoxFit.fill,
+                       //       errorWidget: (__, _, ___) => Image.asset(
+                       //         AppAssets.collageImg,
+                       //         fit: BoxFit.cover,
+                       //         width: double.maxFinite,
+                       //       ),
+                       //       imageBuilder: (context, imageProvider) =>
+                       //           Container(
+                       //             decoration: BoxDecoration(
+                       //               image: DecorationImage(
+                       //                 image: imageProvider,
+                       //                 fit: BoxFit.cover,
+                       //               ),
+                       //             ),
+                       //           ),
+                       //       placeholder: (context, url) =>
+                       //           Shimmer.fromColors(
+                       //             // ignore: sort_child_properties_last
+                       //             child: CircleAvatar(
+                       //                 radius: 18,
+                       //                 backgroundColor: Colors.grey),
+                       //             baseColor: Colors.grey[300]!,
+                       //             highlightColor: Colors.grey[400]!,
+                       //           ),
+                       //     )
+                       //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                       //         : Image.asset(
+                       //       AppAssets.studentImg,
+                       //       fit: BoxFit.cover,
+                       //       // height: 35,
+                       //     ),
+                       //   ),
+                       // ),
+                     );
+                   },
+                 ),
               ],
             ),
           )

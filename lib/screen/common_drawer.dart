@@ -45,6 +45,7 @@ class _commonDrawerState extends State<commonDrawer> {
 
   String username = '';
   String? networkProfileImage;
+  String? classname;
   bool isProfileLoading = true;
 
   @override
@@ -57,6 +58,7 @@ class _commonDrawerState extends State<commonDrawer> {
   getUserName() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? name = await pref.getString('username');
+    classname = await pref.getString('classname');
     username = name!;
     setState(() {
 
@@ -173,14 +175,14 @@ class _commonDrawerState extends State<commonDrawer> {
                               color: AppThemes.white,
                             ),
                           ),
-                          Text(
-                            bottomController.userType == 2 ?  "CLASS-${bottomController.userClassName}" : "", // Display user's name here
+                          bottomController.userType != 0 && classname != null ? Text(
+                             "CLASS-${classname}",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                               color: AppThemes.white,
                             ),
-                          ),
+                          ) : SizedBox.shrink()
                         ],
                       ),
                     ),
@@ -944,7 +946,6 @@ class _commonDrawerState extends State<commonDrawer> {
                           deleteAllRecord();
                         },
                       ),
-                      // No divider after the last item
                     ],
                   );
                 }

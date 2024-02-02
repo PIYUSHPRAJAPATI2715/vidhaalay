@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/student_controller/bottom_navigation_controller.dart';
+import 'package:vidhaalay_app/controller/student_controller/get_student_profile_controller.dart';
 import 'package:vidhaalay_app/controller/student_controller/student_Home_Controller.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../controller/bottom_controller.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -24,7 +26,10 @@ class StudentHomeScreen extends StatefulWidget {
 
 class _StudentHomeScreenState extends State<StudentHomeScreen> {
   final controller = Get.put(StudentBottomController());
+
   final studentHomeController = Get.put(StudentHomeController());
+  final getStudentProfileController = Get.put(GetStudentProfileController());
+
   int touchedIndex = -1;
 
   List pieData = [50.0,50.0];
@@ -34,8 +39,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
     print("Student home enter");
     super.initState();
     studentHomeController.getLatestEventData();
+    getStudentProfileController.getProfileData();
     // studentHomeController.getLatestAssignmentRepo();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +66,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
             padding:  EdgeInsets.symmetric(horizontal: size.width*.035).copyWith(left: 0),
             child: Row(
               children: [
-                // IconButton(
-                //     onPressed: () {
-                //
-                //     }, icon: ImageIcon(AssetImage(AppAssets.notification),size: 20,color: Colors.grey,)
-                // ),
+              
                 InkWell(
                     onTap: () {
 
@@ -83,17 +86,40 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                 SizedBox(
                   width: size.width*.065,
                 ),
-                GestureDetector(
-                  onTap: (){
-                    Get.toNamed(MyRouters.myProfileScreenStu);
+                Obx(
+                      () {
+                    print("profile Image : ${getStudentProfileController.networkProfileImage}");
+
+                    return  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(MyRouters.myProfileTeacher);
+                      },
+                      child: commonProfileImageCircle(
+                          context: context,
+                          isProfileImageLoading: getStudentProfileController.isProfileLoading.value,
+                          isProfileExist: getStudentProfileController
+                              .networkProfileImage !=
+                              null,
+                          image:
+                          getStudentProfileController
+                          // .getProfileModel.value.data!.profileImage
+                              .networkProfileImage
+                      ),
+                    );
                   },
-                  child: ClipOval(
-                    child: Image.asset(
-                      AppAssets.studentImg,
-                      width: 32,
-                    ),
-                  ),
-                )
+                ),
+
+                // GestureDetector(
+                //   onTap: (){
+                //     Get.toNamed(MyRouters.myProfileScreenStu);
+                //   },
+                //   child: ClipOval(
+                //     child: Image.asset(
+                //       AppAssets.studentImg,
+                //       width: 32,
+                //     ),
+                //   ),
+                // )
               ],
             ),
           )

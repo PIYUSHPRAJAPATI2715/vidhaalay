@@ -56,7 +56,8 @@ class GetTeacherProfileController extends GetxController {
       emailController.text = getProfileModel.value.data!.email.toString();
       phoneController.text = getProfileModel.value.data!.mobile.toString();
       uniqueIdController.text = getProfileModel.value.data!.uniqueId.toString();
-      networkProfileImage = getProfileModel.value.data!.profileImage.toString();
+      networkProfileImage = getProfileModel.value.data!.profileImage;
+      // update();
     });
   }
 

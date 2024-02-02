@@ -154,6 +154,7 @@ class SignInController extends GetxController {
           pref.setString('type', value.data!.userType.toString());
           pref.setString('username', value.data!.name.toString());
           pref.setString('email', value.data!.email.toString());
+          pref.setString('classname', value.data!.class0!.name.toString());
 
           MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"teacher",password: pass, token: value.data!.token!);
           saveLoginData(data);
@@ -196,6 +197,7 @@ class SignInController extends GetxController {
           pref.setString('studentId', value.data!.id.toString());
           pref.setString('username', value.data!.name.toString());
           pref.setString('email', value.data!.email.toString());
+          pref.setString('classname', value.data!.class0!.name.toString());
 
           MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"student",password: pass, token: value.data!.token!);
           saveLoginData(data);

@@ -60,7 +60,8 @@ class GetStudentProfileController extends GetxController {
       emailController.text = getProfileModel.value.data!.email.toString();
       phoneController.text = getProfileModel.value.data!.mobile.toString();
       uniqueIdController.text = getProfileModel.value.data!.address.toString();
-      networkProfileImage = getProfileModel.value.data!.profileImage.toString();
+      networkProfileImage = getProfileModel.value.data!.profileImage;
+      update();
       // uniqueIdController.text = getProfileModel.value.data!..toString();
       // uniqueIdController.text = getProfileModel.value.data!.uniqueId.toString();
     });

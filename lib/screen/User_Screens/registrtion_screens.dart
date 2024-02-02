@@ -327,6 +327,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
         body:
         SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             children: [
               Container(
@@ -362,13 +363,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           6,
                               (index) => InkWell(
                             onTap: () {
-                              // int decimalPartAsInt = (kk * 10).toInt() % 10;
-                              // print('Decimal part as int: $decimalPartAsInt');
-                              // int currentIndex = (decimalPartAsInt / 2).toInt();
                               int currentIndex = (kk * 5).toInt();
                               print('currentIndex : $currentIndex');
-
-
                               if(currentIndex == index) {
                                   print("Equal");
                                 } else if(currentIndex < index) {
@@ -421,11 +417,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                               print("index : $index");
                               print("kk : $kk");
+                              setState(() {});
 
                               // kk = index / 5;
                               // print("kk : $kk");
-                              setState(() {});
-
+                              // setState(() {});
                             },
                             child: Container(
                                 width: 50,
@@ -1224,7 +1220,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     setState(() {
                                       _scrollController.animateTo(
                                         0.0,
-                                        duration: Duration(milliseconds: 10),
+                                        duration: Duration(milliseconds: 1200),
                                         curve: Curves.easeInOut,
                                       );
                                     });
@@ -1255,7 +1251,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
-                        controller: _scrollController,
+                        // controller: _scrollController,
                         child: Form(
                           key: _formKeyResidential,
                           child: Column(
@@ -1895,7 +1891,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     if (_formKeyResidential.currentState!
                                         .validate()) {
                                       kk = 0.4;
-                                      setState(() {});
+                                      setState(() {
+                                        _scrollController.animateTo(
+                                          0.0,
+                                          duration: Duration(milliseconds: 1000),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      });
                                     }
                                   },
                                   child: const Text(
@@ -2077,9 +2079,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               if (_formKeyPrevious.currentState!.validate()) {
                                 kk = 0.6;
                                 setState(() {
-
+                                  _scrollController.animateTo(
+                                    0.0,
+                                    duration: Duration(milliseconds: 1000),
+                                    curve: Curves.easeInOut,
+                                  );
                                 });
-                              } },
+                              }
+                              },
                                   child: const Text('Continue',style: TextStyle(color: Colors.white),),
                                 ),
                               ),
@@ -2463,7 +2470,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 onPressed: () {
                                   if (_formKeyFathers.currentState!.validate()) {
                                     kk = 0.8;
-                                    setState(() {});
+                                    setState(() {
+                                      _scrollController.animateTo(
+                                        0.0,
+                                        duration: Duration(milliseconds: 1000),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    });
                                   }
                                 },
                                 child: const Text(
@@ -2715,9 +2728,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   if (_formKeyMother.currentState!.validate()) {
                                     kk = 1;
                                     setState(() {
-
+                                      _scrollController.animateTo(
+                                        0.0,
+                                        duration: Duration(milliseconds: 1000),
+                                        curve: Curves.easeInOut,
+                                      );
                                     });
-                                  }},
+                                  }
+                                  },
                                 child: const Text('Continue',style: TextStyle(color: Colors.white),),
                               ),
                             ),
