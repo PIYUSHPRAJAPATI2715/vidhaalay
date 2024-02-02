@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/get_profile_controller_teacher.dart';
 import 'package:vidhaalay_app/controller/user_Controller/get_profile_controller.dart';
 import '../../resourses/app_assets.dart';
@@ -22,7 +25,7 @@ class MyProfileTeacher extends StatefulWidget {
 
 class _MyProfileTeacherState extends State<MyProfileTeacher> {
 
-  final getTeacherProfileController = Get.put(GetTeacherProfileController());
+    final getTeacherProfileController = Get.put(GetTeacherProfileController());
 
   @override
   void initState() {
@@ -84,69 +87,153 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                       const SizedBox(
                         height: 5,
                       ),
-                      DropdownButtonFormField<String>(
-                        value: getTeacherProfileController.selectClass?.value,
-                        items: getTeacherProfileController.selectClassData.toList()
-                            .map((item) => DropdownMenuItem(
-                          value: item,
-                          child: Text(item),
-                        ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            getTeacherProfileController.selectClass?.value = value!;
-                          });
-                        },
-                        menuMaxHeight: size.height * 0.25,
-                      borderRadius: BorderRadius.circular(10),
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                          hintText: 'Select Subject',
-                          hintStyle: const TextStyle(
+                      DropdownButtonHideUnderline(
+                        child: DropdownButtonFormField2<String>(
+                          isExpanded: true,
+                          style: TextStyle(
                             color: Colors.grey,
                             fontSize: 15,
                           ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(
-                                color: Colors.red,
-                                width: 1
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            hintText: 'Select subject',
+                            hintStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15,
                             ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50),
-                            borderSide: BorderSide(
-                                color: Colors.red,
-                                width: 1
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
+                            errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50),
                               borderSide: BorderSide(
-                                  color: Colors.grey!.withOpacity(0.5),
+                                  color: Colors.red,
                                   width: 1
-                              )
-                          ),
-
-                          focusedBorder: OutlineInputBorder(
+                              ),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(50),
                               borderSide: BorderSide(
-                                  color: Colors.grey!.withOpacity(0.5),
+                                  color: Colors.red,
                                   width: 1
-                              )
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(
+                                    color: Colors.grey!.withOpacity(0.5),
+                                    width: 1
+                                )
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                borderSide: BorderSide(
+                                    color: Colors.grey!.withOpacity(0.5),
+                                    width: 1
+                                )
+                            ),
+                          ),
+                          value: getTeacherProfileController.selectClass?.value,
+                          items: getTeacherProfileController.selectClassData.toList()
+                              .map((item) => DropdownMenuItem(
+                            value: item,
+                            child: Text(item),
+                          ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              getTeacherProfileController.selectClass?.value = value!;
+                            });
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select subject';
+                            }
+                            return null;
+                          },
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: size.height * 0.28,
+                            width: size.width * 0.9,
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            isOverButton: false,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: Colors.white,
+                            ),
+                            offset: const Offset(0, -10),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius: const Radius.circular(40),
+                              thickness: MaterialStateProperty.all<double>(6),
+                              thumbVisibility: MaterialStateProperty.all<bool>(true),
+                            ),
+                          ),
+                          menuItemStyleData: const MenuItemStyleData(
+                            height: 45,
+                            padding: EdgeInsets.only(left: 10, right: 10),
                           ),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select subject';
-                          }
-                          return null;
-                        },
                       ),
+
+                      // DropdownButtonFormField<String>(
+                      //   value: getTeacherProfileController.selectClass?.value,
+                      //   items: getTeacherProfileController.selectClassData.toList()
+                      //       .map((item) => DropdownMenuItem(
+                      //     value: item,
+                      //     child: Text(item),
+                      //   ))
+                      //       .toList(),
+                      //   onChanged: (value) {
+                      //     setState(() {
+                      //       getTeacherProfileController.selectClass?.value = value!;
+                      //     });
+                      //   },
+                      //   menuMaxHeight: size.height * 0.25,
+                      // borderRadius: BorderRadius.circular(10),
+                      // style: TextStyle(
+                      //   color: Colors.grey,
+                      //   fontSize: 15,
+                      // ),
+                      // decoration: InputDecoration(
+                      //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      //     hintText: 'Select Subject',
+                      //     hintStyle: const TextStyle(
+                      //       color: Colors.grey,
+                      //       fontSize: 15,
+                      //     ),
+                      //     errorBorder: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(50),
+                      //       borderSide: BorderSide(
+                      //           color: Colors.red,
+                      //           width: 1
+                      //       ),
+                      //     ),
+                      //     focusedErrorBorder: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(50),
+                      //       borderSide: BorderSide(
+                      //           color: Colors.red,
+                      //           width: 1
+                      //       ),
+                      //     ),
+                      //     enabledBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(50),
+                      //         borderSide: BorderSide(
+                      //             color: Colors.grey!.withOpacity(0.5),
+                      //             width: 1
+                      //         )
+                      //     ),
+                      //
+                      //     focusedBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(50),
+                      //         borderSide: BorderSide(
+                      //             color: Colors.grey!.withOpacity(0.5),
+                      //             width: 1
+                      //         )
+                      //     ),
+                      //   ),
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please select subject';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
 
                       // Container(
                       //   height: 50,
@@ -360,12 +447,80 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
-                          child: getTeacherProfileController.imagePath.value != "" ? Image.file(File(getTeacherProfileController.imagePath.value,),fit: BoxFit.fill)
+                          child:  !getTeacherProfileController.isProfileLoading.value ?
+                          Shimmer.fromColors(
+                            // ignore: sort_child_properties_last
+                            child:
+                            Container(height: 86,
+                                width: 154,
+                                color: Colors.grey),
+                            baseColor: Colors
+                                .grey[300]!,
+                            highlightColor: Colors
+                                .grey[400]!,
+                          )
+                          // Image.asset(AppAssets.studentImg,fit: BoxFit.fill)
+                              : getTeacherProfileController.networkProfileImage != null ?
+                          CachedNetworkImage(
+                            imageUrl:  getTeacherProfileController.networkProfileImage.toString(),
+                            fit: BoxFit.fill,
+                            // width: double.maxFinite,
+                            // height:  double.maxFinite,
+                            errorWidget: (__, _, ___) =>
+                                Image.asset(
+                                  AppAssets.collageImg,
+                                  fit: BoxFit.cover,
+                                  width: double.maxFinite,
+                                ),
+                            imageBuilder: (context,
+                                imageProvider) =>
+                                Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                      // colorFilter: ColorFilter.mode(
+                                      //     Colors.red, BlendMode.colorBurn),
+                                    ),
+                                  ),
+                                ),
+                            placeholder: (context, url) =>
+                                Shimmer.fromColors(
+                                  // ignore: sort_child_properties_last
+                                  child:
+                                  Container(height: 86,
+                                      width: 154,
+                                      color: Colors.grey),
+                                  baseColor: Colors
+                                      .grey[300]!,
+                                  highlightColor: Colors
+                                      .grey[400]!,
+                                ),
+                          )
+                          // Image.network(getTeacherProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
                               : Image.asset(AppAssets.studentImg,fit: BoxFit.fill),
                         ),
                       ),
                     ),
                   ),
+                  // Obx(
+                  //       () => Padding(
+                  //     padding: EdgeInsets.only(bottom: 15),
+                  //     child: Container(
+                  //       height: size.height * .16,
+                  //       width: size.width * .35,
+                  //       decoration: BoxDecoration(
+                  //         // color: Colors.green,
+                  //         borderRadius: BorderRadius.circular(15),
+                  //       ),
+                  //       child: ClipRRect(
+                  //         borderRadius: BorderRadius.circular(15),
+                  //         child: getTeacherProfileController.imagePath.value != "" ? Image.file(File(getTeacherProfileController.imagePath.value,),fit: BoxFit.fill)
+                  //             : Image.asset(AppAssets.studentImg,fit: BoxFit.fill),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   GestureDetector(
                     onTap: () {
                       getTeacherProfileController.selectOption(context);

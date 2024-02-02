@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/repositories/profile_image_upload_repo.dart';
 import 'package:vidhaalay_app/repositories/update_profile_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
@@ -39,6 +40,7 @@ class GetTeacherProfileController extends GetxController {
 
   RxBool isProfileLoading = true.obs;
   Rx<GetProfileModel> getProfileModel = GetProfileModel().obs;
+  String? networkProfileImage;
   RxString imagePath = "".obs;
 
   File? imageNotes;
@@ -54,8 +56,10 @@ class GetTeacherProfileController extends GetxController {
       emailController.text = getProfileModel.value.data!.email.toString();
       phoneController.text = getProfileModel.value.data!.mobile.toString();
       uniqueIdController.text = getProfileModel.value.data!.uniqueId.toString();
+      networkProfileImage = getProfileModel.value.data!.profileImage.toString();
     });
   }
+
 
 
   void selectOption(BuildContext context) {
@@ -82,7 +86,7 @@ class GetTeacherProfileController extends GetxController {
                       onTap: () {
                         Navigator.pop(context);
                         // isUpdate = false;
-                        getImageCamera();
+                        getImageCamera(context);
                       },
                       leading: const Icon(
                         Icons.camera_alt,
@@ -96,7 +100,7 @@ class GetTeacherProfileController extends GetxController {
                       onTap: () {
                         Navigator.pop(context);
                         // isUpdate = false;
-                        getImageGallery();
+                        getImageGallery(context);
                         // pickGalleryImage();
                       },
                       leading: const Icon(
@@ -114,69 +118,120 @@ class GetTeacherProfileController extends GetxController {
     );
   }
 
-  Future getImageCamera() async {
+  Future getImageCamera(BuildContext context) async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image == null) return;
 
     final imageTemporary = File(image.path);
     imageNotes = imageTemporary;
     debugPrint(imageNotes.toString());
-    UpdateUserProfileApiCall(imageNotes!);
+    bool isUpdated = await UpdateUserProfileApiCall(imageNotes!,context);
+    if(isUpdated) {
+      getProfileData();
+    }
+    update();
   }
 
-  Future getImageGallery() async {
+  Future getImageGallery(BuildContext context) async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
 
     final imageTemporary = File(image.path);
     imageNotes = imageTemporary;
-    UpdateUserProfileApiCall(imageNotes!);
-    debugPrint(imageNotes.toString());
-  }
+    update();
 
-  Future<void> UpdateUserProfileApiCall(File imageFile) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String token = pref.getString("cookie")!.toString().replaceAll('\"', '').toString();
-
-    Map<String, String> headers = {
-      "Authorization": 'Bearer $token',
-      "Content-type": "multipart/form-data"
-    };
-
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse(ApiUrls.uploadProfileImageUrl),
-    );
-
-
-    request.headers.addAll(headers);
-
-    var contentType = MediaType.parse(
-        lookupMimeType(imageFile.path) ?? 'image/jpeg');
-
-    var part = await http.MultipartFile.fromPath(
-        'image', imageFile.path, contentType: contentType);
-    request.files.add(part);
-
-    print("request: " + request.toString());
-
-    var res = await request.send();
-    var responseBody = await res.stream.bytesToString();
-
-    print("This is response:" + res.toString());
-
-    if (res.statusCode == 200) {
-      print('Response: $responseBody');
-      showToast(message:"Profile image updated successfully.");
-
-    } else {
-      if (res.statusCode == 500) {
-        showToast(message:"Internal Server Error");
-      } else {
-        showToast(message:'Please Update Your Profile Picture!!!');
-      }
+    // UpdateUserProfileApiCall(imageNotes!);
+    bool isUpdated = await UpdateUserProfileApiCall(imageNotes!,context);
+    if(isUpdated) {
+      getProfileData();
     }
+
+    debugPrint(imageNotes.toString());
+    update();
   }
+
+  // Future getImageCamera() async {
+  //   final image = await ImagePicker().pickImage(source: ImageSource.camera);
+  //   if (image == null) return;
+  //
+  //   final imageTemporary = File(image.path);
+  //   imageNotes = imageTemporary;
+  //   debugPrint(imageNotes.toString());
+  //
+  //   // validateImgeSize(imageNotes!);
+  //   UpdateUserProfileApiCall(imageNotes!);
+  // }
+  //
+  // Future getImageGallery() async {
+  //   final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (image == null) return;
+  //
+  //   final imageTemporary = File(image.path);
+  //   imageNotes = imageTemporary;
+  //
+  //   UpdateUserProfileApiCall(imageNotes!);
+  //
+  //   debugPrint(imageNotes.toString());
+  // }
+  //
+  // void selectOption(BuildContext context) {
+  //   showDialog<void>(
+  //     context: context,
+  //     builder: (BuildContext dialogContext) {
+  //       return AlertDialog(
+  //         backgroundColor: AppThemes.forgotBg,
+  //         content: Container(
+  //           height: 170,
+  //           color: Colors.transparent,
+  //           child: Center(
+  //             child: Column(
+  //               children: [
+  //                 Text("Select Option", style: GoogleFonts.poppins(
+  //                     fontWeight: FontWeight.w500,
+  //                     fontSize: 17,
+  //                     color: AppThemes.textBlackColor
+  //                 ),),
+  //                 SizedBox(height: 15,),
+  //                 Card(
+  //                   child: ListTile(
+  //                     title: const Text("Camera"),
+  //                     onTap: () {
+  //                       Navigator.pop(context);
+  //                       // isUpdate = false;
+  //                       getImageCamera();
+  //                     },
+  //                     leading: const Icon(
+  //                       Icons.camera_alt,
+  //                       color: Colors.black,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Card(
+  //                   child: ListTile(
+  //                     title: const Text("Gallery"),
+  //                     onTap: () {
+  //                       Navigator.pop(context);
+  //                       // isUpdate = false;
+  //                       getImageGallery();
+  //                       // pickGalleryImage();
+  //                     },
+  //                     leading: const Icon(
+  //                       Icons.photo_library_rounded,
+  //                       color: Colors.black,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+
+
 
   updateProfile(BuildContext context) {
     if (formKey.currentState!.validate()) {

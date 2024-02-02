@@ -30,8 +30,10 @@ class StudentHomeController extends GetxController{
   }
 
   Future getLatestEventData() async {
+    print("Enter");
     isLoading.value = true;
     await getLatestEventRepo().then((value) {
+      print("Enter00");
       getLatestEventModel.value = value;
       isLoading.value = false;
     });

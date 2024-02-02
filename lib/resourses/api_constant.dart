@@ -116,16 +116,25 @@ Future getAuthHeader() async {
 // HttpHeaders.acceptHeader: 'application/json',
 //     HttpHeaders.authorizationHeader: 'Bearer ${pref.getString("cookie")!.toString().replaceAll('\"', '')}',
 
-showToast({required String message, Color? backgroundColor}) {
+showToast({required String message, bool isError = false
+// Color? backgroundColor
+}) {
   Fluttertoast.cancel();
+
+  Color backgroundColor = isError ? Colors.red : AppThemes.white;
+  Color borderColor = isError ?  Colors.white : AppThemes.primaryColor;
+  Color textColor = isError ? AppThemes.white : AppThemes.primaryColor;
+
 
   Get.snackbar(
     "Vidhyaalay",
     message,
-    colorText:  backgroundColor != null ? Colors.white : AppThemes.primaryColor, // text color
-    backgroundColor: backgroundColor != null ? backgroundColor! : AppThemes.white, // background color
-    borderColor:
-    backgroundColor != null ? Colors.white : AppThemes.primaryColor, // border color
+    colorText:  textColor,
+    // backgroundColor != null ? Colors.white : AppThemes.primaryColor, // text color
+    backgroundColor: backgroundColor,
+    // backgroundColor != null ? backgroundColor! : AppThemes.white, // background color
+    borderColor: borderColor,
+    // backgroundColor != null ? Colors.white : AppThemes.primaryColor, // border color
     borderWidth: 1.5,
     margin: EdgeInsets.only(top: 15,left: 20,right: 20),
     duration: Duration(seconds: 1),

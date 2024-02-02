@@ -1,10 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:vidhaalay_app/controller/teacher_controller/get_profile_controller_teacher.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/teacherHomeController.dart';
+import 'package:vidhaalay_app/models/get_profile_model.dart';
+import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
@@ -23,16 +28,33 @@ class TeacherHomeScreen extends StatefulWidget {
 class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
   final controller = Get.put(BottomController());
   final teacherHomeController = Get.put(TeacherHomeController());
+  final getTeacherProfileController = Get.put(GetTeacherProfileController());
+
   int touchedIndex = -1;
   List pieData = [50.0, 50.0];
+  String? networkProfileImage;
+  bool isProfileLoading = true;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("Teacher home enter");
+    getProfile();
     teacherHomeController.getLatestEventData();
     // teacherHomeController.getLatestAssignmentRepo();
+  }
+
+  Future<void> getProfile() async {
+    GetProfileModel getProfileModel = GetProfileModel();
+
+    await getProfileRepo().then((value) {
+      isProfileLoading = false;
+      getProfileModel = value;
+      setState(() {
+        networkProfileImage = getProfileModel.data!.profileImage;
+      });
+    });
   }
 
   @override
@@ -73,10 +95,52 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                   onTap: () {
                     Get.toNamed(MyRouters.myProfileTeacher);
                   },
-                  child: ClipOval(
-                    child: Image.asset(
-                      AppAssets.studentImg,
-                      width: 32,
+                  child:  CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.transparent,
+                    child: ClipOval(
+                      child: isProfileLoading
+                          ? Shimmer.fromColors(
+                        // ignore: sort_child_properties_last
+                        child: CircleAvatar(
+                            radius: 18, backgroundColor: Colors.grey),
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[400]!,
+                      )
+                          : networkProfileImage != null
+                          ? CachedNetworkImage(
+                        imageUrl: networkProfileImage.toString(),
+                        fit: BoxFit.fill,
+                        errorWidget: (__, _, ___) => Image.asset(
+                          AppAssets.collageImg,
+                          fit: BoxFit.cover,
+                          width: double.maxFinite,
+                        ),
+                        imageBuilder: (context, imageProvider) =>
+                            Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                        placeholder: (context, url) =>
+                            Shimmer.fromColors(
+                              // ignore: sort_child_properties_last
+                              child: CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: Colors.grey),
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[400]!,
+                            ),
+                      )
+                      // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                          : Image.asset(
+                        AppAssets.studentImg,
+                        fit: BoxFit.cover,
+                        // height: 35,
+                      ),
                     ),
                   ),
                 )
@@ -570,7 +634,9 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                       ),
                                       sectionsSpace: 2,
                                       centerSpaceRadius: 0,
-                                      sections: showingSections(absentValue: attandanceData.absent.toDouble(),presentValue: attandanceData.present.toDouble()),
+                                      sections: showingSections(absentValue: double.parse(attandanceData.absent),
+                                          presentValue: double.parse(attandanceData.present),),
+                                          // attandanceData.present.toDouble()),
                                     ),
                                   ),
                                 ),

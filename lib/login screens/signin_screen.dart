@@ -17,6 +17,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/models/multi_login_model.dart';
+import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
@@ -626,7 +627,6 @@ class _SignInPageState extends State<SignInPage> {
                               );
                             }
                             // _showMultiLoginAlertDialog(context);
-
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -662,6 +662,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             InkWell(
                               onTap: () {
+                                // printAllRecord();
                                 Get.toNamed(MyRouters.signupScreen);
                               },
                               child: Text(

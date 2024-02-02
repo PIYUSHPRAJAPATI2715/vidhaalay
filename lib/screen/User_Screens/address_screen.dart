@@ -190,7 +190,7 @@ class _AddressScreenState extends State<AddressScreen> {
           leading: IconButton(
               onPressed: () {
                 if (isAddressUpdateRequire) {
-                  showToast(message:"Please update location");
+                  showToast(message:"Please update location",isError: true);
                 } else {
                   Get.back();
                 }

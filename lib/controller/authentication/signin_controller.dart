@@ -84,6 +84,7 @@ class SignInController extends GetxController {
       userInfo['device_token'] = deviceToken;
       print("userInfo : $userInfo");
 
+
       final headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
@@ -116,8 +117,10 @@ class SignInController extends GetxController {
           print("isMobileVerify : $isMobileVerify");
 
           pref.setString('cookie', value.data!.token.toString());
+          pref.setString('id', value.data!.id.toString());
           pref.setString('type', value.data!.userType.toString());
           pref.setString('username', value.data!.name.toString());
+          pref.setString('email', value.data!.email.toString());
           pref.setBool('emailVerify', isEmailVerify);
           pref.setBool('mobileVerify', isMobileVerify);
 
@@ -147,8 +150,10 @@ class SignInController extends GetxController {
           print("Enter Teacher");
           pref.setBool('isLoggedIn', true);
           pref.setString('cookie', value.data!.token.toString());
+          pref.setString('id', value.data!.id.toString());
           pref.setString('type', value.data!.userType.toString());
           pref.setString('username', value.data!.name.toString());
+          pref.setString('email', value.data!.email.toString());
 
           MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"teacher",password: pass, token: value.data!.token!);
           saveLoginData(data);
@@ -184,10 +189,13 @@ class SignInController extends GetxController {
 
           pref.setBool('isLoggedIn', true);
           pref.setString('type', "student");
+          // pref.setString('type', value.data!.userType.toString());
+          pref.setString('id', value.data!.id.toString());
           pref.setString('cookie', value.data!.token.toString());
           pref.setString('classId', value.data!.classId.toString());
           pref.setString('studentId', value.data!.id.toString());
           pref.setString('username', value.data!.name.toString());
+          pref.setString('email', value.data!.email.toString());
 
           MultiLoginModel data = MultiLoginModel(userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"student",password: pass, token: value.data!.token!);
           saveLoginData(data);
@@ -243,7 +251,7 @@ class SignInController extends GetxController {
         Helpers.hideLoader(loader);
 
         print("test ${responseData['msg'].toString()}");
-        showToast(message:responseData['msg'].toString(),backgroundColor: Colors.red);
+        showToast(message:responseData['msg'].toString(),isError: true);
       }
 
       // if(!isEmailVerify || !isMobileVerify) {

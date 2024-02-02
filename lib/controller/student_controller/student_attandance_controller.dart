@@ -18,7 +18,7 @@ class GetStudentAttandanceController extends GetxController {
       isDataLoading.value = true;
 
       SharedPreferences pref = await SharedPreferences.getInstance();
-      int stuID = int.parse(await pref.getString('studentId')!);
+      int stuID = int.parse(await pref.getString('id')!);
       print("classID : $stuID");
 
 

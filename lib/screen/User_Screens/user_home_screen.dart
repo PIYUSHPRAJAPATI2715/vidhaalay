@@ -50,6 +50,8 @@ class _UserHomeScreenState extends State<UserHomeScreen>
   final bottomController = Get.put(BottomController());
 
   String? location = null;
+  String? networkProfileImage;
+  bool isProfileLoading = true;
 
   @override
   void initState() {
@@ -71,9 +73,11 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     GetProfileModel getProfileModel = GetProfileModel();
 
     await getProfileRepo().then((value) {
+      isProfileLoading = false;
       getProfileModel = value;
       setState(() {
         location = getProfileModel.data?.address;
+        networkProfileImage = getProfileModel.data!.profileImage;
       });
       print("Location $location");
       if(location == null) {
@@ -173,10 +177,52 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                   onTap: () {
                     Get.toNamed(MyRouters.myProfileScreen);
                   },
-                  child: ClipOval(
-                    child: Image.asset(
-                      AppAssets.studentImg,
-                      height: 35,
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.transparent,
+                    child: ClipOval(
+                      child: isProfileLoading
+                          ? Shimmer.fromColors(
+                        // ignore: sort_child_properties_last
+                        child: CircleAvatar(
+                            radius: 18, backgroundColor: Colors.grey),
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[400]!,
+                      )
+                          : networkProfileImage != null
+                          ? CachedNetworkImage(
+                        imageUrl: networkProfileImage.toString(),
+                        fit: BoxFit.fill,
+                        errorWidget: (__, _, ___) => Image.asset(
+                          AppAssets.collageImg,
+                          fit: BoxFit.cover,
+                          width: double.maxFinite,
+                        ),
+                        imageBuilder: (context, imageProvider) =>
+                            Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                        placeholder: (context, url) =>
+                            Shimmer.fromColors(
+                              // ignore: sort_child_properties_last
+                              child: CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: Colors.grey),
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[400]!,
+                            ),
+                      )
+                      // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                          : Image.asset(
+                        AppAssets.studentImg,
+                        fit: BoxFit.cover,
+                        // height: 35,
+                      ),
                     ),
                   ),
                 )

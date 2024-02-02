@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/setting_controller.dart';
+import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/User_Screens/contactus_screen.dart';
 import 'package:vidhaalay_app/screen/User_Screens/privacypolicy_screen.dart';
@@ -249,6 +250,46 @@ class _SettingScreenUserState extends State<SettingScreenUser> {
                       ),
                     ),
                    const SizedBox(height: 20),
+                    InkWell(
+                      onTap: (){
+                        logOutUser();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.logout_sharp,size: 16,color: AppThemes.primaryColor,),
+                                 const SizedBox(width: 12,),
+                                Text('LOGOUT',
+                                  style: GoogleFonts.poppins(
+                                      color: AppThemes.textBlackColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                )
+                              ],
+                            ),
+                            const Icon(Icons.arrow_forward_ios_outlined,size: 13,color: AppThemes.textGray,)
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 )
               ),
@@ -258,4 +299,5 @@ class _SettingScreenUserState extends State<SettingScreenUser> {
       ),
     );
   }
+
 }

@@ -49,7 +49,7 @@ class ExamResultStudentController extends GetxController {
 
       SharedPreferences pref = await SharedPreferences.getInstance();
       int classId = int.parse(await pref.getString('classId')!);
-      int stuID = int.parse(await pref.getString('studentId')!);
+      int stuID = int.parse(await pref.getString('id')!);
 
 
       print("classID : $classId");

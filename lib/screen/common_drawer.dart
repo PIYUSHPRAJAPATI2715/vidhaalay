@@ -1,16 +1,20 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
 import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
 import 'package:vidhaalay_app/login%20screens/signup_screen.dart';
 import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay_app/models/get_profile_model.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
+import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
 import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
@@ -40,10 +44,13 @@ class _commonDrawerState extends State<commonDrawer> {
   // Rx<ClassList> getClassListModel = ClassList().obs;
 
   String username = '';
+  String? networkProfileImage;
+  bool isProfileLoading = true;
 
   @override
   void initState() {
     getUserName();
+    getProfile();
     super.initState();
   }
 
@@ -55,6 +62,19 @@ class _commonDrawerState extends State<commonDrawer> {
 
     });
     print(username);
+  }
+
+  Future<void> getProfile() async {
+    GetProfileModel getProfileModel = GetProfileModel();
+
+    await getProfileRepo().then((value) {
+      isProfileLoading = false;
+      getProfileModel = value;
+      setState(() {
+        networkProfileImage = getProfileModel.data!.profileImage;
+        username = getProfileModel.data!.name!;
+      });
+    });
   }
 
   // Future getClassListData() async {
@@ -92,10 +112,58 @@ class _commonDrawerState extends State<commonDrawer> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 60,
-                            backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
+                            backgroundColor: Colors.transparent,
+                            child: ClipOval(
+                              child: isProfileLoading
+                                  ? Shimmer.fromColors(
+                                // ignore: sort_child_properties_last
+                                child: CircleAvatar(
+                                    radius: 60, backgroundColor: Colors.grey),
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[400]!,
+                              )
+                                  : networkProfileImage != null
+                                  ? CachedNetworkImage(
+                                imageUrl: networkProfileImage.toString(),
+                                fit: BoxFit.fill,
+                                errorWidget: (__, _, ___) => Image.asset(
+                                  AppAssets.collageImg,
+                                  fit: BoxFit.cover,
+                                  width: double.maxFinite,
+                                ),
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                      // ignore: sort_child_properties_last
+                                      child: CircleAvatar(
+                                          radius: 60,
+                                          backgroundColor: Colors.grey),
+                                      baseColor: Colors.grey[300]!,
+                                      highlightColor: Colors.grey[400]!,
+                                    ),
+                              )
+                              // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                                  : Image.asset(
+                                AppAssets.studentImg,
+                                fit: BoxFit.cover,
+                                // height: 35,
+                              ),
+                            ),
                           ),
+                          // const CircleAvatar(
+                          //   radius: 60,
+                          //   backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
+                          // ),
                           SizedBox(height: size.height * 0.016),
                           Text(
                             username,
@@ -650,37 +718,37 @@ class _commonDrawerState extends State<commonDrawer> {
                   ),
                 ),
                 SizedBox(height: size.height*.02,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: InkWell(
-                    onTap: (){
-                      // saveLoginData();
-
-                      logOutUser();
-                      // Get.offAllNamed(MyRouters.signInPage);
-                    },
-                    child: Container(
-                      width: size.width,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2
-                          )
-                      ),
-                      child: Center(
-                        child: const Text(
-                          'LOGOUT',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                //   child: InkWell(
+                //     onTap: (){
+                //       // saveLoginData();
+                //
+                //       logOutUser();
+                //       // Get.offAllNamed(MyRouters.signInPage);
+                //     },
+                //     child: Container(
+                //       width: size.width,
+                //       padding: const EdgeInsets.symmetric(vertical: 8),
+                //       decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(50),
+                //           border: Border.all(
+                //               color: Colors.white,
+                //               width: 2
+                //           )
+                //       ),
+                //       child: Center(
+                //         child: const Text(
+                //           'LOGOUT',
+                //           style: TextStyle(
+                //             fontSize: 18,
+                //             color: Colors.white,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -689,23 +757,39 @@ class _commonDrawerState extends State<commonDrawer> {
     );
   }
 
-  logOutUser() async {
-    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-    LoginModel modelSiteSettings = LoginModel();
-    if (sharedPreference.getString("token") != null) {
-      deleteRecordByToken(sharedPreference.getString("token")!);
-
-      modelSiteSettings =
-          LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
-    }
-    await sharedPreference.clear();
-    Get.offAllNamed(MyRouters.signInPage);
-    showToast(message:"Logged out");
-    if (modelSiteSettings.data != null) {
-      sharedPreference.setString("token", jsonEncode(modelSiteSettings));
-    }
-    sharedPreference.setBool("isFirstTime", false);
-  }
+  // logOutUser() async {
+  //   SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+  //   print("Enter000 delete start");
+  //   print("Enter000 delete start");
+  //   deleteRecordByEmail(sharedPreference.getString("email")!);
+  //
+  //
+  //   Future.delayed(Duration(seconds: 1), () async {
+  //     LoginModel modelSiteSettings = LoginModel();
+  //     // printAllRecord();
+  //     if (sharedPreference.getString("token") != null) {
+  //       // deleteRecordByToken(sharedPreference.getString("token")!);
+  //       modelSiteSettings =
+  //           LoginModel.fromJson(jsonDecode(sharedPreference.getString("token")!));
+  //     }
+  //
+  //     List<MultiLoginModel> loginData = await getLoginData();
+  //     print("Enter000 before save");
+  //     printAllRecord();
+  //     await sharedPreference.clear();
+  //
+  //     saveLoginListAllData(loginData);
+  //     print("Enter000 after save");
+  //     printAllRecord();
+  //
+  //     Get.offAllNamed(MyRouters.signInPage);
+  //     showToast(message:"Logged out");
+  //     if (modelSiteSettings.data != null) {
+  //       sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+  //     }
+  //     sharedPreference.setBool("isFirstTime", false);
+  //   });
+  // }
 
   // void _showMultiLoginAlertDialog(BuildContext context) {
   //   List<MultiLoginModel> loginData = [
@@ -795,90 +879,164 @@ class _commonDrawerState extends State<commonDrawer> {
                 color: AppThemes.black,
               ),
             ),
-            content: Container(
-              // Adjust padding as needed
-              // padding: EdgeInsets.all(8.0),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(
+                  loginData.length + 2, (index)  {
+                if (index < loginData.length) {
+                  var items = loginData[index];
+                  return Column(
+                    children: [
+                      Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                      ListTile(
+                        visualDensity: VisualDensity(vertical: -3),
+                        leading: Icon(Icons.person),
+                        title: Text(items.userName!),
+                        subtitle: Text(items.email!),
+                        onTap: () {
+                          final signInController = Get.put(SignInController());
 
-              // Use a ListView.builder to build the list dynamically
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: loginData.length + 2,
-                // Additional items for "Add another account" and "Sign out of all accounts" options
-                itemBuilder: (BuildContext context, int index) {
-                  if (index < loginData.length) {
-                    var items = loginData[index];
-                    return Column(
-                      children: [
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
-                        ListTile(
-                          visualDensity: VisualDensity(vertical: -3),
-                          leading: Icon(Icons.person),
-                          title: Text(items.userName!),
-                          subtitle: Text(items.email!),
-                          onTap: () {
-                            final signInController = Get.put(SignInController());
-
-                            signInController.login(
-                              context: context,
-                              email: items.email!,
-                              type: items.type!,
-                              pass: items.password!,
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  } else if (index == loginData.length) {
-                    return Column(
-                      children: [
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
-                        ListTile(
-                          visualDensity: VisualDensity(vertical: -3),
-                          leading: Icon(Icons.add),
-                          title: Text("Add another account"),
-                          onTap: () {
-                            Get.offAll(() => SignInPage());
-                          },
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
-                        ListTile(
-                          visualDensity: VisualDensity(vertical: -3),
-                          leading: Icon(Icons.logout),
-                          title: Text("Sign out of all accounts"),
-                          onTap: () {
-                            deleteAllRecord();
-                          },
-                        ),
-                        // No divider after the last item
-                      ],
-                    );
-                  }
-                },
-              ),
+                          signInController.login(
+                            context: context,
+                            email: items.email!,
+                            type: items.type!,
+                            pass: items.password!,
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                } else if (index == loginData.length) {
+                  return Column(
+                    children: [
+                      Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                      ListTile(
+                        visualDensity: VisualDensity(vertical: -3),
+                        leading: Icon(Icons.add),
+                        title: Text("Add another account"),
+                        onTap: () {
+                          Get.offAll(() => SignInPage());
+                        },
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                      ListTile(
+                        visualDensity: VisualDensity(vertical: -3),
+                        leading: Icon(Icons.logout),
+                        title: Text("Sign out of all accounts"),
+                        onTap: () {
+                          deleteAllRecord();
+                        },
+                      ),
+                      // No divider after the last item
+                    ],
+                  );
+                }
+              },),
             )
+            // SingleChildScrollView(
+            //   child: Container(
+            //     height: 300,
+            //     width: MediaQuery.of(context).size.width,
+            //     // padding: EdgeInsets.symmetric(vertical: 5),
+            //     // Adjust padding as needed
+            //     // padding: EdgeInsets.all(8.0),
+            //
+            //     // Use a ListView.builder to build the list dynamically
+            //     child: ListView.builder(
+            //       // shrinkWrap: true,
+            //       itemCount: loginData.length + 2,
+            //       // Additional items for "Add another account" and "Sign out of all accounts" options
+            //       itemBuilder: (BuildContext context, int index) {
+            //         if (index < loginData.length) {
+            //           var items = loginData[index];
+            //           return Column(
+            //             children: [
+            //               Divider(
+            //                 height: 1,
+            //                 thickness: 1,
+            //                 color: Colors.grey,
+            //               ),
+            //               ListTile(
+            //                 visualDensity: VisualDensity(vertical: -3),
+            //                 leading: Icon(Icons.person),
+            //                 title: Text(items.userName!),
+            //                 subtitle: Text(items.email!),
+            //                 onTap: () {
+            //                   final signInController = Get.put(SignInController());
+            //
+            //                   signInController.login(
+            //                     context: context,
+            //                     email: items.email!,
+            //                     type: items.type!,
+            //                     pass: items.password!,
+            //                   );
+            //                 },
+            //               ),
+            //             ],
+            //           );
+            //         } else if (index == loginData.length) {
+            //           return Column(
+            //             children: [
+            //               Divider(
+            //                 height: 1,
+            //                 thickness: 1,
+            //                 color: Colors.grey,
+            //               ),
+            //               ListTile(
+            //                 visualDensity: VisualDensity(vertical: -3),
+            //                 leading: Icon(Icons.add),
+            //                 title: Text("Add another account"),
+            //                 onTap: () {
+            //                   Get.offAll(() => SignInPage());
+            //                 },
+            //               ),
+            //             ],
+            //           );
+            //         } else {
+            //           return Column(
+            //             children: [
+            //               Divider(
+            //                 height: 1,
+            //                 thickness: 1,
+            //                 color: Colors.grey,
+            //               ),
+            //               ListTile(
+            //                 visualDensity: VisualDensity(vertical: -3),
+            //                 leading: Icon(Icons.logout),
+            //                 title: Text("Sign out of all accounts"),
+            //                 onTap: () {
+            //                   deleteAllRecord();
+            //                 },
+            //               ),
+            //               // No divider after the last item
+            //             ],
+            //           );
+            //         }
+            //       },
+            //     ),
+            //   ),
+            // )
         );
       },
     );
   }
-
-
 
 // Container(
 //   // constraints: BoxConstraints(maxHeight: maxHeight),

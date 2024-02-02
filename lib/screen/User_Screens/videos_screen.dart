@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/models/get_profile_model.dart';
 import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
@@ -31,14 +33,18 @@ class _VideoScreenState extends State<VideoScreen> {
     'French',
   ];
   String? location = null;
+  String? networkProfileImage;
+  bool isProfileLoading = true;
 
   Future<void> getLocation() async {
     GetProfileModel getProfileModel = GetProfileModel();
 
     await getProfileRepo().then((value) {
+      isProfileLoading = false;
       getProfileModel = value;
       setState(() {
         location = getProfileModel.data?.address;
+        networkProfileImage = getProfileModel.data!.profileImage;
       });
       print("Location $location");
       if(location == null) {
@@ -109,10 +115,52 @@ class _VideoScreenState extends State<VideoScreen> {
                     onTap: () {
                       Get.toNamed(MyRouters.myProfileScreen);
                     },
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppAssets.studentImg,
-                        height: 35,
+                    child:  CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.transparent,
+                      child: ClipOval(
+                        child: isProfileLoading
+                            ? Shimmer.fromColors(
+                          // ignore: sort_child_properties_last
+                          child: CircleAvatar(
+                              radius: 18, backgroundColor: Colors.grey),
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[400]!,
+                        )
+                            : networkProfileImage != null
+                            ? CachedNetworkImage(
+                          imageUrl: networkProfileImage.toString(),
+                          fit: BoxFit.fill,
+                          errorWidget: (__, _, ___) => Image.asset(
+                            AppAssets.collageImg,
+                            fit: BoxFit.cover,
+                            width: double.maxFinite,
+                          ),
+                          imageBuilder: (context, imageProvider) =>
+                              Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                          placeholder: (context, url) =>
+                              Shimmer.fromColors(
+                                // ignore: sort_child_properties_last
+                                child: CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor: Colors.grey),
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[400]!,
+                              ),
+                        )
+                        // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                            : Image.asset(
+                          AppAssets.studentImg,
+                          fit: BoxFit.cover,
+                          // height: 35,
+                        ),
                       ),
                     ),
                   )

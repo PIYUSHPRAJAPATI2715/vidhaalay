@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/resourses/size.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import '../../controller/user_Controller/get_profile_controller.dart';
@@ -248,7 +250,57 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
-                            child: getProfileController.imagePath.value != "" ? Image.file(File(getProfileController.imagePath.value,),fit: BoxFit.fill)
+                            child:  !getProfileController.isProfileLoading.value ?
+                            Shimmer.fromColors(
+                              // ignore: sort_child_properties_last
+                              child:
+                              Container(height: 86,
+                                  width: 154,
+                                  color: Colors.grey),
+                              baseColor: Colors
+                                  .grey[300]!,
+                              highlightColor: Colors
+                                  .grey[400]!,
+                            )
+                            // Image.asset(AppAssets.studentImg,fit: BoxFit.fill)
+                                : getProfileController.networkProfileImage != null ?
+                            CachedNetworkImage(
+                              imageUrl:  getProfileController.networkProfileImage.toString(),
+                              fit: BoxFit.fill,
+                              // width: double.maxFinite,
+                              // height:  double.maxFinite,
+                              errorWidget: (__, _, ___) =>
+                                  Image.asset(
+                                    AppAssets.collageImg,
+                                    fit: BoxFit.cover,
+                                    width: double.maxFinite,
+                                  ),
+                              imageBuilder: (context,
+                                  imageProvider) =>
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                        // colorFilter: ColorFilter.mode(
+                                        //     Colors.red, BlendMode.colorBurn),
+                                      ),
+                                    ),
+                                  ),
+                              placeholder: (context, url) =>
+                                  Shimmer.fromColors(
+                                    // ignore: sort_child_properties_last
+                                    child:
+                                    Container(height: 86,
+                                        width: 154,
+                                        color: Colors.grey),
+                                    baseColor: Colors
+                                        .grey[300]!,
+                                    highlightColor: Colors
+                                        .grey[400]!,
+                                  ),
+                            )
+                            // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
                                             : Image.asset(AppAssets.studentImg,fit: BoxFit.fill),
                           ),
                         ),

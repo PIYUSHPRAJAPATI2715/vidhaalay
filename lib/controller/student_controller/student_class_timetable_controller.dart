@@ -61,35 +61,4 @@ class StudentClassTimeController extends GetxController{
     }
   }
 
-  Future<void> deleteTimetableAPI(BuildContext context,int id) async {
-    try {
-      OverlayEntry loader = Helpers.overlayLoader(context);
-      Overlay.of(context).insert(loader);
-
-      final response = await http.delete(
-        Uri.parse(ApiUrls.getTimetable+"/${id.toString()}"),
-        headers: await getAuthHeader(),);
-      print("call back");
-
-      if (response.statusCode == 200) {
-        var responseData = jsonDecode(response.body);
-        print("Time Table responseData  : ${responseData}");
-
-        if(responseData['status']) {
-          // Get.back();
-          Helpers.hideLoader(loader);
-          getTimeTableData();
-        } else {
-          Helpers.hideLoader(loader);
-        }
-        showToast(message:responseData['msg'].toString());
-      } else {
-
-        throw Exception(response.body);
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
 }

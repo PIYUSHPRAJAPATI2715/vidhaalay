@@ -80,7 +80,7 @@ class ClassTimeController extends GetxController{
       Overlay.of(context).insert(loader);
 
       final response = await http.delete(
-        Uri.parse(ApiUrls.getTimetable+"/${id.toString()}"),
+        Uri.parse(ApiUrls.getTimetable+"/${2}"),
         headers: await getAuthHeader(),);
       print("call back");
 
@@ -92,10 +92,11 @@ class ClassTimeController extends GetxController{
           // Get.back();
           Helpers.hideLoader(loader);
           getTimeTableData();
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
 
         throw Exception(response.body);
