@@ -1,9 +1,10 @@
 class ExamResultModel {
   List<Data>? data;
+  bool? pass;
   bool? status;
   String? msg;
 
-  ExamResultModel({this.data, this.status, this.msg});
+  ExamResultModel({this.data, this.pass, this.status, this.msg});
 
   ExamResultModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -12,6 +13,7 @@ class ExamResultModel {
         data!.add(new Data.fromJson(v));
       });
     }
+    pass = json['pass'];
     status = json['status'];
     msg = json['msg'];
   }
@@ -21,6 +23,7 @@ class ExamResultModel {
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
+    data['pass'] = this.pass;
     data['status'] = this.status;
     data['msg'] = this.msg;
     return data;

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -130,12 +131,35 @@ class _CelebrationScreenStuState extends State<CelebrationScreenStu> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              ClipOval(
-                                child: Image.asset(
-                                  AppAssets.studentImg,
-                                  width: 13,
-                                ),
+                              // ClipOval(
+                              //   child: Image.asset(
+                              //     AppAssets.studentImg,
+                              //     width: 13,
+                              //   ),
+                              // ),
+                              commonProfileImageCircle(
+                                context: context,
+                                isProfileImageLoading:  evenetDetailController
+                                    .getEventDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher == null,
+                                isProfileExist:
+                                evenetDetailController
+                                    .getEventDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher!.profileImage !=
+                                    null,
+                                image: evenetDetailController
+                                    .getEventDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher!.profileImage!
+                                    .toString(),
+                                radius: 8,
                               ),
+
                               const SizedBox(
                                 width: 5,
                               ),

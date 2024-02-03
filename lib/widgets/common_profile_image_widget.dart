@@ -9,7 +9,7 @@ Widget commonProfileImageCircle({
   required bool isProfileImageLoading,
   required bool isProfileExist,
   required String? image,
-  double radius = 18,
+  double radius = 17,
 }) {
   return CircleAvatar(
     radius: radius,
@@ -28,11 +28,19 @@ Widget commonProfileImageCircle({
           ? CachedNetworkImage(
         imageUrl: image.toString(),
         fit: BoxFit.fill,
-        errorWidget: (__, _, ___) => Image.asset(
-          AppAssets.collageImg,
-          fit: BoxFit.cover,
-          width: double.maxFinite,
+        errorWidget: (__, _, ___) =>   Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage( AppAssets.studentImg,),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
+        // Image.asset(
+        //   AppAssets.collageImg,
+        //   fit: BoxFit.cover,
+        //   width: double.maxFinite,
+        // ),
         imageBuilder: (context, imageProvider) =>
             Container(
               decoration: BoxDecoration(
@@ -53,7 +61,16 @@ Widget commonProfileImageCircle({
             ),
       )
       // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
-          : Image.asset(
+          :
+      // Container(
+      //   decoration: BoxDecoration(
+      //     image: DecorationImage(
+      //       image: AssetImage( AppAssets.studentImg,),
+      //       fit: BoxFit.fill,
+      //     ),
+      //   ),
+      // ),
+      Image.asset(
         AppAssets.studentImg,
         fit: BoxFit.cover,
         // height: 35,

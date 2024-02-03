@@ -386,135 +386,6 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ),
                         ),
-
-                        // Container(
-                        //   height: 50,
-                        //   width: Get.width,
-                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(25),
-                        //       border:
-                        //           Border.all(color: Colors.grey, width: 0.5)),
-                        //   child: DropdownButton(
-                        //     isExpanded: true,
-                        //     underline : Container(),
-                        //     icon: const Icon(Icons.keyboard_arrow_down),
-                        //     value: signInController.userType.value,
-                        //     items: signInController.userTypeData.map((Map items) {
-                        //       return DropdownMenuItem(
-                        //         value: items['key'].toString(),
-                        //         child : Text(
-                        //           items['value'].toString(),
-                        //           style: const TextStyle(
-                        //             color: Colors.grey,
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }).toList(),
-                        //     onChanged: (value) {
-                        //       print(value);
-                        //       signInController.userType.value =
-                        //           value.toString();
-                        //       // setState(() {
-                        //       // });
-                        //     },
-                        //   ),
-                        // ),
-                        /* */
-                        // Container(
-                        //   height: 50,
-                        //   width: Get.width,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(25),
-                        //   ),
-                        //   child: DropdownButtonFormField(
-                        //     focusColor: Colors.grey.shade50,
-                        //     isExpanded: false,
-                        //     iconEnabledColor: const Color(0xff97949A),
-                        //     icon: const Icon(Icons.keyboard_arrow_down),
-                        //     hint: Text(
-                        //       userType,
-                        //       style: const TextStyle(
-                        //           color: Color(0xff463B57),
-                        //           fontSize: 16,
-                        //           fontWeight: FontWeight.w300),
-                        //       textAlign: TextAlign.justify,
-                        //     ),
-                        //     decoration: InputDecoration(
-                        //         fillColor: Colors.grey.shade50,
-                        //         contentPadding: const EdgeInsets.symmetric(
-                        //             horizontal: 20, vertical: 10),
-                        //         focusedBorder: OutlineInputBorder(
-                        //           borderSide:
-                        //           BorderSide(color: Colors.grey.shade300),
-                        //           borderRadius: BorderRadius.circular(25.0),
-                        //         ),
-                        //         enabledBorder: const OutlineInputBorder(
-                        //             borderSide:
-                        //             BorderSide(color: Color(0xffE3E3E3)),
-                        //             borderRadius: BorderRadius.all(
-                        //                 Radius.circular(25.0)))),
-                        //     value: userType,
-                        //     items: userTypeitems.map((String items) {
-                        //       return DropdownMenuItem(
-                        //         value: items,
-                        //         child: Text(
-                        //           items,
-                        //           style: const TextStyle(
-                        //               color: Colors.grey, fontSize: 14),
-                        //         ),
-                        //       );
-                        //     }).toList(),
-                        //     onChanged: (String? newValue) {
-                        //       setState(() {
-                        //         userType = newValue!;
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
-
-                        // Container(
-                        //   height: 50,
-                        //     width: Get.width,
-                        //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //     decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(25),
-                        //       border: Border.all(
-                        //         color: Colors.grey,
-                        //         width: 0.5
-                        //       )
-                        //     ),
-                        //   child: PopupMenuButton<String>(
-                        //     shape: Border.all(
-                        //       color: AppThemes.primaryColor
-                        //     ),
-                        //     position: PopupMenuPosition.over,
-                        //     offset: const Offset(0, 50),
-                        //     elevation: 8,
-                        //     itemBuilder: (BuildContext context) {
-                        //       return userTypeitems.map((String item) {
-                        //         return PopupMenuItem<String>(
-                        //           value: item,
-                        //           child: Text(item),
-                        //         );
-                        //       }).toList();
-                        //     },
-                        //     onSelected: (String selectedValue) {
-                        //       setState(() {
-                        //         userType = selectedValue;
-                        //       });
-                        //     },
-                        //     child: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //       children: <Widget>[
-                        //         Text(userType,style: const TextStyle(
-                        //           color: Colors.grey,
-                        //         ),),
-                        //         const Icon(Icons.keyboard_arrow_down,  color: Colors.grey,),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
                         const SizedBox(
                           height: 10,
                         ),
@@ -618,16 +489,14 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () async {
 
                             // String? token = await FirebaseMessaging.instance.getToken();
-
-                            // if (signInController.formKey.currentState!.validate()) {
-                            //   FocusManager.instance.primaryFocus!.unfocus();
-                            //   signInController.login(context: context,email: signInController.emailController.text,
-                            //     type:  signInController.userType.value,
-                            //     pass: signInController.passwordController.text,
-                            //   );
-                            // }
-
-                            _showMultiLoginAlertDialog(context);
+                            if (signInController.formKey.currentState!.validate()) {
+                              FocusManager.instance.primaryFocus!.unfocus();
+                              signInController.login(context: context,email: signInController.emailController.text,
+                                type:  signInController.userType.value,
+                                pass: signInController.passwordController.text,
+                              );
+                            }
+                            // _showMultiLoginAlertDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -811,15 +680,21 @@ class _SignInPageState extends State<SignInPage> {
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
         pref.setString('cookie', value.data!.token.toString());
-        showToast(message:value.msg.toString());
+        pref.setString('id', value.data!.id.toString());
+        pref.setString('type', value.data!.userType.toString());
+        pref.setString('username', value.data!.name.toString());
+        pref.setString('email', value.data!.email.toString());
         pref.setBool('isLoggedIn', true);
         // Get.offAllNamed(MyRouters.drawerForUser);
         Get.offAll(() => BottomBarScreen(userType: 0,));
+        showToast(message:value.msg.toString());
       } else {
         showToast(message:value.msg.toString());
       }
     });
   }
+
+  // loda rent to baki ry gyu
 
   signInFaceBook() async {
     final LoginResult loginResult = await FacebookAuth.instance.login(
@@ -837,6 +712,7 @@ class _SignInPageState extends State<SignInPage> {
               name: value1.user!.displayName.toString(),
               deviceType: signInController.deviceType.toString())
           .then((value) async {
+
         if (value.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_info', jsonEncode(value));
@@ -855,4 +731,5 @@ class _SignInPageState extends State<SignInPage> {
     });
     log("Firebase response.... ${value.toString()}");
   }
+
 }

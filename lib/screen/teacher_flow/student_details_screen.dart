@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/studentlist_controller.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_button.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'package:get/get.dart';
@@ -184,9 +185,21 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ClipOval(
-                      child: Image.asset(AppAssets.studentImg),
+
+                    commonProfileImageCircle(
+                      context: context,
+                      isProfileImageLoading:  studentListController.getStudentDetailsModel.value.data == null,
+                      isProfileExist:
+                      studentListController.getStudentDetailsModel.value.data!.profileImage !=
+                          null,
+                      image: studentListController.getStudentDetailsModel.value.data!.profileImage
+                          .toString(),
+                      radius: 70,
                     ),
+
+                    // ClipOval(
+                    //   child: Image.asset(AppAssets.studentImg),
+                    // ),
                   ],
                 )
             ),

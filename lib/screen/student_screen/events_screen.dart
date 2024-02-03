@@ -50,7 +50,7 @@ class _EventsScreenState extends State<EventsScreen> {
 
     print("month");
     print(month.value);
-    selectedMonthIndex = int.parse(month.value);
+    selectedMonthIndex = int.parse(month.value) - 1;
     print(selectedMonthIndex);
 
     monthName.value = DateFormat('MMMM').format(DateTime.now());
@@ -135,19 +135,19 @@ class _EventsScreenState extends State<EventsScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           backgroundColor: AppThemes.white,
-          leading: IconButton(
-            icon: Image.asset(
-              AppAssets.arrowBack,
-              width: 19,
-              color: AppThemes.textBrown,
-            ),
-            onPressed: () {
-              Get.toNamed(MyRouters.bottomNavigationUserScreen);
-              // Get.back();
-            },
-          ),
+          // leading: IconButton(
+          //   icon: Image.asset(
+          //     AppAssets.arrowBack,
+          //     width: 19,
+          //     color: AppThemes.textBrown,
+          //   ),
+          //   onPressed: () {
+          //     // Get.toNamed(MyRouters.bottomNavigationUserScreen);
+          //     Get.back();
+          //   },
+          // ),
           title: Text(
             "Event Calender",
             textAlign: TextAlign.center,

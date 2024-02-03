@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/student_controller/assignment_list_controller_student.dart';
@@ -5,6 +7,7 @@ import 'package:vidhaalay_app/controller/student_controller/event_list_controlle
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -41,6 +44,9 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
+    assignmentListStudentController.selDate.value = year.value+"-"+ month.value +"-"+ day.value;
+
+    selectedMonthIndex = int.parse(month.value) - 1;
 
     assignmentListStudentController.getAssignmentData();
 
@@ -109,9 +115,10 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
     log("Week days$firstDayNextMonth");
     return firstDayNextMonth.difference(firstDayThisMonth).inDays;
   }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Assignments',
@@ -419,14 +426,24 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  ClipOval(
-                                                    child: Image.asset(
-                                                      AppAssets.studentImg,
-                                                      width: 13,
-                                                    ),
+                                                  commonProfileImageCircle(
+                                                    context: context,
+                                                    isProfileImageLoading: items.teacher == null,
+                                                    isProfileExist: items.teacher!.profileImage != null,
+                                                    image: items.teacher!
+                                                        .profileImage!
+                                                        .toString(),
+                                                    radius: 8,
+                                                    // classData.teacher.profileImage
                                                   ),
+                                                  // ClipOval(
+                                                  //   child: Image.asset(
+                                                  //     AppAssets.studentImg,
+                                                  //     width: 13,
+                                                  //   ),
+                                                  // ),
                                                   Text(
-                                                    'By : ',
+                                                    ' By : ',
                                                     style: GoogleFonts.poppins(
                                                         color: Colors.grey,
                                                         fontSize: 12.0,
@@ -434,7 +451,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    width: size.width * 0.2,
+                                                    width: size.width * 0.18,
                                                     // color: Colors.amber,
                                                     child: Text(
                                                       items.teacher!.name!,

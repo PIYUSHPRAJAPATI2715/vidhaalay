@@ -49,115 +49,117 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
           ),
         ),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Image.asset(
-            AppAssets.arrowBack,
-            width: 25,
-            height: 25,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Obx(
-                  () {
-                print("profile Image : ${getTeacherProfileController.networkProfileImage}");
-
-                return  GestureDetector(
-                  onTap: () {
-                    Get.toNamed(MyRouters.myProfileTeacher);
-                  },
-                  child: commonProfileImageCircle(
-                      context: context,
-                      isProfileImageLoading: !getTeacherProfileController
-                          .isProfileLoading.value,
-                      isProfileExist: getTeacherProfileController
-                          .networkProfileImage !=
-                          null,
-                      image:
-                      getTeacherProfileController
-                      // .getProfileModel.value.data!.profileImage
-                          .networkProfileImage
-                  ),
-                  // CircleAvatar(
-                  //   radius: 18,
-                  //   backgroundColor: Colors.transparent,
-                  //   child: ClipOval(
-                  //     child: !getTeacherProfileController.isProfileLoading.value
-                  //         ? Shimmer.fromColors(
-                  //       // ignore: sort_child_properties_las t
-                  //       child: CircleAvatar(
-                  //           radius: 18, backgroundColor: Colors.grey),
-                  //       baseColor: Colors.grey[300]!,
-                  //       highlightColor: Colors.grey[400]!,
-                  //     )
-                  //         :
-                  //     getTeacherProfileController.networkProfileImage != null
-                  //     // getTeacherProfileController.getProfileModel.value.data?.profileImage != null
-                  //         ? CachedNetworkImage(
-                  //       imageUrl:
-                  //       // getTeacherProfileController.networkProfileImage.toString(),
-                  //       getTeacherProfileController.getProfileModel.value.data!.profileImage.toString(),
-                  //       fit: BoxFit.fill,
-                  //       errorWidget: (__, _, ___) => Image.asset(
-                  //         AppAssets.collageImg,
-                  //         fit: BoxFit.cover,
-                  //         width: double.maxFinite,
-                  //       ),
-                  //       imageBuilder: (context, imageProvider) =>
-                  //           Container(
-                  //             decoration: BoxDecoration(
-                  //               image: DecorationImage(
-                  //                 image: imageProvider,
-                  //                 fit: BoxFit.cover,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //       placeholder: (context, url) =>
-                  //           Shimmer.fromColors(
-                  //             // ignore: sort_child_properties_last
-                  //             child: CircleAvatar(
-                  //                 radius: 18,
-                  //                 backgroundColor: Colors.grey),
-                  //             baseColor: Colors.grey[300]!,
-                  //             highlightColor: Colors.grey[400]!,
-                  //           ),
-                  //     )
-                  //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
-                  //         : Image.asset(
-                  //       AppAssets.studentImg,
-                  //       fit: BoxFit.cover,
-                  //       // height: 35,
-                  //     ),
-                  //   ),
-                  // ),
-                );
-              },
-            ),
-          ),
-
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: GestureDetector(
-          //     onTap: () {
-          //       Get.toNamed(MyRouters.myProfileTeacher);
-          //     },
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         ClipOval(
-          //           child: Image.asset(
-          //             AppAssets.studentImg,
-          //             width: 30,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
-        ],
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Get.back();
+        //   },
+        //   icon: Image.asset(
+        //     AppAssets.arrowBack,
+        //     width: 25,
+        //     height: 25,
+        //   ),
+        // ),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(10.0),
+        //     child: Obx(
+        //           () {
+        //         print("profile Image : ${getTeacherProfileController.networkProfileImage}");
+        //
+        //         return  GestureDetector(
+        //           onTap: () {
+        //             Get.toNamed(MyRouters.myProfileTeacher);
+        //           },
+        //           child: commonProfileImageCircle(
+        //               context: context,
+        //               isProfileImageLoading: !getTeacherProfileController
+        //                   .isProfileLoading.value,
+        //               isProfileExist: getTeacherProfileController
+        //                   .networkProfileImage !=
+        //                   null,
+        //               image:
+        //               getTeacherProfileController
+        //               // .getProfileModel.value.data!.profileImage
+        //                   .networkProfileImage
+        //           ),
+        //           // CircleAvatar(
+        //           //   radius: 18,
+        //           //   backgroundColor: Colors.transparent,
+        //           //   child: ClipOval(
+        //           //     child: !getTeacherProfileController.isProfileLoading.value
+        //           //         ? Shimmer.fromColors(
+        //           //       // ignore: sort_child_properties_las t
+        //           //       child: CircleAvatar(
+        //           //           radius: 18, backgroundColor: Colors.grey),
+        //           //       baseColor: Colors.grey[300]!,
+        //           //       highlightColor: Colors.grey[400]!,
+        //           //     )
+        //           //         :
+        //           //     getTeacherProfileController.networkProfileImage != null
+        //           //     // getTeacherProfileController.getProfileModel.value.data?.profileImage != null
+        //           //         ? CachedNetworkImage(
+        //           //       imageUrl:
+        //           //       // getTeacherProfileController.networkProfileImage.toString(),
+        //           //       getTeacherProfileController.getProfileModel.value.data!.profileImage.toString(),
+        //           //       fit: BoxFit.fill,
+        //           //       errorWidget: (__, _, ___) => Image.asset(
+        //           //         AppAssets.collageImg,
+        //           //         fit: BoxFit.cover,
+        //           //         width: double.maxFinite,
+        //           //       ),
+        //           //       imageBuilder: (context, imageProvider) =>
+        //           //           Container(
+        //           //             decoration: BoxDecoration(
+        //           //               image: DecorationImage(
+        //           //                 image: imageProvider,
+        //           //                 fit: BoxFit.cover,
+        //           //               ),
+        //           //             ),
+        //           //           ),
+        //           //       placeholder: (context, url) =>
+        //           //           Shimmer.fromColors(
+        //           //             // ignore: sort_child_properties_last
+        //           //             child: CircleAvatar(
+        //           //                 radius: 18,
+        //           //                 backgroundColor: Colors.grey),
+        //           //             baseColor: Colors.grey[300]!,
+        //           //             highlightColor: Colors.grey[400]!,
+        //           //           ),
+        //           //     )
+        //           //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+        //           //         : Image.asset(
+        //           //       AppAssets.studentImg,
+        //           //       fit: BoxFit.cover,
+        //           //       // height: 35,
+        //           //     ),
+        //           //   ),
+        //           // ),
+        //         );
+        //       },
+        //     ),
+        //   ),
+        //
+        //   // Padding(
+        //   //   padding: const EdgeInsets.all(8.0),
+        //   //   child: GestureDetector(
+        //   //     onTap: () {
+        //   //       Get.toNamed(MyRouters.myProfileTeacher);
+        //   //     },
+        //   //     child: Column(
+        //   //       crossAxisAlignment: CrossAxisAlignment.center,
+        //   //       mainAxisAlignment: MainAxisAlignment.center,
+        //   //       children: [
+        //   //         ClipOval(
+        //   //           child: Image.asset(
+        //   //             AppAssets.studentImg,
+        //   //             width: 30,
+        //   //           ),
+        //   //         ),
+        //   //       ],
+        //   //     ),
+        //   //   ),
+        //   // )
+        // ],
       ),
       body: Stack(
         children: [

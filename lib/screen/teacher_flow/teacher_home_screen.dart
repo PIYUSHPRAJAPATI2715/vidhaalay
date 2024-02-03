@@ -83,16 +83,19 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                 .copyWith(left: 0),
             child: Row(
               children: [
-                InkWell(
+                GestureDetector(
                     onTap: () {
                       Get.toNamed(MyRouters.notificationScreenUser);
                     },
-                    child: Image.asset(
-                      AppAssets.notification,
-                      width: 17,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        AppAssets.notification,
+                        width: 20,
+                      ),
                     )),
                 SizedBox(
-                  width: size.width * .065,
+                  width: size.width * .045,
                 ),
                  Obx(
                    () {
@@ -420,6 +423,26 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                     children: [
+                                                      // commonProfileImageCircle(
+                                                      //     context: context,
+                                                      //     isProfileImageLoading: false,
+                                                      //     isProfileExist:
+                                                      //     classData.teacher.profileImage !=
+                                                      //         null,
+                                                      //     image: classData.teacher.profileImage
+                                                      // ),
+
+                                                      // commonProfileImageCircle(
+                                                      //   context: context,
+                                                      //   isProfileImageLoading: classData.teacher == null,
+                                                      //   isProfileExist:
+                                                      //   classData.teacher.profileImage !=
+                                                      //       null,
+                                                      //   image: classData.teacher.profileImage
+                                                      //       .toString(),
+                                                      //   radius: 10,
+                                                      //   // classData.teacher.profileImage
+                                                      // ),
                                                       ClipOval(
                                                         child: Image.asset(
                                                           AppAssets.studentImg,
@@ -537,12 +560,38 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.start,
                                           children: [
-                                            ClipOval(
-                                              child: Image.asset(
-                                                AppAssets.studentImg,
-                                                width: 13,
-                                              ),
+                                            // ClipOval(
+                                            //   child: Image.asset(
+                                            //     AppAssets.studentImg,
+                                            //     width: 13,
+                                            //   ),
+                                            // ),
+
+                                            commonProfileImageCircle(
+                                                context: context,
+                                                isProfileImageLoading:  assignmentData
+                                                    .teacher == null,
+                                                isProfileExist:
+                                                assignmentData
+                                                    .teacher.profileImage !=
+                                                    null,
+                                                image: assignmentData
+                                                    .teacher!
+                                                    .profileImage!
+                                                    .toString(),
+                                              radius: 8,
                                             ),
+                                            // commonProfileImageCircle(
+                                            //     context: context,
+                                            //     isProfileImageLoading:
+                                            //     !getProfileController.isProfileLoading.value,
+                                            //     isProfileExist:
+                                            //     getProfileController.networkProfileImage !=
+                                            //         null,
+                                            //     image:  assignmentData
+                                            //         .teacher!
+                                            //         .i!
+                                            //         .toString(),),
                                             SizedBox(
                                               width: 2,
                                             ),
@@ -632,10 +681,9 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 // Image.asset(AppAssets.pieChart,width: 90,),
-
                                 Container(
                                   height: size.height * 0.14,
-                                  width: size.width * 0.38,
+                                  width: size.width * 0.35,
                                   // color: Colors.red,
                                   child: PieChart(
                                     PieChartData(
@@ -667,6 +715,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                 ),
 
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

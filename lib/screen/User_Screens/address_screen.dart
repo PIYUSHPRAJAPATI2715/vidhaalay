@@ -149,7 +149,12 @@ class _AddressScreenState extends State<AddressScreen> {
           log(value.status.toString());
           getAddressCon.getProfileData();
           getSchoolListController.getSchoolListFunction();
-          getSchoolListController.getTopLectureListRepo();
+          // getSchoolListController.getTopLectureListRepo();
+
+          getSchoolListController.getTopLectureListRepo('S');
+          getSchoolListController.getTopLectureListRepo('C');
+          getSchoolListController.getTopLectureListRepo('I');
+
           // Get.back();
           // Get.offAllNamed(MyRouters.drawerForUser);
           Get.offAll(() => BottomBarScreen(
@@ -376,7 +381,11 @@ class _AddressScreenState extends State<AddressScreen> {
                         log(value.status.toString());
                         getAddressCon.getProfileData();
                         getSchoolListController.getSchoolListFunction();
-                        getSchoolListController.getTopLectureListRepo();
+                        // getSchoolListController.getTopLectureListRepo();
+                        getSchoolListController.getTopLectureListRepo('S');
+                        getSchoolListController.getTopLectureListRepo('C');
+                        getSchoolListController.getTopLectureListRepo('I');
+
                         // Get.back();
                         // Get.offAllNamed(MyRouters.drawerForUser);
                         Get.offAll(() => BottomBarScreen(
@@ -433,7 +442,11 @@ class _AddressScreenState extends State<AddressScreen> {
                           log(value.status.toString());
                           getAddressCon.getProfileData();
                           getSchoolListController.getSchoolListFunction();
-                          getSchoolListController.getTopLectureListRepo();
+                          // getSchoolListController.getTopLectureListRepo();
+                          getSchoolListController.getTopLectureListRepo('S');
+                          getSchoolListController.getTopLectureListRepo('C');
+                          getSchoolListController.getTopLectureListRepo('I');
+
                           // Get.back();
                           // Get.offAllNamed(MyRouters.drawerForUser);
                           Get.offAll(() => BottomBarScreen(

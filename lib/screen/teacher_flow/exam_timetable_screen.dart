@@ -5,6 +5,7 @@ import 'package:vidhaalay_app/controller/teacher_controller/exam_timetable_contr
 import 'package:vidhaalay_app/screen/teacher_flow/update_exam_timetable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
@@ -139,6 +140,12 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+        ),
       ),
       body: Obx(
         () => Stack(
@@ -205,7 +212,6 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                               const SizedBox(
                                 width: 5,
                               ),
-
                               CommonDropDownButton(
                                 value:  examTimeTableController.selectedExamType?.value,
                                 items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
@@ -231,54 +237,6 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                 width: size.width * 0.55,
                                 backgroundColor: AppThemes.themeBackgroundColor,
                               ),
-
-                              // DropdownButtonHideUnderline(
-                              //       child: DropdownButton2(
-                              //         value:  examTimeTableController.selectedExamType?.value,
-                              //         // icon: Icon(Icons.keyboard_arrow_down,color: Colors.white),
-                              //         dropdownStyleData: DropdownStyleData(
-                              //           maxHeight: size.height * 0.28,
-                              //           width: size.width * 0.55,
-                              //           padding: EdgeInsets.symmetric(horizontal: 5),
-                              //           isOverButton: false,
-                              //           decoration: BoxDecoration(
-                              //             borderRadius: BorderRadius.circular(14),
-                              //             color: Colors.white70,
-                              //           ),
-                              //           offset: const Offset(-10, 0),
-                              //           scrollbarTheme: ScrollbarThemeData(
-                              //             radius: const Radius.circular(40),
-                              //             thickness: MaterialStateProperty.all<double>(6),
-                              //             thumbVisibility: MaterialStateProperty.all<bool>(true),
-                              //           ),
-                              //         ),
-                              //         menuItemStyleData: const MenuItemStyleData(
-                              //           height: 45,
-                              //           padding: EdgeInsets.only(left: 10, right: 10),
-                              //         ),
-                              //         // dropdownColor: Colors.white70,
-                              //         items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
-                              //           return DropdownMenuItem(
-                              //             value: items.id,
-                              //             child: Text(items.name!,style: TextStyle(
-                              //               fontWeight: FontWeight.w500,
-                              //               fontSize: 17,
-                              //               color: examTimeTableController.selectedExamType?.value == items.id
-                              //                   ? Colors.white
-                              //               // Colors.grey.shade900 // Change the color for selected item
-                              //                   : Colors.black, // Default color for unselected items
-                              //             ),
-                              //             ),
-                              //           );
-                              //         }).toList(),
-                              //         onChanged: (newValue) {
-                              //           examTimeTableController.selectedExamType!.value = newValue!;
-                              //           print(examTimeTableController.selectedExamType?.value);
-                              //
-                              //           examTimeTableController.getExamTimeTableData();
-                              //         },
-                              //       ),
-                              //     )
                             ],
                           ),
                         ),
@@ -622,17 +580,17 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
 
                             var value = examTimeTableController.getExamTimetableModel.value.data![index];
 
-                            DateTime timestampUtc = DateTime.parse(value.from!);
-                            String formattedHour = timestampUtc.hour.toString().padLeft(2, '0');
-                            String formattedMinute = timestampUtc.minute.toString().padLeft(2, '0');
-                            String fromTime = '$formattedHour:$formattedMinute';
-                            print("fromTime $fromTime");
+                            // DateTime timestampUtc = DateTime.parse(value.from!);
+                            // String formattedHour = timestampUtc.hour.toString().padLeft(2, '0');
+                            // String formattedMinute = timestampUtc.minute.toString().padLeft(2, '0');
+                            // String fromTime = '$formattedHour:$formattedMinute';
+                            // print("fromTime $fromTime");
 
-                            DateTime timestampUtc1 = DateTime.parse(value.to!);
-                            String formattedHour1 = timestampUtc1.hour.toString().padLeft(2, '0');
-                            String formattedMinute1 = timestampUtc1.minute.toString().padLeft(2, '0');
-                            String toTime = '$formattedHour1:$formattedMinute1';
-                            print("toTime $toTime");
+                            // DateTime timestampUtc1 = DateTime.parse(value.to!);
+                            // String formattedHour1 = timestampUtc1.hour.toString().padLeft(2, '0');
+                            // String formattedMinute1 = timestampUtc1.minute.toString().padLeft(2, '0');
+                            // String toTime = '$formattedHour1:$formattedMinute1';
+                            // print("toTime $toTime");
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -653,31 +611,40 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  fromTime,
-                                                  // '08: AM',
-                                                  style: GoogleFonts.poppins(
-                                                      color: AppThemes.black,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600
+                                            Container(
+                                              width: size.width * .16,
+                                              // color: Colors.amber,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    value.from.toString(),
+                                                    // '08: AM',
+                                                    style: GoogleFonts.poppins(
+                                                        color: AppThemes.black,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
-                                                ),
-                                                Text(
-                                                  // '09: AM',
-                                                  toTime,
-                                                  style: GoogleFonts.poppins(
-                                                      color: AppThemes.black,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600
-                                                  ),),
-                                              ],
+                                                  Text(
+                                                    // '09: AM',
+                                                    value.to.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                        color: AppThemes.black,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                             SizedBox(
-                                              width: 10,
+                                              width: 8,
                                               height: size.height * .05,
                                               child:  VerticalDivider(
                                                 thickness: 1,
@@ -693,7 +660,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                 children: [
                                                   Container(
                                                     // color: Colors.green,
-                                                    width: size.width * .505,
+                                                    width: size.width * .37,
                                                     child: Text(
                                                         value.subject!.name!,
                                                         // 'Social Science Social Science Social Science Social Science Social Science',
@@ -713,7 +680,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                   Row(
                                                     children: [
                                                       Container(
-                                                        width: size.width * .18,
+                                                        width: size.width * .17,
                                                         // color: Colors.amber,
                                                         child: Text(
                                                           'Class - ' + value.seatClass!.name!,
@@ -740,12 +707,20 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         mainAxisAlignment: MainAxisAlignment.start,
                                                         children: [
-                                                          ClipOval(
-                                                            child: Image.asset(
-                                                              AppAssets.studentImg,
-                                                              width: 15,
-                                                            ),
+                                                          commonProfileImageCircle(
+                                                            context: context,
+                                                            isProfileImageLoading: value.teacher == null,
+                                                            isProfileExist: value.teacher!.profileImage != null,
+                                                            image: value.teacher!.profileImage.toString(),
+                                                            radius: 8,
+                                                            // classData.teacher.profileImage
                                                           ),
+                                                          // ClipOval(
+                                                          //   child: Image.asset(
+                                                          //     AppAssets.studentImg,
+                                                          //     width: 15,
+                                                          //   ),
+                                                          // ),
                                                           const SizedBox(
                                                             width: 5,
                                                           ),
@@ -758,7 +733,7 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: size.width * .17,
+                                                            width: size.width * .15,
                                                             // color: Colors.amber,
                                                             child: Text(
                                                               value.teacher!.name!,

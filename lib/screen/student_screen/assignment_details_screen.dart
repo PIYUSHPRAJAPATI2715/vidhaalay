@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vidhaalay_app/controller/student_controller/assignment_list_controller_student.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -113,13 +115,34 @@ class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
-                              ClipOval(
-                                child: Image.asset(
-                                  AppAssets.studentImg,
-                                  width: 13,
-                                ),
+                              commonProfileImageCircle(
+                                context: context,
+                                isProfileImageLoading:  assignmentListStudentController
+                                    .getAssignmentDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher == null,
+                                isProfileExist:
+                                assignmentListStudentController
+                                    .getAssignmentDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher!.profileImage !=
+                                    null,
+                                image: assignmentListStudentController
+                                    .getAssignmentDetailsModel
+                                    .value
+                                    .data!
+                                    .teacher!.profileImage!
+                                    .toString(),
+                                radius: 8,
                               ),
+                              // ClipOval(
+                              //   child: Image.asset(
+                              //     AppAssets.studentImg,
+                              //     width: 13,
+                              //   ),
+                              // ),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -160,63 +183,65 @@ class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
                                 width: 5,
                               ),
                               Text(
-                                '8.00 AM ',
+                                DateFormat('yyyy-MM-dd').format( DateTime.parse(assignmentListStudentController.getAssignmentDetailsModel
+                                    .value.data!.dueDate!)).toString(),
+                                // assignmentListStudentController.getAssignmentDetailsModel
+                                //     .value.data!.date!
+                                //     .toString(),
                                 style: GoogleFonts.poppins(
                                     color: Colors.grey,
                                     fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
+                                    fontWeight: FontWeight.w500),
                               ),
-                              Text(
-                                '3.00 PM',
-                                style:  GoogleFonts.poppins(
-                                    color: Colors.grey,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
+                              // Text(
+                              //   '8.00 AM ',
+                              //   style: GoogleFonts.poppins(
+                              //       color: Colors.grey,
+                              //       fontSize: 13.0,
+                              //       fontWeight: FontWeight.w500
+                              //   ),
+                              // ),
+                              // Text(
+                              //   '3.00 PM',
+                              //   style:  GoogleFonts.poppins(
+                              //       color: Colors.grey,
+                              //       fontSize: 13.0,
+                              //       fontWeight: FontWeight.w500
+                              //   ),
+                              // ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-
-                              ClipOval(
-                                child: Image.asset(
-                                  AppAssets.location,
-                                  width: 13,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '4101 Parkway Street, St. Louis., California',
-                                style: GoogleFonts.poppins(
-                                    color: Colors.grey,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
-
-                            ],
-                          ),
+                          // const SizedBox(
+                          //   height: 7,
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //
+                          //     ClipOval(
+                          //       child: Image.asset(
+                          //         AppAssets.location,
+                          //         width: 13,
+                          //         color: Colors.red,
+                          //       ),
+                          //     ),
+                          //     const SizedBox(
+                          //       width: 5,
+                          //     ),
+                          //     Text(
+                          //       '4101 Parkway Street, St. Louis., California',
+                          //       style: GoogleFonts.poppins(
+                          //           color: Colors.grey,
+                          //           fontSize: 13.0,
+                          //           fontWeight: FontWeight.w500
+                          //       ),
+                          //     ),
+                          //
+                          //   ],
+                          // ),
                           const SizedBox(
                             height: 12,
-                          ),
-                          Text(
-                            assignmentListStudentController.getAssignmentDetailsModel.value.data!.detail!.toString(),
-                            // 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
                           ),
                           const SizedBox(
                             height: 19,
@@ -229,35 +254,44 @@ class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
                             height: 7,
                           ),
                           Text(
-                            '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                            assignmentListStudentController.getAssignmentDetailsModel.value.data!.detail!.toString(),
+                            // 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
                             style: GoogleFonts.poppins(
                                 color: Colors.grey,
                                 fontSize: 13.0,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
+                          // Text(
+                          //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500
+                          //   ),
+                          // ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Text(
+                          //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500
+                          //   ),
+                          // ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Text(
+                          //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                          //   style: GoogleFonts.poppins(
+                          //       color: Colors.grey,
+                          //       fontSize: 13.0,
+                          //       fontWeight: FontWeight.w500
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

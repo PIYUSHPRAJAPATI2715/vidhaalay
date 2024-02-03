@@ -315,14 +315,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
           centerTitle: true,
-          leading: InkWell(
-            onTap: (){
+          leading: IconButton(
+            icon: Image.asset(
+              AppAssets.arrowBack,
+              width: 19,
+              color: AppThemes.textBrown,
+            ),
+            onPressed: () {
               Get.back();
             },
-            child: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.black,
-            ),
           ),
         ),
         body:

@@ -19,7 +19,11 @@ class GetSchoolListController extends GetxController {
   Rx<SchoolDetailsModel> schoolDetailsModel = SchoolDetailsModel().obs;
 
   RxBool isTopSchoolListLoading = true.obs;
+  // RxBool isTopSchoolListLoading = true.obs;
+  // RxBool isTopSchoolListLoading = true.obs;
   Rx<SchoolListModel> topSchoolListModel = SchoolListModel().obs;
+  Rx<SchoolListModel> topCollegesListModel = SchoolListModel().obs;
+  Rx<SchoolListModel> topInstitutesListModel = SchoolListModel().obs;
 
   Future getSchoolListFunction() async {
     print("Enter");
@@ -60,23 +64,60 @@ class GetSchoolListController extends GetxController {
     });
   }
 
-  Future getTopLectureListRepo() async {
+  // Future getTopLectureListRepo() async {
+  //   isTopSchoolListLoading.value = true;
+  //   // print("api Call00");
+  //
+  //   // "/${roleType.value}"
+  //   // "/S"
+  //
+  //   http.Response response = await http.get(Uri.parse(ApiUrls.topschoolListUrl + "/${roleType.value}"), headers: await getAuthHeader());
+  //
+  //   print(response.statusCode);
+  //
+  //   if (response.statusCode == 200) {
+  //     print("top school list : ${response.body}");
+  //     if(roleType.value == "S") {
+  //       topSchoolListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+  //     } else if(roleType.value == "C") {
+  //       topCollegesListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+  //     } else if(roleType.value == "I") {
+  //       topInstitutesListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+  //     } else {
+  //       topSchoolListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+  //     }
+  //     print(topSchoolListModel.value);
+  //     isTopSchoolListLoading.value = false;
+  //   } else {
+  //     isTopSchoolListLoading.value = false;
+  //
+  //     throw Exception(response.body);
+  //   }
+  // }
+
+  Future getTopLectureListRepo(String roleType) async {
     isTopSchoolListLoading.value = true;
     // print("api Call00");
 
     // "/${roleType.value}"
     // "/S"
 
-    http.Response response = await http.get(Uri.parse(ApiUrls.topschoolListUrl + "/${roleType.value}"), headers: await getAuthHeader());
+    http.Response response = await http.get(Uri.parse(ApiUrls.topschoolListUrl + "/${roleType}"), headers: await getAuthHeader());
 
     print(response.statusCode);
 
     if (response.statusCode == 200) {
       print("top school list : ${response.body}");
-
-      topSchoolListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+      if(roleType == "S") {
+        topSchoolListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+      } else if(roleType == "C") {
+        topCollegesListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+      } else if(roleType == "I") {
+        topInstitutesListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+      } else {
+        topSchoolListModel.value = SchoolListModel.fromJson(jsonDecode(response.body));
+      }
       print(topSchoolListModel.value);
-
       isTopSchoolListLoading.value = false;
     } else {
       isTopSchoolListLoading.value = false;
@@ -86,13 +127,12 @@ class GetSchoolListController extends GetxController {
   }
 
 
-
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getSchoolListFunction();
-    getTopLectureListRepo();
+    // getTopLectureListRepo();
     // getSchoolDetailsFunction(3);
   }
 }

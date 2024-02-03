@@ -41,6 +41,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
+    selectedMonthIndex = int.parse(month.value) - 1;
     getYear();
     now = DateTime.now();
     totalDays = daysInMonth(now);
@@ -122,6 +123,12 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+        ),
       ),
       body: Stack(
         children: [
@@ -588,7 +595,9 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
       bottomNavigationBar:  Obx(
             () => examResultController.isDataLoading.value ||
                 examResultController.getExamResultModel.value.data!.isEmpty
-                ? SizedBox.shrink() : SizedBox(
+                ? SizedBox.shrink() :
+
+            SizedBox(
           width: size.width,
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -598,12 +607,12 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
               Container(
                 width: size.width,
                 height: 45,
-                color: Colors.red,
+                color: examResultController.getExamResultModel.value.pass! ? AppThemes.primaryColor : Colors.red,
                 child: InkWell(
                   onTap: () {},
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      'Each Subjects needs 36 marks to pass',
+                      examResultController.getExamResultModel.value.pass! ?  'You passed in exam' : 'You failed in exam',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,

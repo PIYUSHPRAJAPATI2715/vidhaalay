@@ -63,6 +63,9 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     // lecturesController.getTopLectureListRepo();
     getLocation();
     getProfileController.getProfileData();
+    getSchoolListController.getTopLectureListRepo('S');
+    getSchoolListController.getTopLectureListRepo('C');
+    getSchoolListController.getTopLectureListRepo('I');
   }
 
   @override
@@ -98,13 +101,16 @@ class _UserHomeScreenState extends State<UserHomeScreen>
 
     if (currentIndex == 0) {
       getSchoolListController.roleType.value = "S";
+      // getSchoolListController.getTopLectureListRepo();
     } else if (currentIndex == 1) {
       getSchoolListController.roleType.value = "C";
+      // getSchoolListController.getTopLectureListRepo();
     } else {
       getSchoolListController.roleType.value = "I";
+      // getSchoolListController.getTopLectureListRepo();
     }
     getSchoolListController.getSchoolListFunction();
-    getSchoolListController.getTopLectureListRepo();
+    // getSchoolListController.getTopLectureListRepo();
   }
 
   logOutUser() async {
@@ -549,6 +555,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                           getSchoolListController
                                               .topSchoolListModel
                                               .value
+                                              .data == null ? 0 :
+                                          getSchoolListController
+                                              .topSchoolListModel
+                                              .value
                                               .data!
                                               .length,
                                           itemBuilder: (context, index) {
@@ -651,6 +661,18 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                                 size.height *
                                                                     .16,
                                                               ),
+                                                          // placeholder: (__, _) =>
+                                                          //     Shimmer.fromColors(
+                                                          //       child: Container(
+                                                          //           width: size
+                                                          //               .width,
+                                                          //           height:
+                                                          //           size.height *
+                                                          //               .16,
+                                                          //           color: Colors.grey),
+                                                          //       baseColor: Colors.grey[100]!,
+                                                          //       highlightColor: Colors.grey[100]!,
+                                                          //     ),
                                                           placeholder: (__,
                                                               _) =>
                                                           const Center(
@@ -818,11 +840,21 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                           // physics: const AlwaysScrollableScrollPhysics(),
                                           itemCount:
                                           getSchoolListController
-                                              .topSchoolListModel
+                                              .topCollegesListModel
+                                              .value
+                                              .data == null ? 0 :
+                                          getSchoolListController
+                                              .topCollegesListModel
                                               .value
                                               .data!
                                               .length,
                                           itemBuilder: (context, index) {
+
+                                            var item = getSchoolListController
+                                                .topCollegesListModel
+                                                .value
+                                                .data![index];
+
                                             return Padding(
                                               padding: const EdgeInsets
                                                   .symmetric(
@@ -831,11 +863,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                               child: GestureDetector(
                                                 onTap: () {
                                                   String id =
-                                                  getSchoolListController
-                                                      .topSchoolListModel
-                                                      .value
-                                                      .data![index]
-                                                      .id
+                                                  item.id
                                                       .toString();
                                                   print(id);
                                                   getSchoolListController
@@ -894,12 +922,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                             8),
                                                         child:
                                                         CachedNetworkImage(
-                                                          imageUrl: getSchoolListController
-                                                              .topSchoolListModel
-                                                              .value
-                                                              .data![
-                                                          index]
-                                                              .image![0],
+                                                          imageUrl: item.image![0],
                                                           fit: BoxFit
                                                               .cover,
                                                           width:
@@ -941,11 +964,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                         height: 5,
                                                       ),
                                                       Text(
-                                                        getSchoolListController
-                                                            .topSchoolListModel
-                                                            .value
-                                                            .data![index]
-                                                            .name!,
+                                                        item.name!,
                                                         // lecturesController.lectureListModel.value.data![index].name!,
                                                         // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
                                                         style: GoogleFonts.poppins(
@@ -965,11 +984,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                         height: 3,
                                                       ),
                                                       Text(
-                                                        getSchoolListController
-                                                            .topSchoolListModel
-                                                            .value
-                                                            .data![index]
-                                                            .address!,
+                                                        item.address!,
                                                         // lecturesController.lectureListModel.value.data![index].description!,
                                                         // 'Creative Art Design here dummy data',
                                                         // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
@@ -1089,11 +1104,173 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                           // physics: const AlwaysScrollableScrollPhysics(),
                                           itemCount:
                                           getSchoolListController
-                                              .topSchoolListModel
+                                              .topInstitutesListModel
+                                              .value
+                                              .data == null ? 0 :
+                                          getSchoolListController
+                                              .topInstitutesListModel
                                               .value
                                               .data!
                                               .length,
                                           itemBuilder: (context, index) {
+
+                                            var item = getSchoolListController
+                                                .topInstitutesListModel
+                                                .value
+                                                .data![index];
+
+                                            // return Padding(
+                                            //   padding: const EdgeInsets
+                                            //       .symmetric(
+                                            //       horizontal: 12.0)
+                                            //       .copyWith(left: 0),
+                                            //   child: GestureDetector(
+                                            //     onTap: () {
+                                            //       String id =
+                                            //       item.id
+                                            //           .toString();
+                                            //       print(id);
+                                            //       getSchoolListController
+                                            //           .getSchoolDetailsFunction(
+                                            //           id);
+                                            //
+                                            //       Get.to(
+                                            //               () => const SchoolsDetailsScreen(
+                                            //               type:
+                                            //               "Institute"),
+                                            //           transition:
+                                            //           Transition
+                                            //               .fadeIn,
+                                            //           duration:
+                                            //           const Duration(
+                                            //               milliseconds:
+                                            //               250));
+                                            //     },
+                                            //     child: Container(
+                                            //       width: size.width * .35,
+                                            //       padding:
+                                            //       const EdgeInsets
+                                            //           .symmetric(
+                                            //           vertical: 8,
+                                            //           horizontal: 7),
+                                            //       decoration:
+                                            //       BoxDecoration(
+                                            //         color: AppThemes
+                                            //             .lightBlue,
+                                            //         borderRadius:
+                                            //         BorderRadius
+                                            //             .circular(8),
+                                            //         boxShadow: [
+                                            //           BoxShadow(
+                                            //             color: Colors
+                                            //                 .black
+                                            //                 .withOpacity(
+                                            //                 0.2),
+                                            //             spreadRadius: 1,
+                                            //             blurRadius: 2,
+                                            //             offset:
+                                            //             const Offset(
+                                            //                 0, 2),
+                                            //           ),
+                                            //         ],
+                                            //       ),
+                                            //       child: Column(
+                                            //         crossAxisAlignment:
+                                            //         CrossAxisAlignment
+                                            //             .start,
+                                            //         children: [
+                                            //           ClipRRect(
+                                            //             borderRadius:
+                                            //             BorderRadius
+                                            //                 .circular(
+                                            //                 8),
+                                            //             child:
+                                            //             CachedNetworkImage(
+                                            //               imageUrl: item.image![0],
+                                            //               fit: BoxFit
+                                            //                   .cover,
+                                            //               width:
+                                            //               size.width *
+                                            //                   .33,
+                                            //               height:
+                                            //               size.height *
+                                            //                   .09,
+                                            //               errorWidget: (__,
+                                            //                   _,
+                                            //                   ___) =>
+                                            //                   Image.asset(
+                                            //                     AppAssets
+                                            //                         .collageImg,
+                                            //                     fit: BoxFit
+                                            //                         .cover,
+                                            //                     width: size
+                                            //                         .width,
+                                            //                     height:
+                                            //                     size.height *
+                                            //                         .16,
+                                            //                   ),
+                                            //               placeholder: (__,
+                                            //                   _) =>
+                                            //               const Center(
+                                            //                   child:
+                                            //                   CircularProgressIndicator()),
+                                            //             ),
+                                            //           ),
+                                            //           // Image.network(
+                                            //           //   lecturesController.lectureListModel.value.data![index].image!,
+                                            //           //   width: size.width * .33,
+                                            //           // ),
+                                            //           // Image.asset(
+                                            //           //   AppAssets.lectureImg,
+                                            //           //   width: size.width * .33,
+                                            //           // ),
+                                            //           const SizedBox(
+                                            //             height: 5,
+                                            //           ),
+                                            //           Text(
+                                            //             item.name!,
+                                            //             // lecturesController.lectureListModel.value.data![index].name!,
+                                            //             // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                            //             style: GoogleFonts.poppins(
+                                            //                 color:
+                                            //                 AppThemes
+                                            //                     .white,
+                                            //                 fontWeight:
+                                            //                 FontWeight
+                                            //                     .w700,
+                                            //                 fontSize: 12),
+                                            //             maxLines: 3,
+                                            //             overflow:
+                                            //             TextOverflow
+                                            //                 .ellipsis,
+                                            //           ),
+                                            //           const SizedBox(
+                                            //             height: 3,
+                                            //           ),
+                                            //           Text(
+                                            //             item.address!,
+                                            //             // lecturesController.lectureListModel.value.data![index].description!,
+                                            //             // 'Creative Art Design here dummy data',
+                                            //             // 'Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design Creative Art Design',
+                                            //             style: TextStyle(
+                                            //                 color:
+                                            //                 AppThemes
+                                            //                     .white,
+                                            //                 fontWeight:
+                                            //                 FontWeight
+                                            //                     .w600,
+                                            //                 fontSize: 10),
+                                            //             maxLines: 2,
+                                            //             overflow:
+                                            //             TextOverflow
+                                            //                 .ellipsis,
+                                            //           )
+                                            //         ],
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // );
+
                                             return Padding(
                                               padding: const EdgeInsets
                                                   .symmetric(

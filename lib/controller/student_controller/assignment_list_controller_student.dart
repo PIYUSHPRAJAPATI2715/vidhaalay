@@ -31,10 +31,10 @@ class AssignmentListStudentController extends GetxController {
       print("classID : $classID");
 
       Map body = {
-        // "date": "2023-01-13",
-        // "class_id": 6
-        "date": selDate.value,
-        "class_id": classID
+        "date": "2024-01-19",
+        "class_id": 6
+        // "date": selDate.value,
+        // "class_id": classID
       };
       print("body $body");
 

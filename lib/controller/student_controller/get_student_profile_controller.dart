@@ -50,24 +50,36 @@ class GetStudentProfileController extends GetxController {
   String selectedItemNotes = "Camera";
 
 
+  // Future getProfileData() async {
+  //   print("en000");
+  //   isProfileLoading.value = true;
+  //   await getProfileRepo().then((value) {
+  //     isProfileLoading.value = false;
+  //     getProfileModel.value = value;
+  //     nameController.text = getProfileModel.value.data!.name.toString();
+  //     emailController.text = getProfileModel.value.data!.email.toString();
+  //     phoneController.text = getProfileModel.value.data!.mobile.toString();
+  //     uniqueIdController.text = getProfileModel.value.data!.address.toString();
+  //     networkProfileImage = getProfileModel.value.data!.profileImage;
+  //     // update();
+  //     // uniqueIdController.text = getProfileModel.value.data!..toString();
+  //     // uniqueIdController.text = getProfileModel.value.data!.uniqueId.toString();
+  //   });
+  // }
+
   Future getProfileData() async {
-    print("en000");
-    isProfileLoading.value = true;
+    isProfileLoading.value = false;
     await getProfileRepo().then((value) {
-      isProfileLoading.value = false;
+      isProfileLoading.value = true;
       getProfileModel.value = value;
       nameController.text = getProfileModel.value.data!.name.toString();
       emailController.text = getProfileModel.value.data!.email.toString();
       phoneController.text = getProfileModel.value.data!.mobile.toString();
-      uniqueIdController.text = getProfileModel.value.data!.address.toString();
+      uniqueIdController.text = getProfileModel.value.data!.uniqueId.toString();
       networkProfileImage = getProfileModel.value.data!.profileImage;
-      update();
-      // uniqueIdController.text = getProfileModel.value.data!..toString();
-      // uniqueIdController.text = getProfileModel.value.data!.uniqueId.toString();
+      // update();
     });
   }
-
-
 
   void selectOption(BuildContext context) {
     showDialog<void>(

@@ -194,7 +194,7 @@ class Assignment {
   String? createdAt;
   String? updatedAt;
   Null? deletedAt;
-  Class? teacher;
+  Teacher? teacher;
   Class? class0;
   Class? subject;
 
@@ -215,7 +215,7 @@ class Assignment {
   createdAt = json['createdAt'];
   updatedAt = json['updatedAt'];
   deletedAt = json['deletedAt'];
-  teacher = json['teacher'] != null ? new Class.fromJson(json['teacher']) : null;
+  teacher = json['teacher'] != null ? new Teacher.fromJson(json['teacher']) : null;
   class0 = json['class'] != null ? new Class.fromJson(json['class']) : null;
   subject = json['subject'] != null ? new Class.fromJson(json['subject']) : null;
   }

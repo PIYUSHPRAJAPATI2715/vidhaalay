@@ -6,6 +6,7 @@ import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_class_timeTable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -520,7 +521,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                 Row(
                                   children: [
                                     Expanded(
-                                      flex: 2,
+                                      flex: 3,
                                       child: Column(
                                         children: [
                                           Text(
@@ -531,19 +532,19 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600
                                             ),),
-                                          Text(
-                                            // '08 AM',
-                                            value.toTime!.toString(),
-                                            style: GoogleFonts.poppins(
-                                                color: AppThemes.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600
-                                            ),),
+                                          // Text(
+                                          //   // '08 AM',
+                                          //   value.toTime!.toString(),
+                                          //   style: GoogleFonts.poppins(
+                                          //       color: AppThemes.black,
+                                          //       fontSize: 14,
+                                          //       fontWeight: FontWeight.w600
+                                          //   ),),
                                         ],
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 6,
+                                      flex: 7,
                                       child: Container(
                                         width: size.width*.60,
                                         padding: const EdgeInsets.all(9),
@@ -570,12 +571,20 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                ClipOval(
-                                                  child: Image.asset(
-                                                    AppAssets.studentImg,
-                                                    width: 13,
-                                                  ),
+                                                commonProfileImageCircle(
+                                                  context: context,
+                                                  isProfileImageLoading: value.teacher == null,
+                                                  isProfileExist: value.teacher!.profileImage != null,
+                                                  image: value.teacher!.profileImage.toString(),
+                                                  radius: 8,
+                                                  // classData.teacher.profileImage
                                                 ),
+                                                // ClipOval(
+                                                //   child: Image.asset(
+                                                //     AppAssets.studentImg,
+                                                //     width: 13,
+                                                //   ),
+                                                // ),
                                                 const SizedBox(
                                                   width: 5,
                                                 ),
@@ -588,11 +597,11 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: size.width*.38,
+                                                  width: size.width*.345,
                                                   // color: Colors.green,
                                                 child: Text(
-                                                    "Test test test test test test test",
-                                                    // value.teacher!.name.toString(),
+                                                    // "Test test test test test test test",
+                                                    value.teacher!.name.toString(),
                                                     // 'Rosie David',
                                                     style:  GoogleFonts.poppins(
                                                         color: Colors.black,

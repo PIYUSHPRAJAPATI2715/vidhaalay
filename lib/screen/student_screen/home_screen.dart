@@ -66,25 +66,20 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
             padding:  EdgeInsets.symmetric(horizontal: size.width*.035).copyWith(left: 0),
             child: Row(
               children: [
-              
-                InkWell(
+                GestureDetector(
                     onTap: () {
-
-                      // Get.snackbar(
-                      //   "Vidhyaalay",
-                      //   "Tets",
-                      //   colorText: AppThemes.white, // text color
-                      //   backgroundColor: AppThemes.primaryColor, // background color
-                      //   borderColor: AppThemes.white, // border color
-                      //   borderWidth: 1.5, // border width
-                      //   // margin: EdgeInsets.only(top: 55)
-                      // );
                       Get.toNamed(MyRouters.notificationScreenUser);
                     },
-                    child: Image.asset(AppAssets.notification,width: 17,)
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        AppAssets.notification,
+                        width: 20,
+                      ),
+                    )
                 ),
                 SizedBox(
-                  width: size.width*.065,
+                  width: size.width*.045,
                 ),
                 Obx(
                       () {
@@ -92,14 +87,12 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
                     return  GestureDetector(
                       onTap: () {
-                        Get.toNamed(MyRouters.myProfileTeacher);
+                        Get.toNamed(MyRouters.myProfileScreenStu);
                       },
                       child: commonProfileImageCircle(
                           context: context,
-                          isProfileImageLoading: getStudentProfileController.isProfileLoading.value,
-                          isProfileExist: getStudentProfileController
-                              .networkProfileImage !=
-                              null,
+                          isProfileImageLoading: !getStudentProfileController.isProfileLoading.value,
+                          isProfileExist: getStudentProfileController.networkProfileImage != null,
                           image:
                           getStudentProfileController
                           // .getProfileModel.value.data!.profileImage
@@ -489,12 +482,27 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                             mainAxisAlignment:
                                             MainAxisAlignment.start,
                                             children: [
-                                              ClipOval(
-                                                child: Image.asset(
-                                                  AppAssets.studentImg,
-                                                  width: 13,
-                                                ),
+                                              commonProfileImageCircle(
+                                                context: context,
+                                                isProfileImageLoading:  assignmentData
+                                                    .teacher == null,
+                                                isProfileExist:
+                                                assignmentData
+                                                    .teacher.profileImage !=
+                                                    null,
+                                                image: assignmentData
+                                                    .teacher!
+                                                    .profileImage!
+                                                    .toString(),
+                                                radius: 8,
                                               ),
+
+                                              // ClipOval(
+                                              //   child: Image.asset(
+                                              //     AppAssets.studentImg,
+                                              //     width: 13,
+                                              //   ),
+                                              // ),
                                               SizedBox(
                                                 width: 2,
                                               ),
@@ -587,7 +595,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
                                   Container(
                                     height: size.height * 0.14,
-                                    width: size.width * 0.38,
+                                    width: size.width * 0.35,
                                     // color: Colors.red,
                                     child: PieChart(
                                       PieChartData(
@@ -618,6 +626,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                   ),
 
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

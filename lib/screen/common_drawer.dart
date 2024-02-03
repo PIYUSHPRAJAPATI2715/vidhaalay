@@ -29,6 +29,7 @@ import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/video_lecture_teacher_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay_app/widgets/multi_login_alert_dialogbox.dart';
 
 import '../login screens/splash.dart';
 import '../models/multi_login_model.dart';
@@ -323,32 +324,32 @@ class _commonDrawerState extends State<commonDrawer> {
                       //   // height: 23,
                       // ),
                     ),
-                    const SizedBox(height: 10,),
-                    ListTile(
-                      onTap: (){
-                        Get.toNamed(MyRouters.teacherAttendanceScreen);
-                      },
-                      contentPadding: EdgeInsets.zero,
-                      visualDensity:
-                      const VisualDensity(
-                          horizontal: -4, vertical: -4),
-                      title: const Text(
-                        'Attendance',
-                        style: TextStyle(
-                            color: AppThemes.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
-
-                      ),
-                      leading: Image.asset(
-                        AppAssets.personIcon,
-                        height: 20,
-                        width: 24,
-                        color: AppThemes.white,
-                        // width: 23,
-                        // height: 23,
-                      ),
-                    ),
+                    // const SizedBox(height: 10,),
+                    // ListTile(
+                    //   onTap: (){
+                    //     Get.toNamed(MyRouters.teacherAttendanceScreen);
+                    //   },
+                    //   contentPadding: EdgeInsets.zero,
+                    //   visualDensity:
+                    //   const VisualDensity(
+                    //       horizontal: -4, vertical: -4),
+                    //   title: const Text(
+                    //     'Attendance',
+                    //     style: TextStyle(
+                    //         color: AppThemes.white,
+                    //         fontSize: 16,
+                    //         fontWeight: FontWeight.w500),
+                    //
+                    //   ),
+                    //   leading: Image.asset(
+                    //     AppAssets.personIcon,
+                    //     height: 20,
+                    //     width: 24,
+                    //     color: AppThemes.white,
+                    //     // width: 23,
+                    //     // height: 23,
+                    //   ),
+                    // ),
                     const SizedBox(height: 10,),
                     ListTile(
                       onTap: () {
@@ -695,7 +696,7 @@ class _commonDrawerState extends State<commonDrawer> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: InkWell(
                     onTap: (){
-                      _showMultiLoginAlertDialog(context);
+                      showMultiLoginAlertDialog(context);
                     },
                     child: Container(
                       width: size.width,
@@ -855,189 +856,6 @@ class _commonDrawerState extends State<commonDrawer> {
   //   );
   // }
 
-  Future<void> _showMultiLoginAlertDialog(BuildContext context) async {
-    List<MultiLoginModel> loginData = await getLoginData();
-    // [
-    //   MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar"),
-    //   MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar"),
-    //   MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
-    //   MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar"),
-    // ];
-
-    // loginData.add(MultiLoginModel(userName: , email: email, type: type, password: password))
-
-    print("loginData : $loginData");
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          // titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-            contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-            title: Text('Switch Account',
-              style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: AppThemes.black,
-              ),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(
-                  loginData.length + 2, (index)  {
-                if (index < loginData.length) {
-                  var items = loginData[index];
-                  return Column(
-                    children: [
-                      Divider(
-                        height: 1,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                      ListTile(
-                        visualDensity: VisualDensity(vertical: -3),
-                        leading: Icon(Icons.person),
-                        title: Text(items.userName!),
-                        subtitle: Text(items.email!),
-                        onTap: () {
-                          final signInController = Get.put(SignInController());
-
-                          signInController.login(
-                            context: context,
-                            email: items.email!,
-                            type: items.type!,
-                            pass: items.password!,
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                } else if (index == loginData.length) {
-                  return Column(
-                    children: [
-                      Divider(
-                        height: 1,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                      ListTile(
-                        visualDensity: VisualDensity(vertical: -3),
-                        leading: Icon(Icons.add),
-                        title: Text("Add another account"),
-                        onTap: () {
-                          Get.offAll(() => SignInPage());
-                        },
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Divider(
-                        height: 1,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
-                      ListTile(
-                        visualDensity: VisualDensity(vertical: -3),
-                        leading: Icon(Icons.logout),
-                        title: Text("Sign out of all accounts"),
-                        onTap: () {
-                          deleteAllRecord();
-                        },
-                      ),
-                    ],
-                  );
-                }
-              },),
-            )
-            // SingleChildScrollView(
-            //   child: Container(
-            //     height: 300,
-            //     width: MediaQuery.of(context).size.width,
-            //     // padding: EdgeInsets.symmetric(vertical: 5),
-            //     // Adjust padding as needed
-            //     // padding: EdgeInsets.all(8.0),
-            //
-            //     // Use a ListView.builder to build the list dynamically
-            //     child: ListView.builder(
-            //       // shrinkWrap: true,
-            //       itemCount: loginData.length + 2,
-            //       // Additional items for "Add another account" and "Sign out of all accounts" options
-            //       itemBuilder: (BuildContext context, int index) {
-            //         if (index < loginData.length) {
-            //           var items = loginData[index];
-            //           return Column(
-            //             children: [
-            //               Divider(
-            //                 height: 1,
-            //                 thickness: 1,
-            //                 color: Colors.grey,
-            //               ),
-            //               ListTile(
-            //                 visualDensity: VisualDensity(vertical: -3),
-            //                 leading: Icon(Icons.person),
-            //                 title: Text(items.userName!),
-            //                 subtitle: Text(items.email!),
-            //                 onTap: () {
-            //                   final signInController = Get.put(SignInController());
-            //
-            //                   signInController.login(
-            //                     context: context,
-            //                     email: items.email!,
-            //                     type: items.type!,
-            //                     pass: items.password!,
-            //                   );
-            //                 },
-            //               ),
-            //             ],
-            //           );
-            //         } else if (index == loginData.length) {
-            //           return Column(
-            //             children: [
-            //               Divider(
-            //                 height: 1,
-            //                 thickness: 1,
-            //                 color: Colors.grey,
-            //               ),
-            //               ListTile(
-            //                 visualDensity: VisualDensity(vertical: -3),
-            //                 leading: Icon(Icons.add),
-            //                 title: Text("Add another account"),
-            //                 onTap: () {
-            //                   Get.offAll(() => SignInPage());
-            //                 },
-            //               ),
-            //             ],
-            //           );
-            //         } else {
-            //           return Column(
-            //             children: [
-            //               Divider(
-            //                 height: 1,
-            //                 thickness: 1,
-            //                 color: Colors.grey,
-            //               ),
-            //               ListTile(
-            //                 visualDensity: VisualDensity(vertical: -3),
-            //                 leading: Icon(Icons.logout),
-            //                 title: Text("Sign out of all accounts"),
-            //                 onTap: () {
-            //                   deleteAllRecord();
-            //                 },
-            //               ),
-            //               // No divider after the last item
-            //             ],
-            //           );
-            //         }
-            //       },
-            //     ),
-            //   ),
-            // )
-        );
-      },
-    );
-  }
 
 // Container(
 //   // constraints: BoxConstraints(maxHeight: maxHeight),

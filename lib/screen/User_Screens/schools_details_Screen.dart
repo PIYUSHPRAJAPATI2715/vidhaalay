@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
@@ -2033,9 +2034,18 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                     AppAssets.studentImg,
                                                     width: 80,
                                                   ),
-                                              placeholder: (__, _) =>
-                                              const Center(
-                                                  child: CircularProgressIndicator()),
+                                              placeholder: (context, url) =>
+                                                  Shimmer.fromColors(
+                                                    // ignore: sort_child_properties_last
+                                                    child: CircleAvatar(
+                                                        radius: 18,
+                                                        backgroundColor: Colors.grey),
+                                                    baseColor: Colors.grey[300]!,
+                                                    highlightColor: Colors.grey[400]!,
+                                                  ),
+                                              // placeholder: (__, _) =>
+                                              // const Center(
+                                              //     child: CircularProgressIndicator()),
                                             ),
                                           ),
                                           const SizedBox(
@@ -2200,9 +2210,19 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                         width: size.width,
                                                         height: size.height * .14,
                                                       ),
-                                                  placeholder: (__, _) =>
-                                                  const Center(
-                                                      child: CircularProgressIndicator()),
+                                                  placeholder: (context, url) =>
+                                                      Shimmer.fromColors(
+                                                        child: Container(
+                                                            width: size.width,
+                                                            height: size.height * .14,
+                                                            color: Colors.grey),
+                                                        baseColor: Colors.grey[300]!,
+                                                        highlightColor: Colors.grey[400]!,
+                                                      ),
+
+                                                  // placeholder: (__, _) =>
+                                                  // const Center(
+                                                  //     child: CircularProgressIndicator()),
                                                 )),
                                           ),
                                           Text(
@@ -2267,8 +2287,17 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                         height: size.height * .16,
                                                       ),
                                                   placeholder: (__, _) =>
-                                                  const Center(
-                                                      child: CircularProgressIndicator()),
+                                                  Shimmer.fromColors(
+                                                    child: Container(
+                                                        width: size.width,
+                                                        height: size.height * .14,
+                                                        color: Colors.grey),
+                                                    baseColor: Colors.grey[300]!,
+                                                    highlightColor: Colors.grey[400]!,
+                                                  ),
+                                                  // placeholder: (__, _) =>
+                                                  // const Center(
+                                                  //     child: CircularProgressIndicator()),
                                                 )),
                                             Text(
                                               item.name.toString(),
@@ -2368,8 +2397,17 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                                                     height: size.height * .16,
                                                   ),
                                               placeholder: (__, _) =>
-                                              const Center(
-                                                  child: CircularProgressIndicator()),
+                                                  Shimmer.fromColors(
+                                                    child: Container(
+                                                        width: size.width,
+                                                        height: size.height * .14,
+                                                        color: Colors.grey),
+                                                    baseColor: Colors.grey[300]!,
+                                                    highlightColor: Colors.grey[400]!,
+                                                  ),
+                                              // placeholder: (__, _) =>
+                                              // const Center(
+                                              //     child: CircularProgressIndicator()),
                                             )
                                         ),
                                       ),

@@ -47,7 +47,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
 
     print("month");
     print(month.value);
-    selectedMonthIndex = int.parse(month.value);
+    selectedMonthIndex = int.parse(month.value) - 1;
     print(selectedMonthIndex);
 
     monthName.value = DateFormat('MMMM').format(DateTime.now());
@@ -154,8 +154,8 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
               color: AppThemes.textBrown,
             ),
             onPressed: () {
-              Get.toNamed(MyRouters.bottomNavigationUserScreen);
-              // Get.back();
+              // Get.toNamed(MyRouters.bottomNavigationUserScreen);
+              Get.back();
             },
           ),
           title: Text(

@@ -74,12 +74,12 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
           ),
         ),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: (){
-            Get.back();
-          },
-          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
-        ),
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+          ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

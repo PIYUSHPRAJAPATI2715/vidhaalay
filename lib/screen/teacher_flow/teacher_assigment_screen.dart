@@ -13,13 +13,12 @@ import 'package:vidhaalay_app/screen/teacher_flow/update_assignment_screen.dart'
 import 'package:vidhaalay_app/screen/teacher_flow/update_event_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
-
-
 
 class TeacherAssignmentScreen extends StatefulWidget {
   const TeacherAssignmentScreen({Key? key}) : super(key: key);
@@ -56,7 +55,9 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
 
 
     String date = year.value+"-"+ month.value +"-"+ day.value;
-    log(date);
+    log("current Date : $date");
+    selectedMonthIndex = int.parse(month.value) - 1;
+
     getAssignmentController.selectedDate.value = date;
 
     getAssignmentController.getMyClass();
@@ -67,7 +68,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
     totalDays = daysInMonth(now);
     listOfDates = List<int>.generate(totalDays, (i) => i + 1);
     todayDay = DateFormat('dd').format(now);
-    selectedIndex = int.parse(todayDay.toString()) - 1;
+    selectedIndex = int.parse(todayDay) - 1;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getWeekDates(now);
       if (!mounted) return;
@@ -140,6 +141,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
             color: AppThemes.black,
           ),
         ),
+
         centerTitle: true,
       ),
       body: Stack(
@@ -374,6 +376,15 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                     todayDay = DateFormat('dd').format(now);
                                     getWeekDates(now);
                                     log(DateFormat('EEEE').format(now));
+
+                                    monthName.value = DateFormat('MMMM')
+                                        .format(DateTime.parse(
+                                        "${year.value}-${month.value}-${day.value}"));
+
+                                    String date = year.value+"-"+ month.value +"-"+ day.value;
+                                    getAssignmentController.selectedDate.value = date;
+
+                                    getAssignmentController.getAssignmentData();
                                     // Get.back();
                                   },
                                   child: Padding(
@@ -606,7 +617,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Container(
-                                                      width: size.width * 0.41,
+                                                      width: size.width * 0.4,
                                                       // color: Colors.amber,
                                                       child: Text(
                                                         items.assignmentName!,
@@ -624,14 +635,24 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
-                                                        ClipOval(
-                                                          child: Image.asset(
-                                                            AppAssets.studentImg,
-                                                            width: 13,
-                                                          ),
+                                                        commonProfileImageCircle(
+                                                          context: context,
+                                                          isProfileImageLoading: items.teacher == null,
+                                                          isProfileExist: items.teacher!.profileImage != null,
+                                                          image: items.teacher!
+                                                              .profileImage!
+                                                              .toString(),
+                                                          radius: 8,
+                                                          // classData.teacher.profileImage
                                                         ),
+                                                        // ClipOval(
+                                                        //   child: Image.asset(
+                                                        //     AppAssets.studentImg,
+                                                        //     width: 13,
+                                                        //   ),
+                                                        // ),
                                                         Text(
-                                                          'By : ',
+                                                          ' By : ',
                                                           style: GoogleFonts.poppins(
                                                               color: Colors.grey,
                                                               fontSize: 12.0,
@@ -639,7 +660,7 @@ class _TeacherAssignmentScreenState extends State<TeacherAssignmentScreen> {
                                                           ),
                                                         ),
                                                         Container(
-                                                          width: size.width * 0.2,
+                                                          width: size.width * 0.18,
                                                           // color: Colors.amber,
                                                           child: Text(
                                                               items.teacher!.name!,

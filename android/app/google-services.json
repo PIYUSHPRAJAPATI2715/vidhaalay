@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "61228273362",
-    "project_id": "vidhaalay-a464e",
-    "storage_bucket": "vidhaalay-a464e.appspot.com"
+    "project_number": "547187945827",
+    "project_id": "vidhaalay-12276",
+    "storage_bucket": "vidhaalay-12276.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:61228273362:android:eeaf3af26b600ce1bda70b",
+        "mobilesdk_app_id": "1:547187945827:android:f1afd58afc388e8125e356",
         "android_client_info": {
           "package_name": "com.example.vidhaalay_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "547187945827-uis91oao0konkmaq2klvvjai6pqkk9st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vidhaalay_app",
+            "certificate_hash": "bd048d076ac485a268a3e32b02c67a9ffcc28f76"
+          }
+        },
+        {
+          "client_id": "547187945827-ip0ipkumb8evnkooi6tuq2s11aftshh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBY5cvQkFpUL3B41kq2aJmJvAkhvX9S3_c"
+          "current_key": "AIzaSyBY5UcZzfJ3Tk5AxWYW5XxjvxxDEb9kWrU"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547187945827-hnsko9r0hvb8ej4q88vv5p0gkgi99fdf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

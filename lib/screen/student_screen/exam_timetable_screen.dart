@@ -6,6 +6,7 @@ import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_exam_timetable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -138,6 +139,12 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Image.asset(AppAssets.arrowBack,width: 25,height: 25,),
+        ),
       ),
       body: Obx(
             () => Stack(
@@ -296,6 +303,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                 itemCount: months.length,
                                 itemBuilder:
                                     (BuildContext context, int index) {
+
                                   return InkWell(
                                     onTap: () {
                                       print(index);
@@ -486,17 +494,17 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
 
                             var value = studentExamTimeTableController.getExamTimetableModel.value.data![index];
 
-                            DateTime timestampUtc = DateTime.parse(value.from!);
-                            String formattedHour = timestampUtc.hour.toString().padLeft(2, '0');
-                            String formattedMinute = timestampUtc.minute.toString().padLeft(2, '0');
-                            String fromTime = '$formattedHour:$formattedMinute';
-                            print("fromTime $fromTime");
-
-                            DateTime timestampUtc1 = DateTime.parse(value.to!);
-                            String formattedHour1 = timestampUtc1.hour.toString().padLeft(2, '0');
-                            String formattedMinute1 = timestampUtc1.minute.toString().padLeft(2, '0');
-                            String toTime = '$formattedHour1:$formattedMinute1';
-                            print("toTime $toTime");
+                            // DateTime timestampUtc = DateTime.parse(value.from!);
+                            // String formattedHour = timestampUtc.hour.toString().padLeft(2, '0');
+                            // String formattedMinute = timestampUtc.minute.toString().padLeft(2, '0');
+                            // String fromTime = '$formattedHour:$formattedMinute';
+                            // print("fromTime $fromTime");
+                            //
+                            // DateTime timestampUtc1 = DateTime.parse(value.to!);
+                            // String formattedHour1 = timestampUtc1.hour.toString().padLeft(2, '0');
+                            // String formattedMinute1 = timestampUtc1.minute.toString().padLeft(2, '0');
+                            // String toTime = '$formattedHour1:$formattedMinute1';
+                            // print("toTime $toTime");
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -654,28 +662,37 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  fromTime,
-                                                  // '08: AM',
-                                                  style: GoogleFonts.poppins(
-                                                      color: AppThemes.black,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600
+                                            Container(
+                                              width: size.width * .16,
+                                              // color: Colors.amber,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    value.from.toString(),
+                                                    // '08: AM',
+                                                    style: GoogleFonts.poppins(
+                                                        color: AppThemes.black,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
-                                                ),
-                                                Text(
-                                                  // '09: AM',
-                                                  toTime,
-                                                  style: GoogleFonts.poppins(
-                                                      color: AppThemes.black,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w600
-                                                  ),),
-                                              ],
+                                                  Text(
+                                                    // '09: AM',
+                                                    value.to.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                        color: AppThemes.black,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w600
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 10,
@@ -694,7 +711,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                 children: [
                                                   Container(
                                                     // color: Colors.green,
-                                                    width: size.width * .73,
+                                                    width: size.width * .72,
                                                     child: Text(
                                                       value.subject!.name!,
                                                       // 'Social Science Social Science Social Science Social Science Social Science',
@@ -707,7 +724,6 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ),
-
                                                   const SizedBox(
                                                     height: 5,
                                                   ),
@@ -715,7 +731,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Container(
-                                                        width: size.width * .30,
+                                                        width: size.width * .28,
                                                         // color: Colors.amber,
                                                         child: Text(
                                                           'Class - ' + value.seatClass!.name!,
@@ -738,16 +754,25 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                           ),
                                                         ),
                                                       ),
+
                                                       Row(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         mainAxisAlignment: MainAxisAlignment.start,
                                                         children: [
-                                                          ClipOval(
-                                                            child: Image.asset(
-                                                              AppAssets.studentImg,
-                                                              width: 15,
-                                                            ),
+                                                          commonProfileImageCircle(
+                                                            context: context,
+                                                            isProfileImageLoading: value.teacher == null,
+                                                            isProfileExist: value.teacher!.profileImage != null,
+                                                            image: value.teacher!.profileImage.toString(),
+                                                            radius: 8,
+                                                            // classData.teacher.profileImage
                                                           ),
+                                                          // ClipOval(
+                                                          //   child: Image.asset(
+                                                          //     AppAssets.studentImg,
+                                                          //     width: 15,
+                                                          //   ),
+                                                          // ),
                                                           const SizedBox(
                                                             width: 5,
                                                           ),
@@ -760,7 +785,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: size.width * .25,
+                                                            width: size.width * .24,
                                                             // color: Colors.amber,
                                                             child: Text(
                                                               value.teacher!.name!,

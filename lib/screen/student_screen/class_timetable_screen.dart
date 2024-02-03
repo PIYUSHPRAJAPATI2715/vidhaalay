@@ -7,6 +7,7 @@ import 'package:vidhaalay_app/controller/teacher_controller/class_time_controlle
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_class_timeTable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
@@ -450,11 +451,19 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                ClipOval(
-                                                  child: Image.asset(
-                                                    AppAssets.studentImg,
-                                                    width: 13,
-                                                  ),
+                                                // ClipOval(
+                                                //   child: Image.asset(
+                                                //     AppAssets.studentImg,
+                                                //     width: 13,
+                                                //   ),
+                                                // ),
+                                                commonProfileImageCircle(
+                                                  context: context,
+                                                  isProfileImageLoading: value.teacher == null,
+                                                  isProfileExist: value.teacher!.profileImage != null,
+                                                  image: value.teacher!.profileImage.toString(),
+                                                  radius: 8,
+                                                  // classData.teacher.profileImage
                                                 ),
                                                 const SizedBox(
                                                   width: 5,
