@@ -206,7 +206,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Text('if you have email linked to your account',
+                                  Text('if you have phone number linked to your account',
                                     style: GoogleFonts.poppins(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,

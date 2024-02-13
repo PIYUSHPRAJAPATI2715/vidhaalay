@@ -252,7 +252,7 @@ class _SettingScreenUserState extends State<SettingScreenUser> {
                    const SizedBox(height: 20),
                     InkWell(
                       onTap: (){
-                        logOutUser();
+                        logOutUser(context);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 15),

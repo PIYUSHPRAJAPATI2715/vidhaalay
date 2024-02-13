@@ -145,7 +145,7 @@ class _ForgetEmailScreenState extends State<ForgetEmailScreen> {
                                 showToast(message:value.msg.toString()!);
                                 Get.toNamed(MyRouters.otpScreen,arguments: emailController.text.trim());
                               }else{
-                                showToast(message:value.msg.toString()!);
+                                showToast(message:value.msg.toString()!,isError: true);
                               }
                             });
                           }

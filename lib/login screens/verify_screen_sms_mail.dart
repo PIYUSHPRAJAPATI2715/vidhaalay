@@ -254,7 +254,7 @@ class _VerifyOtpLoginState extends State<VerifyOtpLogin> {
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        Text('if you have phone linked to your account',
+                                        Text('if you have phone number linked to your account',
                                           style: GoogleFonts.poppins(
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,

@@ -548,20 +548,17 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                                     MainAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top:
-                                                                            2.0),
-                                                                    child: Image
-                                                                        .asset(
-                                                                      AppAssets
-                                                                          .greenInfo,
-                                                                      height:
-                                                                          14,
-                                                                      width: 14,
-                                                                    ),
-                                                                  ),
+                                                                   Padding(
+                                                                     padding: const EdgeInsets.only(top: 5.0),
+                                                                     child: Image
+                                                                          .asset(
+                                                                        AppAssets
+                                                                            .greenInfo,
+                                                                        height:
+                                                                            14,
+                                                                        width: 14,
+                                                                                                                                       ),
+                                                                   ),
                                                                   const SizedBox(
                                                                     width: 10,
                                                                   ),
@@ -578,6 +575,9 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                                         Row(
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceBetween,
+                                                                          crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
                                                                           children: [
                                                                             Container(
                                                                               // color: Colors.green,

@@ -61,7 +61,6 @@ class MyRouters{
   static var signupScreen = "/signupScreen";
   static var forgotPasswordScreen = "/forgotPasswordScreen";
   static var verifyOtpLogin = "/verifyOtpLogin";
-  static var verifyOtpLoginSms = "/verifyOtpLoginSms";
   static var otpScreen = "/otpScreen";
   static var otpScreenEmail = "/otpScreenEmail";
   static var forgetEmailScreen = "/forgetEmailScreen";
@@ -130,7 +129,6 @@ class MyRouters{
     GetPage(name: '/otpSmsScreen', page: () =>  const OtpSmsScreen()),
     GetPage(name: '/createPasswordScreen', page: () =>  const CreatePasswordScreen()),
     GetPage(name: '/verifyWithSms', page: () =>  const VerifyWithSms()),
-    GetPage(name: '/verifyOtpLoginSms', page: () =>  const VerifyOtpLoginSms()),
     GetPage(name: '/forgotOtpSmsScreen', page: () =>  const ForgotOtpSmsScreen()),
 
     //student screens

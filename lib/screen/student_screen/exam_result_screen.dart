@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/student_controller/exam_result_student_controller.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
 import '../../widgets/appTheme.dart';
@@ -19,68 +20,9 @@ class ExamResultScreen extends StatefulWidget {
 
 class _ExamResultScreenState extends State<ExamResultScreen> {
   final examResultController = Get.put(ExamResultStudentController());
-
-  RxString day = "".obs;
-  RxString month = "".obs;
-  RxString year = "".obs;
-  RxString monthName = "".obs;
-  RxString clinicId = "".obs;
-  int selectedIndex = 0;
-  int selectedMonthIndex = 0;
-
-  var now = DateTime.now();
-  var totalDays;
-  var listOfDates;
-  var todayDay;
-
-  @override
-  void initState() {
-    super.initState();
-    examResultController.getExamTypeData();
-    year.value = DateFormat('yyyy').format(DateTime.now());
-    month.value = DateFormat('MM').format(DateTime.now());
-    monthName.value = DateFormat('MMMM').format(DateTime.now());
-    day.value = DateFormat('dd').format(DateTime.now());
-    selectedMonthIndex = int.parse(month.value) - 1;
-    getYear();
-    now = DateTime.now();
-    totalDays = daysInMonth(now);
-    listOfDates = List<int>.generate(totalDays, (i) => i + 1);
-    todayDay = DateFormat('dd').format(now);
-    selectedIndex = int.parse(todayDay.toString()) - 1;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      getWeekDates(now);
-      if (!mounted) return;
-      setState(() {});
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        Scrollable.ensureVisible(keysList[selectedIndex].currentContext!,
-            alignment: .5);
-      });
-    });
-  }
-
-  List<GlobalKey> keysList = [];
-
-  List<DateTime> weekDates = [];
-
-  getWeekDates(DateTime currentDate) {
-    weekDates.clear();
-    for (int i = 1 - int.parse(todayDay);
-    i <= listOfDates.length - int.parse(todayDay);
-    i++) {
-      weekDates.add(currentDate.add(Duration(days: i)));
-      // log(weekDates.toString());
-      // log(DateFormat('EEEE').format(weekDates[0]));
-    }
-    setState(() {});
-    keysList = List.generate(weekDates.length, (index) => GlobalKey());
-    return weekDates;
-  }
-
+  final ScrollController _controller = ScrollController();
+  List currentSessionYear = [];
   List<String> months = [
-    "January",
-    "February",
-    "March",
     "April",
     "May",
     "June",
@@ -89,25 +31,65 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
     "September",
     "October",
     "November",
-    "December"
+    "December",
+    "January",
+    "February",
+    "March",
   ];
-  List<int> years = [];
+  List daysInMonth = [];
 
-  List<int> getYear() {
-    for (int i = 2023; i <= 2050; i++) {
-      years.add(i);
+  int selectedYear = 0;
+  RxString month = "".obs;
+  RxString monthName = "".obs;
+  RxString day = "".obs;
+  String selectedDate = '';
+
+  int selectedDateIndex = 0;
+  int selectedMonthIndex = 0;
+
+  getCurrentSessionYear(int currentYear) {
+    currentSessionYear.clear();
+    int currentMonth = int.parse(month.value);
+    if(currentMonth < 4) {
+      currentSessionYear = [currentYear -1,currentYear];
+      selectedYear = currentSessionYear[1];
+    } else {
+      currentSessionYear = [currentYear,currentYear+1];
+      selectedYear = currentSessionYear[0];
     }
-    return years;
   }
 
-  int daysInMonth(DateTime date) {
-    var firstDayThisMonth = DateTime(date.year, date.month, date.day);
-    log("Week days$firstDayThisMonth");
-    var firstDayNextMonth = DateTime(firstDayThisMonth.year,
-        firstDayThisMonth.month + 1, firstDayThisMonth.day);
-    log("Week days$firstDayNextMonth");
-    return firstDayNextMonth.difference(firstDayThisMonth).inDays;
+  selecedDate() {
+    selectedDate = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
+    print("selecedDate : $selectedDate");
+    // examResultController.getExamResultData();
   }
+
+  @override
+  void initState() {
+    super.initState();
+    examResultController.getExamTypeData();
+    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+    month.value = DateFormat('MM').format(DateTime.now());
+    monthName.value = DateFormat('MMMM').format(DateTime.now());
+    day.value = DateFormat('dd').format(DateTime.now());
+    selecedDate();
+    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value) - 1);
+    getCurrentSessionYear(selectedYear);
+    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
+    selectedDateIndex = int.parse(day.value) - 1;
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (!mounted) return;
+      setState(() {});
+      _controller.animateTo(
+        selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -162,24 +144,50 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: Container(
-                        padding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        transformAlignment: Alignment.center,
+                        // width: size.width * .45,
+                        padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Text(
-                          year.value.toString(),
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                          // color: Colors.white,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(currentSessionYear[0].toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(' - ',
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(currentSessionYear[1].toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
+
                     Container(
-                      height: size.height * .070,
+                      height: size.height*.050,
                       decoration: BoxDecoration(
+                        // color: Colors.amber,
                           borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -189,46 +197,44 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: months.length,
-                              itemBuilder: (BuildContext context, int index) {
+                              itemBuilder:
+                                  (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () {
                                     selectedMonthIndex = index;
-                                    month.value = "${index + 1}".length != 2
-                                        ? "0${index + 1}"
-                                        : "${index + 1}";
-                                    monthName.value = DateFormat('MMMM').format(
-                                        DateTime.parse(
-                                            "${year.value}-${month.value}-${day.value}"));
-                                    now = DateTime.parse(
-                                        "${year.value}-${month.value}-${day.value}");
-                                    totalDays = daysInMonth(now);
-                                    listOfDates = List<int>.generate(
-                                        totalDays, (i) => i + 1);
-                                    todayDay = DateFormat('dd').format(now);
-                                    getWeekDates(now);
-                                    log(DateFormat('EEEE').format(now));
+                                    month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
+                                    selectedYear = selectYearByMonth(month: month.value, currentSessionYear: currentSessionYear);
+                                    // print(month.value);
+                                    daysInMonth = getMonthDays(year: selectedYear,month: month.value);
+                                    if(daysInMonth.length <= int.parse(day.value) ) {
+                                      day.value = 1.toString();
+                                      selectedDateIndex = 0;
+                                      _controller.animateTo(
+                                        selectedDateIndex * 1.0, // Adjust 110 according to your item size and spacing
+                                        duration: Duration(milliseconds: 1800),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    }
+                                    selecedDate();
 
-                                    String date = year.value +
-                                        "-" +
-                                        month.value +
-                                        "-" +
-                                        day.value;
-
-                                    // assignmentListStudentController.selDate.value = date;
-                                    // assignmentListStudentController
-                                    //     .getAssignmentData();
-                                    // Get.back();
+                                    setState(() {
+                                    });
+                                    // selectedMonthIndex =
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    child: Text(months[index].toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 17,
-                                            color: index == selectedMonthIndex
-                                                ? Colors.white
-                                                : Colors.black)),
+                                        horizontal: 10),
+                                    child: Center(
+                                      child: Text(months[index].toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color: index == selectedMonthIndex
+                                                  ? Colors.white
+                                                  : Colors.black
+                                          )
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
@@ -237,56 +243,37 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                         ],
                       ),
                     ),
+
                     SizedBox(
-                      height: size.height * .110,
+                      height: size.height*.110,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
+                        controller: _controller,
                         child: Row(
-                          children: List.generate(weekDates.length, (index) {
-                            DateTime date = weekDates[index];
-                            String formattedDate = DateFormat('d').format(date);
-                            String formattedDate1 =
-                            DateFormat('MM').format(date);
-                            String formattedDate2 =
-                            DateFormat('yyyy').format(date);
-                            String weekDay = DateFormat('EEEE').format(date);
+                          children: List.generate(daysInMonth.length, (index) {
+
+                            DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                            String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
+
                             return Padding(
-                              key: keysList[index],
                               padding: EdgeInsets.only(right: 0, left: 0),
                               child: GestureDetector(
                                 onTap: () {
+                                  selectedDateIndex = index;
+                                  day.value = (index + 1).toString().padLeft(2, '0');
+                                  // print(selectedDateIndex);
+                                  print(day.value);
+                                  selecedDate();
                                   setState(() {
-                                    selectedIndex = index;
-                                    day.value = formattedDate.length != 2
-                                        ? "0$formattedDate"
-                                        : formattedDate;
-                                    // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
-                                    // year.value = formattedDate2;
-                                    log(day.value);
-                                    log(month.value);
-                                    log(year.value);
 
-                                    monthName.value = DateFormat('MMMM').format(
-                                        DateTime.parse(
-                                            "${year.value}-${month.value}-${day.value}"));
-
-                                    String date = year.value +
-                                        "-" +
-                                        month.value +
-                                        "-" +
-                                        day.value;
-                                    log(date);
-                                    // assignmentListStudentController.selDate.value = date;
-                                    // assignmentListStudentController
-                                    //     .getAssignmentData();
                                   });
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: index == selectedIndex
+                                        color: index == selectedDateIndex
                                             ? Colors.white
                                             : Colors.transparent,
                                         borderRadius:
@@ -296,20 +283,22 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                       child: Column(
                                         children: [
                                           Text(
-                                            weekDay[0].toString(),
+                                            dayName.toString(),
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
-                                                color: index == selectedIndex
+                                                color:
+                                                index == selectedDateIndex
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),
                                           Text(
-                                            formattedDate,
+                                            daysInMonth[index].toString(),
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
-                                                color: index == selectedIndex
+                                                color:
+                                                index == selectedDateIndex
                                                     ? Colors.black
                                                     : Colors.white),
                                           ),

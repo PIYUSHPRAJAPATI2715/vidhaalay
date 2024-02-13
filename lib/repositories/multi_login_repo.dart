@@ -1,7 +1,9 @@
 
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/models/multi_login_model.dart';
@@ -9,7 +11,7 @@ import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 
 
-logOutUser() async {
+logOutUser(BuildContext context) async {
   SharedPreferences sharedPreference = await SharedPreferences.getInstance();
   print("Enter000 delete start");
   print("Enter000 delete start");
@@ -30,14 +32,17 @@ logOutUser() async {
     printAllRecord();
     await sharedPreference.clear();
 
-    saveLoginListAllData(loginData);
-    print("Enter000 after save");
-    printAllRecord();
+    if(loginData.isNotEmpty) {
+      saveLoginListAllData(loginData,context);
 
-    Get.offAllNamed(MyRouters.signInPage);
-    showToast(message:"Logged out");
-    if (modelSiteSettings.data != null) {
-      sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+      // print("Enter000 after save");
+      // printAllRecord();
+    } else {
+      Get.offAllNamed(MyRouters.signInPage);
+      showToast(message:"Logged out");
+      if (modelSiteSettings.data != null) {
+        sharedPreference.setString("token", jsonEncode(modelSiteSettings));
+      }
     }
     sharedPreference.setBool("isFirstTime", false);
   });
@@ -55,7 +60,7 @@ Future<List<MultiLoginModel>> getLoginData() async {
   }
 }
 
-Future<void> saveLoginListAllData(List<MultiLoginModel> data) async {
+Future<void> saveLoginListAllData(List<MultiLoginModel> data,BuildContext context) async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -63,6 +68,17 @@ Future<void> saveLoginListAllData(List<MultiLoginModel> data) async {
   print("encodedData : $encodedData");
 
   await prefs.setStringList('loginData', encodedData);
+
+  MultiLoginModel lastData = data[data.length - 1];
+
+  final signInController = Get.put(SignInController());
+
+  signInController.login(
+    context: context,
+    email: lastData.email!,
+    type: lastData.type!,
+    pass: lastData.password!,
+  );
 }
 
 Future<void> saveLoginData(MultiLoginModel data) async {

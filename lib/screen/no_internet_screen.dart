@@ -17,9 +17,10 @@ class NoConnectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (ischeck) {
+        if (isInternetOn && isScreenOpen) {
           return true;
         } else {
+          showToast(message:"You are still not connected with internet. Please check the internet connection.");
           return false;
         }
       },
@@ -86,10 +87,11 @@ class NoConnectionScreen extends StatelessWidget {
                       bottom: 30,
                       child: GestureDetector(
                         onTap: () {
-                          if (ischeck) {
+                          // setSt
+                          if (isInternetOn && isScreenOpen) {
                             Navigator.pop(context);
                           } else {
-                            // showToast(message:"Please check the internet connection.");
+                            showToast(message:"You are still not connected with internet. Please check the internet connection.");
                           }
                         },
                         child: Card(

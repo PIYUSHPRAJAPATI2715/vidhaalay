@@ -9,6 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
+import 'package:vidhaalay_app/controller/student_controller/get_student_profile_controller.dart';
+import 'package:vidhaalay_app/controller/teacher_controller/get_profile_controller_teacher.dart';
+import 'package:vidhaalay_app/controller/user_Controller/get_profile_controller.dart';
 import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
 import 'package:vidhaalay_app/login%20screens/signup_screen.dart';
 import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
@@ -29,6 +32,7 @@ import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/video_lecture_teacher_screen.dart';
 import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
 import 'package:vidhaalay_app/widgets/multi_login_alert_dialogbox.dart';
 
 import '../login screens/splash.dart';
@@ -43,6 +47,9 @@ class commonDrawer extends StatefulWidget{
 class _commonDrawerState extends State<commonDrawer> {
   final bottomController = Get.put(BottomNavBarController());
   // Rx<ClassList> getClassListModel = ClassList().obs;
+  final getProfileController = Get.put(GetProfileController());
+  final getTeacherProfileController = Get.put(GetTeacherProfileController());
+  final getStudentProfileController = Get.put(GetStudentProfileController());
 
   String username = '';
   String? networkProfileImage;
@@ -115,54 +122,92 @@ class _commonDrawerState extends State<commonDrawer> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.transparent,
-                            child: ClipOval(
-                              child: isProfileLoading
-                                  ? Shimmer.fromColors(
-                                // ignore: sort_child_properties_last
-                                child: CircleAvatar(
-                                    radius: 60, backgroundColor: Colors.grey),
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[400]!,
-                              )
-                                  : networkProfileImage != null
-                                  ? CachedNetworkImage(
-                                imageUrl: networkProfileImage.toString(),
-                                fit: BoxFit.fill,
-                                errorWidget: (__, _, ___) => Image.asset(
-                                  AppAssets.collageImg,
-                                  fit: BoxFit.cover,
-                                  width: double.maxFinite,
+                          bottomController.userType == 0 ? Obx(
+                            () => commonProfileImageCircle(
+                                context: context,
+                                isProfileImageLoading:
+                                !getProfileController.isProfileLoading.value,
+                                isProfileExist:
+                                getProfileController.networkProfileImage !=
+                                    null,
+                                image: getProfileController
+                                // .getProfileModel.value.data!.profileImage
+                                    .networkProfileImage,radius: 60),
+                          ) : bottomController.userType == 1 ? Obx(
+                                () => commonProfileImageCircle(
+                                    context: context,
+                                    isProfileImageLoading: !getTeacherProfileController
+                                        .isProfileLoading.value,
+                                    isProfileExist: getTeacherProfileController
+                                        .networkProfileImage !=
+                                        null,
+                                    image:
+                                    getTeacherProfileController
+                                    // .getProfileModel.value.data!.profileImage
+                                        .networkProfileImage,
+                                    radius: 60
                                 ),
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                placeholder: (context, url) =>
-                                    Shimmer.fromColors(
-                                      // ignore: sort_child_properties_last
-                                      child: CircleAvatar(
-                                          radius: 60,
-                                          backgroundColor: Colors.grey),
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[400]!,
-                                    ),
-                              )
-                              // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
-                                  : Image.asset(
-                                AppAssets.studentImg,
-                                fit: BoxFit.cover,
-                                // height: 35,
-                              ),
-                            ),
+                          ) : Obx(
+                                () => commonProfileImageCircle(
+                                    context: context,
+                                    isProfileImageLoading: !getStudentProfileController.isProfileLoading.value,
+                                    isProfileExist: getStudentProfileController.networkProfileImage != null,
+                                    image:
+                                    getStudentProfileController
+                                    // .getProfileModel.value.data!.profileImage
+                                        .networkProfileImage,
+                                    radius: 60
+                                ),
                           ),
+
+                          // CircleAvatar(
+                          //   radius: 60,
+                          //   backgroundColor: Colors.transparent,
+                          //   child: ClipOval(
+                          //     child: isProfileLoading
+                          //         ? Shimmer.fromColors(
+                          //       // ignore: sort_child_properties_last
+                          //       child: CircleAvatar(
+                          //           radius: 60, backgroundColor: Colors.grey),
+                          //       baseColor: Colors.grey[300]!,
+                          //       highlightColor: Colors.grey[400]!,
+                          //     )
+                          //         : networkProfileImage != null
+                          //         ? CachedNetworkImage(
+                          //       imageUrl: networkProfileImage.toString(),
+                          //       fit: BoxFit.fill,
+                          //       errorWidget: (__, _, ___) => Image.asset(
+                          //         AppAssets.collageImg,
+                          //         fit: BoxFit.cover,
+                          //         width: double.maxFinite,
+                          //       ),
+                          //       imageBuilder: (context, imageProvider) =>
+                          //           Container(
+                          //             decoration: BoxDecoration(
+                          //               image: DecorationImage(
+                          //                 image: imageProvider,
+                          //                 fit: BoxFit.cover,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //       placeholder: (context, url) =>
+                          //           Shimmer.fromColors(
+                          //             // ignore: sort_child_properties_last
+                          //             child: CircleAvatar(
+                          //                 radius: 60,
+                          //                 backgroundColor: Colors.grey),
+                          //             baseColor: Colors.grey[300]!,
+                          //             highlightColor: Colors.grey[400]!,
+                          //           ),
+                          //     )
+                          //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                          //         : Image.asset(
+                          //       AppAssets.studentImg,
+                          //       fit: BoxFit.cover,
+                          //       // height: 35,
+                          //     ),
+                          //   ),
+                          // ),
                           // const CircleAvatar(
                           //   radius: 60,
                           //   backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
@@ -243,34 +288,34 @@ class _commonDrawerState extends State<commonDrawer> {
                             // height: 23,
                           ),
                         ),
-                        const SizedBox(height: 10,),
-                        ListTile(
-                          onTap: (){
-
-                            // MultiLoginModel data = MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3');
-                            // saveLoginData(data);
-                            Get.toNamed(MyRouters.notificationScreenUser);
-                          },
-                          visualDensity:
-                          const VisualDensity(
-                              horizontal: -4, vertical: -4),
-                          title: const Text(
-                            'Notification',
-                            style: TextStyle(
-                                color: AppThemes.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-
-                          ),
-                          leading: Image.asset(
-                            AppAssets.notification,
-                            height: 20,
-                            width: 24,
-                            color: AppThemes.white,
-                            // width: 23,
-                            // height: 23,
-                          ),
-                        ),
+                        // const SizedBox(height: 10,),
+                        // ListTile(
+                        //   onTap: (){
+                        //
+                        //     // MultiLoginModel data = MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3');
+                        //     // saveLoginData(data);
+                        //     Get.toNamed(MyRouters.notificationScreenUser);
+                        //   },
+                        //   visualDensity:
+                        //   const VisualDensity(
+                        //       horizontal: -4, vertical: -4),
+                        //   title: const Text(
+                        //     'Notification',
+                        //     style: TextStyle(
+                        //         color: AppThemes.white,
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.w500),
+                        //
+                        //   ),
+                        //   leading: Image.asset(
+                        //     AppAssets.notification,
+                        //     height: 20,
+                        //     width: 24,
+                        //     color: AppThemes.white,
+                        //     // width: 23,
+                        //     // height: 23,
+                        //   ),
+                        // ),
                         const SizedBox(height: 10,),
                         ListTile(
                           onTap: (){

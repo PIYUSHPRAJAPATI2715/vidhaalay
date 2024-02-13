@@ -22,7 +22,6 @@ class StudentClassTimeController extends GetxController{
   Future<void> getTimeTableData() async {
     try {
       isDataLoading.value = true;
-
       SharedPreferences pref = await SharedPreferences.getInstance();
       int classId = int.parse(await pref.getString('classId')!);
       print("classID : $classId");

@@ -469,7 +469,7 @@ class _MyProfileTeacherState extends State<MyProfileTeacher> {
                               // height:  double.maxFinite,
                               errorWidget: (__, _, ___) =>
                                   Image.asset(
-                                    AppAssets.collageImg,
+                                    AppAssets.studentImg,
                                     fit: BoxFit.cover,
                                     width: double.maxFinite,
                                   ),

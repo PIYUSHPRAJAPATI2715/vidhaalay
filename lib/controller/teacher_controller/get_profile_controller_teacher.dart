@@ -242,9 +242,11 @@ class GetTeacherProfileController extends GetxController {
         phone: phoneController.text.trim(),
       ).then((value) async {
         if(value.status == true){
-          showToast(message:value.msg.toString());
+          Get.back();
+          showToast(message: "Your profile has been saved");
+          // showToast(message:value.msg.toString());
         } else {
-          showToast(message:value.msg.toString().toString());
+          showToast(message:value.msg.toString().toString(),isError: true);
         }
       });
     }

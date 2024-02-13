@@ -489,14 +489,14 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () async {
 
                             // String? token = await FirebaseMessaging.instance.getToken();
-                            if (signInController.formKey.currentState!.validate()) {
-                              FocusManager.instance.primaryFocus!.unfocus();
-                              signInController.login(context: context,email: signInController.emailController.text,
-                                type:  signInController.userType.value,
-                                pass: signInController.passwordController.text,
-                              );
-                            }
-                            // _showMultiLoginAlertDialog(context);
+                            // if (signInController.formKey.currentState!.validate()) {
+                            //   FocusManager.instance.primaryFocus!.unfocus();
+                            //   signInController.login(context: context,email: signInController.emailController.text,
+                            //     type:  signInController.userType.value,
+                            //     pass: signInController.passwordController.text,
+                            //   );
+                            // }
+                            _showMultiLoginAlertDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -567,10 +567,13 @@ class _SignInPageState extends State<SignInPage> {
     List<MultiLoginModel> loginData =
     [
       MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar", token: 'test1'),
-      MultiLoginModel(userName: "student",email: "student6@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
+      MultiLoginModel(userName: "student1",email: "student6@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
+      MultiLoginModel(userName: "student2",email: "student7@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
+      // MultiLoginModel(userName: "user1",email: "student7@yopmail.com",type :"user",password: "User@123", token: 'test2'),
+      // MultiLoginModel(userName: "student1",email: "sumits@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
       MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3'),
+      MultiLoginModel(userName: "user",email: "usert@yopmail.com",type :"user",password: "User@123", token: 'test3'),
     ];
-
     print("loginData : $loginData");
 
     showDialog(
@@ -677,6 +680,9 @@ class _SignInPageState extends State<SignInPage> {
             soGoogle: '1')
         .then((value) async {
       if (value.status == true) {
+        MultiLoginModel data = MultiLoginModel(image:  googleUser.photoUrl.toString(),isSocialLogin: true,userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"user",password: "", token: value.data!.token!);
+        saveLoginData(data);
+
         SharedPreferences pref = await SharedPreferences.getInstance();
         pref.setString('user_info', jsonEncode(value));
         pref.setString('cookie', value.data!.token.toString());
@@ -712,7 +718,6 @@ class _SignInPageState extends State<SignInPage> {
               name: value1.user!.displayName.toString(),
               deviceType: signInController.deviceType.toString())
           .then((value) async {
-
         if (value.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_info', jsonEncode(value));

@@ -319,7 +319,7 @@ class _MyProfileScreenStuState extends State<MyProfileScreenStu> {
                                   // height:  double.maxFinite,
                                   errorWidget: (__, _, ___) =>
                                       Image.asset(
-                                        AppAssets.collageImg,
+                                        AppAssets.studentImg,
                                         fit: BoxFit.cover,
                                         width: double.maxFinite,
                                       ),

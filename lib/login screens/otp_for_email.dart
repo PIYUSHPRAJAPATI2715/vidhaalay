@@ -138,7 +138,8 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                       height: 9,
                     ),
                     Text(
-                      'Enter your verification code sent on your Email',
+                      // 'Enter your verification code sent on your Email',
+                      'Enter your verification code sent on your email ${email.toString()}.',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -190,13 +191,36 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 25,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          verifyEmailOtpSend(context: context,email: email.toString(), type: "user").then((value) async {
+                            if(value.status == true) {
+                              showToast(message:value.msg.toString().toString());
+                            } else {
+                              showToast(message:value.msg.toString().toString());
+                            }
+                          });
+                        },
+                        child: Text(
+                          "resend otp".toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     ElevatedButton(
                       onPressed: () {
                         if(formKey99.currentState!.validate()){
                           verifyEmailOtp(email: email.toString(),type: 'user',context: context,otp: otpcontroller.text.trim()).then((value) async {
-                            showToast(message:value.msg.toString());
 
                             print("value10:  $value");
                             print(value.msg);
@@ -224,6 +248,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                                 Get.back();
                                 Get.back();
                               }
+                              showToast(message:value.msg.toString());
                               // Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: []);
                             }else{
                               // showToast(message:value.msg.toString());

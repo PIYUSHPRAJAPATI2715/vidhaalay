@@ -24,10 +24,6 @@ class StudentExamTimeTableController extends GetxController {
 
   String? selectedDate;
 
-  RxInt selectedIndex = 0.obs;
-  RxInt selectedMonthIndex = 0.obs;
-
-
   Future getExamTypeData() async {
     isExamTypeLoading.value = true;
     await getExamTypeListRepo().then((values) {

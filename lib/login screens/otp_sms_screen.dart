@@ -131,7 +131,8 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                       height: 9,
                     ),
                     Text(
-                      'Enter your verification code sent on your mobile number',
+                      // 'Enter your verification code sent on your mobile number ',
+                      'Enter your verification code sent on your phone number +91 ${mobile.toString()}.',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -139,7 +140,7 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 33,
+                      height: 35,
                     ),
                     Form(
                       key: formKey99,
@@ -184,7 +185,31 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 25,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          verifySmsOtpSendRepo(mobile: mobile.toString(),type: 'user',context: context).then((value) {
+                            if(value.status == true){
+                              showToast(message:value.msg.toString().toString());
+                            }else{
+                              showToast(message:value.msg.toString().toString());
+                            }
+                          });
+                        },
+                        child: Text(
+                          "resend otp".toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     ElevatedButton(
                       onPressed: () {

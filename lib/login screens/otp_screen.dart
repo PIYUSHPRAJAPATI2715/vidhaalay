@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vidhaalay_app/repositories/reset_via_email_repo.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../repositories/send_verify_otp_email_repo.dart';
@@ -21,11 +22,13 @@ class _OtpScreenState extends State<OtpScreen> {
   final formKey99 = GlobalKey<FormState>();
   TextEditingController otpcontroller = TextEditingController();
   String email = '';
+
   @override
   void initState() {
     super.initState();
     email = Get.arguments;
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -115,7 +118,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       height: 9,
                     ),
                      Text(
-                      'Enter your verification code sent on your email.',
+                      'Enter your verification code sent on your email ${email.toString()}.',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -151,6 +154,14 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                               ],
                             )),
+                        validator: (v) {
+                          if (v!.isEmpty) {
+                            return "OTP code Required";
+                          } else if (v.length != 6) {
+                            return "Enter complete OTP code";
+                          }
+                          return null;
+                        },
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         controller: otpcontroller,
                         keyboardType: TextInputType.number,
@@ -159,7 +170,32 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 25,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          forgotPassOtpEmail(context: context,email: email.toString(),
+                          ).then((value) async {
+                            if(value.status == true){
+                              showToast(message:value.msg.toString()!);
+                            }else{
+                              showToast(message:value.msg.toString()!,isError: true);
+                            }
+                          });
+                        },
+                        child: Text(
+                          "resend otp".toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -169,8 +205,8 @@ class _OtpScreenState extends State<OtpScreen> {
                             if(value.status == true){
                               SharedPreferences pref = await SharedPreferences.getInstance();
                               pref.setString('cookie', value.data!.token.toString());
-                              showToast(message:value.msg.toString().toString());
                               Get.toNamed(MyRouters.createPasswordScreen);
+                              showToast(message:value.msg.toString().toString());
                             }else{
                               showToast(message:value.msg.toString().toString());
                             }

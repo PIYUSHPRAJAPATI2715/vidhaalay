@@ -48,6 +48,16 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
             ),
           ),
           centerTitle: true,
+          leading: IconButton(
+            icon: Image.asset(
+              AppAssets.arrowBack,
+              width: 19,
+              color: AppThemes.textBrown,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
           actions: [
             IconButton(
                 onPressed: () async{
@@ -105,103 +115,111 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
                       const SizedBox(
                         height: 7,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipOval(
-                            child: Image.asset(
-                              AppAssets.studentImg,
-                              width: 13,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'By : ',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          Text(
-                            'Rosie David',
-                            style:  GoogleFonts.poppins(
-                                color: Colors.orange,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                        ],
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     ClipOval(
+                      //       child: Image.asset(
+                      //         AppAssets.studentImg,
+                      //         width: 13,
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Text(
+                      //       'By : ',
+                      //       style: GoogleFonts.poppins(
+                      //           color: Colors.grey,
+                      //           fontSize: 12.0,
+                      //           fontWeight: FontWeight.w500
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       'Rosie David',
+                      //       style:  GoogleFonts.poppins(
+                      //           color: Colors.orange,
+                      //           fontSize: 13.0,
+                      //           fontWeight: FontWeight.w500
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 7,
+                      // ),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //
+                      //     ClipOval(
+                      //       child: Image.asset(
+                      //         AppAssets.watchIcon,
+                      //         width: 13,
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Text(
+                      //       '8.00 AM ',
+                      //       style: GoogleFonts.poppins(
+                      //           color: Colors.grey,
+                      //           fontSize: 13.0,
+                      //           fontWeight: FontWeight.w500
+                      //       ),
+                      //     ),
+                      //     Text(
+                      //       '3.00 PM',
+                      //       style:  GoogleFonts.poppins(
+                      //           color: Colors.grey,
+                      //           fontSize: 13.0,
+                      //           fontWeight: FontWeight.w500
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      /**/
+                      // const SizedBox(
+                      //   height: 7,
+                      // ),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //
+                      //     ClipOval(
+                      //       child: Image.asset(
+                      //         AppAssets.location,
+                      //         width: 13,
+                      //         color: Colors.red,
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Text(
+                      //       '4101 Parkway Street, St. Louis., California',
+                      //       style: GoogleFonts.poppins(
+                      //           color: Colors.grey,
+                      //           fontSize: 13.0,
+                      //           fontWeight: FontWeight.w500
+                      //       ),
+                      //     ),
+                      //
+                      //   ],
+                      // ),
+                      const SizedBox(
+                        height: 19,
+                      ),
+                      const Text(
+                        "Detail",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(
                         height: 7,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-
-                          ClipOval(
-                            child: Image.asset(
-                              AppAssets.watchIcon,
-                              width: 13,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '8.00 AM ',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          Text(
-                            '3.00 PM',
-                            style:  GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-
-                          ClipOval(
-                            child: Image.asset(
-                              AppAssets.location,
-                              width: 13,
-                              color: Colors.red,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '4101 Parkway Street, St. Louis., California',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500
-                            ),
-                          ),
-
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 12,
                       ),
                       Text(
                         notificationController.getNotificationDetailsModel.value.data!.message!.toString(),
@@ -212,46 +230,37 @@ class _UserNotificationDetailScreenState extends State<UserNotificationDetailScr
                             fontWeight: FontWeight.w500
                         ),
                       ),
-                      const SizedBox(
-                        height: 19,
-                      ),
-                      const Text(
-                        "Activities",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Text(
-                        '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                        style: GoogleFonts.poppins(
-                            color: Colors.grey,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w500
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                        style: GoogleFonts.poppins(
-                            color: Colors.grey,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w500
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-                        style: GoogleFonts.poppins(
-                            color: Colors.grey,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w500
-                        ),
-                      ),
+
+                      // Text(
+                      //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                      //   style: GoogleFonts.poppins(
+                      //       color: Colors.grey,
+                      //       fontSize: 13.0,
+                      //       fontWeight: FontWeight.w500
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
+                      // Text(
+                      //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                      //   style: GoogleFonts.poppins(
+                      //       color: Colors.grey,
+                      //       fontSize: 13.0,
+                      //       fontWeight: FontWeight.w500
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
+                      // Text(
+                      //   '* It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+                      //   style: GoogleFonts.poppins(
+                      //       color: Colors.grey,
+                      //       fontSize: 13.0,
+                      //       fontWeight: FontWeight.w500
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

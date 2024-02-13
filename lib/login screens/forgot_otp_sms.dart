@@ -34,6 +34,7 @@ class _ForgotOtpSmsScreenState extends State<ForgotOtpSmsScreen> {
     super.initState();
     mobile = Get.arguments;
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -123,7 +124,7 @@ class _ForgotOtpSmsScreenState extends State<ForgotOtpSmsScreen> {
                       height: 9,
                     ),
                     Text(
-                      'Enter your verification code sent on your Email',
+                      'Enter your verification code sent on your phone number +91 ${mobile.toString()}.',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -175,7 +176,32 @@ class _ForgotOtpSmsScreenState extends State<ForgotOtpSmsScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 25,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          forgotPassOtpSms(context: context,mobile:  mobile.toString(),
+                          ).then((value) async {
+                            if(value.status == true){
+                              showToast(message:value.msg.toString()!);
+                            }else{
+                              showToast(message:value.msg.toString()!);
+                            }
+                          });
+                        },
+                        child: Text(
+                          "resend otp".toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     ElevatedButton(
                       onPressed: () {

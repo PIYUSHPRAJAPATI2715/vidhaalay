@@ -119,26 +119,39 @@ Future getAuthHeader() async {
 showToast({required String message, bool isError = false
 // Color? backgroundColor
 }) {
-  Fluttertoast.cancel();
+  // Fluttertoast.cancel();
 
   Color backgroundColor = isError ? Colors.red : AppThemes.white;
   Color borderColor = isError ?  Colors.white : AppThemes.primaryColor;
   Color textColor = isError ? AppThemes.white : AppThemes.primaryColor;
 
-
   Get.snackbar(
-    "Vidhyaalay",
     message,
-    colorText:  textColor,
-    // backgroundColor != null ? Colors.white : AppThemes.primaryColor, // text color
+    '',
+    messageText: Container(),
+    colorText: textColor,
+    snackPosition: SnackPosition.TOP,
     backgroundColor: backgroundColor,
-    // backgroundColor != null ? backgroundColor! : AppThemes.white, // background color
     borderColor: borderColor,
-    // backgroundColor != null ? Colors.white : AppThemes.primaryColor, // border color
     borderWidth: 1.5,
-    margin: EdgeInsets.only(top: 15,left: 20,right: 20),
-    duration: Duration(seconds: 1),
+    padding: const EdgeInsets.only(top: 14,left: 10,right: 10,bottom: 10),
+    margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20,top: 25),
+    duration: Duration(milliseconds: 1600,),
   );
+
+  // Get.snackbar(
+  //   "Vidhyaalay",
+  //   message,
+  //   colorText:  textColor,
+  //   // backgroundColor != null ? Colors.white : AppThemes.primaryColor, // text color
+  //   backgroundColor: backgroundColor,
+  //   // backgroundColor != null ? backgroundColor! : AppThemes.white, // background color
+  //   borderColor: borderColor,
+  //   // backgroundColor != null ? Colors.white : AppThemes.primaryColor, // border color
+  //   borderWidth: 1.5,
+  //   margin: EdgeInsets.only(top: 15,left: 20,right: 20),
+  //   duration: Duration(seconds: 1),
+  // );
 
   // Get.snackbar(
   //   "Vidhyaalay",
