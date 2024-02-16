@@ -228,12 +228,12 @@ class GetProfileController extends GetxController {
             ]);
           } else {
             Get.back();
-            showToast(message: "Your profile has been saved");
-            // showToast(message:value.msg.toString());
+            // showToast(message: "Your profile has been saved");
+            showToast(message:value.msg.toString());
           }
 
         } else {
-          showToast(message:value.msg.toString().toString());
+          showToast(message:value.msg.toString().toString(),isError: true);
         }
       });
     }

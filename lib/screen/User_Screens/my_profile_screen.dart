@@ -204,18 +204,32 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       left: 20,
                       child: Row(
                         children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(Icons.arrow_back,color: Colors.white,)),
-                          SizedBox(
-                            width: 15,
+                          IconButton(
+                            icon: Image.asset(
+                              AppAssets.arrowBack,
+                              width: 19,
+                              color: AppThemes.white,
+                            ),
+                            onPressed: () {
+                              Get.back();
+                            },
                           ),
+                          // GestureDetector(
+                          //     onTap: () {
+                          //       Navigator.pop(context);
+                          //     },
+                          //     child:
+                          //     Padding(
+                          //         padding: EdgeInsets.all(5),
+                          //         child: Icon(Icons.arrow_back,color: Colors.white,))
+                          // ),
+                          // SizedBox(
+                          //   width: 15,
+                          // ),
                           Container(
                               height: size.height * 0.05,
                               // width: size.width * 0.8,
-                              width: size.width * 0.72,
+                              width: size.width * 0.65,
                               // width: 260,
                               // color: Colors.black,
                               child: Center(

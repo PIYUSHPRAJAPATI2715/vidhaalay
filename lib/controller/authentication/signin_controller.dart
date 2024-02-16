@@ -47,7 +47,7 @@ class SignInController extends GetxController {
 
   RxBool isLoading = false.obs;
   String deviceType = '';
-  String deviceToken = '';
+  // String deviceToken = '';
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -55,8 +55,8 @@ class SignInController extends GetxController {
   getDeviceInfo() async {
     deviceType = getDeviceType();
     print("deviceType : $deviceType");
-    deviceToken = (await FirebaseMessaging.instance.getToken())!;
-    print("deviceToken : ${deviceToken}  bas");
+    // deviceToken = (await FirebaseMessaging.instance.getToken())!;
+    // print("deviceToken : ${deviceToken}  bas");
   }
 
   String getDeviceType() {
@@ -81,6 +81,7 @@ class SignInController extends GetxController {
   }) async {
      OverlayEntry loader = Helpers.overlayLoader(context);
       Overlay.of(context).insert(loader);
+     String deviceToken = (await FirebaseMessaging.instance.getToken())!;
 
       var userInfo = <String, dynamic>{};
       userInfo['email'] = email;

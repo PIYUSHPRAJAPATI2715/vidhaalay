@@ -357,7 +357,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               // Get.toNamed(MyRouters.signInPage);
                               Get.offAllNamed(MyRouters.signInPage);
                             }else{
-                              showToast(message:value.msg.toString());
+                              showToast(message:value.msg.toString(),isError: true);
                             }
 
                           });

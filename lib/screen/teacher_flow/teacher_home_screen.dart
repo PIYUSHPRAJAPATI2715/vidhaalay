@@ -15,6 +15,7 @@ import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.da
 import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay_app/widgets/resources.dart';
 import '../../controller/bottom_controller.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -366,9 +367,11 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    classData !=
-                                        null
-                                        ? Row(
+
+                                    classData ==
+                                        null ||  classData.subject == null
+                                        ? Text("No Class Available")
+                                        : Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -380,14 +383,14 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                           MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                                    classData.time,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                                  ),
-                                                  SizedBox(
+                                              classData.time,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13,
+                                                  fontWeight:
+                                                  FontWeight.w700),
+                                            ),
+                                            SizedBox(
                                               width: size.width * .050,
                                             ),
                                             Container(
@@ -423,26 +426,6 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                     children: [
-                                                      // commonProfileImageCircle(
-                                                      //     context: context,
-                                                      //     isProfileImageLoading: false,
-                                                      //     isProfileExist:
-                                                      //     classData.teacher.profileImage !=
-                                                      //         null,
-                                                      //     image: classData.teacher.profileImage
-                                                      // ),
-
-                                                      // commonProfileImageCircle(
-                                                      //   context: context,
-                                                      //   isProfileImageLoading: classData.teacher == null,
-                                                      //   isProfileExist:
-                                                      //   classData.teacher.profileImage !=
-                                                      //       null,
-                                                      //   image: classData.teacher.profileImage
-                                                      //       .toString(),
-                                                      //   radius: 10,
-                                                      //   // classData.teacher.profileImage
-                                                      // ),
                                                       ClipOval(
                                                         child: Image.asset(
                                                           AppAssets.studentImg,
@@ -475,8 +458,8 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                           ],
                                         ),
                                       ],
-                                    )
-                                        : Text("No Class Available"),
+                                    ),
+
                                     const SizedBox(
                                       height: 10,
                                     ),
@@ -488,6 +471,166 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                         ),
                       ),
                     ),
+
+                    // Flexible(
+                    //   flex: 4,
+                    //   fit: FlexFit.tight,
+                    //   child: Container(
+                    //     color: AppThemes.primaryColor,
+                    //     child: Container(
+                    //       width: size.width,
+                    //       // height: 200,
+                    //       decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.only(
+                    //               topRight: Radius.circular(50)
+                    //           ),
+                    //           // borderRadius: BorderRadius.circular(10),
+                    //           color: AppThemes.white),
+                    //       // padding: EdgeInsets.only(top: 20),
+                    //       child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           Padding(
+                    //             padding: EdgeInsets.symmetric(
+                    //               horizontal: size.width * .052,
+                    //             ),
+                    //             child: Column(
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               mainAxisAlignment: MainAxisAlignment.start,
+                    //               children: [
+                    //                 Text(
+                    //                   'NEXT CLASS',
+                    //                   style: GoogleFonts.poppins(
+                    //                       color: Colors.black,
+                    //                       fontSize: 19,
+                    //                       fontWeight: FontWeight.w600),
+                    //                 ),
+                    //                 const SizedBox(
+                    //                   height: 15,
+                    //                 ),
+                    //                 classData !=
+                    //                     null
+                    //                     ? Row(
+                    //                   crossAxisAlignment: CrossAxisAlignment.start,
+                    //                   mainAxisAlignment:
+                    //                   MainAxisAlignment.spaceBetween,
+                    //                   children: [
+                    //                     Row(
+                    //                       crossAxisAlignment:
+                    //                       CrossAxisAlignment.center,
+                    //                       mainAxisAlignment:
+                    //                       MainAxisAlignment.start,
+                    //                       children: [
+                    //                         Text(
+                    //                                 classData.time,
+                    //                                 style: TextStyle(
+                    //                                     color: Colors.black,
+                    //                                     fontSize: 13,
+                    //                                     fontWeight:
+                    //                                         FontWeight.w700),
+                    //                               ),
+                    //                               SizedBox(
+                    //                           width: size.width * .050,
+                    //                         ),
+                    //                         Container(
+                    //                           padding: const EdgeInsets.symmetric(
+                    //                               horizontal: 18, vertical: 6)
+                    //                               .copyWith(right: 50),
+                    //                           decoration: BoxDecoration(
+                    //                             color: AppThemes.lightPink,
+                    //                             borderRadius:
+                    //                             BorderRadius.circular(13.0),
+                    //                           ),
+                    //                           child: Column(
+                    //                             mainAxisAlignment:
+                    //                             MainAxisAlignment.start,
+                    //                             crossAxisAlignment:
+                    //                             CrossAxisAlignment.start,
+                    //                             children: [
+                    //                               Text(
+                    //                                 classData.subject.name,
+                    //                                 // 'Science',
+                    //                                 style: TextStyle(
+                    //                                   color: AppThemes.blueColor,
+                    //                                   fontSize: 15.0,
+                    //                                   fontWeight: FontWeight.w900,
+                    //                                 ),
+                    //                               ),
+                    //                               SizedBox(
+                    //                                 height: size.height * .010,
+                    //                               ),
+                    //                               Row(
+                    //                                 crossAxisAlignment:
+                    //                                 CrossAxisAlignment.center,
+                    //                                 mainAxisAlignment:
+                    //                                 MainAxisAlignment.center,
+                    //                                 children: [
+                    //                                   // commonProfileImageCircle(
+                    //                                   //     context: context,
+                    //                                   //     isProfileImageLoading: false,
+                    //                                   //     isProfileExist:
+                    //                                   //     classData.teacher.profileImage !=
+                    //                                   //         null,
+                    //                                   //     image: classData.teacher.profileImage
+                    //                                   // ),
+                    //
+                    //                                   // commonProfileImageCircle(
+                    //                                   //   context: context,
+                    //                                   //   isProfileImageLoading: classData.teacher == null,
+                    //                                   //   isProfileExist:
+                    //                                   //   classData.teacher.profileImage !=
+                    //                                   //       null,
+                    //                                   //   image: classData.teacher.profileImage
+                    //                                   //       .toString(),
+                    //                                   //   radius: 10,
+                    //                                   //   // classData.teacher.profileImage
+                    //                                   // ),
+                    //                                   ClipOval(
+                    //                                     child: Image.asset(
+                    //                                       AppAssets.studentImg,
+                    //                                       width: 12,
+                    //                                     ),
+                    //                                   ),
+                    //                                   const SizedBox(width: 10),
+                    //                                   Text(
+                    //                                     'By : ',
+                    //                                     style: GoogleFonts.poppins(
+                    //                                         color: Colors.grey,
+                    //                                         fontSize: 12.0,
+                    //                                         fontWeight:
+                    //                                         FontWeight.w500),
+                    //                                   ),
+                    //                                   Text(
+                    //                                     classData.teacher.name,
+                    //                                     // 'Rosie David',
+                    //                                     style: GoogleFonts.poppins(
+                    //                                         color: Colors.black,
+                    //                                         fontSize: 12.0,
+                    //                                         fontWeight:
+                    //                                         FontWeight.w500),
+                    //                                   ),
+                    //                                 ],
+                    //                               ),
+                    //                             ],
+                    //                           ),
+                    //                         )
+                    //                       ],
+                    //                     ),
+                    //                   ],
+                    //                 )
+                    //                     : Text("No Class Available"),
+                    //                 const SizedBox(
+                    //                   height: 10,
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     const Divider(
                       color: AppThemes.dividerColor,
                       height: 0.2,
@@ -523,8 +666,11 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                 height: 12,
                               ),
                               assignmentData ==
-                                      null
-                                  ? SizedBox()
+                                  null || assignmentData.id == null
+                                  ? Text("No Assignment Available")
+                              //     SizedBox(
+                              //   height: 10,
+                              // )
                                   : GestureDetector(
                                 onTap: () {
                                   Get.to(() => AssignmentDetailScreen(),
@@ -543,8 +689,7 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                         Container(
                                           width: size.width * 0.54,
                                           // color: Colors.amber,
-                                          child: Text(assignmentData.assignmentName!
-                                                .toString(),
+                                          child: Text(capitalizeFirstLetter(assignmentData.assignmentName!.toString()),
                                             // 'Social Science',
                                             style: GoogleFonts.poppins(
                                                 color: AppThemes.blueColor,
@@ -560,38 +705,27 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.start,
                                           children: [
+                                            commonProfileImageCircle(
+                                              context: context,
+                                              isProfileImageLoading:  assignmentData
+                                                  .teacher == null,
+                                              isProfileExist:
+                                              assignmentData
+                                                  .teacher.profileImage !=
+                                                  null,
+                                              image: assignmentData
+                                                  .teacher!
+                                                  .profileImage!
+                                                  .toString(),
+                                              radius: 8,
+                                            ),
+
                                             // ClipOval(
                                             //   child: Image.asset(
                                             //     AppAssets.studentImg,
                                             //     width: 13,
                                             //   ),
                                             // ),
-
-                                            commonProfileImageCircle(
-                                                context: context,
-                                                isProfileImageLoading:  assignmentData
-                                                    .teacher == null,
-                                                isProfileExist:
-                                                assignmentData
-                                                    .teacher.profileImage !=
-                                                    null,
-                                                image: assignmentData
-                                                    .teacher!
-                                                    .profileImage!
-                                                    .toString(),
-                                              radius: 8,
-                                            ),
-                                            // commonProfileImageCircle(
-                                            //     context: context,
-                                            //     isProfileImageLoading:
-                                            //     !getProfileController.isProfileLoading.value,
-                                            //     isProfileExist:
-                                            //     getProfileController.networkProfileImage !=
-                                            //         null,
-                                            //     image:  assignmentData
-                                            //         .teacher!
-                                            //         .i!
-                                            //         .toString(),),
                                             SizedBox(
                                               width: 2,
                                             ),
@@ -644,11 +778,14 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                             ],
                           ),
                         ),
                       ), //Container
-                    ), //Flexib
+                    ),
                     Flexible(
                       flex: 4,
                       fit: FlexFit.tight,

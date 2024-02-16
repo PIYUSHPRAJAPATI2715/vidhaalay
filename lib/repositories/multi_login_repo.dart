@@ -7,8 +7,10 @@ import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
 import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
 import 'package:vidhaalay_app/models/login_model.dart';
 import 'package:vidhaalay_app/models/multi_login_model.dart';
+import 'package:vidhaalay_app/repositories/social_login_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
 
 
 logOutUser(BuildContext context) async {
@@ -70,15 +72,45 @@ Future<void> saveLoginListAllData(List<MultiLoginModel> data,BuildContext contex
   await prefs.setStringList('loginData', encodedData);
 
   MultiLoginModel lastData = data[data.length - 1];
-
   final signInController = Get.put(SignInController());
 
-  signInController.login(
-    context: context,
-    email: lastData.email!,
-    type: lastData.type!,
-    pass: lastData.password!,
-  );
+
+  if(lastData.isSocialLogin) {
+    socialLogin(
+        photo: lastData.image,
+        context: context,
+        email: lastData.email.toString(),
+        name: lastData.userName.toString(),
+        deviceType: signInController.deviceType.toString(),
+        soGoogle: '1')
+        .then((value) async {
+      if (value.status == true) {
+        MultiLoginModel data = MultiLoginModel(isSocialLogin: true,userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"user",password: "", token: value.data!.token!);
+        saveLoginData(data);
+
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_info', jsonEncode(value));
+        pref.setString('cookie', value.data!.token.toString());
+        pref.setString('id', value.data!.id.toString());
+        pref.setString('type', value.data!.userType.toString());
+        pref.setString('username', value.data!.name.toString());
+        pref.setString('email', value.data!.email.toString());
+        pref.setBool('isLoggedIn', true);
+        // Get.offAllNamed(MyRouters.drawerForUser);
+        Get.offAll(() => BottomBarScreen(userType: 0,));
+        showToast(message:value.msg.toString());
+      } else {
+        showToast(message:value.msg.toString());
+      }
+    });
+  } else {
+    signInController.login(
+      context: context,
+      email: lastData.email!,
+      type: lastData.type!,
+      pass: lastData.password!,
+    );
+  }
 }
 
 Future<void> saveLoginData(MultiLoginModel data) async {

@@ -141,7 +141,7 @@ class _ForgetSmsScreenState extends State<ForgetSmsScreen> {
                                 showToast(message:value.msg.toString()!);
                                 Get.toNamed(MyRouters.forgotOtpSmsScreen,arguments: mobileController.text.trim());
                               }else{
-                                showToast(message:value.msg.toString()!);
+                                showToast(message:value.msg.toString()!,isError: true);
                               }
                             });
                           }

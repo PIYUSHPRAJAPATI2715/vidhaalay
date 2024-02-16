@@ -243,8 +243,8 @@ class GetTeacherProfileController extends GetxController {
       ).then((value) async {
         if(value.status == true){
           Get.back();
-          showToast(message: "Your profile has been saved");
-          // showToast(message:value.msg.toString());
+          // showToast(message: "Your profile has been saved");
+          showToast(message:value.msg.toString());
         } else {
           showToast(message:value.msg.toString().toString(),isError: true);
         }

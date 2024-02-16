@@ -7,6 +7,7 @@ import 'package:vidhaalay_app/controller/teacher_controller/event_detail_control
 import 'package:vidhaalay_app/models/TeacherModel/event_details_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/event_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/helper.dart';
@@ -141,19 +142,21 @@ class UpdateEventController extends GetxController {
           List<String> dateParts = dobController.text.split('-');
 
           evenetDetailController.selectedIndex.value = int.parse(dateParts[2]) - 1;
-          evenetDetailController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          // evenetDetailController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
 
+          evenetDetailController.selectedDate.value = date;
           print("sel Date Index: ${evenetDetailController.selectedIndex.value}");
           print("sel Month Index: ${evenetDetailController.selectedMonthIndex.value}");
 
           evenetDetailController.selectedClassId.value = int.parse(selectClass!);
-          evenetDetailController.getEventData(classId: int.parse(selectClass!),dateFormat : date);
+          evenetDetailController.getEventData();
           Get.back();
-
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
         throw Exception(response.body);
       }

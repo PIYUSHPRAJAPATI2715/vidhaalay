@@ -23,6 +23,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     super.initState();
     settingController.privacypolicyAPICall();
   }
+
   @override
   Widget build(BuildContext context) {
     var deviceHeight = MediaQuery.of(context).size.height;
@@ -49,12 +50,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         ),
       ),
       body: Obx(
-            () => SingleChildScrollView(
+            () => settingController.privacypolicyContent.value.isNotEmpty
+                ? SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: deviceWidth * 0.02, vertical: deviceHeight * 0.02),
-            child: settingController.privacypolicyContent.value.isNotEmpty
-                ? Column(
+                horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
+            child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -64,10 +65,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ],
-            )
-                : Center(child: CircularProgressIndicator()),
+            ),
           ),
-        ),
+        ) : Container(
+        width: deviceWidth,
+        height: deviceHeight,
+        child : Center(child: CircularProgressIndicator()),
+      ),
       ),
     );
   }

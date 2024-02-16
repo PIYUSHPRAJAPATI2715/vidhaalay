@@ -194,7 +194,7 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                             if(value.status == true){
                               showToast(message:value.msg.toString().toString());
                             }else{
-                              showToast(message:value.msg.toString().toString());
+                              showToast(message:value.msg.toString().toString(),isError: true);
                             }
                           });
                         },
@@ -216,8 +216,6 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                         if(formKey99.currentState!.validate()){
                           verifySmsOtp(mobile:mobile.toString(),type: 'user',context: context,otp: otpcontroller.text.trim().toString()).then((value) async{
 
-                            showToast(message:value.msg.toString());
-
                             print("value10:  $value");
                             print(value.msg);
 
@@ -230,7 +228,6 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                             print("isMobileVerify : $isMobileVerify");
 
                             if(value.status == true) {
-                              // showToast(message:value.msg.toString());
 
                               if (isEmailVerify == true && isMobileVerify == true) {
                                 pref.setBool('isLoggedIn', true);
@@ -241,8 +238,9 @@ class _OtpSmsScreenState extends State<OtpSmsScreen> {
                                 Get.back();
                                 Get.back();
                               }
+                              showToast(message:value.msg.toString());
                             } else {
-                              // showToast(message:value.msg.toString());
+                              showToast(message:value.msg.toString(),isError: true);
                             }
                           });
                         }

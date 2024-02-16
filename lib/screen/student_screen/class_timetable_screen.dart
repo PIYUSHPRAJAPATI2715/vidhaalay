@@ -24,8 +24,11 @@ class ClassTimeTableScreen extends StatefulWidget {
 }
 
 class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
+  final ScrollController _dateController = ScrollController();
+  final ScrollController _monthController = ScrollController();
+
+
   final studentClassTimeController = Get.put(StudentClassTimeController());
-  final ScrollController _controller = ScrollController();
   List currentSessionYear = [];
   List<String> months = [
     "April",
@@ -88,8 +91,13 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
-      _controller.animateTo(
+      _dateController.animateTo(
         selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
+      _monthController.animateTo(
+        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -140,7 +148,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                 height: size.height*.230,
                 decoration: const BoxDecoration(
                   color: AppThemes.primaryColor,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
                 ),
                 child:  Padding(
                   padding: EdgeInsets.all(size.width * .010),
@@ -202,6 +210,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemCount: months.length,
+                                controller: _monthController,
                                 itemBuilder:
                                     (BuildContext context, int index) {
                                   return InkWell(
@@ -212,10 +221,16 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                                       // print(month.value);
                                       daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                       if(daysInMonth.length <= int.parse(day.value) ) {
-                                        day.value = 1.toString();
+                                        day.value = 1.toString().padLeft(2, '0');
                                         selectedDateIndex = 0;
-                                        _controller.animateTo(
-                                          selectedDateIndex * 1.0, // Adjust 110 according to your item size and spacing
+                                        _dateController.animateTo(
+                                          selectedDateIndex * 1.0,
+                                          duration: Duration(milliseconds: 1800),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      } else {
+                                        _dateController.animateTo(
+                                          selectedDateIndex * 45.0,
                                           duration: Duration(milliseconds: 1800),
                                           curve: Curves.easeInOut,
                                         );
@@ -253,7 +268,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
-                          controller: _controller,
+                          controller: _dateController,
                           child: Row(
                             children: List.generate(daysInMonth.length, (index) {
 
@@ -331,7 +346,7 @@ class _ClassTimeTableScreenState extends State<ClassTimeTableScreen> {
               width: size.width,
               decoration: const BoxDecoration(
                 color: AppThemes.white,
-                borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
+                borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
               ),
               child: Obx(() {
                 return  !studentClassTimeController.isDataLoading.value ?

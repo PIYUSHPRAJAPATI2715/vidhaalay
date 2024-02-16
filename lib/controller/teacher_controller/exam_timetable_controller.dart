@@ -25,6 +25,7 @@ class ExamTimeTableController extends GetxController {
   // String? selectedExamType;
 
   String? selectedDate;
+  // RxString selectedDate = "".obs;
 
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
@@ -121,10 +122,11 @@ class ExamTimeTableController extends GetxController {
           // Get.back();
           Helpers.hideLoader(loader);
           getExamTimeTableData();
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
 
         throw Exception(response.body);

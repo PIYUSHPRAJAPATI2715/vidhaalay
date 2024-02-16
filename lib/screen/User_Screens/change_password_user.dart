@@ -39,13 +39,13 @@ class _ChangePasswordUserState extends State<ChangePasswordUser> {
       changePassRepo(context: context,oldPassword: oldPasswordController.text.trim(),
           password: confirmPasswordController.text.trim(),type: userType!
       ).then((value) async {
-        // showToast(message:value.msg.toString());
+        // print("Back");
 
         if(value.status == true){
           Get.back();
-          // showToast(message:value.msg.toString());
+          showToast(message:value.msg.toString());
         }else{
-          // showToast(message:value.msg.toString());
+          showToast(message:value.msg.toString(),isError: true);
         }
       });
     }

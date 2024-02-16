@@ -152,11 +152,11 @@ class CreateExamTimeTableController extends GetxController {
           dobController.clear();
           fromTime.clear();
           toTime.clear();
-
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
         Helpers.hideLoader(loader);
         throw Exception(response.body);

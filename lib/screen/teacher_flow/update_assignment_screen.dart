@@ -333,9 +333,18 @@ class _UpdateAssignmentScreenState extends State<UpdateAssignmentScreen> {
                                         height: 5,
                                       ),
                                       updateAssignmentController.getSubjectListModel.value.data!.isEmpty ?
-
-                                      CommonTextfield(obSecure: false, readOnly:  true,
-                                          hintText: "No subject in this class")
+                                      CommonTextfield(
+                                          obSecure: false,
+                                          readOnly:  true,
+                                          hintText: "No subject in this class",
+                                          validator: (value) {
+                                            if (value == null || value.isEmpty) {
+                                              return 'Please select subject';
+                                            } else {
+                                              return null;
+                                            }
+                                          },
+                                      )
                                           :
                                       DropdownButtonHideUnderline(
                                         child: DropdownButtonFormField2<String>(

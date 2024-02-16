@@ -17,7 +17,7 @@ class ClassTimeController extends GetxController{
   // RxInt? selectedClassId;
   RxInt selectedClassId = 0.obs;
 
-  String? selectedDate;
+  RxString selectedDate = "".obs;
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
 
@@ -44,7 +44,7 @@ class ClassTimeController extends GetxController{
 
       Map body = {
         "class_id": selectedClassId!.value,
-        "date": selectedDate
+        "date": selectedDate.value
       };
 
       // Map body = {

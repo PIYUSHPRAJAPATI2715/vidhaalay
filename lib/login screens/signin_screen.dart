@@ -487,16 +487,15 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-
                             // String? token = await FirebaseMessaging.instance.getToken();
-                            // if (signInController.formKey.currentState!.validate()) {
-                            //   FocusManager.instance.primaryFocus!.unfocus();
-                            //   signInController.login(context: context,email: signInController.emailController.text,
-                            //     type:  signInController.userType.value,
-                            //     pass: signInController.passwordController.text,
-                            //   );
-                            // }
-                            _showMultiLoginAlertDialog(context);
+                            if (signInController.formKey.currentState!.validate()) {
+                              FocusManager.instance.primaryFocus!.unfocus();
+                              signInController.login(context: context,email: signInController.emailController.text,
+                                type:  signInController.userType.value,
+                                pass: signInController.passwordController.text,
+                              );
+                            }
+                            // _showMultiLoginAlertDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -568,7 +567,7 @@ class _SignInPageState extends State<SignInPage> {
     [
       MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar", token: 'test1'),
       MultiLoginModel(userName: "student1",email: "student6@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
-      MultiLoginModel(userName: "student2",email: "student7@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
+      MultiLoginModel(userName: "student2",email: "student7@yopmail.com",type :"student",password: "User@1234", token: 'test2'),
       // MultiLoginModel(userName: "user1",email: "student7@yopmail.com",type :"user",password: "User@123", token: 'test2'),
       // MultiLoginModel(userName: "student1",email: "sumits@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
       MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3'),
@@ -670,6 +669,8 @@ class _SignInPageState extends State<SignInPage> {
     print("Token---------${googleUser.email.toString()}");
     final value = await FirebaseAuth.instance.signInWithCredential(credential);
     log(value.credential!.accessToken!);
+
+    String deviceToken = (await FirebaseMessaging.instance.getToken())!;
 
     socialLogin(
             photo: googleUser.photoUrl.toString(),

@@ -48,12 +48,12 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
       ),
       body: Obx(
-            () => SingleChildScrollView(
+            () => settingController.contactUsContent.value.isNotEmpty
+                ? SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: deviceWidth * 0.02, vertical: deviceHeight * 0.02),
-            child: settingController.contactUsContent.value.isNotEmpty
-                ? Column(
+              padding: EdgeInsets.symmetric(
+                  horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
+            child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -64,9 +64,12 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 ),
               ],
             )
-                : Center(child: CircularProgressIndicator()),
           ),
-        ),
+        ) : Container(
+              width: deviceWidth,
+              height: deviceHeight,
+              child : Center(child: CircularProgressIndicator()),
+            ),
       ),
     );
   }

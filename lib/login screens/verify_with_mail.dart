@@ -160,7 +160,7 @@ class _VerifyWithMailState extends State<VerifyWithMail> {
                                 showToast(message:value.msg.toString().toString());
                                 Get.toNamed(MyRouters.otpScreenEmail,arguments: [emailController.text]);
                               }else{
-                                showToast(message:value.msg.toString().toString());
+                                showToast(message:value.msg.toString().toString(),isError: true);
                               }
                             });
                           }

@@ -10,6 +10,7 @@ import 'package:vidhaalay_app/models/TeacherModel/exam_type_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/teacher_list_model.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/exam_type_list_repo.dart';
@@ -152,7 +153,9 @@ class UpdateExamTimeTableController extends GetxController {
           List<String> dateParts = dobController.text.split('-');
 
           examTimeTableController.selectedIndex.value = int.parse(dateParts[2]) - 1;
-          examTimeTableController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          // examTimeTableController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
+          // examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]) - 1);
 
           print("sel Date Index: ${examTimeTableController.selectedIndex.value}");
           print("sel Month Index: ${examTimeTableController.selectedMonthIndex.value}");

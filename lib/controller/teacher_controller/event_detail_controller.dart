@@ -31,20 +31,20 @@ class EvenetDetailController extends GetxController {
         selectedClassId.value = values[0].id;
         classList.clear();
         classList.addAll(values);
-        getEventData(classId: selectedClassId.value,dateFormat : selectedDate.value);
+        getEventData();
       }
     });
   }
 
-  Future<void> getEventData({required String dateFormat,required int classId}) async {
+  Future<void> getEventData() async {
     try {
       print("eNTER");
 
       isDataLoading.value = true;
 
       Map body = {
-        "date": dateFormat,
-        "class_id": classId
+        "date": selectedDate.value,
+        "class_id": selectedClassId.value
       };
       // Map body =  {
       //   "date": "2023-03-04"
@@ -115,11 +115,12 @@ class EvenetDetailController extends GetxController {
         if(responseData['status']) {
           // Get.back();
           Helpers.hideLoader(loader);
-          getEventData(classId: selectedClassId.value,dateFormat : selectedDate.value);
+          getEventData();
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
         throw Exception(response.body);
       }

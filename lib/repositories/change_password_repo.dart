@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/login_model.dart';
@@ -31,16 +32,22 @@ Future<ModelCommon> changePassRepo({oldPassword,context,password,type}) async {
 
   log(response.body);
   Map<String, dynamic> responseData = json.decode(response.body);
-  showToast(message:responseData['msg'].toString());
+  // showToast(message:responseData['msg'].toString());
+  // Get.back();
+
+  print(response.statusCode);
+  print("Back");
 
   if (response.statusCode == 200) {
+
     Helpers.hideLoader(loader);
     return ModelCommon.fromJson(jsonDecode(response.body));
     // return ModelCommon.fromJson(jsonDecode(" "));
   } else {
     Helpers.hideLoader(loader);
+    return ModelCommon.fromJson(jsonDecode(response.body));
 
     // Helpers.createSnackBar(context, response.body['msg']);
-    throw Exception(response.body);
+    // throw Exception(response.body);
   }
 }

@@ -20,7 +20,9 @@ class ExamResultScreen extends StatefulWidget {
 
 class _ExamResultScreenState extends State<ExamResultScreen> {
   final examResultController = Get.put(ExamResultStudentController());
-  final ScrollController _controller = ScrollController();
+  final ScrollController _dateController = ScrollController();
+  final ScrollController _monthController = ScrollController();
+
   List currentSessionYear = [];
   List<String> months = [
     "April",
@@ -82,8 +84,13 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
-      _controller.animateTo(
+      _dateController.animateTo(
         selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
+      _monthController.animateTo(
+        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -134,7 +141,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius:
-                BorderRadius.only(bottomLeft: Radius.circular(70)),
+                BorderRadius.only(bottomLeft: Radius.circular(50)),
               ),
               child: Padding(
                 padding: EdgeInsets.all(size.width * .010),
@@ -194,6 +201,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                         children: [
                           Expanded(
                             child: ListView.builder(
+                              controller: _monthController,
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: months.length,
@@ -207,10 +215,16 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                                     // print(month.value);
                                     daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                     if(daysInMonth.length <= int.parse(day.value) ) {
-                                      day.value = 1.toString();
+                                      day.value = 1.toString().padLeft(2, '0');
                                       selectedDateIndex = 0;
-                                      _controller.animateTo(
-                                        selectedDateIndex * 1.0, // Adjust 110 according to your item size and spacing
+                                      _dateController.animateTo(
+                                        selectedDateIndex * 1.0,
+                                        duration: Duration(milliseconds: 1800),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    } else {
+                                      _dateController.animateTo(
+                                        selectedDateIndex * 45.0,
                                         duration: Duration(milliseconds: 1800),
                                         curve: Curves.easeInOut,
                                       );
@@ -249,7 +263,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
-                        controller: _controller,
+                        controller: _dateController,
                         child: Row(
                           children: List.generate(daysInMonth.length, (index) {
 
@@ -325,7 +339,7 @@ class _ExamResultScreenState extends State<ExamResultScreen> {
               width: size.width,
               decoration: const BoxDecoration(
                 color: AppThemes.white,
-                borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
+                borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

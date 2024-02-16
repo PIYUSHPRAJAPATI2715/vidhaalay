@@ -10,6 +10,7 @@ import 'package:vidhaalay_app/models/admission_body_model.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
 import 'package:vidhaalay_app/resourses/app_assets.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay_app/screen/User_Screens/user_home_screen.dart';
 import '../../controller/get_country_controller.dart';
 import '../../repositories/addmission_repo.dart';
 import '../../resourses/size.dart';
@@ -568,16 +569,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ],
                       ),
                     ]
-
-
-                    //     List.generate(
-                    //   fields.length,
-                    //       (index) => Text(fields[index],style: TextStyle(
-                    //           color: Colors.black,
-                    //         fontWeight: FontWeight.w400,
-                    //         fontSize: 12
-                    //       ),),
-                    // ),
                   ),
                 ),
               ),
@@ -2449,6 +2440,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               hintText: 'Enter Landline Number',
                               controller: landlineNOController,
                               keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(12),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
                               // validator: MultiValidator([
                               //   RequiredValidator(
                               //       errorText:
@@ -2706,6 +2701,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               hintText: 'Enter Landline Number',
                               controller: motherlandlineNOController,
                               keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(12),
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              ],
                               // validator: MultiValidator([
                               //   RequiredValidator(
                               //       errorText:
@@ -2915,7 +2914,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               const SizedBox(
                                                 height: 25,
                                               ),
-                                              const Text('School/Collage Currently Studing',
+                                              const Text('School/College Currently Studing',
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.w600,
                                                       fontSize: 14,
@@ -2925,13 +2924,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               ),
                                               CommonTextfield(
                                                 obSecure: false,
-                                                hintText: 'Enter School/Collage Name',
+                                                hintText: 'Enter School/College Name',
                                                 controller: siblingSchoolControllers[index],
                                                 keyboardType: TextInputType.name,
                                                 validator: MultiValidator([
                                                   RequiredValidator(
                                                       errorText:
-                                                      'Please enter colage\'s name'),
+                                                      'Please enter school/college name'),
                                                 ]),
                                                 onChanged: (value) {
                                                   siblingInfoList[index].schoolName = siblingSchoolControllers[index].text;
@@ -3190,15 +3189,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           ).then((value) {
                                             if(value.status == true){
                                               showToast(message:value.msg.toString().toString());
-                                              Get.toNamed(MyRouters.drawerForUser);
+                                              Get.offAll(() => UserHomeScreen());
                                             }else{
-                                              showToast(message:value.msg.toString().toString());
+                                              showToast(message:value.msg.toString().toString(),isError: true);
                                             }
                                           });
 
                                         }
                                       },
-                                      child: const Text('Save',style: TextStyle(color: Colors.white),),
+                                      child: Text('Submit'.toUpperCase(),style: TextStyle(color: Colors.white),),
                                     ),
                                   ),
                                   const SizedBox(

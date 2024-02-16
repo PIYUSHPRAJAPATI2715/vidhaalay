@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +13,7 @@ import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay_app/widgets/resources.dart';
 import '../../controller/bottom_controller.dart';
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -139,10 +142,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   .getLatestEventModel
                   .value
                   .data?.assignment;
-              classData =  studentHomeController
-                  .getLatestEventModel
-                  .value
-                  .data?.nextClass;
+              classData = studentHomeController.getLatestEventModel.value.data!.nextClass;
               attandanceData =  studentHomeController
                   .getLatestEventModel
                   .value
@@ -308,9 +308,11 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      classData !=
-                                          null
-                                          ? Row(
+
+                                      classData ==
+                                          null ||  classData.subject == null
+                                          ? Text("No Class Available")
+                                      : Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -397,8 +399,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                             ],
                                           ),
                                         ],
-                                      )
-                                          : Text("No Class Available"),
+                                      ),
+
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -445,8 +447,11 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                   height: 12,
                                 ),
                                 assignmentData ==
-                                    null
-                                    ? SizedBox()
+                                    null || assignmentData.id == null
+                                    ? Text("No Assignment Available")
+                            //     SizedBox(
+                            //   height: 10,
+                            // )
                                     : GestureDetector(
                                   onTap: () {
                                     Get.to(() => AssignmentDetailScreen(),
@@ -465,8 +470,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                           Container(
                                             width: size.width * 0.54,
                                             // color: Colors.amber,
-                                            child: Text(assignmentData.assignmentName!
-                                                .toString(),
+                                            child: Text(capitalizeFirstLetter(assignmentData.assignmentName!.toString()),
                                               // 'Social Science',
                                               style: GoogleFonts.poppins(
                                                   color: AppThemes.blueColor,
@@ -555,11 +559,14 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                                     ],
                                   ),
                                 ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                               ],
                             ),
                           ),
                         ), //Container
-                      ), //Flexib
+                      ),
                       Flexible(
                         flex: 4,
                         fit: FlexFit.tight,

@@ -110,11 +110,11 @@ class CreateTimeTableController extends GetxController {
           fromTime.clear();
           toTime.clear();
           Get.back();
-
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
 
         throw Exception(response.body);

@@ -24,7 +24,9 @@ class EventsScreen extends StatefulWidget {
 }
 
 class _EventsScreenState extends State<EventsScreen> {
-  final ScrollController _controller = ScrollController();
+  final ScrollController _dateController = ScrollController();
+  final ScrollController _monthController = ScrollController();
+
   final evenetListStudentController = Get.put(EvenetListStudentController());
   List currentSessionYear = [];
   List<String> months = [
@@ -90,8 +92,13 @@ class _EventsScreenState extends State<EventsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
-      _controller.animateTo(
+      _dateController.animateTo(
         selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
+      _monthController.animateTo(
+        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -134,11 +141,11 @@ class _EventsScreenState extends State<EventsScreen> {
                 ),
               ),
               Container(
-                  height: size.height * .260,
+                  height: size.height * .250,
                   decoration: const BoxDecoration(
                     color: AppThemes.primaryColor,
                     borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(70)),
+                    BorderRadius.only(bottomLeft: Radius.circular(50)),
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(size.width * .010),
@@ -197,6 +204,7 @@ class _EventsScreenState extends State<EventsScreen> {
                             children: [
                               Expanded(
                                 child: ListView.builder(
+                                  controller: _monthController,
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
                                   itemCount: months.length,
@@ -210,10 +218,16 @@ class _EventsScreenState extends State<EventsScreen> {
                                         // print(month.value);
                                         daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                         if(daysInMonth.length <= int.parse(day.value) ) {
-                                          day.value = 1.toString();
+                                          day.value = 1.toString().padLeft(2, '0');
                                           selectedDateIndex = 0;
-                                          _controller.animateTo(
-                                            selectedDateIndex * 1.0, // Adjust 110 according to your item size and spacing
+                                          _dateController.animateTo(
+                                            selectedDateIndex * 1.0,
+                                            duration: Duration(milliseconds: 1800),
+                                            curve: Curves.easeInOut,
+                                          );
+                                        } else {
+                                          _dateController.animateTo(
+                                            selectedDateIndex * 45.0,
                                             duration: Duration(milliseconds: 1800),
                                             curve: Curves.easeInOut,
                                           );
@@ -251,7 +265,7 @@ class _EventsScreenState extends State<EventsScreen> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             physics: BouncingScrollPhysics(),
-                            controller: _controller,
+                            controller: _dateController,
                             child: Row(
                               children: List.generate(daysInMonth.length, (index) {
 
@@ -319,7 +333,7 @@ class _EventsScreenState extends State<EventsScreen> {
                     ),
                   )),
               Positioned.fill(
-                top: size.height * .260,
+                top: size.height * .250,
                 child: Container(
                     height: size.height,
                     width: size.width,

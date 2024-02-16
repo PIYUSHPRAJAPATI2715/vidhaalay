@@ -170,7 +170,8 @@ class _MyAppState extends State<MyApp> {
         appBarTheme: const AppBarTheme(
             titleTextStyle: TextStyle(color: Colors.white),
             actionsIconTheme: IconThemeData(color: Colors.white),
-            iconTheme: IconThemeData(color: Colors.white)),
+            iconTheme: IconThemeData(color: Colors.white)
+        ),
         useMaterial3: true,
         primaryColor: AppThemes.primaryColor,
         primarySwatch: Colors.blueGrey,
@@ -181,7 +182,6 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       // home: CalndarScreen(),
       // MyFormPage(),
-
       // initialRoute: "/drawerForTeacher",
       getPages: MyRouters.route,
       // home: MainColumn(),

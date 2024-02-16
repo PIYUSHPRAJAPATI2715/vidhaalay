@@ -132,12 +132,12 @@ class ExamResultController extends GetxController {
           // Get.back();
           listMap.clear();
           addExamModelList.clear();
-
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
 
         throw Exception(response.body);

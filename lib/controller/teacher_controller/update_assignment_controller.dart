@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:vidhaalay_app/controller/teacher_controller/get_assignment_list_controller.dart';
 import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
 import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
 import 'package:vidhaalay_app/models/studentModel/assignment_detail_model.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/repositories/my_class_repo.dart';
 import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
 import 'package:vidhaalay_app/resourses/api_constant.dart';
@@ -130,12 +132,23 @@ class UpdateAssignmentController extends GetxController {
         print("Assignment responseData  : ${responseData}");
 
         if(responseData['status']) {
-          Get.back();
           Helpers.hideLoader(loader);
+          getAssignmentDetailsModel.value = AssignmentDetails.fromJson(responseData);
+          final getAssignmentController = Get.put(AssignmentListTeacherController());
+
+          List<String> dateParts = dobController.text.split('-');
+          getAssignmentController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          // getAssignmentController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          getAssignmentController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
+
+          getAssignmentController.selectedClassId.value  =  int.parse(selectClass!);
+
+          Get.back();
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
 
       } else {
 

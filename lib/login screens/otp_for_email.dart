@@ -200,7 +200,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                             if(value.status == true) {
                               showToast(message:value.msg.toString().toString());
                             } else {
-                              showToast(message:value.msg.toString().toString());
+                              showToast(message:value.msg.toString().toString(),isError: true);
                             }
                           });
                         },
@@ -251,7 +251,7 @@ class _OtpScreenEmailState extends State<OtpScreenEmail> {
                               showToast(message:value.msg.toString());
                               // Get.offAllNamed(MyRouters.verifyOtpLogin, arguments: []);
                             }else{
-                              // showToast(message:value.msg.toString());
+                              showToast(message:value.msg.toString(),isError: true);
                             }
                           });
                         }

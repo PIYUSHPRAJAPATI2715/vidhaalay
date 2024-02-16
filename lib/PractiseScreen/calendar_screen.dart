@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/get_notification_controller.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/get_assignment_list_controller.dart';
 import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
@@ -29,7 +26,8 @@ class CalndarScreen extends StatefulWidget {
 }
 
 class _CalndarScreenState extends State<CalndarScreen> {
-    final ScrollController _controller = ScrollController();
+  final ScrollController _dateController = ScrollController();
+  final ScrollController _monthController = ScrollController();
 
   List currentSessionYear = [];
   List<String> months = [
@@ -121,8 +119,13 @@ class _CalndarScreenState extends State<CalndarScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
-      _controller.animateTo(
+      _dateController.animateTo(
         selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
+      _monthController.animateTo(
+        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -230,6 +233,7 @@ class _CalndarScreenState extends State<CalndarScreen> {
                         children: [
                           Expanded(
                             child: ListView.builder(
+                              controller: _monthController,
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: months.length,
@@ -243,10 +247,16 @@ class _CalndarScreenState extends State<CalndarScreen> {
                                     // print(month.value);
                                     daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                     if(daysInMonth.length <= int.parse(day.value) ) {
-                                      day.value = 1.toString();
+                                      day.value = 1.toString().padLeft(2, '0');
                                       selectedDateIndex = 0;
-                                      _controller.animateTo(
-                                        selectedDateIndex * 1.0, // Adjust 110 according to your item size and spacing
+                                      _dateController.animateTo(
+                                        selectedDateIndex * 1.0,
+                                        duration: Duration(milliseconds: 1800),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    } else {
+                                      _dateController.animateTo(
+                                        selectedDateIndex * 45.0,
                                         duration: Duration(milliseconds: 1800),
                                         curve: Curves.easeInOut,
                                       );
@@ -285,7 +295,7 @@ class _CalndarScreenState extends State<CalndarScreen> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
-                        controller: _controller,
+                        controller: _dateController,
                         child: Row(
                           children: List.generate(daysInMonth.length, (index) {
 
@@ -372,7 +382,7 @@ class _CalndarScreenState extends State<CalndarScreen> {
                     Text(currentSessionYear.toString(),style: TextStyle(color: Colors.black)),
                     TextButton(onPressed: () {
                       // selectedDateIndex = 31;
-                      _controller.animateTo(
+                      _dateController.animateTo(
                         selectedDateIndex * 50.0, // Adjust 110 according to your item size and spacing
                         duration: Duration(milliseconds: 1800),
                         curve: Curves.easeInOut,

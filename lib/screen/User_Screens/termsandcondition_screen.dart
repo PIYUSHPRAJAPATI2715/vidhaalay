@@ -49,12 +49,12 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
         ),
       ),
       body: Obx(
-        () => SingleChildScrollView(
+        () => settingController.termsContent.value.isNotEmpty
+            ?  SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: deviceWidth * 0.02, vertical: deviceHeight * 0.02),
-            child: settingController.termsContent.value.isNotEmpty
-                ? Column(
+              padding: EdgeInsets.symmetric(
+                  horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
+            child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -65,8 +65,11 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                       ),
                     ],
                   )
-                : Center(child: CircularProgressIndicator()),
           ),
+        ) : Container(
+          width: deviceWidth,
+          height: deviceHeight,
+          child : Center(child: CircularProgressIndicator()),
         ),
       ),
     );

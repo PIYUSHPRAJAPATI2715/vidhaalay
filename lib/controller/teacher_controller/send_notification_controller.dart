@@ -91,10 +91,11 @@ class SendNotificationController extends GetxController {
         if(responseData['status']) {
           Get.back();
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:responseData['msg'].toString(),isError: true);
         }
-        showToast(message:responseData['msg'].toString());
       } else {
 
         throw Exception(response.body);

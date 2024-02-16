@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vidhaalay_app/controller/teacher_controller/exam_timetable_controller.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/screen/teacher_flow/update_exam_timetable.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 import 'package:vidhaalay_app/widgets/common_dropdown.dart';
@@ -24,41 +25,10 @@ class TeacherExamTimeTableScreen extends StatefulWidget {
 class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen> {
 
   final examTimeTableController = Get.put(ExamTimeTableController());
-
-  RxString day = "".obs;
-  RxString month = "".obs;
-  RxString year = "".obs;
-  RxString monthName = "".obs;
-  RxString clinicId = "".obs;
-
-
-  var now = DateTime.now();
-  var totalDays;
-  var listOfDates;
-  var todayDay;
-
-  List<GlobalKey> keysList = [];
-
-  List<DateTime> weekDates = [];
-
-  getWeekDates(DateTime currentDate) {
-    weekDates.clear();
-    for (int i = 1 - int.parse(todayDay);
-    i <= listOfDates.length - int.parse(todayDay);
-    i++) {
-      weekDates.add(currentDate.add(Duration(days: i)));
-      // log(weekDates.toString());
-      // log(DateFormat('EEEE').format(weekDates[0]));
-    }
-    setState(() {});
-    keysList = List.generate(weekDates.length, (index) => GlobalKey());
-    return weekDates;
-  }
-
+  final ScrollController _dateController = ScrollController();
+  final ScrollController _monthController = ScrollController();
+  List currentSessionYear = [];
   List<String> months = [
-    "January",
-    "February",
-    "March",
     "April",
     "May",
     "June",
@@ -67,64 +37,71 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
     "September",
     "October",
     "November",
-    "December"
+    "December",
+    "January",
+    "February",
+    "March",
   ];
-  List<int> years = [];
+  List daysInMonth = [];
 
-  List<int> getYear() {
-    for (int i = 2023; i <= 2050; i++) {
-      years.add(i);
-    }
-    return years;
-  }
-
-  int daysInMonth(DateTime date) {
-    var firstDayThisMonth = DateTime(date.year, date.month, date.day);
-    log("Week days$firstDayThisMonth");
-    var firstDayNextMonth = DateTime(firstDayThisMonth.year,
-        firstDayThisMonth.month + 1, firstDayThisMonth.day);
-    log("Week days$firstDayNextMonth");
-    return firstDayNextMonth.difference(firstDayThisMonth).inDays;
-  }
-
-
-
+  int selectedYear = 0;
+  RxString month = "".obs;
+  RxString monthName = "".obs;
+  RxString day = "".obs;
+  
   @override
   void initState() {
     super.initState();
-
-    year.value = DateFormat('yyyy').format(DateTime.now());
+    examTimeTableController.getMyClass();
+    examTimeTableController.getExamTypeData();
+    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
+    selecedDate();
 
-    String date = year.value+"-"+ month.value +"-"+ day.value;
-    log("date : $date");
-    examTimeTableController.selectedDate = date;
-    examTimeTableController.selectedMonthIndex.value = int.parse(month.value) - 1;
-    print("sel Month: ${examTimeTableController.selectedMonthIndex.value}");
-
-
-    examTimeTableController.getMyClass();
-    examTimeTableController.getExamTypeData();
-
-
-    getYear();
-    now = DateTime.now();
-    totalDays = daysInMonth(now);
-    listOfDates = List<int>.generate(totalDays, (i) => i + 1);
-    todayDay = DateFormat('dd').format(now);
-    examTimeTableController.selectedIndex.value = int.parse(todayDay.toString()) - 1;
+    examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value) - 1);
+    getCurrentSessionYear(selectedYear);
+    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
+    examTimeTableController.selectedIndex.value = int.parse(day.value) - 1;
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      getWeekDates(now);
       if (!mounted) return;
       setState(() {});
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        Scrollable.ensureVisible(keysList[examTimeTableController.selectedIndex.value].currentContext!,
-            alignment: .5);
-      });
+      _dateController.animateTo(
+        examTimeTableController.selectedIndex.value * 45.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
+      _monthController.animateTo(
+        examTimeTableController.selectedMonthIndex.value * 65.0, // Adjust 110 according to your item size and spacing
+        duration: Duration(milliseconds: 1800),
+        curve: Curves.easeInOut,
+      );
     });
+  }
+
+
+  getCurrentSessionYear(int currentYear) {
+    currentSessionYear.clear();
+
+    int currentMonth = int.parse(month.value);
+    // int currentMonth = 4;
+    // int currentYear = int.parse();
+
+    if(currentMonth < 4) {
+      currentSessionYear = [currentYear -1,currentYear];
+      selectedYear = currentSessionYear[1];
+    } else {
+      currentSessionYear = [currentYear,currentYear+1];
+      selectedYear = currentSessionYear[0];
+    }
+  }
+
+  selecedDate() {
+    examTimeTableController.selectedDate = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
+    print("selecedDate : $examTimeTableController.selectedDate.value");
+    examTimeTableController.getExamTimeTableData();
   }
 
   @override
@@ -165,346 +142,361 @@ class _TeacherExamTimeTableScreenState extends State<TeacherExamTimeTableScreen>
                 ),
               ),
             ),
+
             Container(
-                // height: 200,
-                  height: size.height*.33,
-                  decoration: const BoxDecoration(
-                    color: AppThemes.primaryColor,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
-                  ),
-                  child:  Padding(
-                    padding: EdgeInsets.all(size.width * .010),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text(year.value.toString(),
-                            style: GoogleFonts.poppins(
+                height: size.height*.332,
+                decoration: const BoxDecoration(
+                  color: AppThemes.primaryColor,
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
+                ),
+                child:  Padding(
+                  padding: EdgeInsets.all(size.width * .010),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+
+                      examTimeTableController.isExamTypeLoading.value ? SizedBox.shrink()
+                          : Container(
+                        // transformAlignment: Alignment.center,
+                        // width: size.width * .45,
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          // color: Colors.white,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        child: examTimeTableController.getExamTypeModel.value.data!.isEmpty ? SizedBox.shrink() : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text('Type -',
+                              style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 17,
-                                color: Colors.white),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        examTimeTableController.isExamTypeLoading.value ? SizedBox.shrink()
-                            : Container(
-                          // transformAlignment: Alignment.center,
-                          // width: size.width * .45,
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            // color: Colors.white,
-                              borderRadius: BorderRadius.circular(50)
-                          ),
-                          child: examTimeTableController.getExamTypeModel.value.data!.isEmpty ? SizedBox.shrink() : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text('Type -',
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.white,),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              CommonDropDownButton(
-                                value:  examTimeTableController.selectedExamType?.value,
-                                items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
-                                  return DropdownMenuItem(
-                                    value: items.id,
-                                    child: Text(items.name!,style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 17,
-                                      color: examTimeTableController.selectedExamType?.value == items.id
-                                          ? Colors.white
-                                      // Colors.grey.shade900 // Change the color for selected item
-                                          : Colors.black, // Default color for unselected items
-                                    ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  examTimeTableController.selectedExamType!.value = newValue!;
-                                  print(examTimeTableController.selectedExamType?.value);
-
-                                  examTimeTableController.getExamTimeTableData();
-                                },
-                                width: size.width * 0.55,
-                                backgroundColor: AppThemes.themeBackgroundColor,
-                              ),
-                            ],
-                          ),
-                        ),
-
-                         Container(
-                          // transformAlignment: Alignment.center,
-                          // width: size.width * .45,
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            // color: Colors.white,
-                              borderRadius: BorderRadius.circular(50)
-                          ),
-                          child: examTimeTableController.classList.value.isEmpty ? SizedBox.shrink() : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text('Class -',
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: Colors.white,),
-                                textAlign: TextAlign.center,
-                              ),
-
-                              const SizedBox(
-                                width: 5,
-                              ),
-
-                              CommonDropDownButton(
-                                value:  examTimeTableController.selectedClassId?.value,
-                                items: examTimeTableController.classList.value.toList().map((items) {
-                                  return DropdownMenuItem(
-                                    value: items.id,
-                                    child: Text(items.name,style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 17,
-                                      color: examTimeTableController.selectedClassId?.value == items.id
-                                          ? Colors.white
-                                      // Colors.grey.shade900 // Change the color for selected item
-                                          : Colors.black, // Default color for unselected items
-                                    ),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  examTimeTableController.selectedClassId!.value = newValue!;
-                                  print(examTimeTableController.selectedClassId?.value);
-                                  examTimeTableController.getExamTimeTableData();
-                                },
-                                width: size.width * 0.3,
-                                backgroundColor: AppThemes.themeBackgroundColor,
-                              ),
-
-                              // DropdownButtonHideUnderline(
-                              //       child: DropdownButton2(
-                              //         value:  examTimeTableController.selectedClassId?.value,
-                              //         items: examTimeTableController.classList.value.toList().map((items) {
-                              //           return DropdownMenuItem(
-                              //             value: items.id,
-                              //             child: Text(items.name,style: TextStyle(
-                              //               fontWeight: FontWeight.w500,
-                              //               fontSize: 17,
-                              //               color: examTimeTableController.selectedClassId?.value == items.id
-                              //                   ? Colors.white
-                              //               // Colors.grey.shade900 // Change the color for selected item
-                              //                   : Colors.black, // Default color for unselected items
-                              //             ),
-                              //             ),
-                              //           );
-                              //         }).toList(),
-                              //         onChanged: (newValue) {
-                              //           examTimeTableController.selectedClassId!.value = newValue!;
-                              //           print(examTimeTableController.selectedClassId?.value);
-                              //           examTimeTableController.getExamTimeTableData();
-                              //         },
-                              //         dropdownStyleData: DropdownStyleData(
-                              //           maxHeight: size.height * 0.28,
-                              //           width: size.width * 0.3,
-                              //           padding: EdgeInsets.symmetric(horizontal: 5),
-                              //           isOverButton: false,
-                              //           decoration: BoxDecoration(
-                              //             borderRadius: BorderRadius.circular(14),
-                              //             color: Colors.white70,
-                              //           ),
-                              //           offset: const Offset(-10, 0),
-                              //           scrollbarTheme: ScrollbarThemeData(
-                              //             radius: const Radius.circular(40),
-                              //             thickness: MaterialStateProperty.all<double>(6),
-                              //             thumbVisibility: MaterialStateProperty.all<bool>(true),
-                              //           ),
-                              //         ),
-                              //         menuItemStyleData: const MenuItemStyleData(
-                              //           height: 45,
-                              //           padding: EdgeInsets.only(left: 10, right: 10),
-                              //         ),
-                              //
-                              //       ),
-                              //     )
-                            ],
-                          ),
-                        ),
-                         Container(
-                              height: size.height*.050,
-                              decoration: BoxDecoration(
-                                // color: Colors.amber,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      itemCount: months.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            print(index);
-
-                                            examTimeTableController.selectedMonthIndex.value = index;
-
-                                            month.value = "${index + 1}".length != 2
-                                                ? "0${index + 1}"
-                                                : "${index + 1}";
-                                            monthName.value = DateFormat('MMMM')
-                                                .format(DateTime.parse(
-                                                "${year.value}-${month.value}-${day.value}"));
-                                            now = DateTime.parse(
-                                                "${year.value}-${month.value}-${day.value}");
-                                            totalDays = daysInMonth(now);
-                                            listOfDates = List<int>.generate(
-                                                totalDays, (i) => i + 1);
-                                            todayDay = DateFormat('dd').format(now);
-                                            getWeekDates(now);
-                                            log(DateFormat('EEEE').format(now));
-
-
-                                            String date = year.value+"-"+ month.value +"-"+ day.value;
-                                            log("date : $date");
-                                            examTimeTableController.selectedDate = date;
-                                            examTimeTableController.getExamTimeTableData();
-
-                                            // Get.back();
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            child: Center(
-                                              child: Text(months[index].toString(),
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 17,
-                                                      color: index == examTimeTableController.selectedMonthIndex.value
-                                                          ? Colors.white
-                                                          : Colors.black
-                                                  )
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                color: Colors.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            CommonDropDownButton(
+                              value:  examTimeTableController.selectedExamType?.value,
+                              items: examTimeTableController.getExamTypeModel.value.data!.toList().map((items) {
+                                return DropdownMenuItem(
+                                  value: items.id,
+                                  child: Text(items.name!,style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: examTimeTableController.selectedExamType?.value == items.id
+                                        ? Colors.white
+                                    // Colors.grey.shade900 // Change the color for selected item
+                                        : Colors.black, // Default color for unselected items
                                   ),
-                                ],
-                              ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                examTimeTableController.selectedExamType!.value = newValue!;
+                                print(examTimeTableController.selectedExamType?.value);
+
+                                examTimeTableController.getExamTimeTableData();
+                              },
+                              width: size.width * 0.55,
+                              backgroundColor: AppThemes.themeBackgroundColor,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        // transformAlignment: Alignment.center,
+                        // width: size.width * .45,
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          // color: Colors.white,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                        child: examTimeTableController.classList.value.isEmpty ? SizedBox.shrink() : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text('Class -',
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17,
+                                color: Colors.white,),
+                              textAlign: TextAlign.center,
                             ),
 
-                        SizedBox(
-                          height: size.height*.110,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
+                            const SizedBox(
+                              width: 5,
+                            ),
+
+                            CommonDropDownButton(
+                              value:  examTimeTableController.selectedClassId?.value,
+                              items: examTimeTableController.classList.value.toList().map((items) {
+                                return DropdownMenuItem(
+                                  value: items.id,
+                                  child: Text(items.name,style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 17,
+                                    color: examTimeTableController.selectedClassId?.value == items.id
+                                        ? Colors.white
+                                    // Colors.grey.shade900 // Change the color for selected item
+                                        : Colors.black, // Default color for unselected items
+                                  ),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                examTimeTableController.selectedClassId!.value = newValue!;
+                                print(examTimeTableController.selectedClassId?.value);
+                                examTimeTableController.getExamTimeTableData();
+                              },
+                              width: size.width * 0.3,
+                              backgroundColor: AppThemes.themeBackgroundColor,
+                            ),
+
+                            // DropdownButtonHideUnderline(
+                            //       child: DropdownButton2(
+                            //         value:  examTimeTableController.selectedClassId?.value,
+                            //         items: examTimeTableController.classList.value.toList().map((items) {
+                            //           return DropdownMenuItem(
+                            //             value: items.id,
+                            //             child: Text(items.name,style: TextStyle(
+                            //               fontWeight: FontWeight.w500,
+                            //               fontSize: 17,
+                            //               color: examTimeTableController.selectedClassId?.value == items.id
+                            //                   ? Colors.white
+                            //               // Colors.grey.shade900 // Change the color for selected item
+                            //                   : Colors.black, // Default color for unselected items
+                            //             ),
+                            //             ),
+                            //           );
+                            //         }).toList(),
+                            //         onChanged: (newValue) {
+                            //           examTimeTableController.selectedClassId!.value = newValue!;
+                            //           print(examTimeTableController.selectedClassId?.value);
+                            //           examTimeTableController.getExamTimeTableData();
+                            //         },
+                            //         dropdownStyleData: DropdownStyleData(
+                            //           maxHeight: size.height * 0.28,
+                            //           width: size.width * 0.3,
+                            //           padding: EdgeInsets.symmetric(horizontal: 5),
+                            //           isOverButton: false,
+                            //           decoration: BoxDecoration(
+                            //             borderRadius: BorderRadius.circular(14),
+                            //             color: Colors.white70,
+                            //           ),
+                            //           offset: const Offset(-10, 0),
+                            //           scrollbarTheme: ScrollbarThemeData(
+                            //             radius: const Radius.circular(40),
+                            //             thickness: MaterialStateProperty.all<double>(6),
+                            //             thumbVisibility: MaterialStateProperty.all<bool>(true),
+                            //           ),
+                            //         ),
+                            //         menuItemStyleData: const MenuItemStyleData(
+                            //           height: 45,
+                            //           padding: EdgeInsets.only(left: 10, right: 10),
+                            //         ),
+                            //
+                            //       ),
+                            //     )
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Container(
+                          transformAlignment: Alignment.center,
+                          // width: size.width * .45,
+                          padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+                          decoration: BoxDecoration(
+                            // color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)
+                          ),
+                          child: Center(
                             child: Row(
-                              children:
-                              List.generate(weekDates.length, (index) {
-                                DateTime date = weekDates[index];
-                                String formattedDate =
-                                DateFormat('d').format(date);
-                                String formattedDate1 =
-                                DateFormat('MM').format(date);
-                                String formattedDate2 =
-                                DateFormat('yyyy').format(date);
-                                String weekDay =
-                                DateFormat('EEEE').format(date);
-                                return Padding(
-                                  key: keysList[index],
-                                  padding: EdgeInsets.only(right: 0, left: 0),
-                                  child: GestureDetector(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(currentSessionYear[0].toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(' - ',
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(currentSessionYear[1].toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17,
+                                      color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      Container(
+                        height: size.height*.050,
+                        decoration: BoxDecoration(
+                          // color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                controller: _monthController,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: months.length,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return InkWell(
                                     onTap: () {
-                                        examTimeTableController.selectedIndex.value = index;
-                                        print("selectedIndex : ${examTimeTableController.selectedIndex.value}");
+                                      examTimeTableController.selectedMonthIndex.value = index;
+                                      month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
+                                      selectedYear = selectYearByMonth(month: month.value, currentSessionYear: currentSessionYear);
+                                      // print(month.value);
+                                      daysInMonth = getMonthDays(year: selectedYear,month: month.value);
+                                      if(daysInMonth.length <= int.parse(day.value) ) {
+                                        day.value = 1.toString().padLeft(2, '0');
+                                        examTimeTableController.selectedIndex.value = 0;
+                                        _dateController.animateTo(
+                                          examTimeTableController.selectedIndex.value * 1.0,
+                                          duration: Duration(milliseconds: 1800),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      } else {
+                                        _dateController.animateTo(
+                                          examTimeTableController.selectedIndex.value * 45.0,
+                                          duration: Duration(milliseconds: 1800),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      }
+                                      selecedDate();
 
-                                        setState(() {
-                                          day.value = formattedDate.length != 2
-                                            ? "0$formattedDate"
-                                            : formattedDate;
-                                        // month.value = formattedDate1.length != 2 ? "0$formattedDate1" : formattedDate1;
-                                        // year.value = formattedDate2;
-                                        log(day.value);
-                                        log(month.value);
-                                        log(year.value);
-
-                                        monthName.value = DateFormat('MMMM')
-                                            .format(DateTime.parse(
-                                            "${year.value}-${month.value}-${day.value}"));
-
-                                        String date = year.value+"-"+ month.value +"-"+ day.value;
-                                        log("date : $date");
-                                        examTimeTableController.selectedDate = date;
-                                        examTimeTableController.getExamTimeTableData();
-
-                                        // evenetDetailController.getEventData(date);
+                                      setState(() {
                                       });
+                                      // examTimeTableController.selectedMonthIndex.value =
                                     },
                                     child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: index == examTimeTableController.selectedIndex.value
-                                                ? Colors.white
-                                                : Colors.transparent,
-                                            borderRadius:
-                                            BorderRadius.circular(20)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                weekDay[0].toString(),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                    index == examTimeTableController.selectedIndex.value
-                                                        ? Colors.black
-                                                        : Colors.white),
-                                              ),
-                                              Text(
-                                                formattedDate,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                    index == examTimeTableController.selectedIndex.value
-                                                        ? Colors.black
-                                                        : Colors.white),
-                                              ),
-                                            ],
-                                          ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Center(
+                                        child: Text(months[index].toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
+                                                color: index == examTimeTableController.selectedMonthIndex.value
+                                                    ? Colors.white
+                                                    : Colors.black
+                                            )
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: size.height*.110,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          controller: _dateController,
+                          child: Row(
+                            children: List.generate(daysInMonth.length, (index) {
+
+                              DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                              String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
+
+                              return Padding(
+                                padding: EdgeInsets.only(right: 0, left: 0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    examTimeTableController.selectedIndex.value = index;
+                                    day.value = (index + 1).toString().padLeft(2, '0');
+                                    // print(examTimeTableController.selectedIndex.value);
+                                    print(day.value);
+                                    selecedDate();
+                                    setState(() {
+
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: index == examTimeTableController.selectedIndex.value
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              dayName.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == examTimeTableController.selectedIndex.value
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                            Text(
+                                              daysInMonth[index].toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == examTimeTableController.selectedIndex.value
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ),
-                                );
-                              }),
-                            ),
+                                ),
+                              );
+                            }),
                           ),
                         ),
-                      ],
-                    ),
-                  )
-              ),
+                      ),
+                    ],
+                  ),
+                )
+            ),
+
 
             Positioned.fill(
-              top: size.height*.33,
+              top: size.height*.332,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
                 height: size.height,
