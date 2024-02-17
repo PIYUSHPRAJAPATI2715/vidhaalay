@@ -1,31 +1,68 @@
 
-int selectCorrectMonthIndex(int currentMonth) {
-  if(currentMonth < 4) {
-    return currentMonth + 9;
+
+import 'package:intl/intl.dart';
+
+class CommonCalendar {
+  static List<String> monthsList = [
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+  ];
+
+  static DateTime startDate = DateTime(2023,07,01);
+  static DateTime endDate = DateTime(2024,07,01);
+
+  static int currentYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+  static int currentMonth = int.parse(DateFormat('MM').format(DateTime.now()));
+  static List currentSessionYear = [];
+
+}
+
+getCurrentSessionYear() {
+  if(CommonCalendar.currentMonth < 6) {
+    CommonCalendar.currentSessionYear = [CommonCalendar.currentYear -1,CommonCalendar.currentYear];
   } else {
-    return currentMonth - 4;
+    CommonCalendar.currentSessionYear = [CommonCalendar.currentYear,CommonCalendar.currentYear+1];
+  }
+}
+
+int selectCorrectMonthIndex(int currentMonth) {
+  if(currentMonth >= 6) {
+    print("Enter 1");
+    return currentMonth - 7;
+  } else {
+    print("Enter 0");
+    return currentMonth + 6;
   }
 }
 
 String selectMonthByIndex(int index) {
-  if(index > 8) {
-    return (index - 8).toString();
+  if(index > 7) {
+    return (index - 5).toString();
   } else {
-    return (index + 4).toString();
+    return (index + 7).toString();
   }
 }
 
-int selectYearByMonth({required String month,required List currentSessionYear}) {
+int selectYearByMonth({required String month}) {
   int curMonth = int.parse(month);
 
-  if(curMonth > 3)
-  // if(curMonth > 8)
-  {
+  if(curMonth > 7)
+      {
     // print(enter);
-    return currentSessionYear[0];
+    return CommonCalendar.currentSessionYear[0];
   } else {
     // print(enter);
-    return currentSessionYear[1];
+    return CommonCalendar.currentSessionYear[1];
   }
 }
 

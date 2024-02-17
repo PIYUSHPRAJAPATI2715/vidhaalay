@@ -27,20 +27,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
   final ScrollController _dateController = ScrollController();
   final ScrollController _monthController = ScrollController();
   List currentSessionYear = [];
-  List<String> months = [
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-    "January",
-    "February",
-    "March",
-  ];
+  List<String> months =  CommonCalendar.monthsList;
   List daysInMonth = [];
 
   int selectedYear = 0;
@@ -59,7 +46,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
     selecedDate();
     classTimeController.getMyClass();
 
-    classTimeController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value) - 1);
+    classTimeController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value)) ;
     getCurrentSessionYear(selectedYear);
     daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
     classTimeController.selectedIndex.value = int.parse(day.value) - 1;
@@ -277,7 +264,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                     onTap: () {
                                       classTimeController.selectedMonthIndex.value = index;
                                       month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                      selectedYear = selectYearByMonth(month: month.value, currentSessionYear: currentSessionYear);
+                                      selectedYear = selectYearByMonth(month: month.value,);
                                       // print(month.value);
                                       daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                       if(daysInMonth.length <= int.parse(day.value) ) {

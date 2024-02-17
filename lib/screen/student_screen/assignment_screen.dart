@@ -28,20 +28,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
 
   final assignmentListStudentController = Get.put(AssignmentListStudentController());
   List currentSessionYear = [];
-  List<String> months = [
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-    "January",
-    "February",
-    "March",
-  ];
+  List<String> months =  CommonCalendar.monthsList;
   List daysInMonth = [];
 
   int selectedYear = 0;
@@ -84,7 +71,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
-    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value) - 1);
+    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value)) ;
     getCurrentSessionYear(selectedYear);
     daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
     selectedDateIndex = int.parse(day.value) - 1;
@@ -209,7 +196,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                   onTap: () {
                                     selectedMonthIndex = index;
                                     month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                    selectedYear = selectYearByMonth(month: month.value, currentSessionYear: currentSessionYear);
+                                    selectedYear = selectYearByMonth(month: month.value,);
                                     // print(month.value);
                                     daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                     if(daysInMonth.length <= int.parse(day.value) ) {
@@ -589,20 +576,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
 //     return weekDates;
 //   }
 //
-//   List<String> months = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//     "August",
-//     "September",
-//     "October",
-//     "November",
-//     "December"
-//   ];
+//   List<String> months =  CommonCalendar.monthsList;
 //   List<int> years = [];
 //
 //   List<int> getYear() {

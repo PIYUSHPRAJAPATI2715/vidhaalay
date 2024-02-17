@@ -153,9 +153,7 @@ class UpdateExamTimeTableController extends GetxController {
           List<String> dateParts = dobController.text.split('-');
 
           examTimeTableController.selectedIndex.value = int.parse(dateParts[2]) - 1;
-          // examTimeTableController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
           examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
-          // examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]) - 1);
 
           print("sel Date Index: ${examTimeTableController.selectedIndex.value}");
           print("sel Month Index: ${examTimeTableController.selectedMonthIndex.value}");

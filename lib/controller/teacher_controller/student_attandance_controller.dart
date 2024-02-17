@@ -52,7 +52,8 @@ class StudentAttandanceController extends GetxController {
 
     var body = {
       "class_id": int.parse(classId),
-      "date": formattedDate
+      "date":
+      formattedDate
     };
 
     http.Response response = await http.post(

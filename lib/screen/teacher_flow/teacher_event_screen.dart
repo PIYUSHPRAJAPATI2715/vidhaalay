@@ -28,24 +28,10 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
   final evenetDetailController = Get.put(EvenetDetailController());
   final ScrollController _dateController = ScrollController();
   final ScrollController _monthController = ScrollController();
-  List currentSessionYear = [];
-  List<String> months = [
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-    "January",
-    "February",
-    "March",
-  ];
+  List currentSessionYear = CommonCalendar.currentSessionYear;
+  List<String> months =  CommonCalendar.monthsList;
   List daysInMonth = [];
 
-  int selectedYear = 0;
   RxString month = "".obs;
   RxString monthName = "".obs;
   RxString day = "".obs;
@@ -55,14 +41,22 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
   void initState() {
     super.initState();
     evenetDetailController.getMyClass();
-    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+
+    evenetDetailController.selectedYear.value = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
-    evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value) - 1);
-    getCurrentSessionYear(selectedYear);
-    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
+
+
+    evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(10);
+    // evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
+    print("selectedMonthIndex : ${evenetDetailController.selectedMonthIndex.value}");
+
+    evenetDetailController.selectedYear.value = selectYearByMonth(month: month.value,);
+    print("selectedYear : ${evenetDetailController.selectedYear.value}");
+
+    daysInMonth =  getMonthDays(year: evenetDetailController.selectedYear.value,month: month.value);
     evenetDetailController.selectedIndex.value = int.parse(day.value) - 1;
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -80,25 +74,9 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
       );
     });
   }
-
-  getCurrentSessionYear(int currentYear) {
-    currentSessionYear.clear();
-
-    int currentMonth = int.parse(month.value);
-    // int currentMonth = 4;
-    // int currentYear = int.parse();
-
-    if(currentMonth < 4) {
-      currentSessionYear = [currentYear -1,currentYear];
-      selectedYear = currentSessionYear[1];
-    } else {
-      currentSessionYear = [currentYear,currentYear+1];
-      selectedYear = currentSessionYear[0];
-    }
-  }
   
   selecedDate() {
-    evenetDetailController.selectedDate.value = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
+    evenetDetailController.selectedDate.value = evenetDetailController.selectedYear.value.toString()+"-"+ month.value +"-"+ day.value;
     print("selecedDate : $evenetDetailController.selectedDate.value");
     evenetDetailController.getEventData();
   }
@@ -224,7 +202,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
-                                      color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                      color: evenetDetailController.selectedYear.value == currentSessionYear[0] ? Colors.white : Colors.black
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -239,7 +217,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
-                                      color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                      color: evenetDetailController.selectedYear.value == currentSessionYear[1] ? Colors.white : Colors.black
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -268,10 +246,16 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                   return InkWell(
                                     onTap: () {
                                       evenetDetailController.selectedMonthIndex.value = index;
+                                      print(index);
+
                                       month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                      selectedYear = selectYearByMonth(month: month.value, currentSessionYear: currentSessionYear);
-                                      // print(month.value);
-                                      daysInMonth = getMonthDays(year: selectedYear,month: month.value);
+                                      print("Month");
+                                      print(month.value);
+
+                                      evenetDetailController.selectedYear.value = selectYearByMonth(month: month.value);
+                                      print(evenetDetailController.selectedYear.value);
+
+                                      daysInMonth = getMonthDays(year: evenetDetailController.selectedYear.value,month: month.value);
                                       if(daysInMonth.length <= int.parse(day.value) ) {
                                         day.value = 1.toString().padLeft(2, '0');
                                         evenetDetailController.selectedIndex.value = 0;

@@ -15,7 +15,7 @@ class GetSchoolListController extends GetxController {
   // RxBool isNoRecord = false.obs;
   RxBool isSchoolDetailsLoading = false.obs;
 
-  Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
+  Rx<SchoolListModel>   getSchoolListModel = SchoolListModel().obs;
   Rx<SchoolDetailsModel> schoolDetailsModel = SchoolDetailsModel().obs;
 
   RxBool isTopSchoolListLoading = true.obs;
@@ -25,15 +25,21 @@ class GetSchoolListController extends GetxController {
   Rx<SchoolListModel> topCollegesListModel = SchoolListModel().obs;
   Rx<SchoolListModel> topInstitutesListModel = SchoolListModel().obs;
 
-  Future getSchoolListFunction() async {
+  Future getSchoolListFunction({bool showloader = true}) async {
     print("Enter");
+    print("showloader : $showloader");
 
-    isSchoolListLoading.value = false;
+    if(showloader) {
+      isSchoolListLoading.value = false;
+    }
+
     // update();
 
     await schoolListRepo('',roleType.value).then((value) {
       print("value $value");
-      isSchoolListLoading.value = true;
+      if(showloader) {
+        isSchoolListLoading.value = true;
+      }
       getSchoolListModel.value = value;
       // update();
       print(value);

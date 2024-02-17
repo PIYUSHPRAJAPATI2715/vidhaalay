@@ -120,6 +120,7 @@ class UpdateAssignmentController extends GetxController {
       "detail": message.text,
       "dueDate": "${dobController.text}T23:55:06.957Z"
       };
+      print("body $body");
 
       final response = await http.put(
         Uri.parse(ApiUrls.updateAssignment+"/$id"),
@@ -139,9 +140,12 @@ class UpdateAssignmentController extends GetxController {
           List<String> dateParts = dobController.text.split('-');
           getAssignmentController.selectedIndex.value = int.parse(dateParts[2]) - 1;
           // getAssignmentController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
+          print("update month index ${dateParts[1]}");
           getAssignmentController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
-
-          getAssignmentController.selectedClassId.value  =  int.parse(selectClass!);
+          print("selectedMonthIndex ${getAssignmentController.selectedMonthIndex.value}");
+          getAssignmentController.selectedClassId.value  = int.parse(selectClass!);
+          getAssignmentController.selectedDate.value  = dobController.text;
+          getAssignmentController.getAssignmentData();
 
           Get.back();
           showToast(message:responseData['msg'].toString());

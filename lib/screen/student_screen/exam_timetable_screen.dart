@@ -28,20 +28,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
 
   final studentExamTimeTableController = Get.put(StudentExamTimeTableController());
   List currentSessionYear = [];
-  List<String> months = [
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-    "January",
-    "February",
-    "March",
-  ];
+  List<String> months =  CommonCalendar.monthsList;
   List daysInMonth = [];
 
   int selectedYear = 0;
@@ -81,7 +68,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
     studentExamTimeTableController.getExamTypeData();
-    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value) - 1);
+    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value)) ;
     getCurrentSessionYear(selectedYear);
     daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
     selectedDateIndex = int.parse(day.value) - 1;
@@ -316,7 +303,7 @@ class _ExamTimeTableScreenState extends State<ExamTimeTableScreen> {
                                     onTap: () {
                                       selectedMonthIndex = index;
                                       month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                      selectedYear = selectYearByMonth(month: month.value, currentSessionYear: currentSessionYear);
+                                      selectedYear = selectYearByMonth(month: month.value,);
                                       // print(month.value);
                                       daysInMonth = getMonthDays(year: selectedYear,month: month.value);
                                       if(daysInMonth.length <= int.parse(day.value) ) {

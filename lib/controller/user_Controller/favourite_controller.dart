@@ -13,10 +13,13 @@ class FavouriteController extends GetxController {
   RxBool isFavouriteListLoading = true.obs;
   Rx<FavourateListModel> favourateListModel = FavourateListModel().obs;
   RxString favForType = "Schools".obs;
+  List<bool> isFavouriteBoolList = [];
 
   // Rx<SchoolListModel> getSchoolListModel = SchoolListModel().obs;
-  Future getFavouriteListRepo() async {
-    isFavouriteListLoading.value = true;
+  Future getFavouriteListRepo({bool showloader = true}) async {
+    if(showloader) {
+      isFavouriteListLoading.value = true;
+    }
     print("api Call");
 
     final Map<String, dynamic> MapData = {
@@ -64,7 +67,7 @@ class FavouriteController extends GetxController {
       Map<String, dynamic> responseData = json.decode(response.body);
 
       final getSchoolListController  = Get.put(GetSchoolListController());
-      getSchoolListController.getSchoolListFunction();
+      getSchoolListController.getSchoolListFunction(showloader: false);
 
       final seeAllController  = Get.put(SeeAllController());
       seeAllController.getSchoolListFunction();

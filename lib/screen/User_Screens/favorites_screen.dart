@@ -207,6 +207,13 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                         .data![index]
                         .favourite!;
 
+                    // if() {
+                    //
+                    // } else {
+                    //
+                    // }
+                    // favouriteController.isFavouriteBoolList.add(isFavourite);
+
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
@@ -287,11 +294,11 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                                                   favFor,
                                                   !isFavourite)
                                                   .then((value) {
-                                                _handleTabChange();
+                                                favouriteController.getFavouriteListRepo(showloader: false);
+
+                                                // _handleTabChange();
                                               });
 
-                                              // Get.toNamed(MyRouter
-                                              //     .favoritesScreen);
                                             },
                                             child: isFavourite
                                                 ? const Icon(
@@ -487,7 +494,8 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                                                   favFor,
                                                   !isFavourite)
                                                   .then((value) {
-                                                _handleTabChange();
+                                                // _handleTabChange();
+                                                favouriteController.getFavouriteListRepo(showloader: false);
                                               });
                                             },
                                             child: isFavourite
@@ -684,7 +692,8 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                                                   favFor,
                                                   !isFavourite)
                                                   .then((value) {
-                                                _handleTabChange();
+                                                // _handleTabChange();
+                                                favouriteController.getFavouriteListRepo(showloader: false);
                                               });
                                             },
                                             child: isFavourite

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:vidhaalay_app/controller/student_controller/student_attandance_controller.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
 
 import '../../controller/teacher_controller/student_attandance_controller.dart';
@@ -23,11 +24,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   final getStudentAttandanceController = Get.put(GetStudentAttandanceController());
 
-  final List<String> months = [
-    'January', 'February', 'March', 'April',
-    'May', 'June', 'July', 'August',
-    'September', 'October', 'November', 'December'
-  ];
+  final List<String> months =  CommonCalendar.monthsList;
    final List<String> days = [
      'S','M','T','W','T','F','S'
    ];

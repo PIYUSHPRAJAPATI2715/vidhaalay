@@ -109,9 +109,9 @@ class _AddressScreenState extends State<AddressScreen> {
               desiredAccuracy: LocationAccuracy.high,
               forceAndroidLocationManager: true)
               .then((Position position) {
-            Helpers.hideLoader(loader);
+            // Helpers.hideLoader(loader);
 
-            getAddressFromLatLng(position.latitude, position.longitude);
+            getAddressFromLatLng(position.latitude, position.longitude,loader);
             print(position);
           });
         } else {
@@ -127,7 +127,7 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 
   Future<String?> getAddressFromLatLng(
-      double latitude, double longitude) async {
+      double latitude, double longitude,OverlayEntry loader) async {
     print("Enter 2");
     try {
       List<Placemark> placemarks =
@@ -138,6 +138,8 @@ class _AddressScreenState extends State<AddressScreen> {
           "${placemarks.first.name}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.administrativeArea}";
 
       print("LiveLocation Adddress : ${address}");
+      // OverlayEntry loader = Helpers.overlayLoader(context);
+      Helpers.hideLoader(loader);
 
       updateLocationRepo(
           context: context,

@@ -24,6 +24,7 @@ class EvenetDetailController extends GetxController {
   RxString selectedDate = "".obs;
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
+  RxInt selectedYear = 0.obs;
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {

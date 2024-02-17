@@ -62,7 +62,6 @@ class GetTeacherProfileController extends GetxController {
   }
 
 
-
   void selectOption(BuildContext context) {
     showDialog<void>(
       context: context,

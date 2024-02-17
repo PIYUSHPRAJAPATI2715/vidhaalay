@@ -1552,20 +1552,19 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         top: 10,
                                         child: GestureDetector(
                                             onTap: () {
+                                              print("Tap");
                                               favouriteController
                                                   .addFavouriteInListRepo(
                                                   item.id!,
                                                   "Schools",
-                                                  !isFavourite)
-                                                  .then((value) {
+                                                  !isFavourite
+                                              ).then((value) {
                                                 getSchoolListController
                                                     .roleType
                                                     .value = "S";
                                                 getSchoolListController
-                                                    .getSchoolListFunction();
+                                                    .getSchoolListFunction(showloader: false);
                                               });
-                                              // Get.toNamed(MyRouters
-                                              //     .favoritesScreen);
                                             },
                                             child: isFavourite
                                                 ? const Icon(
@@ -1780,7 +1779,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                     .roleType
                                                     .value = "C";
                                                 getSchoolListController
-                                                    .getSchoolListFunction();
+                                                    .getSchoolListFunction(showloader: false);
                                               });
                                               // Get.toNamed(MyRouters
                                               //     .favoritesScreen);
@@ -1998,7 +1997,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                     .roleType
                                                     .value = "I";
                                                 getSchoolListController
-                                                    .getSchoolListFunction();
+                                                    .getSchoolListFunction(showloader: false);
                                               });
                                             },
                                             child: isFavourite

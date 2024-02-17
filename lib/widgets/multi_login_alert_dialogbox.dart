@@ -127,7 +127,7 @@ Future<void> showMultiLoginAlertDialog(BuildContext context) async {
                       leading: Icon(Icons.add),
                       title: Text("Add another account"),
                       onTap: () {
-                        Get.offAll(() => SignInPage());
+                        Get.to(() => SignInPage());
                       },
                     ),
                   ],

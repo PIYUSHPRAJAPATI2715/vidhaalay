@@ -143,8 +143,11 @@ class UpdateEventController extends GetxController {
 
           evenetDetailController.selectedIndex.value = int.parse(dateParts[2]) - 1;
           // evenetDetailController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
-          evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
 
+          print("sel Month Index: ${dateParts[1]}");
+          evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
+          // print("selectedMonthIndex ${evenetDetailController.selectedMonthIndex.value}");
+          evenetDetailController.selectedYear.value = int.parse(dateParts[1]);
           evenetDetailController.selectedDate.value = date;
           print("sel Date Index: ${evenetDetailController.selectedIndex.value}");
           print("sel Month Index: ${evenetDetailController.selectedMonthIndex.value}");

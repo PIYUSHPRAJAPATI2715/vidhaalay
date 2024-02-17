@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vidhaalay_app/PractiseScreen/calendar_screen.dart';
 import 'package:vidhaalay_app/PractiseScreen/piechart.dart';
 import 'package:vidhaalay_app/PractiseScreen/practise.dart';
+import 'package:vidhaalay_app/repositories/calendar_repo.dart';
 import 'package:vidhaalay_app/resourses/local_notification_service.dart';
 import 'package:vidhaalay_app/routers/my_routers.dart';
 import 'package:vidhaalay_app/screen/no_internet_screen.dart';
@@ -130,6 +131,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getCurrentSessionYear();
     FirebaseMessaging.instance.requestPermission();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
