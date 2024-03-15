@@ -1624,7 +1624,7 @@ class _MultiFormStepperState extends State<MultiFormStepper> {
         //padding: EdgeInsets.all(16.0),
         child: Theme(
           data: ThemeData(
-            backgroundColor: AppThemes.primaryColor,
+            // backgroundColor: AppThemes.primaryColor,
             cardColor: AppThemes.primaryColor,
             hintColor: AppThemes.primaryColor,
               colorScheme: const ColorScheme.light(
@@ -1670,7 +1670,7 @@ class _MultiFormStepperState extends State<MultiFormStepper> {
           width: double.maxFinite,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: AppThemes.primaryColor,
+                backgroundColor: AppThemes.primaryColor,
                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                 textStyle: const TextStyle(
                     fontSize: 18,

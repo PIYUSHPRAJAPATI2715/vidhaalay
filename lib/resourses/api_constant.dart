@@ -131,7 +131,7 @@ showToast({required String message, bool isError = false
     messageText: Container(),
     colorText: textColor,
     snackPosition: SnackPosition.TOP,
-    backgroundColor: backgroundColor,
+    // backgroundColor: backgroundColor,
     borderColor: borderColor,
     borderWidth: 1.5,
     padding: const EdgeInsets.only(top: 14,left: 10,right: 10,bottom: 10),

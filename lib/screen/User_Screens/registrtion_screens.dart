@@ -1199,7 +1199,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
+                                    backgroundColor: AppThemes.primaryColor,
                                     padding:
                                     const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                     textStyle:
@@ -1873,7 +1873,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 width: double.maxFinite,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: AppThemes.primaryColor,
+                                      backgroundColor: AppThemes.primaryColor,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 50, vertical: 13),
                                       textStyle: const TextStyle(
@@ -2062,7 +2062,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 width: double.maxFinite,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: AppThemes.primaryColor,
+                                      backgroundColor: AppThemes.primaryColor,
                                       padding:
                                       const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                       textStyle:
@@ -2457,7 +2457,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
+                                    backgroundColor: AppThemes.primaryColor,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 50, vertical: 13),
                                     textStyle: const TextStyle(
@@ -2719,7 +2719,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
+                                    backgroundColor: AppThemes.primaryColor,
                                     padding:
                                     const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                     textStyle:
@@ -3157,7 +3157,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     width: double.maxFinite,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: AppThemes.primaryColor,
+                                          backgroundColor: AppThemes.primaryColor,
                                           padding:
                                           const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                           textStyle:
@@ -3379,7 +3379,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           width: double.maxFinite,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: AppThemes.primaryColor,
+                backgroundColor: AppThemes.primaryColor,
                 padding:
                 const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                 textStyle:
