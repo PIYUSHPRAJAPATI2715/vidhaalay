@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
-import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
-import 'package:vidhaalay_app/models/multi_login_model.dart';
-import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
-import 'package:vidhaalay_app/repositories/social_login_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/controller/authentication/signin_controller.dart';
+import 'package:vidhaalay/login%20screens/signin_screen.dart';
+import 'package:vidhaalay/models/multi_login_model.dart';
+import 'package:vidhaalay/repositories/multi_login_repo.dart';
+import 'package:vidhaalay/repositories/social_login_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/screen/bottom_navbar_screen.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 
 Future<void> showMultiLoginAlertDialog(BuildContext context) async {
   List<MultiLoginModel> loginData = await getLoginData();

@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/screen/User_Screens/notification_detail_user_screen.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/screen/User_Screens/notification_detail_user_screen.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
 
 import '../../controller/get_notification_controller.dart';
 import '../../routers/my_routers.dart';
@@ -22,69 +22,45 @@ class NotificationScreenUser extends StatefulWidget {
 }
 
 class _NotificationScreenUserState extends State<NotificationScreenUser> {
+  final notificationController = Get.put(GetNotificationController());
+
   final ScrollController _dateController = ScrollController();
   final ScrollController _monthController = ScrollController();
-
-  final notificationController = Get.put(GetNotificationController());
-  List currentSessionYear = [];
+  List currentSessionYear = CommonCalendar.currentSessionYear;
   List<String> months =  CommonCalendar.monthsList;
-  List daysInMonth = [];
-
-  int selectedYear = 0;
   RxString month = "".obs;
   RxString monthName = "".obs;
   RxString day = "".obs;
-  String selectedDate = '';
 
-  int selectedDateIndex = 0;
-  int selectedMonthIndex = 0;
-
-  getCurrentSessionYear(int currentYear) {
-    currentSessionYear.clear();
-
-    int currentMonth = int.parse(month.value);
-    // int currentMonth = 4;
-    // int currentYear = int.parse();
-
-    if(currentMonth < 4) {
-      currentSessionYear = [currentYear -1,currentYear];
-      selectedYear = currentSessionYear[1];
-    } else {
-      currentSessionYear = [currentYear,currentYear+1];
-      selectedYear = currentSessionYear[0];
-    }
-  }
 
   selecedDate() {
-    selectedDate = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
-    print("selecedDate : $selectedDate");
-    notificationController.getNotificationData(selectedDate);
+    notificationController.selectedDate.value = notificationController.selectedYear.value.toString()+"-"+ month.value +"-"+ day.value;
+    notificationController.getNotificationData(notificationController.selectedDate.value);
   }
-
 
   @override
   void initState() {
     super.initState();
-    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+    notificationController.selectedYear.value = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
-    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value)) ;
-    getCurrentSessionYear(selectedYear);
-    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
-    selectedDateIndex = int.parse(day.value) - 1;
+    notificationController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
+    notificationController.selectedYear.value = selectYearByMonth(month: month.value);
+    notificationController.daysInMonth.value =  getMonthDays(year: notificationController.selectedYear.value,month: month.value);
+    notificationController.selectedIndex.value = int.parse(day.value) - 1;
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
       _dateController.animateTo(
-        selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        notificationController.selectedIndex.value * 45.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
       _monthController.animateTo(
-        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
+        notificationController.selectedMonthIndex.value * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -139,7 +115,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                 ),
               ),
               Container(
-                  height: size.height*.250,
+                  height: size.height*.22,
                   decoration: const BoxDecoration(
                     color: AppThemes.primaryColor,
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
@@ -167,7 +143,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 17,
-                                        color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                        color: notificationController.selectedYear.value == currentSessionYear[0] ? Colors.white : Colors.black
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -182,7 +158,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 17,
-                                        color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                        color: notificationController.selectedYear.value == currentSessionYear[1] ? Colors.white : Colors.black
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -210,32 +186,29 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                       (BuildContext context, int index) {
                                     return InkWell(
                                       onTap: () {
-                                        selectedMonthIndex = index;
+                                        notificationController.selectedMonthIndex.value = index;
                                         month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                        selectedYear = selectYearByMonth(month: month.value,);
-                                        // print(month.value);
-                                        daysInMonth = getMonthDays(year: selectedYear,month: month.value);
-                                        if(daysInMonth.length <= int.parse(day.value) ) {
+                                        notificationController.selectedYear.value = selectYearByMonth(month: month.value);
+                                        notificationController.daysInMonth.value = getMonthDays(year: notificationController.selectedYear.value,month: month.value);
+                                        if(notificationController.daysInMonth.value.length <= int.parse(day.value) ) {
                                           day.value = 1.toString().padLeft(2, '0');
-                                          selectedDateIndex = 0;
+                                          notificationController.selectedIndex.value = 0;
                                           _dateController.animateTo(
-                                            selectedDateIndex * 1.0,
+                                            notificationController.selectedIndex.value * 1.0,
                                             duration: Duration(milliseconds: 1800),
                                             curve: Curves.easeInOut,
                                           );
                                         } else {
                                           _dateController.animateTo(
-                                            selectedDateIndex * 45.0,
+                                            notificationController.selectedIndex.value * 45.0,
                                             duration: Duration(milliseconds: 1800),
                                             curve: Curves.easeInOut,
                                           );
                                         }
                                         selecedDate();
-                                        notificationController.getNotificationData(selectedDate);
 
                                         setState(() {
                                         });
-                                        // selectedMonthIndex =
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -245,7 +218,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 17,
-                                                  color: index == selectedMonthIndex
+                                                  color: index == notificationController.selectedMonthIndex.value
                                                       ? Colors.white
                                                       : Colors.black
                                               )
@@ -260,67 +233,134 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                           ),
                         ),
 
+                        // SizedBox(
+                        //   height: size.height*.110,
+                        //   child: SingleChildScrollView(
+                        //     scrollDirection: Axis.horizontal,
+                        //     physics: BouncingScrollPhysics(),
+                        //     controller: _dateController,
+                        //     child: Row(
+                        //       children: List.generate(notificationController.daysInMonth.value.length, (index) {
+                        //
+                        //         DateTime specifiedDate = DateTime(2024, int.parse(month.value), notificationController.daysInMonth.value[index]);
+                        //         String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
+                        //
+                        //         return Padding(
+                        //           padding: EdgeInsets.only(right: 0, left: 0),
+                        //           child: GestureDetector(
+                        //             onTap: () {
+                        //               notificationController.selectedIndex.value = index;
+                        //               day.value = (index + 1).toString().padLeft(2, '0');
+                        //               // print(notificationController.selectedIndex.value);
+                        //               print(day.value);
+                        //               selecedDate();
+                        //               setState(() {
+                        //
+                        //               });
+                        //             },
+                        //             child: Padding(
+                        //               padding: const EdgeInsets.all(8.0),
+                        //               child: Container(
+                        //                 decoration: BoxDecoration(
+                        //                     color: index == notificationController.selectedIndex.value
+                        //                         ? Colors.white
+                        //                         : Colors.transparent,
+                        //                     borderRadius:
+                        //                     BorderRadius.circular(20)),
+                        //                 child: Padding(
+                        //                   padding: const EdgeInsets.all(12.0),
+                        //                   child: Column(
+                        //                     children: [
+                        //                       Text(
+                        //                         dayName.toString(),
+                        //                         style: TextStyle(
+                        //                             fontSize: 16,
+                        //                             fontWeight: FontWeight.w600,
+                        //                             color:
+                        //                             index == notificationController.selectedIndex.value
+                        //                                 ? Colors.black
+                        //                                 : Colors.white),
+                        //                       ),
+                        //                       Text(
+                        //                         notificationController.daysInMonth.value[index].toString(),
+                        //                         style: TextStyle(
+                        //                             fontSize: 16,
+                        //                             fontWeight: FontWeight.w600,
+                        //                             color:
+                        //                             index == notificationController.selectedIndex.value
+                        //                                 ? Colors.black
+                        //                                 : Colors.white),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         );
+                        //       }),
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(
-                          height: size.height*.110,
+                          height: size.height*.085,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             physics: BouncingScrollPhysics(),
                             controller: _dateController,
                             child: Row(
-                              children: List.generate(daysInMonth.length, (index) {
+                              children: List.generate(notificationController.daysInMonth.value.length, (index) {
 
-                                DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                                DateTime specifiedDate = DateTime(2024, int.parse(month.value), notificationController.daysInMonth.value[index]);
                                 String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
-
                                 return Padding(
-                                  padding: EdgeInsets.only(right: 0, left: 0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      selectedDateIndex = index;
+                                      notificationController.selectedIndex.value = index;
                                       day.value = (index + 1).toString().padLeft(2, '0');
-                                      // print(selectedDateIndex);
+                                      // print(notificationController.selectedIndex.value);
                                       print(day.value);
                                       selecedDate();
-
                                       setState(() {
 
                                       });
                                     },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: index == selectedDateIndex
-                                                ? Colors.white
-                                                : Colors.transparent,
-                                            borderRadius:
-                                            BorderRadius.circular(20)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                dayName.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                    index == selectedDateIndex
-                                                        ? Colors.black
-                                                        : Colors.white),
-                                              ),
-                                              Text(
-                                                daysInMonth[index].toString(),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                    index == selectedDateIndex
-                                                        ? Colors.black
-                                                        : Colors.white),
-                                              ),
-                                            ],
-                                          ),
+                                    child: Container(
+                                      height: size.height*.08,
+                                      decoration: BoxDecoration(
+                                          color: index == notificationController.selectedIndex.value
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              dayName.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == notificationController.selectedIndex.value
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                            Text(
+                                              notificationController.daysInMonth.value[index].toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == notificationController.selectedIndex.value
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -330,13 +370,14 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                             ),
                           ),
                         ),
+
                       ],
                     ),
                   )
               ),
 
               Positioned.fill(
-                top: size.height * .250,
+                top: size.height * .22,
                 child: Container(
                     height: size.height,
                     width: size.width,
@@ -359,22 +400,34 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 25, horizontal: 0),
+                                      vertical: 25, horizontal: 12),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 18.0, vertical: 10),
-                                        child: Text(
-                                          "today".toUpperCase(),
-                                          style: GoogleFonts.poppins(
-                                              color: AppThemes.black,
-                                              fontSize: 21,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
+                                      Text(
+                                        CommonCalendar.currentDate == notificationController.selectedDate.value
+                                            ?  'today'.toUpperCase() :
+                                        CommonCalendar.yesterdayDate == notificationController.selectedDate.value ?
+                                        'yesterday'.toUpperCase() :
+                                        CommonCalendar.tommorrowdayDate == notificationController.selectedDate.value ?
+                                        'tommorrow'.toUpperCase() : notificationController.selectedDate.value,
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600
+                                        ),),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(
+                                      //       horizontal: 18.0, vertical: 10),
+                                      //   child: Text(
+                                      //     "today".toUpperCase(),
+                                      //     style: GoogleFonts.poppins(
+                                      //         color: AppThemes.black,
+                                      //         fontSize: 21,
+                                      //         fontWeight: FontWeight.w600),
+                                      //   ),
+                                      // ),
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -488,7 +541,7 @@ class _NotificationScreenUserState extends State<NotificationScreenUser> {
                                                                           children: [
                                                                             Container(
                                                                               // color: Colors.green,
-                                                                              width: size.width * .6,
+                                                                              width: size.width * .52,
                                                                               child: Text(
                                                                                 items.title.toString(),
                                                                                 style: GoogleFonts.poppins(color: AppThemes.primaryColor, fontSize: 15, fontWeight: FontWeight.w500),

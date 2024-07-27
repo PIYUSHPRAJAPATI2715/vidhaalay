@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../controller/setting_controller.dart';
 import '../../resourses/app_assets.dart';
@@ -15,12 +16,15 @@ class ContactUsScreen extends StatefulWidget {
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
-  SettingController settingController = Get.put(SettingController());
+  // SettingController settingController = Get.put(SettingController());
+  String url = "https://api.vidhaalay.com/pages/contact-us";
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    settingController.contactUsAPICall();
+    // settingController.contactUsAPICall();
   }
   @override
   Widget build(BuildContext context) {
@@ -47,30 +51,34 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           },
         ),
       ),
-      body: Obx(
-            () => settingController.contactUsContent.value.isNotEmpty
-                ? SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
-            child:  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  settingController.contactUsContent.value.toString(),
-                  style: TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ],
-            )
-          ),
-        ) : Container(
-              width: deviceWidth,
-              height: deviceHeight,
-              child : Center(child: CircularProgressIndicator()),
-            ),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
+      // Obx(
+      //       () => settingController.contactUsContent.value.isNotEmpty
+      //           ? SingleChildScrollView(
+      //     child: Padding(
+      //         padding: EdgeInsets.symmetric(
+      //             horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
+      //       child:  Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         mainAxisAlignment: MainAxisAlignment.start,
+      //         children: [
+      //           Text(
+      //             settingController.contactUsContent.value.toString(),
+      //             style: TextStyle(
+      //                 fontSize: 18, fontWeight: FontWeight.w600),
+      //           ),
+      //         ],
+      //       )
+      //     ),
+      //   ) : Container(
+      //         width: deviceWidth,
+      //         height: deviceHeight,
+      //         child : Center(child: CircularProgressIndicator()),
+      //       ),
+      // ),
     );
   }
 }

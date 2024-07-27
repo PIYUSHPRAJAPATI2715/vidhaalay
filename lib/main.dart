@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:vidhaalay_app/PractiseScreen/calendar_screen.dart';
-import 'package:vidhaalay_app/PractiseScreen/piechart.dart';
-import 'package:vidhaalay_app/PractiseScreen/practise.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/resourses/local_notification_service.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/no_internet_screen.dart';
+import 'package:vidhaalay/PractiseScreen/calendar_screen.dart';
+import 'package:vidhaalay/PractiseScreen/piechart.dart';
+import 'package:vidhaalay/PractiseScreen/practise.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/resourses/local_notification_service.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/no_internet_screen.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,7 +53,6 @@ void checkstatus() async {
   }
 }
 
-// Brandcards
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -63,9 +63,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    // 'This channel is used for important notifications.', // description
+    'high_importance_channel',
+    'High Importance Notifications',
+    // 'This channel is used for important notifications.',
     description: 'This channel is used for important notifications',
     showBadge: false,
     importance: Importance.high,
@@ -115,6 +115,17 @@ Future<void> main() async {
 
   const oneSeconds = const Duration(seconds: 1);
   Timer.periodic(oneSeconds, (Timer t) => checkstatus());
+
+  // runApp(
+  //   DevicePreview(
+  //     enabled: true,
+  //     tools: [
+  //       ...DevicePreview.defaultTools,
+  //       // const CustomPlugin(),
+  //     ],
+  //     builder: (context) =>  const MyApp(),
+  //   ),
+  // );
   runApp(const MyApp());
 }
 
@@ -132,6 +143,10 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     getCurrentSessionYear();
+    getDate();
+    monthAdjust();
+    getYearsList();
+
     FirebaseMessaging.instance.requestPermission();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/bottom_nav_student.dart';
-import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/create_exam_timetable.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/exam_timetable_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/teacher_event_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay/screen/student_screen/bottom_nav_student.dart';
+import 'package:vidhaalay/screen/student_screen/drawer_student.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_exam_timetable.dart';
+import 'package:vidhaalay/screen/teacher_flow/exam_timetable_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/student_list_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/teacher_event_screen.dart';
 
 import '../controller/bottom_controller.dart';
 import '../login screens/create_new_pass.dart';
@@ -99,14 +99,14 @@ class MyRouters{
   static var sendNotificationScreen = "/sendNotificationScreen";
   static var studentListScreen = "/studentListScreen";
   static var studentDetailsScreen = "/studentDetailsScreen";
-  static var createEventScreen = "/createEventScreen";
+  // static var createEventScreen = "/createEventScreen";
   static var teacherEventsScreen = "/teacherEventsScreen";
   static var examResultScreenTeacher = "/examResultScreenTeacher";
   static var teacherExamTimeTableScreen = "/teacherExamTimeTableScreen";
   static var teacherClassTimeScreen = "/teacherClassTimeScreen";
   static var teacherAttendanceScreen = "/teacherAttendanceScreen";
-  static var createTimeTableScreen = "/createTimeTableScreen";
-  static var createExamTimeTable = "/createExamTimeTable";
+  // static var createTimeTableScreen = "/createTimeTableScreen";
+  // static var createExamTimeTable = "/createExamTimeTable";
   static var otpSmsScreen = "/otpSmsScreen";
   static var forgotOtpSmsScreen = "/forgotOtpSmsScreen";
   static var studenListScreen = "/forgotOtpSmsScreen";
@@ -162,14 +162,14 @@ class MyRouters{
     GetPage(name: '/sendNotificationScreen', page: () =>  const SendNotificationScreen()),
     GetPage(name: '/studentListScreen', page: () =>  const StudentListScreen()),
     GetPage(name: '/studentDetailsScreen', page: () =>  const StudentDetailsScreen()),
-    GetPage(name: '/createEventScreen', page: () =>  const CreateEventScreen()),
+    // GetPage(name: '/createEventScreen', page: () =>  const CreateEventScreen()),
     GetPage(name: '/teacherEventsScreen', page: () =>  const TeacherEventsScreen()),
     GetPage(name: '/teacherEventsScreen', page: () =>  const TeacherEventsScreen()),
     GetPage(name: '/examResultScreenTeacher', page: () =>  const ExamResultScreenTeacher()),
     GetPage(name: '/teacherExamTimeTableScreen', page: () =>  const TeacherExamTimeTableScreen()),
     GetPage(name: '/teacherClassTimeScreen', page: () =>  const TeacherClassTimeScreen()),
     GetPage(name: '/teacherAttendanceScreen', page: () =>  const TeacherAttendanceScreen()),
-    GetPage(name: '/createTimeTableScreen', page: () =>  const CreateTimeTableScreen()),
-    GetPage(name: '/createExamTimeTable', page: () =>  const CreateExamTimeTable()),
+    // GetPage(name: '/createTimeTableScreen', page: () =>  const CreateTimeTableScreen()),
+    // GetPage(name: '/createExamTimeTable', page: () =>  const CreateExamTimeTable()),
   ];
 }

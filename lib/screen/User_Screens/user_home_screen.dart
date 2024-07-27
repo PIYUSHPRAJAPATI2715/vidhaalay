@@ -7,20 +7,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vidhaalay_app/controller/bottom_controller.dart';
-import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
-import 'package:vidhaalay_app/controller/user_Controller/lectures_controller.dart';
-import 'package:vidhaalay_app/models/get_profile_model.dart';
-import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/User_Screens/lecture_list_screen.dart';
-import 'package:vidhaalay_app/screen/User_Screens/school_list_see_all_screen.dart';
-import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/controller/bottom_controller.dart';
+import 'package:vidhaalay/controller/user_Controller/favourite_controller.dart';
+import 'package:vidhaalay/controller/user_Controller/lectures_controller.dart';
+import 'package:vidhaalay/models/get_profile_model.dart';
+import 'package:vidhaalay/repositories/get_profile_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/User_Screens/lecture_list_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/school_list_see_all_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/schools_details_Screen.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 import '../../controller/deshborad_controller.dart';
 import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../models/login_model.dart';
@@ -98,7 +98,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
     // Perform your function here based on the current tab index
     int currentIndex = tabController.index;
     print("Tab index changed to: $currentIndex");
-
+    searchController.clear();
     if (currentIndex == 0) {
       getSchoolListController.roleType.value = "S";
       // getSchoolListController.getTopLectureListRepo();
@@ -304,29 +304,28 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Visibility(
-                                    visible: searchController.text.isNotEmpty,
-                                    // !FocusScope.of(context).hasPrimaryFocus,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.cancel,
-                                        color: AppThemes.black,
-                                        size: 22,
-                                      ),
-                                      onPressed: () {
-                                        // FocusScopeNode currentFocus = FocusScope.of(context);
-                                        // if (!currentFocus.hasPrimaryFocus) {
-                                        //   currentFocus.unfocus();
-                                        // }
-                                        // FocusScope.of(context).unfocus();
-
-                                        searchController.clear();
-                                        getSchoolListController
-                                            .getSearchSchoolListFunction(
-                                            searchController.text);
-                                      },
-                                    ),
-                                  ),
+                                  // Visibility(
+                                  //   visible: searchController.text.isNotEmpty,
+                                  //   // !FocusScope.of(context).hasPrimaryFocus,
+                                  //   child: IconButton(
+                                  //     icon: Icon(
+                                  //       Icons.cancel,
+                                  //       color: AppThemes.black,
+                                  //       size: 22,
+                                  //     ),
+                                  //     onPressed: () {
+                                  //       // FocusScopeNode currentFocus = FocusScope.of(context);
+                                  //       // if (!currentFocus.hasPrimaryFocus) {
+                                  //       //   currentFocus.unfocus();
+                                  //       // }
+                                  //       // FocusScope.of(context).unfocus();
+                                  //       searchController.clear();
+                                  //       getSchoolListController
+                                  //           .getSearchSchoolListFunction(
+                                  //           searchController.text);
+                                  //     },
+                                  //   ),
+                                  // ),
                                   IconButton(
                                     icon: Icon(
                                       Icons.search_rounded,
@@ -460,7 +459,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                         height: 15,
                       ),
                       Container(
-                        height: size.height * .275,
+                        height: size.height * .3,
                         // color: Colors.grey,
                         child: TabBarView(
                             physics: const BouncingScrollPhysics(),
@@ -543,7 +542,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         ),
                                       )
                                           : Container(
-                                        height: size.height * .22,
+                                        height: size.height * .23,
                                         width: size.width,
                                         child: ListView.builder(
                                           scrollDirection:
@@ -578,7 +577,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                       .toString();
                                                   print(id);
                                                   getSchoolListController
-                                                      .getSchoolDetailsFunction(
+                                                      .getSchoolDetailsFunction(id:
                                                       id);
 
                                                   Get.to(
@@ -792,7 +791,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         highlightColor:
                                         Colors.grey.shade100,
                                         child: Container(
-                                          height: size.height * .22,
+                                          height: size.height * .23,
                                           child: ListView.builder(
                                             scrollDirection:
                                             Axis.horizontal,
@@ -867,7 +866,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                       .toString();
                                                   print(id);
                                                   getSchoolListController
-                                                      .getSchoolDetailsFunction(
+                                                      .getSchoolDetailsFunction(id:
                                                       id);
 
                                                   Get.to(
@@ -1056,7 +1055,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                         highlightColor:
                                         Colors.grey.shade100,
                                         child: Container(
-                                          height: size.height * .22,
+                                          height: size.height * .23,
                                           child: ListView.builder(
                                             scrollDirection:
                                             Axis.horizontal,
@@ -1131,7 +1130,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                             //           .toString();
                                             //       print(id);
                                             //       getSchoolListController
-                                            //           .getSchoolDetailsFunction(
+                                            //           .getSchoolDetailsFunction(id:
                                             //           id);
                                             //
                                             //       Get.to(
@@ -1287,7 +1286,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                                                       .toString();
                                                   print(id);
                                                   getSchoolListController
-                                                      .getSchoolDetailsFunction(
+                                                      .getSchoolDetailsFunction(id:
                                                       id);
 
                                                   Get.to(
@@ -1496,7 +1495,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
-                            .getSchoolDetailsFunction(
+                            .getSchoolDetailsFunction(id:
                             item.id.toString());
 
                         Get.to(
@@ -1712,7 +1711,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
-                            .getSchoolDetailsFunction(
+                            .getSchoolDetailsFunction(id:
                             item.id.toString());
 
                         Get.to(
@@ -1930,7 +1929,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
-                            .getSchoolDetailsFunction(
+                            .getSchoolDetailsFunction(id:
                             item.id.toString());
 
                         Get.to(

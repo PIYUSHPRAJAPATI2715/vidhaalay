@@ -1,7 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class CommonDialog{
 

@@ -2,10 +2,10 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/student_details_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/student_list_repo.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/student_details_model.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/repositories/teacher/student_list_repo.dart';
 import '../../models/TeacherModel/studentList_model.dart';
 import 'package:http/http.dart' as http;
 

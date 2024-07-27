@@ -4,17 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/studentlist_controller.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_dropdown.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/teacher_controller/studentlist_controller.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_dropdown.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
+import 'package:vidhaalay/widgets/resources.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class StudentListScreen extends StatefulWidget {
   const StudentListScreen({super.key});
@@ -265,151 +266,203 @@ class _StudentListScreenState extends State<StudentListScreen> {
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                      child: Container(
-                                        padding: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius
-                                                .circular(10),
-                                            boxShadow: const[
-                                              BoxShadow(
-                                                color: Colors.grey,
-                                                // Shadow color
-                                                blurRadius: 1,
-                                                // Spread radius
-                                                spreadRadius: 0,
-                                                // How much the shadow spreads
-                                                offset: Offset(0,
-                                                    1), // Offset in (x, y) direction
-                                              ),
-                                            ]
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .start,
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .center,
-                                              children: [
-                                                ClipOval(
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: studentListController.getStudentListModel.value.data![index].profileImage.toString(),
-                                                    fit: BoxFit.cover,
-                                                    height: 30, width: 30,
-                                                    errorWidget: (__, _, ___) =>
-                                                        CircleAvatar(
-                                                          child: Image.asset(
-                                                            AppAssets.studentImg,
-                                                            fit: BoxFit.cover,
-                                                            height: 30, width: 30,
+                                      child: PopupMenuButton<int>(
+                                        padding: EdgeInsets.zero,
+                                        surfaceTintColor: Colors.white,
+                                        onSelected: (value) {
+                                          if (value == 1) {
+                                            Get.toNamed(
+                                                MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
+                                          } else if (value == 2) {
+                                            Get.toNamed(MyRouters.examResultScreenTeacher,arguments: studentListController.getStudentListModel.value.data![index].id);
+                                          }
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius
+                                                  .circular(10),
+                                              boxShadow: const[
+                                                BoxShadow(
+                                                  color: Colors.grey,
+                                                  // Shadow color
+                                                  blurRadius: 1,
+                                                  // Spread radius
+                                                  spreadRadius: 0,
+                                                  // How much the shadow spreads
+                                                  offset: Offset(0,
+                                                      1), // Offset in (x, y) direction
+                                                ),
+                                              ]
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .start,
+                                                crossAxisAlignment: CrossAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  ClipOval(
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: studentListController.getStudentListModel.value.data![index].profileImage.toString(),
+                                                      fit: BoxFit.cover,
+                                                      height: 30, width: 30,
+                                                      errorWidget: (__, _, ___) =>
+                                                          CircleAvatar(
+                                                            child: Image.asset(
+                                                              AppAssets.studentImg,
+                                                              fit: BoxFit.cover,
+                                                              height: 30, width: 30,
+                                                            ),
                                                           ),
-                                                        ),
-                                                    placeholder: (__, _) =>
-                                                    const Center(
-                                                        child:
-                                                        CircularProgressIndicator()),
+                                                      placeholder: (__, _) =>
+                                                      const Center(
+                                                          child:
+                                                          CircularProgressIndicator()),
+                                                    ),
+                                                    // Image.asset(
+                                                    //   AppAssets.studentImg,
+                                                    //   height: 30, width: 30,
+                                                    // ),
                                                   ),
-                                                  // Image.asset(
-                                                  //   AppAssets.studentImg,
-                                                  //   height: 30, width: 30,
-                                                  // ),
+                                                  const SizedBox(
+                                                    width: 12,
+                                                  ),
+                                                  Container(
+                                                    width: size.width * 0.67,
+                                                    // color: Colors.grey,
+                                                    child: Text(
+                                                      // "Test test test ytet ysguhfjifjofjojoj",
+                                                      capitalizeFirstLetter(studentListController.getStudentListModel.value.data![index].name.toString()),
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight
+                                                            .w500,
+                                                        fontSize: 15,
+                                                        color: AppThemes.black,
+                                                      ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(
+                                                // color: Colors.amber,
+                                                height: 25,
+                                                width: 30,
+                                                child: PopupMenuButton<int>(
+                                                  padding: EdgeInsets.zero,
+                                                  surfaceTintColor: Colors.white,
+                                                  onSelected: (value) {
+                                                    if (value == 1) {
+                                                      Get.toNamed(
+                                                          MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
+                                                    } else if (value == 2) {
+                                                      Get.toNamed(MyRouters.examResultScreenTeacher,arguments: studentListController.getStudentListModel.value.data![index].id);
+                                                    }
+                                                  },
+                                                  itemBuilder: (BuildContext context) {
+                                                    return [
+                                                      PopupMenuItem<int>(
+                                                          value: 1,
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(Icons.info_outlined,color: AppThemes.black,size: 20),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text("Details",style: TextStyle(
+                                                                fontWeight: FontWeight
+                                                                    .w500,
+                                                                fontSize: 15,
+                                                                color: AppThemes.black,
+                                                              ),),
+                                                            ],
+                                                          )
+                                                      ),
+                                                      PopupMenuItem<int>(
+                                                          value: 2,
+                                                          child: Row(
+                                                            children: [
+                                                              ImageIcon(AssetImage(AppAssets.examResultImg),size: 20),
+                                                              // Icon(Icons.delete,color: AppThemes.black,size: 20),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text("Exam Result",style: TextStyle(
+                                                                fontWeight: FontWeight
+                                                                    .w500,
+                                                                fontSize: 15,
+                                                                color: AppThemes.black,
+                                                              ),),
+                                                            ],
+                                                          )
+                                                      ),
+                                                    ];
+                                                  },
+                                                  icon: Icon(Icons.more_vert),
                                                 ),
-                                                const SizedBox(
-                                                  width: 12,
-                                                ),
-                                                Container(
-                                                  width: size.width * 0.67,
-                                                  // color: Colors.grey,
-                                                  child: Text(
-                                                    // "Test test test ytet ysguhfjifjofjojoj",
-                                                    studentListController.getStudentListModel.value.data![index].name.toString(),
-                                                    style: TextStyle(
+                                              ),
+
+                                              // InkWell(
+                                              //     onTap: () {
+                                              //
+                                              //     },
+                                              //     child: const Icon(
+                                              //       Icons.keyboard_arrow_right,
+                                              //       color: Colors.grey,))
+                                            ],
+                                          ),
+                                        ),
+                                        itemBuilder: (BuildContext context) {
+                                          return [
+                                            PopupMenuItem<int>(
+                                                value: 1,
+                                                child: Row(
+                                                  children: [
+                                                    Icon(Icons.info_outlined,color: AppThemes.black,size: 20),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text("Details",style: TextStyle(
                                                       fontWeight: FontWeight
                                                           .w500,
                                                       fontSize: 15,
                                                       color: AppThemes.black,
-                                                    ),
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                              ],
+                                                    ),),
+                                                  ],
+                                                )
                                             ),
-                                            Container(
-                                              // color: Colors.amber,
-                                              height: 25,
-                                              width: 30,
-                                              child: PopupMenuButton<int>(
-                                                padding: EdgeInsets.zero,
-                                                surfaceTintColor: Colors.white,
-                                                onSelected: (value) {
-                                                  if (value == 1) {
-                                                    Get.toNamed(
-                                                        MyRouters.studentDetailsScreen,arguments: studentListController.getStudentListModel.value.data![index].id);
-                                                  } else if (value == 2) {
-                                                    Get.toNamed(MyRouters.examResultScreenTeacher,arguments: studentListController.getStudentListModel.value.data![index].id);
-                                                  }
-                                                },
-                                                itemBuilder: (BuildContext context) {
-                                                  return [
-                                                    PopupMenuItem<int>(
-                                                        value: 1,
-                                                        child: Row(
-                                                          children: [
-                                                            Icon(Icons.info_outlined,color: AppThemes.black,size: 20),
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("Details",style: TextStyle(
-                                                              fontWeight: FontWeight
-                                                                  .w500,
-                                                              fontSize: 15,
-                                                              color: AppThemes.black,
-                                                            ),),
-                                                          ],
-                                                        )
+                                            PopupMenuItem<int>(
+                                                value: 2,
+                                                child: Row(
+                                                  children: [
+                                                    ImageIcon(AssetImage(AppAssets.examResultImg),size: 20),
+                                                    // Icon(Icons.delete,color: AppThemes.black,size: 20),
+                                                    SizedBox(
+                                                      width: 10,
                                                     ),
-                                                    PopupMenuItem<int>(
-                                                        value: 2,
-                                                        child: Row(
-                                                          children: [
-                                                            ImageIcon(AssetImage(AppAssets.examResultImg),size: 20),
-                                                            // Icon(Icons.delete,color: AppThemes.black,size: 20),
-                                                            SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text("Exam Result",style: TextStyle(
-                                                              fontWeight: FontWeight
-                                                                  .w500,
-                                                              fontSize: 15,
-                                                              color: AppThemes.black,
-                                                            ),),
-                                                          ],
-                                                        )
-                                                    ),
-                                                  ];
-                                                },
-                                                icon: Icon(Icons.more_vert),
-                                              ),
+                                                    Text("Exam Result",style: TextStyle(
+                                                      fontWeight: FontWeight
+                                                          .w500,
+                                                      fontSize: 15,
+                                                      color: AppThemes.black,
+                                                    ),),
+                                                  ],
+                                                )
                                             ),
-
-                                            // InkWell(
-                                            //     onTap: () {
-                                            //
-                                            //     },
-                                            //     child: const Icon(
-                                            //       Icons.keyboard_arrow_right,
-                                            //       color: Colors.grey,))
-                                          ],
-                                        ),
+                                          ];
+                                        },
+                                        // icon: Icon(Icons.more_vert),
                                       ),
                                     );
-                                  })
+                                  })  
                             ],
                           ),
                         ),
@@ -426,6 +479,39 @@ class _StudentListScreenState extends State<StudentListScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void showPopupMenu(BuildContext context) {
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    showMenu(
+      context: context,
+
+      position: RelativeRect.fromRect(
+        Rect.fromPoints(
+          overlay.localToGlobal(Offset.zero),
+          overlay.localToGlobal(overlay.size.bottomRight(Offset.zero)),
+        ),
+        Offset(52,20) & overlay.size,
+      ),
+      items: <PopupMenuEntry>[
+        PopupMenuItem(
+          child: Text('Option 1'),
+          onTap: () {
+            // Handle option 1
+            Navigator.pop(context);
+          },
+        ),
+        PopupMenuItem(
+          child: Text('Option 2'),
+          onTap: () {
+            // Handle option 2
+            Navigator.pop(context);
+          },
+        ),
+        // Add more PopupMenuItems as needed
+      ],
     );
   }
 }

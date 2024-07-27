@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vidhaalay_app/models/TeacherModel/create_event_model.dart';
-import 'package:vidhaalay_app/screen/student_screen/assignment_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/attendance_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/home_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/create_event_screen.dart';
+import 'package:vidhaalay/models/TeacherModel/create_event_model.dart';
+import 'package:vidhaalay/screen/student_screen/assignment_screen.dart';
+import 'package:vidhaalay/screen/student_screen/attendance_screen.dart';
+import 'package:vidhaalay/screen/student_screen/home_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_event_screen.dart';
 
 class BottomPractise extends StatefulWidget{
   @override
@@ -21,11 +21,11 @@ class _BottomPractiseState extends State<BottomPractise> {
     Text('Account'),
   ];
 
-  static List<Widget> _widgetBody = <Widget>[
-    const CreateEventScreen(),
-    const CreateEventScreen(),
-    const CreateEventScreen(),
-  ];
+  // static List<Widget> _widgetBody = <Widget>[
+  //   const CreateEventScreen(),
+  //   const CreateEventScreen(),
+  //   const CreateEventScreen(),
+  // ];
 
   void onItemTapped(BuildContext context,int index) {
     setState(() {
@@ -107,7 +107,7 @@ class _BottomPractiseState extends State<BottomPractise> {
       //   //       icon: Icon(Icons.delete))
       //   // ],
       // ),
-      body: _widgetBody.elementAt(_selectedIndex),
+      // body: _widgetBody.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

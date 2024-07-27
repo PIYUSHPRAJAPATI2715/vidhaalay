@@ -1,4 +1,4 @@
-# vidhaalay_app
+# vidhaalay
 
 A new Flutter project.
 

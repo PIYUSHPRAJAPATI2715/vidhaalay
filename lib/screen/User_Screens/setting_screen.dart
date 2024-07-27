@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/setting_controller.dart';
-import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/User_Screens/contactus_screen.dart';
-import 'package:vidhaalay_app/screen/User_Screens/privacypolicy_screen.dart';
-import 'package:vidhaalay_app/screen/User_Screens/termsandcondition_screen.dart';
+import 'package:vidhaalay/controller/setting_controller.dart';
+import 'package:vidhaalay/repositories/multi_login_repo.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/User_Screens/contactus_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/privacypolicy_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/termsandcondition_screen.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';

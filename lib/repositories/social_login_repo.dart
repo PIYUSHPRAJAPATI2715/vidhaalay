@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 
 import '../models/model_facebook.dart';
 import '../models/social_login_model.dart';

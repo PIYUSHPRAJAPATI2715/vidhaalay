@@ -2,17 +2,21 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/create_exam_timetable_controller.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/teacher_controller/create_exam_timetable_controller.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class CreateExamTimeTable extends StatefulWidget {
-  const CreateExamTimeTable({Key? key}) : super(key: key);
+  final String classId;
+  final String examTypeId;
+
+  const CreateExamTimeTable({Key? key, required this.classId, required this.examTypeId}) : super(key: key);
 
   @override
   State<CreateExamTimeTable> createState() => _CreateExamTimeTableState();
@@ -54,7 +58,9 @@ class _CreateExamTimeTableState extends State<CreateExamTimeTable> {
   @override
   void initState() {
     createExamTimeTableController.getMyClass();
+    createExamTimeTableController.selectedClassId.value = int.parse(widget.classId);
     createExamTimeTableController.getExamTypeData();
+    createExamTimeTableController.selectedExamType = widget.examTypeId;
     createExamTimeTableController.getTeacherListData();
     createExamTimeTableController.getClassListData();
     super.initState();
@@ -1182,8 +1188,8 @@ class _CreateExamTimeTableState extends State<CreateExamTimeTable> {
         },
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2025)
+        firstDate: CommonCalendar.startDate!,
+        lastDate: CommonCalendar.endDate!
     );
 
     if (pickedDate != null) {

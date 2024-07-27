@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/models/get_profile_model.dart';
-import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/User_Screens/address_screen.dart';
-import 'package:vidhaalay_app/screen/User_Screens/notification_user_screen.dart';
+import 'package:vidhaalay/models/get_profile_model.dart';
+import 'package:vidhaalay/repositories/get_profile_repo.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/User_Screens/address_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/notification_user_screen.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';

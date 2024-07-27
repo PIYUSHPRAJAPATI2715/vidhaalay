@@ -30,7 +30,8 @@ class GetEventModel {
 class Data {
   int? id;
   String? eventName;
-  Null? image;
+  String? image;
+  int? schoolId;
   int? teacherId;
   int? classId;
   Null? from;
@@ -46,6 +47,7 @@ class Data {
       {this.id,
         this.eventName,
         this.image,
+        this.schoolId,
         this.teacherId,
         this.classId,
         this.from,
@@ -61,6 +63,7 @@ class Data {
     id = json['id'];
     eventName = json['event_name'];
     image = json['image'];
+    schoolId = json['school_id'];
     teacherId = json['teacher_id'];
     classId = json['class_id'];
     from = json['from'];
@@ -78,6 +81,7 @@ class Data {
     data['id'] = this.id;
     data['event_name'] = this.eventName;
     data['image'] = this.image;
+    data['school_id'] = this.schoolId;
     data['teacher_id'] = this.teacherId;
     data['class_id'] = this.classId;
     data['from'] = this.from;

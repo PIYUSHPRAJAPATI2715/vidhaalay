@@ -3,10 +3,10 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 // import 'package:get/get.dart';
-// import 'package:vidhaalay_app/screen/User_Screens/drawer_user.dart';
-// import 'package:vidhaalay_app/screen/User_Screens/user_home_screen.dart';
-// import 'package:vidhaalay_app/screen/User_Screens/user_more_screen.dart';
-// import 'package:vidhaalay_app/screen/User_Screens/videos_screen.dart';
+// import 'package:vidhaalay/screen/User_Screens/drawer_user.dart';
+// import 'package:vidhaalay/screen/User_Screens/user_home_screen.dart';
+// import 'package:vidhaalay/screen/User_Screens/user_more_screen.dart';
+// import 'package:vidhaalay/screen/User_Screens/videos_screen.dart';
 //
 // import '../../controller/bottom_controller.dart';
 // import '../../resourses/app_assets.dart';

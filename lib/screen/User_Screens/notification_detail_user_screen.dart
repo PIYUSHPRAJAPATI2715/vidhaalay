@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vidhaalay_app/controller/get_notification_controller.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/controller/get_notification_controller.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vidhaalay_app/controller/deshborad_controller.dart';
-import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
-import 'package:vidhaalay_app/controller/user_Controller/see_all_controller.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/controller/deshborad_controller.dart';
+import 'package:vidhaalay/controller/user_Controller/favourite_controller.dart';
+import 'package:vidhaalay/controller/user_Controller/see_all_controller.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/screen/User_Screens/schools_details_Screen.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
 
 class SeeAllScreen extends StatefulWidget{
 
@@ -112,7 +112,7 @@ class _SeeAllScreenState extends State<SeeAllScreen> {
 
                   return GestureDetector(
                     onTap: () {
-                      getSchoolDetailsController.getSchoolDetailsFunction(item.id.toString());
+                      getSchoolDetailsController.getSchoolDetailsFunction(id:item.id.toString());
 
                       Get.to(() =>  SchoolsDetailsScreen(type: widget.appBarTitle),
                           transition: Transition.fadeIn,

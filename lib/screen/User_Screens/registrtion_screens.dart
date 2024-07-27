@@ -6,11 +6,11 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/models/admission_body_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/User_Screens/user_home_screen.dart';
+import 'package:vidhaalay/models/admission_body_model.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/User_Screens/user_home_screen.dart';
 import '../../controller/get_country_controller.dart';
 import '../../repositories/addmission_repo.dart';
 import '../../resourses/size.dart';
@@ -1199,7 +1199,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
+                                    backgroundColor: AppThemes.primaryColor,
                                     padding:
                                     const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                     textStyle:
@@ -1873,7 +1873,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 width: double.maxFinite,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: AppThemes.primaryColor,
+                                     backgroundColor: AppThemes.primaryColor,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 50, vertical: 13),
                                       textStyle: const TextStyle(
@@ -2062,7 +2062,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 width: double.maxFinite,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: AppThemes.primaryColor,
+                                     backgroundColor: AppThemes.primaryColor,
                                       padding:
                                       const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                       textStyle:
@@ -2457,7 +2457,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
+                                    backgroundColor: AppThemes.primaryColor,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 50, vertical: 13),
                                     textStyle: const TextStyle(
@@ -2719,7 +2719,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               width: double.maxFinite,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: AppThemes.primaryColor,
+                                    backgroundColor: AppThemes.primaryColor,
                                     padding:
                                     const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                     textStyle:
@@ -2895,7 +2895,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              SizedBox(height: 10),
+                                              // SizedBox(height: 10),
                                               CommonTextfield(
                                                 obSecure: false,
                                                 hintText: 'Enter Class Name',
@@ -2904,7 +2904,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                 validator: MultiValidator([
                                                   RequiredValidator(
                                                       errorText:
-                                                      'Please enter Class Name'),
+                                                      'Please enter class name'),
                                                 ]),
                                                 onChanged: (value) {
                                                   siblingInfoList[index].className = siblingClassControllers[index].text;
@@ -3157,7 +3157,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     width: double.maxFinite,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: AppThemes.primaryColor,
+                                          backgroundColor: AppThemes.primaryColor,
                                           padding:
                                           const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                                           textStyle:
@@ -3379,7 +3379,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           width: double.maxFinite,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: AppThemes.primaryColor,
+                backgroundColor: AppThemes.primaryColor,
                 padding:
                 const EdgeInsets.symmetric(horizontal: 50, vertical: 13),
                 textStyle:
@@ -3392,9 +3392,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ],
     );
   }
-
-
 }
+
+
 class TriangleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

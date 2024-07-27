@@ -3,20 +3,21 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/studentList_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/teacher_list_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/student_list_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/teacher_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/studentList_model.dart';
+import 'package:vidhaalay/models/TeacherModel/teacher_list_model.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/repositories/teacher/student_list_repo.dart';
+import 'package:vidhaalay/repositories/teacher/teacher_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 import 'package:http/http.dart' as http;
 
 class SendNotificationController extends GetxController {
   RxInt selectedValue = 0.obs;
 
   final titleController = TextEditingController();
+  final messageController = TextEditingController();
 
   // String selectStudent = 'Select Student';
   // var selectStudentData = [
@@ -71,11 +72,13 @@ class SendNotificationController extends GetxController {
         "class_id": selectClass,
         "student_id": selectStudent,
         "title": titleController.text,
-        "message": "Hello class"
+        "message": messageController.text,
+        "type" : 1
       } : {
         "class_id": selectClass,
         "title": titleController.text,
-        "message": "Hello class"
+        "message": messageController.text,
+        "type" : 0
       };
       print("body : $body");
 

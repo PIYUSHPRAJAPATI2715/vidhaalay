@@ -10,7 +10,9 @@ import '../widgets/appTheme.dart';
 
 
 class ApiUrls {
-  static const String apiBaseUrl = 'http://13.127.76.67:3000/api/';
+  // static const String apiBaseUrl = 'http://13.127.76.67:3000/api/';
+  static const String apiBaseUrl = 'https://15.206.97.133:3000/api/';
+
   static const String register = "${apiBaseUrl}user/register";
   static const String socialUrl = "${apiBaseUrl}user/signInWithGoogle";
   static const String socialUrlFacebook = "${apiBaseUrl}user/signInWithFacebook";

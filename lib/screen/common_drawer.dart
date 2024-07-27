@@ -7,33 +7,35 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
-import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
-import 'package:vidhaalay_app/controller/student_controller/get_student_profile_controller.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/get_profile_controller_teacher.dart';
-import 'package:vidhaalay_app/controller/user_Controller/get_profile_controller.dart';
-import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
-import 'package:vidhaalay_app/login%20screens/signup_screen.dart';
-import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
-import 'package:vidhaalay_app/models/get_profile_model.dart';
-import 'package:vidhaalay_app/models/login_model.dart';
-import 'package:vidhaalay_app/repositories/get_profile_repo.dart';
-import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/User_Screens/videos_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/attendance_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/class_timetable_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/exam_result_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/exam_timetable_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/syllabus_Screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/video_lecture_teacher_screen.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
-import 'package:vidhaalay_app/widgets/multi_login_alert_dialogbox.dart';
+import 'package:vidhaalay/controller/authentication/signin_controller.dart';
+import 'package:vidhaalay/controller/new_botttom_controller.dart';
+import 'package:vidhaalay/controller/student_controller/get_student_profile_controller.dart';
+import 'package:vidhaalay/controller/teacher_controller/get_profile_controller_teacher.dart';
+import 'package:vidhaalay/controller/user_Controller/get_profile_controller.dart';
+import 'package:vidhaalay/login%20screens/signin_screen.dart';
+import 'package:vidhaalay/login%20screens/signup_screen.dart';
+import 'package:vidhaalay/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/create_event_model.dart';
+import 'package:vidhaalay/models/get_profile_model.dart';
+import 'package:vidhaalay/models/login_model.dart';
+import 'package:vidhaalay/repositories/get_profile_repo.dart';
+import 'package:vidhaalay/repositories/multi_login_repo.dart';
+import 'package:vidhaalay/repositories/teacher/class_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/User_Screens/videos_screen.dart';
+import 'package:vidhaalay/screen/student_screen/attendance_screen.dart';
+import 'package:vidhaalay/screen/student_screen/class_timetable_screen.dart';
+import 'package:vidhaalay/screen/student_screen/exam_result_screen.dart';
+import 'package:vidhaalay/screen/student_screen/exam_timetable_screen.dart';
+import 'package:vidhaalay/screen/student_screen/syllabus_Screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_event_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/student_list_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/video_lecture_teacher_screen.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/widgets/multi_login_alert_dialogbox.dart';
 
 import '../login screens/splash.dart';
 import '../models/multi_login_model.dart';
@@ -118,118 +120,120 @@ class _commonDrawerState extends State<commonDrawer> {
                   child: SizedBox(
                     height: size.height * 0.33,
                     child: DrawerHeader(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          bottomController.userType == 0 ? Obx(
-                            () => commonProfileImageCircle(
-                                context: context,
-                                isProfileImageLoading:
-                                !getProfileController.isProfileLoading.value,
-                                isProfileExist:
-                                getProfileController.networkProfileImage !=
-                                    null,
-                                image: getProfileController
-                                // .getProfileModel.value.data!.profileImage
-                                    .networkProfileImage,radius: 60),
-                          ) : bottomController.userType == 1 ? Obx(
-                                () => commonProfileImageCircle(
-                                    context: context,
-                                    isProfileImageLoading: !getTeacherProfileController
-                                        .isProfileLoading.value,
-                                    isProfileExist: getTeacherProfileController
-                                        .networkProfileImage !=
-                                        null,
-                                    image:
-                                    getTeacherProfileController
-                                    // .getProfileModel.value.data!.profileImage
-                                        .networkProfileImage,
-                                    radius: 60
-                                ),
-                          ) : Obx(
-                                () => commonProfileImageCircle(
-                                    context: context,
-                                    isProfileImageLoading: !getStudentProfileController.isProfileLoading.value,
-                                    isProfileExist: getStudentProfileController.networkProfileImage != null,
-                                    image:
-                                    getStudentProfileController
-                                    // .getProfileModel.value.data!.profileImage
-                                        .networkProfileImage,
-                                    radius: 60
-                                ),
-                          ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            bottomController.userType == 0 ? Obx(
+                              () => commonProfileImageCircle(
+                                  context: context,
+                                  isProfileImageLoading:
+                                  !getProfileController.isProfileLoading.value,
+                                  isProfileExist:
+                                  getProfileController.networkProfileImage !=
+                                      null,
+                                  image: getProfileController
+                                  // .getProfileModel.value.data!.profileImage
+                                      .networkProfileImage,radius: 60),
+                            ) : bottomController.userType == 1 ? Obx(
+                                  () => commonProfileImageCircle(
+                                      context: context,
+                                      isProfileImageLoading: !getTeacherProfileController
+                                          .isProfileLoading.value,
+                                      isProfileExist: getTeacherProfileController
+                                          .networkProfileImage !=
+                                          null,
+                                      image:
+                                      getTeacherProfileController
+                                      // .getProfileModel.value.data!.profileImage
+                                          .networkProfileImage,
+                                      radius: 60
+                                  ),
+                            ) : Obx(
+                                  () => commonProfileImageCircle(
+                                      context: context,
+                                      isProfileImageLoading: !getStudentProfileController.isProfileLoading.value,
+                                      isProfileExist: getStudentProfileController.networkProfileImage != null,
+                                      image:
+                                      getStudentProfileController
+                                      // .getProfileModel.value.data!.profileImage
+                                          .networkProfileImage,
+                                      radius: 60
+                                  ),
+                            ),
 
-                          // CircleAvatar(
-                          //   radius: 60,
-                          //   backgroundColor: Colors.transparent,
-                          //   child: ClipOval(
-                          //     child: isProfileLoading
-                          //         ? Shimmer.fromColors(
-                          //       // ignore: sort_child_properties_last
-                          //       child: CircleAvatar(
-                          //           radius: 60, backgroundColor: Colors.grey),
-                          //       baseColor: Colors.grey[300]!,
-                          //       highlightColor: Colors.grey[400]!,
-                          //     )
-                          //         : networkProfileImage != null
-                          //         ? CachedNetworkImage(
-                          //       imageUrl: networkProfileImage.toString(),
-                          //       fit: BoxFit.fill,
-                          //       errorWidget: (__, _, ___) => Image.asset(
-                          //         AppAssets.collageImg,
-                          //         fit: BoxFit.cover,
-                          //         width: double.maxFinite,
-                          //       ),
-                          //       imageBuilder: (context, imageProvider) =>
-                          //           Container(
-                          //             decoration: BoxDecoration(
-                          //               image: DecorationImage(
-                          //                 image: imageProvider,
-                          //                 fit: BoxFit.cover,
-                          //               ),
-                          //             ),
-                          //           ),
-                          //       placeholder: (context, url) =>
-                          //           Shimmer.fromColors(
-                          //             // ignore: sort_child_properties_last
-                          //             child: CircleAvatar(
-                          //                 radius: 60,
-                          //                 backgroundColor: Colors.grey),
-                          //             baseColor: Colors.grey[300]!,
-                          //             highlightColor: Colors.grey[400]!,
-                          //           ),
-                          //     )
-                          //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
-                          //         : Image.asset(
-                          //       AppAssets.studentImg,
-                          //       fit: BoxFit.cover,
-                          //       // height: 35,
-                          //     ),
-                          //   ),
-                          // ),
-                          // const CircleAvatar(
-                          //   radius: 60,
-                          //   backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
-                          // ),
-                          SizedBox(height: size.height * 0.016),
-                          Text(
-                            username,
-                            style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                              color: AppThemes.white,
+                            // CircleAvatar(
+                            //   radius: 60,
+                            //   backgroundColor: Colors.transparent,
+                            //   child: ClipOval(
+                            //     child: isProfileLoading
+                            //         ? Shimmer.fromColors(
+                            //       // ignore: sort_child_properties_last
+                            //       child: CircleAvatar(
+                            //           radius: 60, backgroundColor: Colors.grey),
+                            //       baseColor: Colors.grey[300]!,
+                            //       highlightColor: Colors.grey[400]!,
+                            //     )
+                            //         : networkProfileImage != null
+                            //         ? CachedNetworkImage(
+                            //       imageUrl: networkProfileImage.toString(),
+                            //       fit: BoxFit.fill,
+                            //       errorWidget: (__, _, ___) => Image.asset(
+                            //         AppAssets.collageImg,
+                            //         fit: BoxFit.cover,
+                            //         width: double.maxFinite,
+                            //       ),
+                            //       imageBuilder: (context, imageProvider) =>
+                            //           Container(
+                            //             decoration: BoxDecoration(
+                            //               image: DecorationImage(
+                            //                 image: imageProvider,
+                            //                 fit: BoxFit.cover,
+                            //               ),
+                            //             ),
+                            //           ),
+                            //       placeholder: (context, url) =>
+                            //           Shimmer.fromColors(
+                            //             // ignore: sort_child_properties_last
+                            //             child: CircleAvatar(
+                            //                 radius: 60,
+                            //                 backgroundColor: Colors.grey),
+                            //             baseColor: Colors.grey[300]!,
+                            //             highlightColor: Colors.grey[400]!,
+                            //           ),
+                            //     )
+                            //     // Image.network(getProfileController.networkProfileImage.toString(),fit: BoxFit.fill)
+                            //         : Image.asset(
+                            //       AppAssets.studentImg,
+                            //       fit: BoxFit.cover,
+                            //       // height: 35,
+                            //     ),
+                            //   ),
+                            // ),
+                            // const CircleAvatar(
+                            //   radius: 60,
+                            //   backgroundImage: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60', scale: 40),
+                            // ),
+                            SizedBox(height: size.height * 0.01),
+                            Text(
+                              username,
+                              style: TextStyle(
+                                fontSize: 21,
+                                fontWeight: FontWeight.w600,
+                                color: AppThemes.white,
+                              ),
                             ),
-                          ),
-                          bottomController.userType != 0 && classname != null ? Text(
-                             "CLASS-${classname}",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppThemes.white,
-                            ),
-                          ) : SizedBox.shrink()
-                        ],
+                            bottomController.userType != 0 && classname != null ? Text(
+                               "CLASS-${classname}",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: AppThemes.white,
+                              ),
+                            ) : SizedBox.shrink()
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -449,7 +453,7 @@ class _commonDrawerState extends State<commonDrawer> {
                     const SizedBox(height: 10,),
                     ListTile(
                       onTap: (){
-                        Get.toNamed(MyRouters.createEventScreen);
+                        Get.to(() => CreateEventScreen());
                       },
                       contentPadding: EdgeInsets.zero,
                       visualDensity:

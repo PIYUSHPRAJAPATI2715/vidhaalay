@@ -2,18 +2,19 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/create_event_controller.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/teacher_controller/create_event_controller.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class CreateEventScreen extends StatefulWidget {
-  const CreateEventScreen({Key? key}) : super(key: key);
+  final String classId;
+  const CreateEventScreen({Key? key, this.classId = '4'}) : super(key: key);
 
   @override
   State<CreateEventScreen> createState() => _CreateEventScreenState();
@@ -41,6 +42,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   @override
   void initState() {
     createEventController.getMyClass();
+    createEventController.selectClass = widget.classId;
     super.initState();
   }
 
@@ -129,8 +131,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ],
                   ),
-
-
                 ],
               )
           ),
@@ -277,120 +277,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                         ),
                                       ),
                                     ),
-                                  // DropdownButtonFormField<String>(
-                                  //   value: createEventController.selectClass?.value,
-                                  //   items: createEventController.selectClassData.toList()
-                                  //       .map((item) => DropdownMenuItem(
-                                  //     value: item.toString(),
-                                  //     child: Text(item),
-                                  //   )).toList(),
-                                  //   onChanged: (value) {
-                                  //     setState(() {
-                                  //       createEventController.selectClass!.value = value!;
-                                  //     });
-                                  //   },
-                                  //   menuMaxHeight: size.height * 0.25,
-                                  //   borderRadius: BorderRadius.circular(10),
-                                  //   style: TextStyle(
-                                  //     color: Colors.grey,
-                                  //     fontSize: 15,
-                                  //   ),
-                                  //   decoration: InputDecoration(
-                                  //     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                                  //     hintText: 'Select Class',
-                                  //     hintStyle: const TextStyle(
-                                  //       color: Colors.grey,
-                                  //       fontSize: 15,
-                                  //     ),
-                                  //     errorBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.circular(50),
-                                  //       borderSide: BorderSide(
-                                  //           color: Colors.red,
-                                  //           width: 1
-                                  //       ),
-                                  //     ),
-                                  //     focusedErrorBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.circular(50),
-                                  //       borderSide: BorderSide(
-                                  //           color: Colors.red,
-                                  //           width: 1
-                                  //       ),
-                                  //     ),
-                                  //     enabledBorder: OutlineInputBorder(
-                                  //         borderRadius: BorderRadius.circular(50),
-                                  //         borderSide: BorderSide(
-                                  //             color: Colors.grey!.withOpacity(0.5),
-                                  //             width: 1
-                                  //         )
-                                  //     ),
-                                  //
-                                  //     focusedBorder: OutlineInputBorder(
-                                  //         borderRadius: BorderRadius.circular(50),
-                                  //         borderSide: BorderSide(
-                                  //             color: Colors.grey!.withOpacity(0.5),
-                                  //             width: 1
-                                  //         )
-                                  //     ),
-                                  //   ),
-                                  //   validator: (value) {
-                                  //     if (value == null || value.isEmpty) {
-                                  //       return 'Please select class';
-                                  //     }
-                                  //     return null;
-                                  //   },
-                                  // ),
-
-                                  // Container(
-                                  //   height: 50,
-                                  //   width: Get.width,
-                                  //   decoration: BoxDecoration(
-                                  //     borderRadius: BorderRadius.circular(25),
-                                  //   ),
-                                  //   child: DropdownButtonFormField(
-                                  //     focusColor: Colors.grey.shade50,
-                                  //     isExpanded: true,
-                                  //     iconEnabledColor: const Color(0xff97949A),
-                                  //     icon: const Icon(Icons.keyboard_arrow_down),
-                                  //     hint: Text(
-                                  //       selectClass,
-                                  //       style: const TextStyle(
-                                  //           color: Color(0xff463B57),
-                                  //           fontSize: 16,
-                                  //           fontWeight: FontWeight.w300),
-                                  //       textAlign: TextAlign.justify,
-                                  //     ),
-                                  //     decoration: InputDecoration(
-                                  //         fillColor: Colors.grey.shade50,
-                                  //         contentPadding: const EdgeInsets.symmetric(
-                                  //             horizontal: 20, vertical: 10),
-                                  //         focusedBorder: OutlineInputBorder(
-                                  //           borderSide:
-                                  //           BorderSide(color: Colors.grey.shade300),
-                                  //           borderRadius: BorderRadius.circular(25.0),
-                                  //         ),
-                                  //         enabledBorder: const OutlineInputBorder(
-                                  //             borderSide:
-                                  //             BorderSide(color: Color(0xffE3E3E3)),
-                                  //             borderRadius: BorderRadius.all(
-                                  //                 Radius.circular(25.0)))),
-                                  //     value: selectClass,
-                                  //     items: selectClassData.map((String items) {
-                                  //       return DropdownMenuItem(
-                                  //         value: items,
-                                  //         child: Text(
-                                  //           items,
-                                  //           style: const TextStyle(
-                                  //               color: Colors.grey, fontSize: 14),
-                                  //         ),
-                                  //       );
-                                  //     }).toList(),
-                                  //     onChanged: (String? newValue) {
-                                  //       setState(() {
-                                  //         selectClass = newValue!;
-                                  //       });
-                                  //     },
-                                  //   ),
-                                  // ),
                                   const SizedBox(
                                     height: 25,
                                   ),

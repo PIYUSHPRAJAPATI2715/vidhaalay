@@ -9,14 +9,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:vidhaalay_app/controller/deshborad_controller.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/deshborad_controller.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/bottom_navbar_screen.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 
 import '../../controller/user_Controller/get_profile_controller.dart';
 import '../../repositories/location_update_repo.dart';
@@ -116,7 +116,9 @@ class _AddressScreenState extends State<AddressScreen> {
           });
         } else {
           showToast(message:
-              "Please on your device location and retry for update your location");
+              "Please allow your device location and try again"
+              // "Please on your device location and retry for update your location"
+          );
         }
       }
       // return position;

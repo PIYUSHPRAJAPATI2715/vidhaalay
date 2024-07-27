@@ -3,18 +3,18 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/get_profile_controller_teacher.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/student_attandance_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/add_attandance_model.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_dropdown.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/controller/teacher_controller/get_profile_controller_teacher.dart';
+import 'package:vidhaalay/controller/teacher_controller/student_attandance_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/add_attandance_model.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_dropdown.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class TeacherAttendanceScreen extends StatefulWidget {
   const TeacherAttendanceScreen({Key? key}) : super(key: key);

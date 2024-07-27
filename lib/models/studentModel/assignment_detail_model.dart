@@ -31,15 +31,17 @@ class Data {
   String? assignmentName;
   String? tagline;
   String? detail;
+  String? image;
   String? dueDate;
   int? status;
   String? createdAt;
   String? updatedAt;
+  Null? deletedAt;
   Teacher? teacher;
   Class? class0;
   Class? subject;
 
-  Data({this.id, this.teacherId, this.classId, this.schoolId, this.subjectId, this.assignmentName, this.tagline, this.detail, this.dueDate, this.status, this.createdAt, this.updatedAt, this.teacher, this.class0, this.subject});
+  Data({this.id, this.teacherId, this.classId, this.schoolId, this.subjectId, this.assignmentName, this.tagline, this.detail, this.image, this.dueDate, this.status, this.createdAt, this.updatedAt, this.deletedAt, this.teacher, this.class0, this.subject});
 
   Data.fromJson(Map<String, dynamic> json) {
   id = json['id'];
@@ -50,10 +52,12 @@ class Data {
   assignmentName = json['assignment_name'];
   tagline = json['tagline'];
   detail = json['detail'];
+  image = json['image'];
   dueDate = json['dueDate'];
   status = json['status'];
   createdAt = json['createdAt'];
   updatedAt = json['updatedAt'];
+  deletedAt = json['deletedAt'];
   teacher = json['teacher'] != null ? new Teacher.fromJson(json['teacher']) : null;
   class0 = json['class'] != null ? new Class.fromJson(json['class']) : null;
   subject = json['subject'] != null ? new Class.fromJson(json['subject']) : null;
@@ -69,10 +73,12 @@ class Data {
   data['assignment_name'] = this.assignmentName;
   data['tagline'] = this.tagline;
   data['detail'] = this.detail;
+  data['image'] = this.image;
   data['dueDate'] = this.dueDate;
   data['status'] = this.status;
   data['createdAt'] = this.createdAt;
   data['updatedAt'] = this.updatedAt;
+  data['deletedAt'] = this.deletedAt;
   if (this.teacher != null) {
   data['teacher'] = this.teacher!.toJson();
   }
@@ -108,7 +114,7 @@ class Teacher {
   }
 }
 
-class Class {
+class Class  {
   int? id;
   String? name;
 

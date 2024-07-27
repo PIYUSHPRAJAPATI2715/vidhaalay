@@ -12,21 +12,30 @@ class CommonProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Positioned(
-      height: size.height,
-      width: size.width,
-      top: 0,
-      left: 0,
-      child: Material(
-        color: AppThemes.primaryColor.withOpacity(0.02),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            LoadingAnimationWidget.threeArchedCircle(color: AppThemes.primaryColor, size: AddSize.size40),
-          ],
-        ),
+    return Material(
+      color: AppThemes.primaryColor.withOpacity(0.02),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          LoadingAnimationWidget.threeArchedCircle(color: AppThemes.primaryColor, size: AddSize.size40),
+        ],
       ),
     );
+    // return Positioned(
+    //   height: size.height,
+    //   width: size.width,
+    //   top: 0,
+    //   left: 0,
+    //   child: Material(
+    //     color: AppThemes.primaryColor.withOpacity(0.02),
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         LoadingAnimationWidget.threeArchedCircle(color: AppThemes.primaryColor, size: AddSize.size40),
+    //       ],
+    //     ),
+    //   ),
+    // );
       /*Center(
         child: Platform.isAndroid ? const CircularProgressIndicator(color: AppThemes.primaryColor,):
         CupertinoActivityIndicator(color: AppThemes.primaryColor,radius: AddSize.size20, )

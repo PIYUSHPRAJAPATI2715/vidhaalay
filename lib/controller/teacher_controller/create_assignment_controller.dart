@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+import 'package:vidhaalay/controller/teacher_controller/get_assignment_list_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/subject_list_model.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/repositories/teacher/subject_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
+import 'package:vidhaalay/widgets/resources.dart';
 
 
 class CreateAssignmentController extends GetxController {
@@ -40,7 +42,7 @@ class CreateAssignmentController extends GetxController {
   void getMyClass() {
     getMyClassListRepo().then((values) async {
       if(values != null) {
-        selectClass = values[0].id.toString();
+        // selectClass = values[0].id.toString();
 
         getSubjectListData(classId: selectClass.toString());
 
@@ -75,7 +77,7 @@ class CreateAssignmentController extends GetxController {
         "subject_id": int.parse(selectedSubject!),
         "class_id": int.parse(selectClass!),
         "detail": message.text,
-        "dueDate": "${dobController.text}T23:55:06.957Z"
+        "dueDate": dobController.text
       };
       print("body $body");
 
@@ -90,6 +92,15 @@ class CreateAssignmentController extends GetxController {
         print("Assignment responseData  : ${responseData}");
 
         if(responseData['status']) {
+          final getAssignmentController = Get.put(AssignmentListTeacherController());
+          List<String> dateParts = dobController.text.split('-');
+          getAssignmentController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          getAssignmentController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
+          getAssignmentController.daysInMonth.value = getMonthDays(year: int.parse(dateParts[0]),month: dateParts[1]);
+          getAssignmentController.selectedClassId.value  = int.parse(selectClass!);
+          getAssignmentController.selectedDate.value  = dobController.text;
+          getAssignmentController.getAssignmentData();
+
           Get.back();
           Helpers.hideLoader(loader);
           showToast(message:responseData['msg'].toString());
@@ -129,8 +140,8 @@ class CreateAssignmentController extends GetxController {
         },
         context: context,
         initialDate: DateTime.now(),
-        firstDate:  DateTime.now(),
-        lastDate: DateTime(2099));
+        firstDate:  CommonCalendar.startDate!,
+        lastDate: CommonCalendar.endDate!);
 
     if (pickedDate != null) {
       DateFormat dateFormat = DateFormat('yyyy-MM-dd');

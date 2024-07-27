@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/timetable_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/timetable_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 
 class ClassTimeController extends GetxController{
   RxBool isDataLoading = true.obs;
@@ -20,6 +20,9 @@ class ClassTimeController extends GetxController{
   RxString selectedDate = "".obs;
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
+  RxInt selectedYear = 0.obs;
+  RxList daysInMonth = [].obs;
+
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {

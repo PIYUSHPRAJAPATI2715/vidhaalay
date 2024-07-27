@@ -1,7 +1,7 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:vidhaalay_app/models/get_notification_details_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/models/get_notification_details_model.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 import '../models/get_city_model.dart';
 import '../models/get_countryList_model.dart';
 import '../models/get_faq_model.dart';
@@ -18,6 +18,13 @@ class GetNotificationController extends GetxController {
   Rx<GetNotificationModel> getNotificationModel = GetNotificationModel().obs;
   Rx<NotificationDetailsModel> getNotificationDetailsModel = NotificationDetailsModel().obs;
   // Rx<GetFaqModel> getFaqModel = GetFaqModel().obs;
+
+
+  RxString selectedDate = "".obs;
+  RxInt selectedIndex = 0.obs;
+  RxInt selectedMonthIndex = 0.obs;
+  RxInt selectedYear = 0.obs;
+  RxList daysInMonth = [].obs;
 
 
   Future getNotificationData(String dateFormat) async {

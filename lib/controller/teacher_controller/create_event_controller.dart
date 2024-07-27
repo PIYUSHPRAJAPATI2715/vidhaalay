@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/TeacherModel/create_event_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/controller/teacher_controller/event_detail_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/create_event_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 
 import '../../widgets/resources.dart';
 
@@ -39,7 +41,10 @@ class CreateEventController extends GetxController {
   // RxInt selectClass = 0.obs;
 
 
+
+
   void selectDate(BuildContext context) async {
+    // print(CommonCalendar.startDate!);
     final DateTime? pickedDate = await showDatePicker(
         builder: (context, child) {
           return Theme(
@@ -62,8 +67,8 @@ class CreateEventController extends GetxController {
         },
         context: context,
         initialDate: DateTime.now(),
-        firstDate:  DateTime.now(),
-        lastDate: DateTime(2099));
+        firstDate: CommonCalendar.startDate!,
+        lastDate: CommonCalendar.endDate!);
 
     if (pickedDate != null) {
       DateFormat dateFormat = DateFormat('yyyy-MM-dd');
@@ -73,14 +78,17 @@ class CreateEventController extends GetxController {
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {
+      print("values $values");
+
+
       if(values != null) {
-        selectClass = values[0].id.toString();
+        // selectClass = values[0].id.toString();
         selectClassData.clear();
         selectClassData.addAll(values);
+        print("Enter get Data");
       }
     });
   }
-
 
   Future<void> createEventAPI(BuildContext context) async {
     try {
@@ -111,12 +119,23 @@ class CreateEventController extends GetxController {
         createEventModel.value = CreateEvent.fromJson(responseData);
 
         if(createEventModel.value.status!) {
+          final evenetDetailController = Get.put(EvenetDetailController());
+
+          List<String> dateParts = dobController.text.split('-');
+          evenetDetailController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
+          evenetDetailController.selectedYear.value = int.parse(dateParts[0]);
+          evenetDetailController.selectedDate.value = dobController.text;
+          evenetDetailController.daysInMonth.value = getMonthDays(year: int.parse(dateParts[0]),month: dateParts[1]);
+          evenetDetailController.selectedClassId.value = int.parse(selectClass!);
+          evenetDetailController.getEventData();
           Get.back();
           Helpers.hideLoader(loader);
+          showToast(message:createEventModel.value.msg.toString());
         } else {
           Helpers.hideLoader(loader);
+          showToast(message:createEventModel.value.msg.toString(),isError:  true);
         }
-        showToast(message:createEventModel.value.msg.toString());
       } else {
 
         throw Exception(response.body);

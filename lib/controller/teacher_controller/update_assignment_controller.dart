@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/controller/teacher_controller/get_assignment_list_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
-import 'package:vidhaalay_app/models/studentModel/assignment_detail_model.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
-import 'package:vidhaalay_app/widgets/resources.dart';
+import 'package:vidhaalay/controller/teacher_controller/get_assignment_list_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/subject_list_model.dart';
+import 'package:vidhaalay/models/studentModel/assignment_detail_model.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/repositories/teacher/subject_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
+import 'package:vidhaalay/widgets/resources.dart';
 
 
 class UpdateAssignmentController extends GetxController {
@@ -143,6 +143,7 @@ class UpdateAssignmentController extends GetxController {
           print("update month index ${dateParts[1]}");
           getAssignmentController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
           print("selectedMonthIndex ${getAssignmentController.selectedMonthIndex.value}");
+          getAssignmentController.daysInMonth.value = getMonthDays(year: int.parse(dateParts[0]),month: dateParts[1]);
           getAssignmentController.selectedClassId.value  = int.parse(selectClass!);
           getAssignmentController.selectedDate.value  = dobController.text;
           getAssignmentController.getAssignmentData();
@@ -164,6 +165,7 @@ class UpdateAssignmentController extends GetxController {
   }
 
   void selectDate(BuildContext context) async {
+
     final DateTime? pickedDate = await showDatePicker(
         builder: (context, child) {
           return Theme(
@@ -186,8 +188,8 @@ class UpdateAssignmentController extends GetxController {
         },
         context: context,
         initialDate: DateTime.now(),
-        firstDate:  DateTime.now(),
-        lastDate: DateTime(2099));
+        firstDate:  CommonCalendar.startDate!,
+        lastDate: CommonCalendar.endDate!);
 
     if (pickedDate != null) {
       DateFormat dateFormat = DateFormat('yyyy-MM-dd');

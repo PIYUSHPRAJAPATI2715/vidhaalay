@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:vidhaalay_app/models/get_state_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/models/get_state_model.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 
 import '../models/get_city_model.dart';
 import '../models/get_countryList_model.dart';

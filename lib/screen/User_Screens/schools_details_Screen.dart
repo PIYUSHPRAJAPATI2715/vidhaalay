@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_image_viewer.dart';
+import 'package:vidhaalay/controller/user_Controller/favourite_controller.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_image_viewer.dart';
 
 import '../../controller/deshborad_controller.dart';
 import '../../routers/my_routers.dart';
@@ -40,7 +40,7 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
     super.initState();
     tabController = TabController(length: 6, vsync: this);
     type = widget.type;
-    // getSchoolDetailsController.getSchoolDetailsFunction();
+    // getSchoolDetailsController.getSchoolDetailsFunction(id:);
   }
 
   @override
@@ -139,8 +139,8 @@ class _SchoolsDetailsScreenState extends State<SchoolsDetailsScreen>
                           // print(getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite);
                           int id =  getSchoolDetailsController.schoolDetailsModel.value.data!.id!;
                           favouriteController.addFavouriteInListRepo(id,type,!isFavourite).then((value) {
-                            getSchoolDetailsController.getSchoolDetailsFunction(id.toString());
-                            getSchoolDetailsController.getSchoolListFunction();
+                            getSchoolDetailsController.getSchoolDetailsFunction(id:id.toString(),showloader: false);
+                            getSchoolDetailsController.getSchoolListFunction(showloader: false);
                           });
                         },
                         child: getSchoolDetailsController.schoolDetailsModel.value.data?.favourite != null  &&  getSchoolDetailsController.schoolDetailsModel.value.data!.favourite!.favourite!

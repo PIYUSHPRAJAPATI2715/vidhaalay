@@ -3,16 +3,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/class_time_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/class_timetable_details_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/teacher_list_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/teacher_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/controller/teacher_controller/class_time_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/class_timetable_details_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/subject_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/teacher_list_model.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/repositories/teacher/subject_list_repo.dart';
+import 'package:vidhaalay/repositories/teacher/teacher_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 import 'package:http/http.dart' as http;
 
 class UpdateClassTimeTableController extends GetxController {

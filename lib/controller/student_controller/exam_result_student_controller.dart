@@ -4,17 +4,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/models/TeacherModel/add_exam_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_result_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_timetable_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_type_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/student_details_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
+import 'package:vidhaalay/models/TeacherModel/add_exam_model.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_result_model.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_timetable_model.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_type_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/student_details_model.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/repositories/teacher/exam_type_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/repositories/teacher/exam_type_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 
 class ExamResultStudentController extends GetxController {
 
@@ -27,19 +27,21 @@ class ExamResultStudentController extends GetxController {
   RxInt selectedExamType = 0.obs;
 
   String? selectedDate;
+  RxInt selectedYear = 0.obs;
 
   Future getExamTypeData() async {
     isExamTypeLoading.value = true;
+    update();
     await getExamTypeListRepo().then((values) {
       print("exam type value : $values");
 
       selectedExamType.value = values.data![0].id!;
       print("selectedExamType : ${selectedExamType?.value}");
       getExamTypeModel.value = values;
-
+      isExamTypeLoading.value = false;
+      update();
       getExamResultData();
 
-      isExamTypeLoading.value = false;
     });
   }
 

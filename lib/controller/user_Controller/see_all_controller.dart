@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:vidhaalay_app/models/get_school_details_model.dart';
-import 'package:vidhaalay_app/models/school_list_model.dart';
-import 'package:vidhaalay_app/repositories/get_school_details_repo.dart';
-import 'package:vidhaalay_app/repositories/school_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/models/get_school_details_model.dart';
+import 'package:vidhaalay/models/school_list_model.dart';
+import 'package:vidhaalay/repositories/get_school_details_repo.dart';
+import 'package:vidhaalay/repositories/school_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 import 'package:http/http.dart' as http;
 
 

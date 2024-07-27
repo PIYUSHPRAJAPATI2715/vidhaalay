@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/controller/deshborad_controller.dart';
-import 'package:vidhaalay_app/controller/user_Controller/see_all_controller.dart';
-import 'package:vidhaalay_app/models/favourite_model_user.dart';
-import 'package:vidhaalay_app/models/school_list_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/controller/deshborad_controller.dart';
+import 'package:vidhaalay/controller/user_Controller/see_all_controller.dart';
+import 'package:vidhaalay/models/favourite_model_user.dart';
+import 'package:vidhaalay/models/school_list_model.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 
 class FavouriteController extends GetxController {
   RxBool isFavouriteListLoading = true.obs;

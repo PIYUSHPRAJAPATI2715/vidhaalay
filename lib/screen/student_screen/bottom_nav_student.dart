@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/student_controller/bottom_navigation_controller.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/controller/student_controller/bottom_navigation_controller.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/screen/student_screen/drawer_student.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 
 
 class BottomNavigationStudentScreen extends StatefulWidget {

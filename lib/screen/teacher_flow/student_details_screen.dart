@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/studentlist_controller.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/controller/teacher_controller/studentlist_controller.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 import '../../widgets/common_textfield.dart';
+import '../../widgets/resources.dart';
 
 
 class StudentDetailsScreen extends StatefulWidget {
@@ -120,7 +121,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                         children: [
                           Center(
                             child:  Text(
-                              studentListController.getStudentDetailsModel.value.data!.name!.toString(),
+                              capitalizeFirstLetter(studentListController.getStudentDetailsModel.value.data!.name!.toString()),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 19,
@@ -141,6 +142,14 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                           ),
                           const SizedBox(
                             height: 30,
+                          ),
+                          CommonRow(
+                            text1: 'Mobile Number',
+                            text2: studentListController.getStudentDetailsModel.value.data!.mobile!.toString(),
+                          ),
+                          CommonRow(
+                            text1: 'Address',
+                            text2: "Jaipur",
                           ),
                           CommonRow(
                            text1: 'Father\'s Name',

@@ -25,15 +25,18 @@ class EventDetails {
 class Data {
   int? id;
   String? eventName;
-  Null? image;
+  String? image;
   int? schoolId;
   int? teacherId;
   int? classId;
+  Null? from;
+  Null? to;
   String? date;
   String? message;
   int? status;
   String? createdAt;
   String? updatedAt;
+  Null? deletedAt;
   Teacher? teacher;
 
   Data(
@@ -43,11 +46,14 @@ class Data {
         this.schoolId,
         this.teacherId,
         this.classId,
+        this.from,
+        this.to,
         this.date,
         this.message,
         this.status,
         this.createdAt,
         this.updatedAt,
+        this.deletedAt,
         this.teacher});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -57,11 +63,14 @@ class Data {
     schoolId = json['school_id'];
     teacherId = json['teacher_id'];
     classId = json['class_id'];
+    from = json['from'];
+    to = json['to'];
     date = json['date'];
     message = json['message'];
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    deletedAt = json['deletedAt'];
     teacher =
     json['teacher'] != null ? new Teacher.fromJson(json['teacher']) : null;
   }
@@ -74,11 +83,14 @@ class Data {
     data['school_id'] = this.schoolId;
     data['teacher_id'] = this.teacherId;
     data['class_id'] = this.classId;
+    data['from'] = this.from;
+    data['to'] = this.to;
     data['date'] = this.date;
     data['message'] = this.message;
     data['status'] = this.status;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['deletedAt'] = this.deletedAt;
     if (this.teacher != null) {
       data['teacher'] = this.teacher!.toJson();
     }

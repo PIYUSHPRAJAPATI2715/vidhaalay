@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 
 import '../main.dart';
 

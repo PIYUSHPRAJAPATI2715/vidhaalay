@@ -3,17 +3,17 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/get_notification_controller.dart';
-import 'package:vidhaalay_app/controller/student_controller/event_list_controller_student.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/controller/get_notification_controller.dart';
+import 'package:vidhaalay/controller/student_controller/event_list_controller_student.dart';
+import 'package:vidhaalay/controller/teacher_controller/event_detail_controller.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
 import '../../repositories/calendar_repo.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 
 class EventsScreen extends StatefulWidget {
@@ -24,68 +24,44 @@ class EventsScreen extends StatefulWidget {
 }
 
 class _EventsScreenState extends State<EventsScreen> {
+  final evenetListStudentController = Get.put(EvenetListStudentController());
   final ScrollController _dateController = ScrollController();
   final ScrollController _monthController = ScrollController();
-
-  final evenetListStudentController = Get.put(EvenetListStudentController());
-  List currentSessionYear = [];
+  List currentSessionYear = CommonCalendar.currentSessionYear;
   List<String> months =  CommonCalendar.monthsList;
-  List daysInMonth = [];
-
-  int selectedYear = 0;
   RxString month = "".obs;
   RxString monthName = "".obs;
   RxString day = "".obs;
-  String selectedDate = '';
-
-  int selectedDateIndex = 0;
-  int selectedMonthIndex = 0;
-
-  getCurrentSessionYear(int currentYear) {
-    currentSessionYear.clear();
-
-    int currentMonth = int.parse(month.value);
-    // int currentMonth = 4;
-    // int currentYear = int.parse();
-
-    if(currentMonth < 4) {
-      currentSessionYear = [currentYear -1,currentYear];
-      selectedYear = currentSessionYear[1];
-    } else {
-      currentSessionYear = [currentYear,currentYear+1];
-      selectedYear = currentSessionYear[0];
-    }
-  }
-
+  
   selecedDate() {
-    selectedDate = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
-    print("selecedDate : $selectedDate");
-    evenetListStudentController.selDate.value = selectedDate;
+    evenetListStudentController.selectedDate.value = evenetListStudentController.selectedYear.value.toString()+"-"+ month.value +"-"+ day.value;
+    print("selecedDate : ${evenetListStudentController.selectedDate.value}");
     evenetListStudentController.getEventData();
   }
 
   @override
   void initState() {
     super.initState();
-    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+    evenetListStudentController.selectedYear.value = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
+    evenetListStudentController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
+    evenetListStudentController.selectedYear.value = selectYearByMonth(month: month.value);
     selecedDate();
-    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value)) ;
-    getCurrentSessionYear(selectedYear);
-    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
-    selectedDateIndex = int.parse(day.value) - 1;
+    evenetListStudentController.daysInMonth.value =  getMonthDays(year: evenetListStudentController.selectedYear.value,month: month.value);
+    evenetListStudentController.selectedIndex.value = int.parse(day.value) - 1;
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
       _dateController.animateTo(
-        selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        evenetListStudentController.selectedIndex.value * 45.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
       _monthController.animateTo(
-        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
+        evenetListStudentController.selectedMonthIndex.value * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -128,7 +104,7 @@ class _EventsScreenState extends State<EventsScreen> {
                 ),
               ),
               Container(
-                  height: size.height * .250,
+                  height: size.height * .220,
                   decoration: const BoxDecoration(
                     color: AppThemes.primaryColor,
                     borderRadius:
@@ -157,7 +133,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 17,
-                                        color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                        color: evenetListStudentController.selectedYear.value == currentSessionYear[0] ? Colors.white : Colors.black
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -172,7 +148,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 17,
-                                        color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                        color: evenetListStudentController.selectedYear.value == currentSessionYear[1] ? Colors.white : Colors.black
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -181,6 +157,7 @@ class _EventsScreenState extends State<EventsScreen> {
                             ),
                           ),
                         ),
+
                         Container(
                           height: size.height*.050,
                           decoration: BoxDecoration(
@@ -199,22 +176,21 @@ class _EventsScreenState extends State<EventsScreen> {
                                       (BuildContext context, int index) {
                                     return InkWell(
                                       onTap: () {
-                                        selectedMonthIndex = index;
+                                        evenetListStudentController.selectedMonthIndex.value = index;
                                         month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                        selectedYear = selectYearByMonth(month: month.value,);
-                                        // print(month.value);
-                                        daysInMonth = getMonthDays(year: selectedYear,month: month.value);
-                                        if(daysInMonth.length <= int.parse(day.value) ) {
+                                        evenetListStudentController.selectedYear.value = selectYearByMonth(month: month.value);
+                                        evenetListStudentController.daysInMonth.value = getMonthDays(year: evenetListStudentController.selectedYear.value,month: month.value);
+                                        if(evenetListStudentController.daysInMonth.value.length <= int.parse(day.value) ) {
                                           day.value = 1.toString().padLeft(2, '0');
-                                          selectedDateIndex = 0;
+                                          evenetListStudentController.selectedIndex.value = 0;
                                           _dateController.animateTo(
-                                            selectedDateIndex * 1.0,
+                                            evenetListStudentController.selectedIndex.value * 1.0,
                                             duration: Duration(milliseconds: 1800),
                                             curve: Curves.easeInOut,
                                           );
                                         } else {
                                           _dateController.animateTo(
-                                            selectedDateIndex * 45.0,
+                                            evenetListStudentController.selectedIndex.value * 45.0,
                                             duration: Duration(milliseconds: 1800),
                                             curve: Curves.easeInOut,
                                           );
@@ -223,7 +199,6 @@ class _EventsScreenState extends State<EventsScreen> {
 
                                         setState(() {
                                         });
-                                        // selectedMonthIndex =
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -233,7 +208,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 17,
-                                                  color: index == selectedMonthIndex
+                                                  color: index == evenetListStudentController.selectedMonthIndex.value
                                                       ? Colors.white
                                                       : Colors.black
                                               )
@@ -248,65 +223,64 @@ class _EventsScreenState extends State<EventsScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: size.height*.110,
+                          height: size.height*.085,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             physics: BouncingScrollPhysics(),
                             controller: _dateController,
                             child: Row(
-                              children: List.generate(daysInMonth.length, (index) {
+                              children: List.generate(evenetListStudentController.daysInMonth.value.length, (index) {
 
-                                DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                                DateTime specifiedDate = DateTime(2024, int.parse(month.value), evenetListStudentController.daysInMonth.value[index]);
                                 String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
-
                                 return Padding(
-                                  padding: EdgeInsets.only(right: 0, left: 0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      selectedDateIndex = index;
+                                      evenetListStudentController.selectedIndex.value = index;
                                       day.value = (index + 1).toString().padLeft(2, '0');
-                                      // print(selectedDateIndex);
+                                      // print(evenetListStudentController.selectedIndex.value);
                                       print(day.value);
                                       selecedDate();
                                       setState(() {
 
                                       });
                                     },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: index == selectedDateIndex
-                                                ? Colors.white
-                                                : Colors.transparent,
-                                            borderRadius:
-                                            BorderRadius.circular(20)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                dayName.toString(),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                    index == selectedDateIndex
-                                                        ? Colors.black
-                                                        : Colors.white),
-                                              ),
-                                              Text(
-                                                daysInMonth[index].toString(),
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                    index == selectedDateIndex
-                                                        ? Colors.black
-                                                        : Colors.white),
-                                              ),
-                                            ],
-                                          ),
+                                    child: Container(
+                                      height: size.height*.08,
+                                      decoration: BoxDecoration(
+                                          color: index == evenetListStudentController.selectedIndex.value
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius:
+                                          BorderRadius.circular(20)),
+                                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              dayName.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == evenetListStudentController.selectedIndex.value
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                            Text(
+                                              evenetListStudentController.daysInMonth.value[index].toString(),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  index == evenetListStudentController.selectedIndex.value
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -320,7 +294,7 @@ class _EventsScreenState extends State<EventsScreen> {
                     ),
                   )),
               Positioned.fill(
-                top: size.height * .250,
+                top: size.height * .220,
                 child: Container(
                     height: size.height,
                     width: size.width,
@@ -345,12 +319,17 @@ class _EventsScreenState extends State<EventsScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 18.0, vertical: 10),
                               child: Text(
-                                "today".toUpperCase(),
+                                CommonCalendar.currentDate == evenetListStudentController.selectedDate.value
+                                    ?  'today'.toUpperCase() :
+                                CommonCalendar.yesterdayDate == evenetListStudentController.selectedDate.value ?
+                                'yesterday'.toUpperCase() :
+                                CommonCalendar.tommorrowdayDate == evenetListStudentController.selectedDate.value ?
+                                'tommorrow'.toUpperCase() : evenetListStudentController.selectedDate.value,
                                 style: GoogleFonts.poppins(
-                                    color: AppThemes.black,
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.w600),
-                              ),
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600
+                                ),),
                             ),
                             const SizedBox(
                               height: 10,

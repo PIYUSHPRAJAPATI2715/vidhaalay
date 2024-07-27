@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/models/login_model.dart';
-import 'package:vidhaalay_app/screen/User_Screens/setting_screen.dart';
-import 'package:vidhaalay_app/screen/User_Screens/user_home_screen.dart';
+import 'package:vidhaalay/models/login_model.dart';
+import 'package:vidhaalay/screen/User_Screens/setting_screen.dart';
+import 'package:vidhaalay/screen/User_Screens/user_home_screen.dart';
 
 import '../../controller/bottom_controller.dart';
 import '../../resourses/api_constant.dart';

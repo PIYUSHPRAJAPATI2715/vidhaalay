@@ -188,12 +188,12 @@ class Assignment {
   String? assignmentName;
   String? tagline;
   String? detail;
-  Null? image;
+  String? image;
   String? dueDate;
   int? status;
   String? createdAt;
   String? updatedAt;
-  Null? deletedAt;
+  String? deletedAt;
   Teacher? teacher;
   Class? class0;
   Class? subject;
@@ -297,18 +297,21 @@ class NextClass {
 class AttRatio {
   String? present;
   String? absent;
+  String? holiday;
 
   AttRatio({this.present, this.absent});
 
   AttRatio.fromJson(Map<String, dynamic> json) {
     present = json['present'];
     absent = json['absent'];
+    holiday = json['holiday'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['present'] = this.present;
     data['absent'] = this.absent;
+    data['holiday'] = this.holiday;
     return data;
   }
 }

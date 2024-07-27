@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 
 import '../../repositories/change_password_repo.dart';
 import '../../resourses/api_constant.dart';

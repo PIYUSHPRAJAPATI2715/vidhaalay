@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
-import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
+import 'package:vidhaalay/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay/repositories/teacher/class_list_repo.dart';
 import '../screen/User_Screens/drawer_user.dart';
 import '../screen/User_Screens/my_lecturs_screen.dart';
 import '../screen/User_Screens/notification_user_screen.dart';

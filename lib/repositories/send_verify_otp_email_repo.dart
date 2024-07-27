@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/model_common.dart';
+import 'package:vidhaalay/models/model_common.dart';
 import '../models/forgot_email_otp_model.dart';
 import '../models/login_model.dart';
 import '../models/model_email_verify.dart';

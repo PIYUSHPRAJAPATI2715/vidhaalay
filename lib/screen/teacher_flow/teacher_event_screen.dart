@@ -2,18 +2,20 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/get_notification_controller.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/update_event_screen.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_dropdown.dart';
+import 'package:vidhaalay/controller/get_notification_controller.dart';
+import 'package:vidhaalay/controller/teacher_controller/event_detail_controller.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_event_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/update_event_screen.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_dialog.dart';
+import 'package:vidhaalay/widgets/common_dropdown.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 
 class TeacherEventsScreen extends StatefulWidget {
@@ -30,33 +32,29 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
   final ScrollController _monthController = ScrollController();
   List currentSessionYear = CommonCalendar.currentSessionYear;
   List<String> months =  CommonCalendar.monthsList;
-  List daysInMonth = [];
 
   RxString month = "".obs;
   RxString monthName = "".obs;
   RxString day = "".obs;
 
-
   @override
   void initState() {
     super.initState();
     evenetDetailController.getMyClass();
-
     evenetDetailController.selectedYear.value = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
+    evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
+    // evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(12);
+    // print("selectedMonthIndex : ${evenetDetailController.selectedMonthIndex.value}");
 
+    // evenetDetailController.selectedYear.value = selectYearByMonth(month: 12.toString());
+    evenetDetailController.selectedYear.value = selectYearByMonth(month: month.value);
+    // print("selectedYear : ${evenetDetailController.selectedYear.value}");
 
-    evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(10);
-    // evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
-    print("selectedMonthIndex : ${evenetDetailController.selectedMonthIndex.value}");
-
-    evenetDetailController.selectedYear.value = selectYearByMonth(month: month.value,);
-    print("selectedYear : ${evenetDetailController.selectedYear.value}");
-
-    daysInMonth =  getMonthDays(year: evenetDetailController.selectedYear.value,month: month.value);
+    evenetDetailController.daysInMonth.value =  getMonthDays(year: evenetDetailController.selectedYear.value,month: month.value);
     evenetDetailController.selectedIndex.value = int.parse(day.value) - 1;
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -114,7 +112,7 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
               ),
             ),
             Container(
-                height: size.height*.280,
+                height: size.height*.25,
                 decoration: const BoxDecoration(
                   color: AppThemes.primaryColor,
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
@@ -246,17 +244,16 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                   return InkWell(
                                     onTap: () {
                                       evenetDetailController.selectedMonthIndex.value = index;
-                                      print(index);
-
+                                      // print(index);
                                       month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                      print("Month");
-                                      print(month.value);
+                                      // print("Month");
+                                      // print(month.value);
 
                                       evenetDetailController.selectedYear.value = selectYearByMonth(month: month.value);
-                                      print(evenetDetailController.selectedYear.value);
+                                      // print(evenetDetailController.selectedYear.value);
 
-                                      daysInMonth = getMonthDays(year: evenetDetailController.selectedYear.value,month: month.value);
-                                      if(daysInMonth.length <= int.parse(day.value) ) {
+                                      evenetDetailController.daysInMonth.value = getMonthDays(year: evenetDetailController.selectedYear.value,month: month.value);
+                                      if(evenetDetailController.daysInMonth.value.length <= int.parse(day.value) ) {
                                         day.value = 1.toString().padLeft(2, '0');
                                         evenetDetailController.selectedIndex.value = 0;
                                         _dateController.animateTo(
@@ -275,7 +272,6 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
 
                                       setState(() {
                                       });
-                                      // evenetDetailController.selectedMonthIndex.value =
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -301,19 +297,18 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                       ),
 
                       SizedBox(
-                        height: size.height*.110,
+                        height: size.height*.085,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           controller: _dateController,
                           child: Row(
-                            children: List.generate(daysInMonth.length, (index) {
+                            children: List.generate(evenetDetailController.daysInMonth.value.length, (index) {
 
-                              DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                              DateTime specifiedDate = DateTime(2024, int.parse(month.value), evenetDetailController.daysInMonth.value[index]);
                               String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
-
                               return Padding(
-                                padding: EdgeInsets.only(right: 0, left: 0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
                                     evenetDetailController.selectedIndex.value = index;
@@ -325,41 +320,41 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
 
                                     });
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: index == evenetDetailController.selectedIndex.value
-                                              ? Colors.white
-                                              : Colors.transparent,
-                                          borderRadius:
-                                          BorderRadius.circular(20)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              dayName.toString(),
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                  index == evenetDetailController.selectedIndex.value
-                                                      ? Colors.black
-                                                      : Colors.white),
-                                            ),
-                                            Text(
-                                              daysInMonth[index].toString(),
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                  index == evenetDetailController.selectedIndex.value
-                                                      ? Colors.black
-                                                      : Colors.white),
-                                            ),
-                                          ],
-                                        ),
+                                  child: Container(
+                                    height: size.height*.08,
+                                    decoration: BoxDecoration(
+                                        color: index == evenetDetailController.selectedIndex.value
+                                            ? Colors.white
+                                            : Colors.transparent,
+                                        borderRadius:
+                                        BorderRadius.circular(20)),
+                                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            dayName.toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                index == evenetDetailController.selectedIndex.value
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                          Text(
+                                            evenetDetailController.daysInMonth.value[index].toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                index == evenetDetailController.selectedIndex.value
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -369,12 +364,82 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                           ),
                         ),
                       ),
+
+                      // SizedBox(
+                      //   height: size.height*.110,
+                      //   child: SingleChildScrollView(
+                      //     scrollDirection: Axis.horizontal,
+                      //     physics: BouncingScrollPhysics(),
+                      //     controller: _dateController,
+                      //     child: Row(
+                      //       children: List.generate(evenetDetailController.daysInMonth.value.length, (index) {
+                      //
+                      //         DateTime specifiedDate = DateTime(2024, int.parse(month.value), evenetDetailController.daysInMonth.value[index]);
+                      //         String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
+                      //
+                      //         return Padding(
+                      //           padding: EdgeInsets.only(right: 0, left: 0),
+                      //           child: GestureDetector(
+                      //             onTap: () {
+                      //               evenetDetailController.selectedIndex.value = index;
+                      //               day.value = (index + 1).toString().padLeft(2, '0');
+                      //               // print(evenetDetailController.selectedIndex.value);
+                      //               print(day.value);
+                      //               selecedDate();
+                      //               setState(() {
+                      //
+                      //               });
+                      //             },
+                      //             child: Padding(
+                      //               padding: const EdgeInsets.all(8.0),
+                      //               child: Container(
+                      //                 decoration: BoxDecoration(
+                      //                     color: index == evenetDetailController.selectedIndex.value
+                      //                         ? Colors.white
+                      //                         : Colors.transparent,
+                      //                     borderRadius:
+                      //                     BorderRadius.circular(20)),
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.all(12.0),
+                      //                   child: Column(
+                      //                     children: [
+                      //                       Text(
+                      //                         dayName.toString(),
+                      //                         style: TextStyle(
+                      //                             fontSize: 16,
+                      //                             fontWeight: FontWeight.w600,
+                      //                             color:
+                      //                             index == evenetDetailController.selectedIndex.value
+                      //                                 ? Colors.black
+                      //                                 : Colors.white),
+                      //                       ),
+                      //                       Text(
+                      //                         evenetDetailController.daysInMonth.value[index].toString(),
+                      //                         style: TextStyle(
+                      //                             fontSize: 16,
+                      //                             fontWeight: FontWeight.w600,
+                      //                             color:
+                      //                             index == evenetDetailController.selectedIndex.value
+                      //                                 ? Colors.black
+                      //                                 : Colors.white),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         );
+                      //       }),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 )
             ),
             Positioned.fill(
-              top: size.height*.280,
+              top: size.height*.25,
               child: Container(
                   height: size.height,
                   width: size.width,
@@ -386,24 +451,32 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                   child: !evenetDetailController.isDataLoading.value ?
                     SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 0),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 10),
-                            child:Row(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 8),
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('today'.toUpperCase(),
+                                Text(
+                                  CommonCalendar.currentDate == evenetDetailController.selectedDate.value
+                                      ?  'today'.toUpperCase() :
+                                  CommonCalendar.yesterdayDate == evenetDetailController.selectedDate.value ?
+                                  'yesterday'.toUpperCase() :
+                                  CommonCalendar.tommorrowdayDate == evenetDetailController.selectedDate.value ?
+                                  'tommorrow'.toUpperCase() : evenetDetailController.selectedDate.value,
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
-                                      fontSize: 19,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w600
                                   ),),
                                 GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(MyRouters.createEventScreen);
+                                    // Get.toNamed(MyRouters.createEventScreen);
+                                    Get.to(() => CreateEventScreen(classId: evenetDetailController.selectedClassId.value.toString(),));
+
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
@@ -543,7 +616,13 @@ class _TeacherEventsScreenState extends State<TeacherEventsScreen> {
                                                 ),
                                                 Expanded(
                                                   child: IconButton(onPressed: (){
-                                                      evenetDetailController.deleteEventAPI(context, items.id!);
+                                                    CommonDailog.confirmationDialog(context: context,
+                                                      confirmationSubTitle: 'Are you sure you want to delete.',
+                                                      firstButtonOnTap: () {
+                                                        Get.back();
+                                                        evenetDetailController.deleteEventAPI(context, items.id!);
+                                                      },
+                                                    );
                                                   },
                                                       icon: const Icon(Icons.delete,color: Colors.red,size: 19,)),
                                                 )

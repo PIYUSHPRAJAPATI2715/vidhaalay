@@ -2,18 +2,18 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/student_controller/assignment_list_controller_student.dart';
-import 'package:vidhaalay_app/controller/student_controller/event_list_controller_student.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/controller/student_controller/assignment_list_controller_student.dart';
+import 'package:vidhaalay/controller/student_controller/event_list_controller_student.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/student_screen/assignment_details_screen.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class AssignmentScreen extends StatefulWidget {
   const AssignmentScreen({Key? key}) : super(key: key);
@@ -23,68 +23,45 @@ class AssignmentScreen extends StatefulWidget {
 }
 
 class _AssignmentScreenState extends State<AssignmentScreen> {
+  
+  final assignmentListStudentController = Get.put(AssignmentListStudentController());
   final ScrollController _dateController = ScrollController();
   final ScrollController _monthController = ScrollController();
-
-  final assignmentListStudentController = Get.put(AssignmentListStudentController());
-  List currentSessionYear = [];
+  List currentSessionYear = CommonCalendar.currentSessionYear;
   List<String> months =  CommonCalendar.monthsList;
-  List daysInMonth = [];
-
-  int selectedYear = 0;
   RxString month = "".obs;
   RxString monthName = "".obs;
   RxString day = "".obs;
-  String selectedDate = '';
-
-  int selectedDateIndex = 0;
-  int selectedMonthIndex = 0;
-
-  getCurrentSessionYear(int currentYear) {
-    currentSessionYear.clear();
-
-    int currentMonth = int.parse(month.value);
-    // int currentMonth = 4;
-    // int currentYear = int.parse();
-
-    if(currentMonth < 4) {
-      currentSessionYear = [currentYear -1,currentYear];
-      selectedYear = currentSessionYear[1];
-    } else {
-      currentSessionYear = [currentYear,currentYear+1];
-      selectedYear = currentSessionYear[0];
-    }
-  }
 
   selecedDate() {
-    selectedDate = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
-    print("selecedDate : $selectedDate");
-    assignmentListStudentController.selDate.value = selectedDate;
+    assignmentListStudentController.selectedDate.value = assignmentListStudentController.selectedYear.value.toString()+"-"+ month.value +"-"+ day.value;
+    print("selecedDate : ${assignmentListStudentController.selectedDate.value}");
     assignmentListStudentController.getAssignmentData();
   }
 
   @override
   void initState() {
     super.initState();
-    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+    assignmentListStudentController.selectedYear.value = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
-    selectedMonthIndex = selectCorrectMonthIndex(int.parse(month.value)) ;
-    getCurrentSessionYear(selectedYear);
-    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
-    selectedDateIndex = int.parse(day.value) - 1;
+    assignmentListStudentController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
+    assignmentListStudentController.selectedYear.value = selectYearByMonth(month: month.value);
+    assignmentListStudentController.daysInMonth.value =  getMonthDays(year: assignmentListStudentController.selectedYear.value,month: month.value);
+    assignmentListStudentController.selectedIndex.value = int.parse(day.value) - 1;
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
       setState(() {});
       _dateController.animateTo(
-        selectedDateIndex * 45.0, // Adjust 110 according to your item size and spacing
+        assignmentListStudentController.selectedIndex.value * 45.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
       _monthController.animateTo(
-        selectedMonthIndex * 65.0, // Adjust 110 according to your item size and spacing
+        assignmentListStudentController.selectedMonthIndex.value * 65.0, // Adjust 110 according to your item size and spacing
         duration: Duration(milliseconds: 1800),
         curve: Curves.easeInOut,
       );
@@ -123,7 +100,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
             ),
           ),
           Container(
-              height: size.height * .250,
+              height: size.height * .220,
               decoration: const BoxDecoration(
                 color: AppThemes.primaryColor,
                 borderRadius:
@@ -152,7 +129,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 17,
-                                    color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                    color: assignmentListStudentController.selectedYear.value == currentSessionYear[0] ? Colors.white : Colors.black
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -167,7 +144,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 17,
-                                    color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                    color: assignmentListStudentController.selectedYear.value == currentSessionYear[1] ? Colors.white : Colors.black
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -176,6 +153,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                         ),
                       ),
                     ),
+
                     Container(
                       height: size.height*.050,
                       decoration: BoxDecoration(
@@ -186,30 +164,29 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                         children: [
                           Expanded(
                             child: ListView.builder(
+                              controller: _monthController,
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: months.length,
-                              controller: _monthController,
                               itemBuilder:
                                   (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () {
-                                    selectedMonthIndex = index;
+                                    assignmentListStudentController.selectedMonthIndex.value = index;
                                     month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                    selectedYear = selectYearByMonth(month: month.value,);
-                                    // print(month.value);
-                                    daysInMonth = getMonthDays(year: selectedYear,month: month.value);
-                                    if(daysInMonth.length <= int.parse(day.value) ) {
+                                    assignmentListStudentController.selectedYear.value = selectYearByMonth(month: month.value);
+                                    assignmentListStudentController.daysInMonth.value = getMonthDays(year: assignmentListStudentController.selectedYear.value,month: month.value);
+                                    if(assignmentListStudentController.daysInMonth.value.length <= int.parse(day.value) ) {
                                       day.value = 1.toString().padLeft(2, '0');
-                                      selectedDateIndex = 0;
+                                      assignmentListStudentController.selectedIndex.value = 0;
                                       _dateController.animateTo(
-                                        selectedDateIndex * 1.0,
+                                        assignmentListStudentController.selectedIndex.value * 1.0,
                                         duration: Duration(milliseconds: 1800),
                                         curve: Curves.easeInOut,
                                       );
                                     } else {
                                       _dateController.animateTo(
-                                        selectedDateIndex * 45.0,
+                                        assignmentListStudentController.selectedIndex.value * 45.0,
                                         duration: Duration(milliseconds: 1800),
                                         curve: Curves.easeInOut,
                                       );
@@ -218,7 +195,6 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
 
                                     setState(() {
                                     });
-                                    // selectedMonthIndex =
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -228,7 +204,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 17,
-                                              color: index == selectedMonthIndex
+                                              color: index == assignmentListStudentController.selectedMonthIndex.value
                                                   ? Colors.white
                                                   : Colors.black
                                           )
@@ -242,66 +218,66 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                         ],
                       ),
                     ),
+
                     SizedBox(
-                      height: size.height*.110,
+                      height: size.height*.085,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
                         controller: _dateController,
                         child: Row(
-                          children: List.generate(daysInMonth.length, (index) {
+                          children: List.generate(assignmentListStudentController.daysInMonth.value.length, (index) {
 
-                            DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                            DateTime specifiedDate = DateTime(2024, int.parse(month.value), assignmentListStudentController.daysInMonth.value[index]);
                             String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
-
                             return Padding(
-                              padding: EdgeInsets.only(right: 0, left: 0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  selectedDateIndex = index;
+                                  assignmentListStudentController.selectedIndex.value = index;
                                   day.value = (index + 1).toString().padLeft(2, '0');
-                                  // print(selectedDateIndex);
+                                  // print(assignmentListStudentController.selectedIndex.value);
                                   print(day.value);
                                   selecedDate();
                                   setState(() {
 
                                   });
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: index == selectedDateIndex
-                                            ? Colors.white
-                                            : Colors.transparent,
-                                        borderRadius:
-                                        BorderRadius.circular(20)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            dayName.toString(),
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedDateIndex
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
-                                          Text(
-                                            daysInMonth[index].toString(),
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                index == selectedDateIndex
-                                                    ? Colors.black
-                                                    : Colors.white),
-                                          ),
-                                        ],
-                                      ),
+                                child: Container(
+                                  height: size.height*.08,
+                                  decoration: BoxDecoration(
+                                      color: index == assignmentListStudentController.selectedIndex.value
+                                          ? Colors.white
+                                          : Colors.transparent,
+                                      borderRadius:
+                                      BorderRadius.circular(20)),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          dayName.toString(),
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                              index == assignmentListStudentController.selectedIndex.value
+                                                  ? Colors.black
+                                                  : Colors.white),
+                                        ),
+                                        Text(
+                                          assignmentListStudentController.daysInMonth.value[index].toString(),
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                              index == assignmentListStudentController.selectedIndex.value
+                                                  ? Colors.black
+                                                  : Colors.white),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -315,7 +291,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                 ),
               )),
           Positioned.fill(
-            top: size.height*.250,
+            top: size.height*.220,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
               height: size.height,
@@ -333,10 +309,16 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('today'.toUpperCase(),
+                        Text(
+                          CommonCalendar.currentDate == assignmentListStudentController.selectedDate.value
+                              ?  'today'.toUpperCase() :
+                          CommonCalendar.yesterdayDate == assignmentListStudentController.selectedDate.value ?
+                          'yesterday'.toUpperCase() :
+                          CommonCalendar.tommorrowdayDate == assignmentListStudentController.selectedDate.value ?
+                          'tommorrow'.toUpperCase() : assignmentListStudentController.selectedDate.value,
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 19,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600
                           ),),
                         assignmentListStudentController
@@ -494,17 +476,17 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
 //
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:vidhaalay_app/controller/student_controller/assignment_list_controller_student.dart';
-// import 'package:vidhaalay_app/controller/student_controller/event_list_controller_student.dart';
-// import 'package:vidhaalay_app/routers/my_routers.dart';
-// import 'package:vidhaalay_app/screen/student_screen/assignment_details_screen.dart';
-// import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-// import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+// import 'package:vidhaalay/controller/student_controller/assignment_list_controller_student.dart';
+// import 'package:vidhaalay/controller/student_controller/event_list_controller_student.dart';
+// import 'package:vidhaalay/routers/my_routers.dart';
+// import 'package:vidhaalay/screen/student_screen/assignment_details_screen.dart';
+// import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+// import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 // import '../../widgets/appTheme.dart';
 // import 'dart:developer';
 // import 'package:get/get.dart';
 // import 'package:intl/intl.dart';
-// import 'package:vidhaalay_app/resourses/app_assets.dart';
+// import 'package:vidhaalay/resourses/app_assets.dart';
 //
 // class AssignmentScreen extends StatefulWidget {
 //   const AssignmentScreen({Key? key}) : super(key: key);

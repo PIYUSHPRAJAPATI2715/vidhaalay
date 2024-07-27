@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../controller/setting_controller.dart';
 import '../../resourses/app_assets.dart';
@@ -17,11 +18,13 @@ class PrivacyPolicyScreen extends StatefulWidget {
 
 class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   SettingController settingController = Get.put(SettingController());
+  String url = "https://api.vidhaalay.com/pages/privacy-policy";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    settingController.privacypolicyAPICall();
+    // settingController.privacypolicyAPICall();
   }
 
   @override
@@ -49,30 +52,34 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           },
         ),
       ),
-      body: Obx(
-            () => settingController.privacypolicyContent.value.isNotEmpty
-                ? SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
-            child:  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  settingController.privacypolicyContent.value.toString(),
-                  style: TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          ),
-        ) : Container(
-        width: deviceWidth,
-        height: deviceHeight,
-        child : Center(child: CircularProgressIndicator()),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
-      ),
+      // Obx(
+      //       () => settingController.privacypolicyContent.value.isNotEmpty
+      //           ? SingleChildScrollView(
+      //     child: Padding(
+      //       padding: EdgeInsets.symmetric(
+      //           horizontal: deviceWidth * 0.04, vertical: deviceHeight * 0.02),
+      //       child:  Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         mainAxisAlignment: MainAxisAlignment.start,
+      //         children: [
+      //           Text(
+      //             settingController.privacypolicyContent.value.toString(),
+      //             style: TextStyle(
+      //                 fontSize: 18, fontWeight: FontWeight.w600),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ) : Container(
+      //   width: deviceWidth,
+      //   height: deviceHeight,
+      //   child : Center(child: CircularProgressIndicator()),
+      // ),
+      // ),
     );
   }
 }

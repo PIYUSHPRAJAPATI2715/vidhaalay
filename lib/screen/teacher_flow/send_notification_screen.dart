@@ -1,16 +1,17 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/send_notification_controller.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/teacher_controller/send_notification_controller.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class SendNotificationScreen extends StatefulWidget {
   const SendNotificationScreen({Key? key}) : super(key: key);
@@ -203,10 +204,17 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                     obSecure: false,
                                     controller: sendNotificationController
                                         .titleController,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(30),
+                                    ],
                                     validator: MultiValidator([
-                                      RequiredValidator(
-                                          errorText: 'Please enter title')
+                                      RequiredValidator(errorText: 'Please enter title'),
+                                      LengthRangeValidator(min: 20, max: 30, errorText: "Please enter at least 20 character")
                                     ]),
+                                    // validator: MultiValidator([
+                                    //   RequiredValidator(
+                                    //       errorText: 'Please enter title')
+                                    // ]),
                                   ),
                                   const SizedBox(
                                     height: 20,
@@ -338,7 +346,9 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                     height: 5,
                                   ),
                                   TextFormField(
-                                    maxLines: 5,
+                                    controller: sendNotificationController
+                                        .messageController,
+                                    maxLines: 3,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       color: Colors.grey,
@@ -346,6 +356,7 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                     ),
                                     decoration: InputDecoration(
                                       hintText: 'Write message...',
+
                                       hintStyle:  TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -371,10 +382,17 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                         borderRadius: BorderRadius.circular(25),
                                       ),
                                     ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(50),
+                                    ],
                                     validator: MultiValidator([
-                                      RequiredValidator(
-                                          errorText: 'Please enter message')
+                                      RequiredValidator(errorText: 'Please enter message'),
+                                      LengthRangeValidator(min: 25, max: 50, errorText: "Please enter at least 25 character")
                                     ]),
+                                    // validator: MultiValidator([
+                                    //   RequiredValidator(
+                                    //       errorText: 'Please enter message')
+                                    // ]),
                                   ),
                                   const SizedBox(
                                     height: 35,
@@ -426,10 +444,17 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                     obSecure: false,
                                     controller: sendNotificationController
                                         .titleController,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(30),
+                                    ],
                                     validator: MultiValidator([
-                                      RequiredValidator(
-                                          errorText: 'Please enter title')
+                                      RequiredValidator(errorText: 'Please enter title'),
+                                      LengthRangeValidator(min: 20, max: 30, errorText: "Please enter at least 20 character")
                                     ]),
+                                    // validator: MultiValidator([
+                                    //   RequiredValidator(
+                                    //       errorText: 'Please enter title')
+                                    // ]),
                                   ),
                                   const SizedBox(
                                     height: 25,
@@ -718,6 +743,8 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                     height: 5,
                                   ),
                                   TextFormField(
+                                    controller: sendNotificationController
+                                        .messageController,
                                     maxLines: 5,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
@@ -758,10 +785,17 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
                                         borderRadius: BorderRadius.circular(25),
                                       ),
                                     ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(50),
+                                    ],
                                     validator: MultiValidator([
-                                      RequiredValidator(
-                                          errorText: 'Please enter message')
+                                      RequiredValidator(errorText: 'Please enter message'),
+                                      LengthRangeValidator(min: 25, max: 50, errorText: "Please enter at least 25 character")
                                     ]),
+                                    // validator: MultiValidator([
+                                    //   RequiredValidator(
+                                    //       errorText: 'Please enter message')
+                                    // ]),
                                   ),
                                   const SizedBox(
                                     height: 35,

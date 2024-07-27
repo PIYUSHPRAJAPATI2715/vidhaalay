@@ -1,11 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vidhaalay_app/controller/student_controller/assignment_list_controller_student.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/controller/student_controller/assignment_list_controller_student.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -81,7 +82,22 @@ class _AssignmentDetailScreenState extends State<AssignmentDetailScreen> {
                 ),
                 ClipRRect(
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0)),
-                    child: Image.asset(AppAssets.holiImg,)
+                    child:  CachedNetworkImage(
+                      imageUrl: assignmentListStudentController
+                          .getAssignmentDetailsModel.value.data!.image!.toString(),
+                      fit: BoxFit.fill,
+                      // width: size.width,
+                      // height: size.height * .16,
+                      errorWidget: (__, _, ___) =>
+                          Image.asset(
+                            AppAssets.holiImg,
+                            fit: BoxFit.fill,
+                          ),
+                      placeholder: (__, _) =>
+                      const Center(
+                          child: CircularProgressIndicator()),
+                    ),
+                    // Image.asset(AppAssets.holiImg,)
                 ),
 
                 Positioned.fill(

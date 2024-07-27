@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/models/get_notification_details_model.dart';
+import 'package:vidhaalay/models/get_notification_details_model.dart';
 import 'dart:convert';
 
 import '../models/get_notification_model.dart';

@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/bottom_controller.dart';
-import 'package:vidhaalay_app/controller/new_botttom_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/create_event_model.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/screen/User_Screens/drawer_user.dart';
-import 'package:vidhaalay_app/screen/common_drawer.dart';
-import 'package:vidhaalay_app/screen/student_screen/assignment_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/attendance_screen.dart';
-import 'package:vidhaalay_app/screen/student_screen/drawer_student.dart';
-import 'package:vidhaalay_app/screen/student_screen/home_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/create_event_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/drawer_teacher.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/controller/bottom_controller.dart';
+import 'package:vidhaalay/controller/new_botttom_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/create_event_model.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/screen/User_Screens/drawer_user.dart';
+import 'package:vidhaalay/screen/common_drawer.dart';
+import 'package:vidhaalay/screen/student_screen/assignment_screen.dart';
+import 'package:vidhaalay/screen/student_screen/attendance_screen.dart';
+import 'package:vidhaalay/screen/student_screen/drawer_student.dart';
+import 'package:vidhaalay/screen/student_screen/home_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_event_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/drawer_teacher.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 
 class BottomBarScreen extends StatefulWidget{
 
@@ -58,55 +58,149 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
       bottomNavigationBar: controller.userType == 0 ? Container(
         height: size.height*.08,
-        child: BottomNavigationBar(
-          backgroundColor: AppThemes.navBarColor,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.homeIcon),size: 23),
-              label: 'Home',
+        color: AppThemes.navBarColor,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
             ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.videoIcon),size: 23),
-              label: 'Videos',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(AppAssets.moreIcon),size: 23),
-              label: 'More',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: () {controller.selectedIndex = 0;
+                  setState(() {
+
+                  });
+                  } ,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        AppAssets.homeIcon,
+                        width: 22,
+                        height: 22,
+                        color: controller.selectedIndex == 0 ? AppThemes
+                            .white : AppThemes.whiteOff,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text('Home',style: GoogleFonts.poppins(
+                          color: controller.selectedIndex == 0 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500
+                      ),)
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    controller.selectedIndex = 1;
+                  setState(() {
+
+                  });
+                  } ,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        AppAssets.videoIcon,
+                        color: controller.selectedIndex == 1 ? AppThemes
+                            .white : AppThemes.whiteOff,
+                        width: 22,
+                        height: 22,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text('Videos',style: GoogleFonts.poppins(
+                          color: controller.selectedIndex == 1 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500
+                      ),)
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    print("tap ");
+                    controller.scaffoldKey.currentState?.openEndDrawer();
+                  } ,
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        AppAssets.moreIcon,
+                        width: 22,
+                        height: 22,
+                        color: controller.selectedIndex == 2 ? AppThemes
+                            .white : AppThemes.whiteOff,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text('More',style: GoogleFonts.poppins(
+                          color: controller.selectedIndex == 2 ? AppThemes
+                              .white : AppThemes.whiteOff,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500
+                      ),)
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
-          selectedLabelStyle: GoogleFonts.poppins(
-              color: AppThemes.white,
-              fontSize: 13,
-              fontWeight: FontWeight.w500
-          ),
-          unselectedLabelStyle: GoogleFonts.poppins(
-              color: AppThemes.whiteOff!.withOpacity(0.8),
-              fontSize: 12,
-              fontWeight: FontWeight.w500
-          ),
-          selectedIconTheme: IconThemeData(
-            size: 25,
-          ),
-          unselectedIconTheme: IconThemeData(
-            size: 23,
-          ),
-          selectedItemColor: AppThemes.white,
-          unselectedItemColor: AppThemes.whiteOff!.withOpacity(0.8),
-          currentIndex: controller.selectedIndex,
-          onTap: (value) {
-            print(value);
-
-            if(value == 2) {
-              // ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              controller.scaffoldKey.currentState?.openEndDrawer();
-            } else {
-              controller.selectedIndex = value;
-            }
-            setState(() {
-
-            });
-          },
         ),
+        // BottomNavigationBar(
+        //   backgroundColor: AppThemes.navBarColor,
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: ImageIcon(AssetImage(AppAssets.homeIcon),size: 23),
+        //       label: 'Home',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: ImageIcon(AssetImage(AppAssets.videoIcon),size: 23),
+        //       label: 'Videos',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: ImageIcon(AssetImage(AppAssets.moreIcon),size: 23),
+        //       label: 'More',
+        //     ),
+        //   ],
+        //   selectedLabelStyle: GoogleFonts.poppins(
+        //       color: AppThemes.white,
+        //       fontSize: 13,
+        //       fontWeight: FontWeight.w500
+        //   ),
+        //   unselectedLabelStyle: GoogleFonts.poppins(
+        //       color: AppThemes.whiteOff!.withOpacity(0.8),
+        //       fontSize: 12,
+        //       fontWeight: FontWeight.w500
+        //   ),
+        //   selectedIconTheme: IconThemeData(
+        //     size: 25,
+        //   ),
+        //   unselectedIconTheme: IconThemeData(
+        //     size: 23,
+        //   ),
+        //   selectedItemColor: AppThemes.white,
+        //   unselectedItemColor: AppThemes.whiteOff!.withOpacity(0.8),
+        //   currentIndex: controller.selectedIndex,
+        //   onTap: (value) {
+        //     print(value);
+        //
+        //     if(value == 2) {
+        //       // ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        //       controller.scaffoldKey.currentState?.openEndDrawer();
+        //     } else {
+        //       controller.selectedIndex = value;
+        //     }
+        //     setState(() {
+        //
+        //     });
+        //   },
+        // ),
       ) : controller.userType == 1 ? Container(
         color: AppThemes.navBarColor,
         height: size.height*.08,

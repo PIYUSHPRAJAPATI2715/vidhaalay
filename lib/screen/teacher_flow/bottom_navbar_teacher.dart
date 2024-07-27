@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/screen/User_Screens/drawer_user.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/screen/User_Screens/drawer_user.dart';
 
 import '../../controller/bottom_controller.dart';
 import '../../widgets/appTheme.dart';

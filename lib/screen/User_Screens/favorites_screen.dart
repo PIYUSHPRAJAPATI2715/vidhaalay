@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:vidhaalay_app/controller/deshborad_controller.dart';
-import 'package:vidhaalay_app/controller/user_Controller/favourite_controller.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/User_Screens/schools_details_Screen.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/controller/deshborad_controller.dart';
+import 'package:vidhaalay/controller/user_Controller/favourite_controller.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/User_Screens/schools_details_Screen.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
 
 import '../../resourses/app_assets.dart';
 import '../../widgets/appTheme.dart';
@@ -217,7 +217,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
-                            .getSchoolDetailsFunction(
+                            .getSchoolDetailsFunction(id:
                             item.id.toString());
                         Get.to(
                                 () => const SchoolsDetailsScreen(
@@ -417,7 +417,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
-                            .getSchoolDetailsFunction(
+                            .getSchoolDetailsFunction(id:
                             item.id.toString());
                         Get.to(
                                 () => const SchoolsDetailsScreen(
@@ -615,7 +615,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                     return GestureDetector(
                       onTap: () {
                         getSchoolListController
-                            .getSchoolDetailsFunction(
+                            .getSchoolDetailsFunction(id:
                             item.id.toString());
                         Get.to(
                                 () => const SchoolsDetailsScreen(

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/model_common.dart';
+import 'package:vidhaalay/models/model_common.dart';
 import '../resourses/api_constant.dart';
 import '../resourses/helper.dart';
 

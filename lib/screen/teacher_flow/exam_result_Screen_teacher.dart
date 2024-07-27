@@ -3,18 +3,19 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/exam_result_controller.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/studentlist_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/add_exam_model.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/teacher_controller/exam_result_controller.dart';
+import 'package:vidhaalay/controller/teacher_controller/studentlist_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/add_exam_model.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
+import 'package:vidhaalay/widgets/resources.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class ExamResultScreenTeacher extends StatefulWidget {
   const ExamResultScreenTeacher({Key? key}) : super(key: key);
@@ -114,20 +115,21 @@ class _ExamResultScreenTeacherState extends State<ExamResultScreenTeacher> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                examResultController
-                                    .getStudentDetailsModel
-                                    .value
-                                    .data!
-                                    .name!,
-                                // 'Rosie Kumar',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppThemes.white,
-                                ),
-                              ),
-                              Text(
+                              capitalizeFirstLetter(examResultController
+                                          .getStudentDetailsModel
+                                          .value
+                                          .data!
+                                          .name!),
+
+                                      // 'Rosie Kumar',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppThemes.white,
+                                      ),
+                                    ),
+                                    Text(
                                 examResultController
                                     .getStudentDetailsModel
                                     .value

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vidhaalay_app">
+    package="com.vtf.vidhaalay">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -9,12 +9,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
    <application
-        android:label="vidhaalay_app"
+        android:label="vidhaalay"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         android:usesCleartextTraffic="true"
+<!--        android:name="io.flutter.app.FlutterMultiDexApplication"-->
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyDDl-_JOy_bj4MyQhYbKbGkZ0sfpbTZDNU"/>
         <activity

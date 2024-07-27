@@ -1,18 +1,20 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/class_time_controller.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/update_class_timeTable.dart';
-import 'package:vidhaalay_app/widgets/circular_progressindicator.dart';
-import 'package:vidhaalay_app/widgets/common_dropdown.dart';
-import 'package:vidhaalay_app/widgets/common_profile_image_widget.dart';
+import 'package:vidhaalay/controller/teacher_controller/class_time_controller.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_class_timeTable.dart';
+import 'package:vidhaalay/screen/teacher_flow/update_class_timeTable.dart';
+import 'package:vidhaalay/widgets/circular_progressindicator.dart';
+import 'package:vidhaalay/widgets/common_dialog.dart';
+import 'package:vidhaalay/widgets/common_dropdown.dart';
+import 'package:vidhaalay/widgets/common_profile_image_widget.dart';
 import '../../widgets/appTheme.dart';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 class TeacherClassTimeScreen extends StatefulWidget {
   const TeacherClassTimeScreen({Key? key}) : super(key: key);
@@ -26,11 +28,8 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
   final classTimeController = Get.put(ClassTimeController());
   final ScrollController _dateController = ScrollController();
   final ScrollController _monthController = ScrollController();
-  List currentSessionYear = [];
+  List currentSessionYear = CommonCalendar.currentSessionYear;
   List<String> months =  CommonCalendar.monthsList;
-  List daysInMonth = [];
-
-  int selectedYear = 0;
   RxString month = "".obs;
   RxString monthName = "".obs;
   RxString day = "".obs;
@@ -39,16 +38,15 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
   @override
   void initState() {
     super.initState();
-    selectedYear = int.parse(DateFormat('yyyy').format(DateTime.now()));
+    classTimeController.getMyClass();
+    classTimeController.selectedYear.value = int.parse(DateFormat('yyyy').format(DateTime.now()));
     month.value = DateFormat('MM').format(DateTime.now());
     monthName.value = DateFormat('MMMM').format(DateTime.now());
     day.value = DateFormat('dd').format(DateTime.now());
     selecedDate();
-    classTimeController.getMyClass();
-
-    classTimeController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value)) ;
-    getCurrentSessionYear(selectedYear);
-    daysInMonth =  getMonthDays(year: selectedYear,month: month.value);
+    classTimeController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(month.value));
+    classTimeController.selectedYear.value = selectYearByMonth(month: month.value);
+    classTimeController.daysInMonth.value =  getMonthDays(year: classTimeController.selectedYear.value,month: month.value);
     classTimeController.selectedIndex.value = int.parse(day.value) - 1;
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -67,28 +65,13 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
     });
   }
 
-  getCurrentSessionYear(int currentYear) {
-    currentSessionYear.clear();
-
-    int currentMonth = int.parse(month.value);
-    // int currentMonth = 4;
-    // int currentYear = int.parse();
-
-    if(currentMonth < 4) {
-      currentSessionYear = [currentYear -1,currentYear];
-      selectedYear = currentSessionYear[1];
-    } else {
-      currentSessionYear = [currentYear,currentYear+1];
-      selectedYear = currentSessionYear[0];
-    }
-  }
 
   selecedDate() {
-    classTimeController.selectedDate.value = selectedYear.toString()+"-"+ month.value +"-"+ day.value;
-    print("selecedDate : $classTimeController.selectedDate.value");
+    classTimeController.selectedDate.value = classTimeController.selectedYear.value.toString()+"-"+ month.value +"-"+ day.value;
+    print("selecedDate : ${classTimeController.selectedDate.value}");
     classTimeController.getTimeTableData();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -129,7 +112,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
             ),
 
             Container(
-                height: size.height*.280,
+                height: size.height*.25,
                 decoration: const BoxDecoration(
                   color: AppThemes.primaryColor,
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
@@ -200,7 +183,6 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                               backgroundColor: AppThemes.themeBackgroundColor,
                             ),
                           ]),
-
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Container(
@@ -219,7 +201,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
-                                      color: selectedYear == currentSessionYear[0] ? Colors.white : Colors.black
+                                      color: classTimeController.selectedYear.value == currentSessionYear[0] ? Colors.white : Colors.black
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -234,7 +216,7 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 17,
-                                      color: selectedYear == currentSessionYear[1] ? Colors.white : Colors.black
+                                      color: classTimeController.selectedYear.value == currentSessionYear[1] ? Colors.white : Colors.black
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -264,10 +246,9 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                     onTap: () {
                                       classTimeController.selectedMonthIndex.value = index;
                                       month.value = selectMonthByIndex(index).toString().padLeft(2, '0');
-                                      selectedYear = selectYearByMonth(month: month.value,);
-                                      // print(month.value);
-                                      daysInMonth = getMonthDays(year: selectedYear,month: month.value);
-                                      if(daysInMonth.length <= int.parse(day.value) ) {
+                                      classTimeController.selectedYear.value = selectYearByMonth(month: month.value);
+                                      classTimeController.daysInMonth.value = getMonthDays(year: classTimeController.selectedYear.value,month: month.value);
+                                      if(classTimeController.daysInMonth.value.length <= int.parse(day.value) ) {
                                         day.value = 1.toString().padLeft(2, '0');
                                         classTimeController.selectedIndex.value = 0;
                                         _dateController.animateTo(
@@ -286,7 +267,6 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
 
                                       setState(() {
                                       });
-                                      // classTimeController.selectedMonthIndex.value =
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -312,19 +292,18 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                       ),
 
                       SizedBox(
-                        height: size.height*.110,
+                        height: size.height*.085,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           controller: _dateController,
                           child: Row(
-                            children: List.generate(daysInMonth.length, (index) {
+                            children: List.generate(classTimeController.daysInMonth.value.length, (index) {
 
-                              DateTime specifiedDate = DateTime(2024, int.parse(month.value), daysInMonth[index]);
+                              DateTime specifiedDate = DateTime(2024, int.parse(month.value), classTimeController.daysInMonth.value[index]);
                               String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
-
                               return Padding(
-                                padding: EdgeInsets.only(right: 0, left: 0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
                                     classTimeController.selectedIndex.value = index;
@@ -336,41 +315,41 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
 
                                     });
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: index == classTimeController.selectedIndex.value
-                                              ? Colors.white
-                                              : Colors.transparent,
-                                          borderRadius:
-                                          BorderRadius.circular(20)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              dayName.toString(),
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                  index == classTimeController.selectedIndex.value
-                                                      ? Colors.black
-                                                      : Colors.white),
-                                            ),
-                                            Text(
-                                              daysInMonth[index].toString(),
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                  index == classTimeController.selectedIndex.value
-                                                      ? Colors.black
-                                                      : Colors.white),
-                                            ),
-                                          ],
-                                        ),
+                                  child: Container(
+                                    height: size.height*.08,
+                                    decoration: BoxDecoration(
+                                        color: index == classTimeController.selectedIndex.value
+                                            ? Colors.white
+                                            : Colors.transparent,
+                                        borderRadius:
+                                        BorderRadius.circular(20)),
+                                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            dayName.toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                index == classTimeController.selectedIndex.value
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                          Text(
+                                            classTimeController.daysInMonth.value[index].toString(),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                index == classTimeController.selectedIndex.value
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -380,6 +359,76 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                           ),
                         ),
                       ),
+
+                      // SizedBox(
+                      //   height: size.height*.110,
+                      //   child: SingleChildScrollView(
+                      //     scrollDirection: Axis.horizontal,
+                      //     physics: BouncingScrollPhysics(),
+                      //     controller: _dateController,
+                      //     child: Row(
+                      //       children: List.generate(classTimeController.daysInMonth.value.length, (index) {
+                      //
+                      //         DateTime specifiedDate = DateTime(2024, int.parse(month.value), classTimeController.daysInMonth.value[index]);
+                      //         String dayName = DateFormat('EEEE').format(specifiedDate).substring(0, 1);
+                      //
+                      //         return Padding(
+                      //           padding: EdgeInsets.only(right: 0, left: 0),
+                      //           child: GestureDetector(
+                      //             onTap: () {
+                      //               classTimeController.selectedIndex.value = index;
+                      //               day.value = (index + 1).toString().padLeft(2, '0');
+                      //               // print(classTimeController.selectedIndex.value);
+                      //               print(day.value);
+                      //               selecedDate();
+                      //               setState(() {
+                      //
+                      //               });
+                      //             },
+                      //             child: Padding(
+                      //               padding: const EdgeInsets.all(8.0),
+                      //               child: Container(
+                      //                 decoration: BoxDecoration(
+                      //                     color: index == classTimeController.selectedIndex.value
+                      //                         ? Colors.white
+                      //                         : Colors.transparent,
+                      //                     borderRadius:
+                      //                     BorderRadius.circular(20)),
+                      //                 child: Padding(
+                      //                   padding: const EdgeInsets.all(12.0),
+                      //                   child: Column(
+                      //                     children: [
+                      //                       Text(
+                      //                         dayName.toString(),
+                      //                         style: TextStyle(
+                      //                             fontSize: 16,
+                      //                             fontWeight: FontWeight.w600,
+                      //                             color:
+                      //                             index == classTimeController.selectedIndex.value
+                      //                                 ? Colors.black
+                      //                                 : Colors.white),
+                      //                       ),
+                      //                       Text(
+                      //                         classTimeController.daysInMonth.value[index].toString(),
+                      //                         style: TextStyle(
+                      //                             fontSize: 16,
+                      //                             fontWeight: FontWeight.w600,
+                      //                             color:
+                      //                             index == classTimeController.selectedIndex.value
+                      //                                 ? Colors.black
+                      //                                 : Colors.white),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         );
+                      //       }),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 )
@@ -665,14 +714,14 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
             // ),
 
             Positioned.fill(
-              top: size.height*.280,
+              top: size.height*.25,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 12).copyWith(bottom: 0),
                 height: size.height,
                 width: size.width,
                 decoration: const BoxDecoration(
                   color: AppThemes.white,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(60)),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(50)),
                 ),
                 child: Obx(() {
                   return  !classTimeController.isDataLoading.value ?
@@ -684,15 +733,22 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('today'.toUpperCase(),
+                            Text(
+                              CommonCalendar.currentDate == classTimeController.selectedDate.value
+                                  ?  'today'.toUpperCase() :
+                              CommonCalendar.yesterdayDate == classTimeController.selectedDate.value ?
+                              'yesterday'.toUpperCase() :
+                              CommonCalendar.tommorrowdayDate == classTimeController.selectedDate.value ?
+                              'tommorrow'.toUpperCase() : classTimeController.selectedDate.value,
                               style: GoogleFonts.poppins(
                                   color: Colors.black,
-                                  fontSize: 19,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600
                               ),),
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed(MyRouters.createTimeTableScreen);
+                                // Get.toNamed(MyRouters.createTimeTableScreen);
+                                Get.to(() => CreateTimeTableScreen(classId: classTimeController.selectedClassId.value.toString(),));
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
@@ -857,7 +913,13 @@ class _TeacherClassTimeScreenState extends State<TeacherClassTimeScreen> {
                                       ),
                                       Expanded(
                                         child: IconButton(onPressed: (){
-                                          classTimeController.deleteTimetableAPI(context,value.id!);
+                                          CommonDailog.confirmationDialog(context: context,
+                                            confirmationSubTitle: 'Are you sure you want to delete.',
+                                            firstButtonOnTap: () {
+                                              Get.back();
+                                              classTimeController.deleteTimetableAPI(context,value.id!);
+                                            },
+                                          );
                                         },
                                             icon: const Icon(Icons.delete,color: Colors.red,size: 19,)),
                                       )

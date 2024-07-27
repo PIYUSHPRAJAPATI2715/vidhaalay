@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../repositories/reset_via_email_repo.dart';
 import '../resourses/api_constant.dart';

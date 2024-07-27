@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 
 
 
@@ -44,7 +44,7 @@ class CommonTextFieldResult extends StatefulWidget {
     this.onChanged,
     this.onSaved,
     this.labelText,
-    this.inputFormatters,
+      this.inputFormatters,
     this.onFieldSubmitted,
   });
 

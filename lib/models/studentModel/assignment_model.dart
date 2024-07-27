@@ -34,15 +34,15 @@ class Data {
   String? assignmentName;
   String? tagline;
   String? detail;
-  Null? image;
+  String? image;
   String? dueDate;
   int? status;
   String? createdAt;
   String? updatedAt;
   Null? deletedAt;
   Teacher? teacher;
-  Class0? class0;
-  Class0? subject;
+  Class? class0;
+  Class? subject;
 
   Data({this.id, this.teacherId, this.classId, this.schoolId, this.subjectId, this.assignmentName, this.tagline, this.detail, this.image, this.dueDate, this.status, this.createdAt, this.updatedAt, this.deletedAt, this.teacher, this.class0, this.subject});
 
@@ -62,8 +62,8 @@ class Data {
   updatedAt = json['updatedAt'];
   deletedAt = json['deletedAt'];
   teacher = json['teacher'] != null ? new Teacher.fromJson(json['teacher']) : null;
-class0 = json['class'] != null ? new Class0.fromJson(json['class']) : null;
-  subject = json['subject'] != null ? new Class0.fromJson(json['subject']) : null;
+  class0 = json['class'] != null ? new Class.fromJson(json['class']) : null;
+  subject = json['subject'] != null ? new Class.fromJson(json['subject']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -117,13 +117,13 @@ class Teacher {
   }
 }
 
-class Class0 {
+class Class {
   int? id;
   String? name;
 
-  Class0({this.id, this.name});
+  Class({this.id, this.name});
 
-  Class0.fromJson(Map<String, dynamic> json) {
+  Class.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }
@@ -135,3 +135,4 @@ class Class0 {
     return data;
   }
 }
+

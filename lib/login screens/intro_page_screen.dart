@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../../widgets/common_button.dart';
 

@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/models/login_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/resourses/bottom_nav_screen.dart';
-import 'package:vidhaalay_app/screen/teacher_flow/student_list_screen.dart';
+import 'package:vidhaalay/models/login_model.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/bottom_nav_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/create_event_screen.dart';
+import 'package:vidhaalay/screen/teacher_flow/student_list_screen.dart';
 
 import '../../controller/bottom_controller.dart';
 import '../../routers/my_routers.dart';
@@ -216,7 +217,8 @@ class _DrawerForTeacherState extends State<DrawerForTeacher> {
                   const SizedBox(height: 10,),
                   ListTile(
                     onTap: (){
-                      Get.toNamed(MyRouters.createEventScreen);
+                      // Get.toNamed(MyRouters.createEventScreen);
+                      Get.to(() => CreateEventScreen());
                     },
                     contentPadding: EdgeInsets.zero,
                     visualDensity:

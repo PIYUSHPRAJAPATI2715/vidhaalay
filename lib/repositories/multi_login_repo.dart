@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
-import 'package:vidhaalay_app/login%20screens/signin_screen.dart';
-import 'package:vidhaalay_app/models/login_model.dart';
-import 'package:vidhaalay_app/models/multi_login_model.dart';
-import 'package:vidhaalay_app/repositories/social_login_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
+import 'package:vidhaalay/controller/authentication/signin_controller.dart';
+import 'package:vidhaalay/login%20screens/signin_screen.dart';
+import 'package:vidhaalay/models/login_model.dart';
+import 'package:vidhaalay/models/multi_login_model.dart';
+import 'package:vidhaalay/repositories/social_login_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/bottom_navbar_screen.dart';
 
 
 logOutUser(BuildContext context) async {

@@ -3,14 +3,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_timetable_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_type_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_timetable_model.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_type_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/repositories/teacher/exam_type_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/repositories/teacher/exam_type_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 
 class ExamTimeTableController extends GetxController {
   RxBool isDataLoading = true.obs;
@@ -24,11 +24,11 @@ class ExamTimeTableController extends GetxController {
   RxInt selectedExamType = 0.obs;
   // String? selectedExamType;
 
-  String? selectedDate;
-  // RxString selectedDate = "".obs;
-
+  RxString selectedDate = "".obs;
   RxInt selectedIndex = 0.obs;
   RxInt selectedMonthIndex = 0.obs;
+  RxInt selectedYear = 0.obs;
+  RxList daysInMonth = [].obs;
 
   void getMyClass() {
     getMyClassListRepo().then((values) async {
@@ -67,7 +67,8 @@ class ExamTimeTableController extends GetxController {
       Map body = {
         "class_id": selectedClassId.value,
         "exam_type_id": selectedExamType.value,
-        "date": selectedDate
+        // "date": selectedDate.value
+        "date": "2024-01-08",
       };
 
       print("body : $body");

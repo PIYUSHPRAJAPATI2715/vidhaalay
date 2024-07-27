@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/event_detail_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/event_details_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/event_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/controller/teacher_controller/event_detail_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/event_details_model.dart';
+import 'package:vidhaalay/models/TeacherModel/event_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/widgets/resources.dart';
+import 'package:vidhaalay/widgets/resources.dart';
 
 class UpdateEventController extends GetxController {
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
@@ -140,20 +140,22 @@ class UpdateEventController extends GetxController {
           final evenetDetailController = Get.put(EvenetDetailController());
 
           List<String> dateParts = dobController.text.split('-');
+          print("dateParts : ${dateParts}");
 
           evenetDetailController.selectedIndex.value = int.parse(dateParts[2]) - 1;
-          // evenetDetailController.selectedMonthIndex.value = int.parse(dateParts[1]) - 1;
-
-          print("sel Month Index: ${dateParts[1]}");
+          print("sel Month : ${dateParts[1]}");
           evenetDetailController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
-          // print("selectedMonthIndex ${evenetDetailController.selectedMonthIndex.value}");
-          evenetDetailController.selectedYear.value = int.parse(dateParts[1]);
+          evenetDetailController.selectedYear.value = int.parse(dateParts[0]);
           evenetDetailController.selectedDate.value = date;
+          evenetDetailController.daysInMonth.value = getMonthDays(year: int.parse(dateParts[0]),month: dateParts[1]);
+
           print("sel Date Index: ${evenetDetailController.selectedIndex.value}");
           print("sel Month Index: ${evenetDetailController.selectedMonthIndex.value}");
+          print("sel Month Index: ${evenetDetailController.selectedYear.value}");
 
           evenetDetailController.selectedClassId.value = int.parse(selectClass!);
           evenetDetailController.getEventData();
+
           Get.back();
           showToast(message:responseData['msg'].toString());
         } else {

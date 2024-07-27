@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
 
 class PieChartSample1 extends StatefulWidget {
   const PieChartSample1({super.key});

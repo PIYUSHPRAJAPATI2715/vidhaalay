@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
 
 Future<List<MyClass>?> getMyClassListRepo() async {
   SharedPreferences pref = await SharedPreferences.getInstance();

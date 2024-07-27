@@ -1,4 +1,4 @@
-package com.example.vidhaalay_app
+package com.vtf.vidhaalay
 
 import io.flutter.embedding.android.FlutterActivity
 

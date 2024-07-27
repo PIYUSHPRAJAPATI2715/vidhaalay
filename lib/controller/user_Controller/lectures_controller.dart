@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/lecture_model_user.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/models/lecture_model_user.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 
 class LecturesController extends GetxController {
   RxBool isLectureListLoading = true.obs;

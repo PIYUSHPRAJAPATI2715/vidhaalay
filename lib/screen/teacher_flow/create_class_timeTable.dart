@@ -3,18 +3,19 @@ import 'dart:ffi';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/create_class_timetable_controller.dart';
-import 'package:vidhaalay_app/widgets/common_button.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/controller/teacher_controller/create_class_timetable_controller.dart';
+import 'package:vidhaalay/widgets/common_button.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
 
 
 class CreateTimeTableScreen extends StatefulWidget {
-  const CreateTimeTableScreen({Key? key}) : super(key: key);
+  final String classId;
+  const CreateTimeTableScreen({Key? key, required this.classId}) : super(key: key);
 
   @override
   State<CreateTimeTableScreen> createState() => _CreateTimeTableScreenState();
@@ -57,6 +58,7 @@ class _CreateTimeTableScreenState extends State<CreateTimeTableScreen> {
   @override
   void initState() {
     createTimeTableController.getMyClass();
+    createTimeTableController.selectedClassId.value = int.parse(widget.classId);
     createTimeTableController.getTeacherListData();
     super.initState();
   }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 
 
 Future<ClassList> getClassListRepo() async {

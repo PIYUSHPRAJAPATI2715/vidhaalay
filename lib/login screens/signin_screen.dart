@@ -15,12 +15,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/controller/authentication/signin_controller.dart';
-import 'package:vidhaalay_app/models/multi_login_model.dart';
-import 'package:vidhaalay_app/repositories/multi_login_repo.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
-import 'package:vidhaalay_app/screen/bottom_navbar_screen.dart';
+import 'package:vidhaalay/controller/authentication/signin_controller.dart';
+import 'package:vidhaalay/models/multi_login_model.dart';
+import 'package:vidhaalay/repositories/multi_login_repo.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
+import 'package:vidhaalay/screen/bottom_navbar_screen.dart';
 import '../../widgets/appTheme.dart';
 import '../controller/common.dart';
 import '../repositories/login_repo.dart';
@@ -104,7 +104,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Obx(
-        () => Form(
+            () => Form(
           key: signInController.formKey,
           child: Stack(
             children: [
@@ -128,11 +128,11 @@ class _SignInPageState extends State<SignInPage> {
                 decoration: const BoxDecoration(
                   color: AppThemes.signupBg,
                   borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(70)),
+                  BorderRadius.only(bottomLeft: Radius.circular(70)),
                 ),
                 child: ClipRRect(
                   borderRadius:
-                      const BorderRadius.only(bottomLeft: Radius.circular(60)),
+                  const BorderRadius.only(bottomLeft: Radius.circular(60)),
                   child: Image.asset(
                     AppAssets.signIn,
                     fit: BoxFit.fitWidth,
@@ -149,7 +149,7 @@ class _SignInPageState extends State<SignInPage> {
                   decoration: const BoxDecoration(
                     color: AppThemes.white,
                     borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(60)),
+                    BorderRadius.only(topRight: Radius.circular(60)),
                   ),
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
@@ -185,8 +185,7 @@ class _SignInPageState extends State<SignInPage> {
                                 onTap: () {
                                   signInWithGoogle();
                                 },
-                                child: Expanded(
-                                    child: Container(
+                                child: Container(
                                   height: size.height * .049,
                                   width: size.width * .41,
                                   // padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
@@ -205,7 +204,7 @@ class _SignInPageState extends State<SignInPage> {
                                   child: Center(
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
                                           'assets/images/google_logo.png',
@@ -225,7 +224,7 @@ class _SignInPageState extends State<SignInPage> {
                                       ],
                                     ),
                                   ),
-                                )),
+                                ),
                               ),
                               SizedBox(
                                 width: size.width * .060,
@@ -235,8 +234,7 @@ class _SignInPageState extends State<SignInPage> {
                                   // signInWithGoogle();
                                   signInFaceBook();
                                 },
-                                child: Expanded(
-                                    child: Container(
+                                child: Container(
                                   height: size.height * .049,
                                   width: size.width * .41,
                                   // padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 8),
@@ -272,7 +270,7 @@ class _SignInPageState extends State<SignInPage> {
                                       ),
                                     ],
                                   ),
-                                )),
+                                ),
                               ),
                             ],
                           ),
@@ -293,7 +291,6 @@ class _SignInPageState extends State<SignInPage> {
                         SizedBox(
                           height: size.height * 0.030,
                         ),
-
                         DropdownButtonHideUnderline(
                           child: DropdownButtonFormField2<String>(
                             isExpanded: true,
@@ -302,7 +299,8 @@ class _SignInPageState extends State<SignInPage> {
                               fontSize: 15,
                             ),
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 15),
                               hintText: 'Select Role',
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
@@ -310,38 +308,31 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50),
-                                borderSide: BorderSide(
-                                    color: Colors.red,
-                                    width: 1
-                                ),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(50),
-                                borderSide: BorderSide(
-                                    color: Colors.red,
-                                    width: 1
-                                ),
+                                borderSide:
+                                BorderSide(color: Colors.red, width: 1),
                               ),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
                                   borderSide: BorderSide(
                                       color: Colors.grey!.withOpacity(0.5),
-                                      width: 1
-                                  )
-                              ),
+                                      width: 1)),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
                                   borderSide: BorderSide(
                                       color: Colors.grey!.withOpacity(0.5),
-                                      width: 1
-                                  )
-                              ),
+                                      width: 1)),
                             ),
                             value: signInController.userType.value,
-                            items: signInController.userTypeData.map((Map items) {
+                            items:
+                            signInController.userTypeData.map((Map items) {
                               return DropdownMenuItem(
                                 value: items['key'].toString(),
-                                child : Text(
+                                child: Text(
                                   items['value'].toString(),
                                   style: const TextStyle(
                                     color: Colors.grey,
@@ -377,7 +368,8 @@ class _SignInPageState extends State<SignInPage> {
                               scrollbarTheme: ScrollbarThemeData(
                                 radius: const Radius.circular(40),
                                 thickness: MaterialStateProperty.all<double>(6),
-                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                thumbVisibility:
+                                MaterialStateProperty.all<bool>(true),
                               ),
                             ),
                             menuItemStyleData: const MenuItemStyleData(
@@ -389,7 +381,6 @@ class _SignInPageState extends State<SignInPage> {
                         const SizedBox(
                           height: 10,
                         ),
-
                         const Text(
                           "Unique Id,Mobile No./Email Id",
                           style: TextStyle(
@@ -446,16 +437,16 @@ class _SignInPageState extends State<SignInPage> {
                                   errorText: 'Password is required'),
                               MinLengthValidator(8,
                                   errorText:
-                                      'Password must be at least 8 digits long'),
+                                  'Password must be at least 8 digits long'),
                               PatternValidator(
                                   r"(?=.*[A-Z])(?=.*\W)(?=.*?[#?!@$%^&*-])(?=.*[0-9])",
                                   errorText:
-                                      'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
+                                  'Password must be minimum 8 characters,with 1 Capital letter 1 special character & 1 numerical.')
                             ]),
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 signInController.isPasswordVisibile.value =
-                                    !signInController.isPasswordVisibile.value;
+                                !signInController.isPasswordVisibile.value;
                               },
                               child: Icon(
                                   signInController.isPasswordVisibile.value
@@ -487,15 +478,18 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            // String? token = await FirebaseMessaging.instance.getToken();
-                            // if (signInController.formKey.currentState!.validate()) {
-                            //   FocusManager.instance.primaryFocus!.unfocus();
-                            //   signInController.login(context: context,email: signInController.emailController.text,
-                            //     type:  signInController.userType.value,
-                            //     pass: signInController.passwordController.text,
-                            //   );
-                            // }
-                            _showMultiLoginAlertDialog(context);
+                            // String? tokaen = await FirebaseMessaging.instance.getToken();
+                            if (signInController.formKey.currentState!
+                                .validate()) {
+                              FocusManager.instance.primaryFocus!.unfocus();
+                              signInController.login(
+                                context: context,
+                                email: signInController.emailController.text,
+                                type: signInController.userType.value,
+                                pass: signInController.passwordController.text,
+                              );
+                            }
+                            // _showMultiLoginAlertDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 0),
@@ -563,15 +557,41 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _showMultiLoginAlertDialog(BuildContext context) async {
     final signInController = Get.put(SignInController());
 
-    List<MultiLoginModel> loginData =
-    [
-      MultiLoginModel(userName: "teacher",email: "teachermk@yopmail.com",type :"teacher",password: "12@Mckumar", token: 'test1'),
-      MultiLoginModel(userName: "student1",email: "student6@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
-      MultiLoginModel(userName: "student2",email: "student7@yopmail.com",type :"student",password: "User@1234", token: 'test2'),
+    String deviceToken = (await FirebaseMessaging.instance.getToken())!;
+
+    List<MultiLoginModel> loginData = [
+      MultiLoginModel(
+          userName: "teacher",
+          email: "teachermk@yopmail.com",
+          type: "teacher",
+          password: "12@Mckumar",
+          token: deviceToken),
+      MultiLoginModel(
+          userName: "student1",
+          email: "student6@yopmail.com",
+          type: "student",
+          password: "12@Mckumar",
+          token: deviceToken),
+      MultiLoginModel(
+          userName: "student2",
+          email: "student7@yopmail.com",
+          type: "student",
+          password: "User@1234",
+          token: deviceToken),
       // MultiLoginModel(userName: "user1",email: "student7@yopmail.com",type :"user",password: "User@123", token: 'test2'),
       // MultiLoginModel(userName: "student1",email: "sumits@yopmail.com",type :"student",password: "12@Mckumar", token: 'test2'),
-      MultiLoginModel(userName: "user",email: "mkm@mk.com",type :"user",password: "12@Mckumar", token: 'test3'),
-      MultiLoginModel(userName: "user",email: "usert@yopmail.com",type :"user",password: "User@123", token: 'test3'),
+      MultiLoginModel(
+          userName: "user",
+          email: "mkm@mk.com",
+          type: "user",
+          password: "12@Mckumar",
+          token: deviceToken),
+      MultiLoginModel(
+          userName: "user",
+          email: "usert@yopmail.com",
+          type: "user",
+          password: "User@123",
+          token: deviceToken),
     ];
     print("loginData : $loginData");
 
@@ -580,8 +600,9 @@ class _SignInPageState extends State<SignInPage> {
       builder: (context) {
         return AlertDialog(
           // titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-          contentPadding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-          title: Text('Switch Account',
+          contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          title: Text(
+            'Switch Account',
             style: GoogleFonts.poppins(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -592,7 +613,8 @@ class _SignInPageState extends State<SignInPage> {
             width: double.maxFinite,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: loginData.length, // Set your itemCount according to your data
+              itemCount:
+              loginData.length, // Set your itemCount according to your data
               itemBuilder: (BuildContext context, int index) {
                 var items = loginData[index];
 
@@ -610,7 +632,9 @@ class _SignInPageState extends State<SignInPage> {
                       title: Text(items.userName!),
                       subtitle: Text(items.email!),
                       onTap: () {
-                        signInController.login(context: context,email: items.email!,
+                        signInController.login(
+                          context: context,
+                          email: items.email!,
                           type: items.type!,
                           pass: items.password!,
                         );
@@ -625,7 +649,6 @@ class _SignInPageState extends State<SignInPage> {
       },
     );
   }
-
 
   // signInWithGoogle() async {
   //   await GoogleSignIn().signOut();
@@ -660,7 +683,7 @@ class _SignInPageState extends State<SignInPage> {
     await GoogleSignIn().signOut();
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+    await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
       accessToken: googleAuth.accessToken,
@@ -673,15 +696,22 @@ class _SignInPageState extends State<SignInPage> {
     String deviceToken = (await FirebaseMessaging.instance.getToken())!;
 
     socialLogin(
-            photo: googleUser.photoUrl.toString(),
-            context: context,
-            email: googleUser.email.toString(),
-            name: googleUser.displayName.toString(),
-            deviceType: signInController.deviceType.toString(),
-            soGoogle: '1')
+        photo: googleUser.photoUrl.toString(),
+        context: context,
+        email: googleUser.email.toString(),
+        name: googleUser.displayName.toString(),
+        deviceType: signInController.deviceType.toString(),
+        soGoogle: '1')
         .then((value) async {
       if (value.status == true) {
-        MultiLoginModel data = MultiLoginModel(image:  googleUser.photoUrl.toString(),isSocialLogin: true,userName: value.data!.name.toString(),email: value.data!.email.toString(),type :"user",password: "", token: value.data!.token!);
+        MultiLoginModel data = MultiLoginModel(
+            image: googleUser.photoUrl.toString(),
+            isSocialLogin: true,
+            userName: value.data!.name.toString(),
+            email: value.data!.email.toString(),
+            type: "user",
+            password: "",
+            token: value.data!.token!);
         saveLoginData(data);
 
         SharedPreferences pref = await SharedPreferences.getInstance();
@@ -693,10 +723,12 @@ class _SignInPageState extends State<SignInPage> {
         pref.setString('email', value.data!.email.toString());
         pref.setBool('isLoggedIn', true);
         // Get.offAllNamed(MyRouters.drawerForUser);
-        Get.offAll(() => BottomBarScreen(userType: 0,));
-        showToast(message:value.msg.toString());
+        Get.offAll(() => BottomBarScreen(
+          userType: 0,
+        ));
+        showToast(message: value.msg.toString());
       } else {
-        showToast(message:value.msg.toString());
+        showToast(message: value.msg.toString());
       }
     });
   }
@@ -709,33 +741,34 @@ class _SignInPageState extends State<SignInPage> {
         loginBehavior: LoginBehavior.webOnly);
     print("qqqqqqqqqqqq");
     final OAuthCredential oAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    FacebookAuthProvider.credential(loginResult.accessToken!.token);
     final value = await FirebaseAuth.instance
         .signInWithCredential(oAuthCredential)
         .then((value1) async {
       socialFacebook(
-              context: context,
-              email: value1.user!.email.toString(),
-              name: value1.user!.displayName.toString(),
-              deviceType: signInController.deviceType.toString())
+          context: context,
+          email: value1.user!.email.toString(),
+          name: value1.user!.displayName.toString(),
+          deviceType: signInController.deviceType.toString())
           .then((value) async {
         if (value.status == true) {
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_info', jsonEncode(value));
           pref.setString('cookie', value.data!.token.toString());
-          showToast(message:value.msg.toString());
+          showToast(message: value.msg.toString());
           pref.setBool('isLoggedIn', true);
           // Get.offAllNamed(MyRouters.drawerForUser);
-          Get.offAll(() => BottomBarScreen(userType: 0,));
+          Get.offAll(() => BottomBarScreen(
+            userType: 0,
+          ));
         } else {
-          showToast(message:value.msg.toString());
+          showToast(message: value.msg.toString());
         }
       });
     }).catchError((FirebaseAuthException? e) {
-      showToast(message:e.toString());
+      showToast(message: e.toString());
       throw Exception(e!.message);
     });
     log("Firebase response.... ${value.toString()}");
   }
-
 }

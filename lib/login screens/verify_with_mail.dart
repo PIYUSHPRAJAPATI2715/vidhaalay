@@ -8,7 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/routers/my_routers.dart';
+import 'package:vidhaalay/routers/my_routers.dart';
 import '../../widgets/appTheme.dart';
 import '../controller/common.dart';
 import '../models/login_model.dart';

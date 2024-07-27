@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vidhaalay_app/models/TeacherModel/event_details_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/event_list_model.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
+import 'package:vidhaalay/models/TeacherModel/event_details_model.dart';
+import 'package:vidhaalay/models/TeacherModel/event_list_model.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
 import 'package:http/http.dart' as http;
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 
 class EvenetListStudentController extends GetxController {
 
@@ -16,7 +16,12 @@ class EvenetListStudentController extends GetxController {
   RxBool isDetailsLoading = true.obs;
   Rx<EventDetails> getEventDetailsModel = EventDetails().obs;
   Rx<GetEventModel> getEventModel = GetEventModel().obs;
-  RxString selDate = ''.obs;
+
+  RxString selectedDate = "".obs;
+  RxInt selectedIndex = 0.obs;
+  RxInt selectedMonthIndex = 0.obs;
+  RxInt selectedYear = 0.obs;
+  RxList daysInMonth = [].obs;
 
   Future<void> getEventData() async {
     try {
@@ -31,7 +36,7 @@ class EvenetListStudentController extends GetxController {
       Map body = {
         // "date": "2024-12-22",
         // "class_id": 2
-        "date": selDate.value,
+        "date": selectedDate.value,
         "class_id": classID
       };
       print("body $body");

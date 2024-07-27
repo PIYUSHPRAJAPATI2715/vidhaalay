@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:vidhaalay_app/resourses/app_assets.dart';
-import 'package:vidhaalay_app/widgets/appTheme.dart';
-import 'package:vidhaalay_app/widgets/common_textfield.dart';
+import 'package:vidhaalay/resourses/app_assets.dart';
+import 'package:vidhaalay/widgets/appTheme.dart';
+import 'package:vidhaalay/widgets/common_textfield.dart';
 
 class SiblingInfo {
   String? name;

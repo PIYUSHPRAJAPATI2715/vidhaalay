@@ -3,21 +3,21 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vidhaalay_app/controller/teacher_controller/exam_timetable_controller.dart';
-import 'package:vidhaalay_app/models/TeacherModel/class_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_timetable_details_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/exam_type_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/my_class_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/subject_list_model.dart';
-import 'package:vidhaalay_app/models/TeacherModel/teacher_list_model.dart';
-import 'package:vidhaalay_app/repositories/calendar_repo.dart';
-import 'package:vidhaalay_app/repositories/my_class_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/class_list_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/exam_type_list_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/subject_list_repo.dart';
-import 'package:vidhaalay_app/repositories/teacher/teacher_list_repo.dart';
-import 'package:vidhaalay_app/resourses/api_constant.dart';
-import 'package:vidhaalay_app/resourses/helper.dart';
+import 'package:vidhaalay/controller/teacher_controller/exam_timetable_controller.dart';
+import 'package:vidhaalay/models/TeacherModel/class_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_timetable_details_model.dart';
+import 'package:vidhaalay/models/TeacherModel/exam_type_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/my_class_model.dart';
+import 'package:vidhaalay/models/TeacherModel/subject_list_model.dart';
+import 'package:vidhaalay/models/TeacherModel/teacher_list_model.dart';
+import 'package:vidhaalay/repositories/calendar_repo.dart';
+import 'package:vidhaalay/repositories/my_class_repo.dart';
+import 'package:vidhaalay/repositories/teacher/class_list_repo.dart';
+import 'package:vidhaalay/repositories/teacher/exam_type_list_repo.dart';
+import 'package:vidhaalay/repositories/teacher/subject_list_repo.dart';
+import 'package:vidhaalay/repositories/teacher/teacher_list_repo.dart';
+import 'package:vidhaalay/resourses/api_constant.dart';
+import 'package:vidhaalay/resourses/helper.dart';
 import 'package:http/http.dart' as http;
 
 class UpdateExamTimeTableController extends GetxController {
@@ -149,19 +149,14 @@ class UpdateExamTimeTableController extends GetxController {
           // Get.back();
 
           final examTimeTableController = Get.put(ExamTimeTableController());
-
-          List<String> dateParts = dobController.text.split('-');
-
-          examTimeTableController.selectedIndex.value = int.parse(dateParts[2]) - 1;
-          examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
-
-          print("sel Date Index: ${examTimeTableController.selectedIndex.value}");
-          print("sel Month Index: ${examTimeTableController.selectedMonthIndex.value}");
-
-          examTimeTableController.selectedDate = dobController.text;
-
           examTimeTableController.selectedExamType.value = int.parse(selectedExamType!);
           examTimeTableController.selectedClassId.value = selectedClassId.value;
+          examTimeTableController.selectedDate.value = dobController.text;
+          List<String> dateParts = dobController.text.split('-');
+          examTimeTableController.selectedIndex.value = int.parse(dateParts[2]) - 1;
+          examTimeTableController.selectedMonthIndex.value = selectCorrectMonthIndex(int.parse(dateParts[1]));
+          examTimeTableController.daysInMonth.value = getMonthDays(year: int.parse(dateParts[0]),month: dateParts[1]);
+          examTimeTableController.selectedDate.value  = dobController.text;
           examTimeTableController.getExamTimeTableData();
 
           Get.back();
